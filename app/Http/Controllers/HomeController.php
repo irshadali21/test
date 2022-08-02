@@ -34,7 +34,7 @@ class HomeController extends Controller
         $params = [];
         $response = HelperFunction::GetResponse($url, $params);
         $data = $response['countryAccess'];
-        dd($data['creditsafeConnectOnlineReports'][0]['countryName']);
+        // dd($data['creditsafeConnectOnlineReports'][0]['countryName']);
        
     }
 }
