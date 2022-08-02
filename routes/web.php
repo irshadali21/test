@@ -12,18 +12,16 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/clear-cache', function () {
-    $exitCode = Artisan::call('config:clear');
-    $exitCode = Artisan::call('cache:clear');
-    $exitCode = Artisan::call('config:cache');
-    $exitCode = Artisan::call('optimize:clear');
-    return 'DONE'; //Return anything
+Route::get('/test/exec', function () {
+    echo shell_exec('git pull');
 });
 
 Route::get('/clear-cache', function () {
+    $exitCode = Artisan::call('optimize:clear');
     $exitCode = Artisan::call('storage:link');
     return 'storage linked'; //Return anything
 });
+
 
 Route::get('/', function () {
     return redirect()->route('home');
