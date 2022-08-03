@@ -26,15 +26,7 @@ class HomeController extends Controller
     public function index()
     {
         // Session::forget('success');
-
-        Session::put('success', 'you are getting welcomed');
+        // Session::put('success', 'you are getting welcomed');
         return view('home');
-        
-        $url = 'https://connect.creditsafe.com/v1/access';
-        $params = [];
-        $response = HelperFunction::GetResponse($url, $params);
-        $data = $response['countryAccess'];
-        // dd($data['creditsafeConnectOnlineReports'][0]['countryName']);
-       
     }
 }

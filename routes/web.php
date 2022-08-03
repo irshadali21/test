@@ -18,6 +18,9 @@ Route::get('/test/exec', function () {
 
 Route::get('/clear-cache', function () {
     $exitCode = Artisan::call('optimize:clear');
+    return 'optimize:cleare'; //Return anything
+});
+Route::get('/link-storage', function () {
     $exitCode = Artisan::call('storage:link');
     return 'storage linked'; //Return anything
 });
@@ -63,4 +66,18 @@ Route::group(['middleware' => ['auth','verified']], function () {
     Route::get('media', function (){
         return view('media.index');
     })->name('media.index');
+
+    //API Routes
+    Route::get('/api/testing', [
+        'uses' => 'ApiDataController@index',
+        'as' => 'api.index',
+        'middleware' => 'permission:view-api'
+    ]);
+    Route::post('/api/test/check', [
+        'uses'=> 'ApiDataController@test',
+        'as' => 'api.test',
+        'middleware'=> 'permission:test-api'
+    ]);
+
+
 });
