@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Core\HelperFunction;
+use App\Models\ApiData;
+
 
 class ApiDataController extends Controller
 {
@@ -14,7 +16,9 @@ class ApiDataController extends Controller
      */
     public function index()
     {
-        return view('api.index');
+        $api = ApiData::firstorfail();
+        $token = $api->token;
+        return view('api.index', compact('token'));
         dd('incc');
     }
 
@@ -87,12 +91,17 @@ class ApiDataController extends Controller
 
     public function test()
     {
-        $url = 'https://connect.creditsafe.com/v1/access';
-        $params = [];
+
+       
+
+
+
+        $url = 'https://connect.creditsafe.com/v1/people';
+        $params = ['countries'=>'GB'];
         $response = HelperFunction::GetResponse($url, $params);
         $data = $response['countryAccess'];
         return response()
         ->json(['countries' => $data]);
-        // dd($data['creditsafeConnectOnlineReports'][0]['countryName']);
+        
     }
 }

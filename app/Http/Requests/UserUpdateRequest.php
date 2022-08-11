@@ -23,9 +23,10 @@ class UserUpdateRequest extends FormRequest
      */
     public function rules()
     {
+        // dd(auth()->user()->id);
         return [
             'name'=> 'required',
-            'email' => 'required|email|unique:users,email,'.$this->user->id,
+            'email' => 'required|email|unique:users,email,'.auth()->user()->id,
             'password' => 'nullable|confirmed|min:6'
         ];
     }

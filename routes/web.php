@@ -14,12 +14,21 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('/test/exec', function () {
     echo shell_exec('git pull');
+    // echo shell_exec('git pull');
+});
+Route::get('/migrate', function () {
+    $exitCode = Artisan::call('migrate');
+    return 'migrate'; 
+});
+Route::get('/migrate/rollback', function () {
+    $exitCode = Artisan::call('migrate:rollback');
+    return 'migrate:rollback'; 
 });
 
 Route::get('/clear-cache', function () {
     $exitCode = Artisan::call('optimize:clear');
     return 'optimize:cleare'; //Return anything
-});
+}); 
 Route::get('/link-storage', function () {
     $exitCode = Artisan::call('storage:link');
     return 'storage linked'; //Return anything
@@ -33,7 +42,7 @@ Route::get('/', function () {
 Auth::routes(['verify'=>true]);
 
 
-Route::group(['middleware' => ['auth','verified']], function () {
+Route::group(['middleware' => ['auth','verified', 'stampCheck']], function () {
 
     Route::get('/home', 'HomeController@index')->name('home');
 
@@ -44,9 +53,9 @@ Route::group(['middleware' => ['auth','verified']], function () {
 
     Route::resource('users', 'UserController');
 
-    Route::get('/profile/{user}', 'UserController@profile')->name('profile.edit');
+    Route::get('/profile', 'UserController@profile')->name('profile.edit');
 
-    Route::post('/profile/{user}', 'UserController@profileUpdate')->name('profile.update');
+    Route::post('/profile', 'UserController@profileUpdate')->name('profile.update');
 
     Route::resource('roles', 'RoleController')->except('show');
 
@@ -77,6 +86,29 @@ Route::group(['middleware' => ['auth','verified']], function () {
         'uses'=> 'ApiDataController@test',
         'as' => 'api.test',
         'middleware'=> 'permission:test-api'
+    ]);
+
+    //files routes
+
+    Route::get('/files/index', [
+        'uses'=> 'FileController@index',
+        'as' => 'file.index',
+        'middleware'=> 'permission:file-index'
+    ]);
+    Route::get('/files/create', [
+        'uses'=> 'FileController@create',
+        'as' => 'file.create',
+        'middleware'=> 'permission:file-create'
+    ]);
+    Route::post('/files/create/get-data', [
+        'uses'=> 'FileController@get_data',
+        'as' => 'file.get_data',
+        'middleware'=> 'permission:file-create'
+    ]);
+    Route::post('/files/store', [
+        'uses'=> 'FileController@store',
+        'as' => 'file.store',
+        'middleware'=> 'permission:file-store'
     ]);
 
 

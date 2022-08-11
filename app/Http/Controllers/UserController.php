@@ -47,6 +47,7 @@ class UserController extends Controller
         $num = User::count();
         ++$num; // add 1;
         $code = 'USER'.$num;
+        // dd(Auth::check());
         if(Auth::user()->hasrole('super-admin')){
         $roles = Role::pluck('name', 'id');
         }else if(Auth::user()->hasrole('coordinator')){
@@ -97,11 +98,11 @@ class UserController extends Controller
         $title = "User Details";
         if(Auth::user()->hasrole('super-admin')){
             $roles = Role::pluck('name', 'id');
-            }else if(Auth::user()->hasrole('coordinator')){
-                $roles = Role::whereNotIn('name', ['super-admin', 'coordinator'])->pluck('name', 'id');
-            }else{
-                $roles = Role::whereNotIn('name', ['super-admin', 'coordinator', 'advisor'])->pluck('name', 'id');
-            }
+        }else if(Auth::user()->hasrole('coordinator')){
+            $roles = Role::whereNotIn('name', ['super-admin', 'coordinator'])->pluck('name', 'id');
+        }else{
+            $roles = Role::whereNotIn('name', ['super-admin', 'coordinator', 'advisor'])->pluck('name', 'id');
+        }
         return view('users.show', compact('user','title', 'roles'));
     }
 
@@ -133,7 +134,7 @@ class UserController extends Controller
      */
     public function update(UserUpdateRequest $request, User $user)
     {
-        $userData = $request->except(['role', 'profile_photo']);
+        $userData = $request->except(['role', 'profile_photo', 'advoiser_stamp']);
         if ($request->profile_photo) {
             $userData['profile_photo'] = parse_url($request->profile_photo, PHP_URL_PATH);
         }
@@ -168,17 +169,34 @@ class UserController extends Controller
     public function profile(User $user)
     {
         $title = 'Edit Profile';
-        return view('users.profile', compact('title','user'));
+        $user=$user->where('id', auth()->user()->id)->firstorFail();
+        if(Auth::user()->hasrole('super-admin')){
+            $roles = Role::pluck('name', 'id');
+        }else if(Auth::user()->hasrole('coordinator')){
+            $roles = Role::whereNotIn('name', ['super-admin', 'coordinator'])->pluck('name', 'id');
+        }else{
+            $roles = Role::whereNotIn('name', ['super-admin', 'coordinator', 'advisor'])->pluck('name', 'id');
+        }
+        return view('users.profile', compact('title','user', 'roles'));
     }
     public function profileUpdate(UserUpdateRequest $request, User $user)
     {
-        $userData = $request->except('profile_photo');
+        if(is_null($request->password)){
+            $userData = $request->except(['role', 'profile_photo', 'advoiser_stamp','password', 'password_confirmation']);
+        }else{
+            $userData = $request->except(['role', 'profile_photo', 'advoiser_stamp']);
+        }
         if ($request->profile_photo) {
             $userData['profile_photo'] = parse_url($request->profile_photo, PHP_URL_PATH);
         }
-
+        if ($request->advoiser_stamp) {
+            $userData['advoiser_stamp'] = parse_url($request->advoiser_stamp, PHP_URL_PATH);
+        }
+        $user->update($userData);
+        $user->syncRoles($request->role);
+    
         $user->update($userData);
         flash('Profile updated successfully!')->success();
-        return back();
+        return redirect()->back();
     }
 }

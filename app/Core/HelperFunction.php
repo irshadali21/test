@@ -4,10 +4,9 @@ namespace App\Core;
 
 use Exception;
 use Closure;
-use App\ApiData;
+use App\Models\ApiData;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
-// use App\Core\HelperFunction;
 use App\Http\Controllers\HomeController;
 
 class HelperFunction
@@ -42,14 +41,15 @@ class HelperFunction
                     return $response;
                 }else if($response->failed()){
                     //its and error with data sent please check the following error
-                    dd( $response['details']);
+                    dd($response['details'], $response['message']);
                 }else if($response->serverError()){
-                    dd( $response['details']);
+                    dd($response['details'], $response['message']);
+
                 }else{
                     dd('unkown error');
                 }
         }else if($response->serverError()){
-            dd( $response['details']);
+            dd($response['details'], $response['message']);
         }else{
             dd('unkown error');
         }

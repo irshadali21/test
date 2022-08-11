@@ -40,6 +40,25 @@
 @endsection
 @push('scripts')
 <script>
+    
+var settings = {
+  "url": "https://connect.creditsafe.com/v1/people?countries=NO,GB&lastName=lastName",
+  "method": "GET",
+  "timeout": 0,
+  "headers": {
+    "Content-Type": "application/json",
+    "Authorization": "Bearer {{ $token }}"
+  },
+};
+
+$.ajax(settings).done(function (response) {
+  console.log(response);
+});
+
+
+
+
+
     $(document).ready(function(){
         $.ajaxSetup({
             headers: {

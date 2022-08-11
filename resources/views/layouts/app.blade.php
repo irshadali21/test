@@ -49,6 +49,10 @@
     <script src="{{asset('assets/js/jquery-confirm.min.js')}}"></script>
     <script src="{{asset('assets/js/dashboard.js')}}"></script>
 
+    
+<script>
+    $('#flash-overlay-modal').modal();
+</script>
     @stack('scripts')
 
     @yield('script')
