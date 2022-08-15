@@ -21,8 +21,10 @@ class StampCheck
 
         if (auth()->user()->advoiser_stamp =='' || is_null(auth()->user()->advoiser_stamp)) {
             if(!request()->is('profile*')){
-            flash('Complete Your Profile Please')->warning();
-                return redirect(RouteServiceProvider::editprofile);
+                if(!auth()->user()->hasrole('super-admin')){
+                    flash('Complete Your Profile Please')->warning();
+                    return redirect(RouteServiceProvider::editprofile);
+                }
             }
         }
 

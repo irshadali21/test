@@ -24,4 +24,10 @@ class File extends Model
             }
         });
     }
+
+    public function auditor()
+    {
+        return $this->hasOne(User::class,'id','created_by');
+    }
+
 }

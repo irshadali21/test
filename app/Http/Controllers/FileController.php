@@ -10,6 +10,7 @@ use App\Models\File;
 use App\Models\Summary;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use PDF;
 
 
 
@@ -99,7 +100,7 @@ class FileController extends Controller
         DB::beginTransaction();
         try{
 
-            File::create([
+            $file = File::create([
 
             'vat_number' =>$request->vat_number,
             'countries' => $request->countries,
@@ -124,7 +125,16 @@ class FileController extends Controller
 
             ]);
             DB::commit();
+            
+            // $data = [
+            //     'title' => 'Welcome to ItSolutionStuff.com',
+            //     'date' => date('m/d/Y')
+            // ];
+            // $pdf = PDF::loadView('assignment', $file);
+            
             return redirect()->back()->with('success',__('messages.data_saved_msg'));
+
+
         }catch (\Exception $e) {
 
             DB::rollback();

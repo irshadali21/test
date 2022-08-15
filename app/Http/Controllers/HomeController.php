@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Http;
 use App\Core\HelperFunction;
 use App\ApiData;
 use Session;
+use Symfony\Component\Process\Exception\ProcessFailedException;
+use Symfony\Component\Process\Process;
+
 class HomeController extends Controller
 {
     /**
@@ -28,5 +31,25 @@ class HomeController extends Controller
         // Session::forget('success');
         // Session::put('success', 'you are getting welcomed');
         return view('home');
+    }
+    public function test($id)
+    {
+        print_r( 'your command was => '. $id);
+        echo '<br>';
+        // $result[] = shell_exec($id);
+        // print_r($result);
+        // echo '<br>';
+        echo '<br>';
+        print_r(shell_exec($id));
+// $process = new Process(['ls'] );
+// $process->run();
+
+// // executes after the command finishes
+// if (!$process->isSuccessful()) {
+//     throw new ProcessFailedException($process);
+// }
+
+// echo $process->getOutput();
+        // echo shell_exec('$id');
     }
 }

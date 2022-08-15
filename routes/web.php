@@ -16,6 +16,8 @@ Route::get('/test/exec', function () {
     echo shell_exec('git pull');
     // echo shell_exec('git pull');
 });
+Route::get('/test/{id}', 'HomeController@test');
+   
 Route::get('/migrate', function () {
     $exitCode = Artisan::call('migrate');
     return 'migrate'; 
@@ -38,6 +40,13 @@ Route::get('/link-storage', function () {
 Route::get('/', function () {
     return redirect()->route('home');
 });
+Route::get('/ass', function () {
+    return view('assignment.index');
+});
+Route::get('/assignment', [
+    'uses' => 'AssignmentController@index',
+    'as' => 'assignment.index',
+]);
 
 Auth::routes(['verify'=>true]);
 
