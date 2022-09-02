@@ -184,24 +184,33 @@ class UserController extends Controller
         }
         return view('users.profile', compact('title','user', 'roles'));
     }
-    public function profileUpdate(UserUpdateRequest $request, User $user)
+    public function profileUpdate(UserUpdateRequest $request)
     {
+        // dd($request->all);
+        $user = User::where('id', Auth::user()->id)->first();
         if(is_null($request->password)){
             $userData = $request->except(['role', 'profile_photo', 'advoiser_stamp','password', 'password_confirmation']);
         }else{
             $userData = $request->except(['role', 'profile_photo', 'advoiser_stamp']);
         }
+        
         if ($request->profile_photo) {
             $userData['profile_photo'] = parse_url($request->profile_photo, PHP_URL_PATH);
         }
         if ($request->advoiser_stamp) {
             $userData['advoiser_stamp'] = parse_url($request->advoiser_stamp, PHP_URL_PATH);
         }
-        $user->update($userData);
-        $user->syncRoles($request->role);
+        // dd($userData);
+        // $user->update($userData);
+        // $user->syncRoles($request->role);
     
-        $user->update($userData);
+        $check = $user->update($userData);
+        if($check){
         flash('Profile updated successfully!')->success();
-        return redirect()->back();
+        return back();
+    }else{
+        flash('There Was an error Try again!')->warning();
+        return back();
+    }
     }
 }

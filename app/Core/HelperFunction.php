@@ -80,6 +80,7 @@ class HelperFunction
         ];
 
         $data["email"] = $file->customer_email;
+        $data["name"] = $file->company_name;
         $data["title"] = "From revman.com";
         $data["body"] = "You'll find the attachment below";
         $data["auditor"] = $file->auditor->name;
@@ -130,7 +131,7 @@ class HelperFunction
         $data["email"] = $auditor->email_pec;
         $data["title"] = "From revman.com";
         $data["body"] = "You'll find the attachment below";
-        $data["auditor"] = $auditor->name;
+        $data["name"] = $auditor->name;
         // dd($data["auditor"]);
 
         $pdf = PDF::loadView('assignment.pdf2', $fileData);
