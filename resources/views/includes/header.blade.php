@@ -47,7 +47,7 @@
                                 <div class="row align-items-center">
                                     <div class="col-auto">
                                         <!-- Avatar -->
-                                        <img alt="Image placeholder" src="../../assets/img/theme/team-1.jpg" class="avatar rounded-circle">
+                                        {{-- <img alt="Image placeholder" src="../../assets/img/theme/team-1.jpg" class="avatar rounded-circle"> --}}
                                     </div>
                                     <div class="col ml--2">
                                         <div class="d-flex justify-content-between align-items-center">
@@ -66,7 +66,7 @@
                                 <div class="row align-items-center">
                                     <div class="col-auto">
                                         <!-- Avatar -->
-                                        <img alt="Image placeholder" src="../../assets/img/theme/team-2.jpg" class="avatar rounded-circle">
+                                        {{-- <img alt="Image placeholder" src="../../assets/img/theme/team-2.jpg" class="avatar rounded-circle"> --}}
                                     </div>
                                     <div class="col ml--2">
                                         <div class="d-flex justify-content-between align-items-center">
@@ -85,7 +85,7 @@
                                 <div class="row align-items-center">
                                     <div class="col-auto">
                                         <!-- Avatar -->
-                                        <img alt="Image placeholder" src="../../assets/img/theme/team-3.jpg" class="avatar rounded-circle">
+                                        {{-- <img alt="Image placeholder" src="../../assets/img/theme/team-3.jpg" class="avatar rounded-circle"> --}}
                                     </div>
                                     <div class="col ml--2">
                                         <div class="d-flex justify-content-between align-items-center">
@@ -104,7 +104,7 @@
                                 <div class="row align-items-center">
                                     <div class="col-auto">
                                         <!-- Avatar -->
-                                        <img alt="Image placeholder" src="../../assets/img/theme/team-4.jpg" class="avatar rounded-circle">
+                                        {{-- <img alt="Image placeholder" src="../../assets/img/theme/team-4.jpg" class="avatar rounded-circle"> --}}
                                     </div>
                                     <div class="col ml--2">
                                         <div class="d-flex justify-content-between align-items-center">
@@ -123,7 +123,7 @@
                                 <div class="row align-items-center">
                                     <div class="col-auto">
                                         <!-- Avatar -->
-                                        <img alt="Image placeholder" src="../../assets/img/theme/team-5.jpg" class="avatar rounded-circle">
+                                        {{-- <img alt="Image placeholder" src="../../assets/img/theme/team-5.jpg" class="avatar rounded-circle"> --}}
                                     </div>
                                     <div class="col ml--2">
                                         <div class="d-flex justify-content-between align-items-center">

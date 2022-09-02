@@ -46,7 +46,7 @@
                         <div class="collapse {{ (request()->is('files*')) ? 'show' : '' }}" id="navbar-files">
                             <ul class="nav nav-sm flex-column">
                                 
-                                @canany(['view-file'])
+                                @canany(['create-file'])
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{route('file.create')}}">
                                         <span class="sidenav-mini-icon">D </span>
@@ -54,7 +54,7 @@
                                     </a>
                                 </li>
                                 @endcan
-                                @canany(['view-file'])
+                                @canany(['update-file'])
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{route('file.index')}}">
                                         <span class="sidenav-mini-icon">D </span>

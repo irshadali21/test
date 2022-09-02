@@ -12,10 +12,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/test/exec', function () {
-    echo shell_exec('git pull');
-    // echo shell_exec('git pull');
-});
+
 Route::get('/test/{id}', 'HomeController@test');
    
 Route::get('/migrate', function () {
@@ -40,14 +37,18 @@ Route::get('/link-storage', function () {
 Route::get('/', function () {
     return redirect()->route('home');
 });
-Route::get('/ass', function () {
-    return view('assignment.index');
-});
+
+//////////////////////////
 Route::get('/assignment', [
     'uses' => 'AssignmentController@index',
     'as' => 'assignment.index',
 ]);
+Route::get('/pdf2', [
+    'uses' => 'AssignmentController@pdf2',
+    'as' => 'assignment.index',
+]);
 
+//////////////////////
 Auth::routes(['verify'=>true]);
 
 
@@ -102,22 +103,18 @@ Route::group(['middleware' => ['auth','verified', 'stampCheck']], function () {
     Route::get('/files/index', [
         'uses'=> 'FileController@index',
         'as' => 'file.index',
-        'middleware'=> 'permission:file-index'
     ]);
     Route::get('/files/create', [
         'uses'=> 'FileController@create',
         'as' => 'file.create',
-        'middleware'=> 'permission:file-create'
     ]);
     Route::post('/files/create/get-data', [
         'uses'=> 'FileController@get_data',
         'as' => 'file.get_data',
-        'middleware'=> 'permission:file-create'
     ]);
     Route::post('/files/store', [
         'uses'=> 'FileController@store',
         'as' => 'file.store',
-        'middleware'=> 'permission:file-store'
     ]);
 
 

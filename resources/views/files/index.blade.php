@@ -30,46 +30,37 @@
                                 <thead class="thead-light">
                                 <tr>
                                     <th scope="col">Title</th>
-                                    <th scope="col">Category </th>
-                                    <th scope="col">Status</th>
+                                    <th scope="col">VAT Number </th>
+                                    <th scope="col">PEC Email</th>
                                     <th scope="col">Create By</th>
-                                    <th scope="col">Photo</th>
+                                    <th scope="col">Director</th>
                                     <th scope="col" class="text-center">Action</th>
                                 </tr>
                                 </thead>
                                 <tbody class="list">
-                                {{-- @foreach($posts as $post)
+                                @foreach($files as $post)
                                     <tr>
                                         <th scope="row">
                                             <div class="mx-w-440 d-flex flex-wrap">
-                                                {{$post->post_title }}
+                                                {{$post->company_name }}
                                             </div>
                                         </th>
                                         <td class="budget">
-                                            {{$post->category->category_name}}
+                                            {{$post->vat_number}}
                                         </td>
-                                        <td>
-                                            @if($post->status)
-                                                <span class="badge badge-pill badge-lg badge-success">Active</span>
-                                            @else
-                                                <span class="badge badge-pill badge-lg badge-danger">Disabled</span>
-                                            @endif
+                                        <td class="budget">
+                                            {{$post->email_address}}
+
                                         </td>
-                                        <td>
-                                            {{$post->user->name}}
+                                        <td class="budget">
+                                            {{$post->auditor->name}}
                                         </td>
-                                        <td>
-                                            <div class="avatar-group">
-                                                @if ($post->featured_image)
-                                                <img alt="Image placeholder"
-                                                    class="avatar avatar-xl rounded-circle"
-                                                    data-toggle="tooltip" data-original-title="{{$post->post_title}}"
-                                                    src="{{ asset($post->featured_image) }}">
-                                                @endif
-                                            </div>
+                                        <td class="budget">
+                                            {{$post->company_administrator}}
+                                            
                                         </td>
                                         <td class="text-center">
-                                            @can('destroy-post')
+                                            {{-- @can('destroy-post')
                                             {!! Form::open(['route' => ['post.destroy', $post],'method' => 'delete',  'class'=>'d-inline-block dform']) !!}
                                             @endcan
                                             @can('view-post')
@@ -87,7 +78,7 @@
                                                     <i class="fas fa-trash"></i>
                                                 </button>
                                             {!! Form::close() !!}
-                                            @endcan
+                                            @endcan --}}
                                         </td>
                                     </tr>
                                 @endforeach
@@ -95,10 +86,10 @@
                                 <tfoot >
                                 <tr>
                                     <td colspan="6">
-                                        {{$posts->links()}}
+                                        {{$files->links()}}
                                     </td>
                                 </tr>
-                                </tfoot> --}}
+                                </tfoot>
                             </table>
                         </div>
                     </div>

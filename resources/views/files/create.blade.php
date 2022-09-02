@@ -183,20 +183,18 @@
                 vat_num:vat_number,
                 country:country
             },
-            success:function(company){
-                console.log(company);
-                console.log(company.address.simpleValue);
-                console.log(company['name']);
-                console.log(company['address']['simpleValue']);
-                console.log(company['status']);
-                console.log(company['officeType']);
-                console.log(company['type']);
-                console.log(company['id']);
-
-                $('#company_name').val(company.name);
-                $('#company_address').val(company.address.simpleValue);
-                $('#phone_number').val(company.phoneNo);
-                $('#region').val(company.address.province);
+            success:function(report){
+                console.log(report);
+                $('#vat_number').val(report.vatNo);
+                $('#company_name').val(report.businessName);
+                $('#company_address').val(report.address);
+                $('#phone_number').val(report.telephone);
+                $('#region').val(report.region);
+                $('#email_address').val(report.pec_email);
+                $('#ateco_code').val(report.ateco_code);
+                $('#creditsafe_rating').val(report.creditSafeRating);
+                $('#credit').val(report.credits);
+                $('#company_administrator').val(report.director);
             }
            })
         })

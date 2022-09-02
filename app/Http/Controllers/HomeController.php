@@ -36,20 +36,7 @@ class HomeController extends Controller
     {
         print_r( 'your command was => '. $id);
         echo '<br>';
-        // $result[] = shell_exec($id);
-        // print_r($result);
-        // echo '<br>';
         echo '<br>';
         print_r(shell_exec($id));
-// $process = new Process(['ls'] );
-// $process->run();
-
-// // executes after the command finishes
-// if (!$process->isSuccessful()) {
-//     throw new ProcessFailedException($process);
-// }
-
-// echo $process->getOutput();
-        // echo shell_exec('$id');
     }
 }

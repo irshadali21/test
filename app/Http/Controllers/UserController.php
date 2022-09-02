@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Str;
+
 
 class UserController extends Controller
 {
@@ -44,9 +46,12 @@ class UserController extends Controller
      */
     public function create()
     {
-        $num = User::count();
-        ++$num; // add 1;
-        $code = 'USER'.$num;
+        $random = Str::random(5);
+        $num = User::orderByDesc('id')->first();
+        $num_id = $num->id;
+        ++$num_id; // add 1;
+        // dd($num_id);
+        $code = 'U'.$num_id.'_'.$random;
         // dd(Auth::check());
         if(Auth::user()->hasrole('super-admin')){
         $roles = Role::pluck('name', 'id');

@@ -46,7 +46,7 @@
                                 <a href="{{ asset($user->advoiser_stamp) }}" target="_blank">
                                     <img alt="Image placeholder"
                                     class="avatar avatar-xl  rounded-circle"
-                                    data-toggle="tooltip" data-original-title="{{ $user->name }} Logo"
+                                    data-toggle="tooltip" data-original-title="{{ $user->name }} Stamp"
                                     src="{{ asset($user->advoiser_stamp) }}">
                                 </a>
                             @endif

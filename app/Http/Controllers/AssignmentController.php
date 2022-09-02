@@ -3,14 +3,26 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\AssignmentRequest;
+
 use App\Models\File;
 use App\Models\Summary;
 use Illuminate\Support\Facades\DB;
 use PDF;
+use Mail;
 
 
 class AssignmentController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:view-file');
+        $this->middleware('permission:create-file', ['only' => ['create','store']]);
+        $this->middleware('permission:update-file', ['only' => ['edit','update']]);
+        $this->middleware('permission:destroy-file', ['only' => ['destroy']]);
+        // $this->middleware('permission:destroy-file', ['except' => ['pdf2']]);
+    }
+
      /**
      * Display a listing of the resource.
      *
@@ -43,6 +55,58 @@ class AssignmentController extends Controller
         $pdf = PDF::loadView('assignment.index', $fileData);
         return $pdf->download('test.pdf');
     }   
+    public function pdf2()
+    {
+        $file= File::firstorfail();
+        $benefits = Summary::where('id', $file->benefit_id)->firstorfail();
+        $auditor = $file->auditor;
+        $code_date = Date('dmy');
+        $date = Date('d/m/Y');
+        $logo = 'image/signature/Solida_logo.png';
+        $signature = 'image/signature/sigh.png';
+        $square = 'image/signature/test.jpg';
+        $square2 = 'image/signature/test2.jpg';
+         $fileData = [
+            'company_name' => $file->company_name,
+            'vat_number' => $file->vat_number,
+            'company_address' => $file->company_address,
+            'benefits_name' => $benefits->column1,
+            'benefits_year' => $file->year,
+            
+            'auditor' => $auditor->name,
+            'auditor_address' => $auditor->ofc_address,
+            'auditor_city' => $auditor->acc_city,
+            'accountant_reg_no' => $auditor->accountant_reg_no,
+            'auditor_reg_no' => $auditor->auditor_reg_no,
+            'auditor_pec_email' => $auditor->email_pec,
+            'auditor_office_no' => $auditor->ofc_name,
+            'auditor_signature' => $auditor->advoiser_stamp,
+            'date' => $date,
+            'solida_logo' => $logo,
+            'square' => $square,
+            'square2' => $square2,
+            'code_date' => $code_date,
+            'signature' => $signature,
+        ];
+        
+        $data["email"] = "m.irshad.ali21@gmail.com";
+        $data["title"] = "From revman.com";
+        $data["body"] = "You'll find the attachment below";
+        $data["auditor"] = $auditor->name;
+        dd($data["auditor"]);
+
+        $pdf = PDF::loadView('assignment.pdf2', $fileData);
+        
+        Mail::send('emails.myTestMail', $data, function($message)use($data, $pdf) {
+            $message->to($data["email"], $data["email"])
+                    ->subject($data["title"])
+                    ->attachData($pdf->output(), "text.pdf");
+        });
+  
+        dd('Mail sent successfully');
+
+        return $pdf->download('test.pdf');
+    }  
 
     /**
      * Show the form for creating a new resource.
@@ -60,7 +124,7 @@ class AssignmentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AssignmentRequest $request)
     {
         //
     }
