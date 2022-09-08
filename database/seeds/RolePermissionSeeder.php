@@ -33,14 +33,10 @@ class RolePermissionSeeder extends Seeder
             'destroy-role',
             'destroy-permission',
             'view-activity-log',
-            'view-category',
-            'create-category',
-            'update-category',
-            'destroy-category',
-            'view-post',
-            'create-post',
-            'update-post',
-            'destroy-post',
+            'view-file',
+            'create-file',
+            'update-file',
+            'destroy-file',
         ];
         foreach ($permissions as $permission) {
             Permission::create(['name' => $permission]);
@@ -62,17 +58,30 @@ class RolePermissionSeeder extends Seeder
         $usr->syncPermissions($permissions);
 
         // Create user & role
-        $role = Role::create(['name' => 'user']);
-        $role->givePermissionTo('update-settings');
-        $role->givePermissionTo('view-user');
 
+        $permissions_advisor = [
+            'view-user',
+            'create-user',
+            'update-user',
+            'destroy-user',
+            'view-file',
+            'create-file',
+            'update-file',
+            'destroy-file',
+        ];
+
+
+        $role = Role::create(['name' => 'advisor']);
         $user = User::create([
-            'name'=> 'User',
-            'email' => 'user@email.com',
+            'name'=> 'Advisor',
+            'email' => 'advisor@email.com',
             'password' => 'secret',
             'status' => true,
             'email_verified_at' => now(),
         ]);
+
         $user->assignRole($role);
+        $user->syncPermissions($permissions_advisor);
+
     }
 }

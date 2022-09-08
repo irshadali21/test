@@ -65,61 +65,67 @@ class HelperFunction
         $benefits = Summary::where('id', $file->benefit_id)->firstorfail();
         
         $date = Date('d/m/Y');
-        $img = 'image/signature/sigh.png';
+// dd($file->advisor);
+        $img = url('/').'/image/signature/sigh.png';
         $fileData = [
-            'company_name' => $file->company_name,
-            'vat_number' => $file->vat_number,
-            'company_address' => $file->company_address,
+            'company_name' => $file->company->company_name,
+            'vat_number' => $file->company->vat_number,
+            'company_address' => $file->company->company_address,
             'benefits_name' => $benefits->column1,
             'benefits_year' => $file->year,
-            'auditor' => $file->auditor->name,
-            'auditor_address' => $file->auditor->ofc_address,
-            'auditor_pec_email' => $file->auditor->email_pec,
+            'auditor' => $file->advisor->name,
+            'auditor_address' => $file->advisor->ofc_address,
+            'auditor_pec_email' => $file->advisor->email_pec,
             'date' => $date,
             'signature' => $img,
         ];
+        
 
-        $data["email"] = $file->customer_email;
-        $data["name"] = $file->company_name;
-        $data["title"] = "From revman.com";
-        $data["body"] = "You'll find the attachment below";
-        $data["auditor"] = $file->auditor->name;
+        return ($fileData);
 
-        $pdf = PDF::loadView('assignment.index', $fileData);
 
-        Mail::send('emails.myTestMail', $data, function($message)use($data, $pdf) {
-            $message->to($data["email"], $data["email"])
-                    ->subject($data["title"])
-                    ->attachData($pdf->output(), "text.pdf");
-        });
+
+        // $data["email"] = $file->customer_email;
+        // $data["name"] = $file->company_name;
+        // $data["title"] = "From revman.com";
+        // $data["body"] = "You'll find the attachment below";
+        // $data["auditor"] = $file->auditor->name;
+
+        // $pdf = PDF::loadView('assignment.index', $fileData);
+
+        // Mail::send('emails.myTestMail', $data, function($message)use($data, $pdf) {
+        //     $message->to($data["email"], $data["email"])
+        //             ->subject($data["title"])
+        //             ->attachData($pdf->output(), "text.pdf");
+        // });
     }
 
     public static function getAuditAssignment($file){
 
-        // $file= File::firstorfail();
         $benefits = Summary::where('id', $file->benefit_id)->firstorfail();
-        $auditor = $file->auditor;
+        $auditor = $file->advisor;
         $code_date = Date('dmy');
         $date = Date('d/m/Y');
-        $logo = 'image/signature/Solida_logo.png';
-        $signature = 'image/signature/sigh.png';
-        $square = 'image/signature/test.jpg';
-        $square2 = 'image/signature/test2.jpg';
-         $fileData = [
-            'company_name' => $file->company_name,
-            'vat_number' => $file->vat_number,
-            'company_address' => $file->company_address,
+        $logo = url('/').'/image/signature/Solida_logo.png';
+        $signature = url('/').'/image/signature/sigh.png';
+        $square = url('/').'/image/signature/test.jpg';
+        $square2 = url('/').'/image/signature/test2.jpg';
+        $stamp = url('/').$auditor->advoiser_stamp;
+        $fileData = [
+            'company_name' => $file->company->company_name,
+            'vat_number' => $file->company->vat_number,
+            'company_address' => $file->company->company_address,
             'benefits_name' => $benefits->column1,
             'benefits_year' => $file->year,
-            
+
             'auditor' => $auditor->name,
             'auditor_address' => $auditor->ofc_address,
+            'auditor_pec_email' => $auditor->email_pec,
             'auditor_city' => $auditor->acc_city,
             'accountant_reg_no' => $auditor->accountant_reg_no,
             'auditor_reg_no' => $auditor->auditor_reg_no,
-            'auditor_pec_email' => $auditor->email_pec,
             'auditor_office_no' => $auditor->ofc_name,
-            'auditor_signature' => $auditor->advoiser_stamp,
+            'auditor_signature' => $stamp,
             'date' => $date,
             'solida_logo' => $logo,
             'square' => $square,
@@ -128,6 +134,8 @@ class HelperFunction
             'signature' => $signature,
         ];
         
+        return ($fileData);
+
         $data["email"] = $auditor->email_pec;
         $data["title"] = "From revman.com";
         $data["body"] = "You'll find the attachment below";

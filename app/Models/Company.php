@@ -5,12 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use App\User;
-use App\Models\Company;
-use App\Models\Summary;
 
-
-
-class File extends Model
+class Company extends Model
 {
     protected $guarded = ['id'];
 
@@ -29,18 +25,8 @@ class File extends Model
         });
     }
 
-    public function advisor()
+    public function created_by()
     {
-        return $this->hasOne(User::class,'id','advisor_id');
+        return $this->hasOne(User::class,'id','created_by');
     }
-    
-    public function company()
-    {
-        return $this->hasOne(Company::class,'id','company_id');
-    }
-    public function benefit()
-    {
-        return $this->hasOne(Summary::class,'id','benefit_id');
-    }
-
 }

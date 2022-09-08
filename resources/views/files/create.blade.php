@@ -1,46 +1,102 @@
 @extends('layouts.app')
 @push('pg_btn')
-    <a href="{{route('post.index')}}" class="btn btn-sm btn-neutral">All Files</a>
+    <a href="{{route('files.index')}}" class="btn btn-sm btn-neutral">All Files</a>
 @endpush
 @section('content')
     <div class="row">
         <div class="col-md-12">
             <div class="card mb-5">
                 <div class="card-body">
-                    {!! Form::open(['route' => 'file.store', 'files' => true]) !!}
+                    {!! Form::open(['route' => 'files.store', 'files' => true]) !!}
                     <h6 class="heading-small text-muted mb-4">File information</h6>
                         <div class="pl-lg-4">
                             <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-lg-5">
                                     <div class="form-group">
                                         {{ Form::label('vat_number', 'VAT Number', ['class' => 'form-control-label']) }}
-                                        {{ Form::text('vat_number', null, ['class' => 'form-control', 'placeholder' => 'VAT Number']) }}
+                                        {{ Form::text('vat_number', null, ['class' => 'form-control', 'placeholder' => 'VAT Number', 'required' ]) }}
                                     </div>
                                 </div>
-                                <div class="col-lg-4">
+                                <div class="col-lg-3">
                                     <div class="form-group">
-                                        {{ Form::label('countries', 'Countries', ['class' => 'form-control-label']) }}
-                                        <select name="countries" id="countries" class="form-control">
-                                        @foreach ($countries as $c)
-                                            <option value="{{ $c['countryIso2'] }}">{{ $c['countryName'] }}</option>
-                                            
-                                            @endforeach
+                                        {{ Form::label('country', 'country', ['class' => 'form-control-label']) }}
+                                        <select name="country" id="country" class="form-control">
+                                            <option value="IT">Italy</option>
+                                            <option value="US">United States</option>
+                                            <option value="GB">United Kingdom</option>
+                                            <option value="SE">Sweden</option>
+                                            <option value="NO">Norway</option>
+                                            <option value="NL">Netherlands</option>
+                                            <option value="MX">Mexico</option>
+                                            <option value="LU">Luxembourg</option>
+                                            <option value="JP">Japan</option>
+                                            <option value="IT">Italy</option>
+                                            <option value="IE">Ireland</option>
+                                            <option value="DE">Germany</option>
+                                            <option value="FR">France</option>
+                                            <option value="DK">Denmark</option>
+                                            <option value="CA">Canada</option>
+                                            <option value="BE">Belgium</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-lg-2">
                                     <div class="form-group">
-                                       <br>
-                                        {{ Form::button('Get Data', array('class' => 'btn btn-danger mt-2', 'id'=> 'get_data')) }}
+
+                                        {{ Form::label('data_base', 'Get Data From', ['class' => 'form-control-label']) }}
+                                        {{ Form::button('DataBase', array('class' => 'btn btn-danger ', 'id'=> 'data_base')) }}
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="form-group">
+                                        {{ Form::label('creditsafe', 'Get Data From', ['class' => 'form-control-label']) }}
+                                        {{ Form::button('CreditSafe', array('class' => 'btn btn-danger ', 'id'=> 'creditsafe')) }}
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
+                                <div class="table-responsive">
+                                    <div>
+                                        <table class="table table-hover align-items-center">
+                                            {{-- <thead class="thead-light"> --}}
+                                            <tr class="thead-light">
+                                                <th scope="col" style="width: 50px">Company Name</th>
+                                                <td scope="budget" style="width: 350px" id="table_companyName"></td>
+                                                <th scope="col" style="width: 50px">VAT Number </th>
+                                                <td scope="budget" style="width: 350px" id="table_vatNo"></td>
+                                            </tr><tr class="thead-light">
+                                            <tr class="thead-light">
+                                                <th scope="col" style="width: 50px">Company Address</th>
+                                                <td scope="budget" style="width: 350px" id="table_companyAddress"></td>
+                                                <th scope="col" style="width: 50px">Phone Number </th>
+                                                <td scope="budget" style="width: 350px" id="table_phone"></td>
+                                            </tr><tr class="thead-light">
+                                            <tr class="thead-light">
+                                                <th scope="col" style="width: 50px">Email Address</th>
+                                                <td scope="budget" style="width: 350px" id="table_emailAddress"></td>
+                                                <th scope="col" style="width: 50px">Director </th>
+                                                <td scope="budget" style="width: 350px" id="table_director"></td>
+                                            </tr><tr class="thead-light">
+                                                <th scope="col" style="width: 50px">CreditSafe Rating</th>
+                                                <td scope="budget" style="width: 350px" id="table_rating"></td>
+                                                <th scope="col" style="width: 50px">Credit </th>
+                                                <td scope="budget" style="width: 350px" id="table_credit"></td>
+                                            </tr><tr class="thead-light">
+                                                <th scope="col" style="width: 50px">Ateco Code</th>
+                                                <td scope="budget" style="width: 350px" id="table_atecoCode"></td>
+                                                <th scope="col" style="width: 50px">Region </th>
+                                                <td scope="budget" style="width: 350px" id="table_region"></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
 
-                                <div class="col-lg-6">
+
+
+                                {{-- <div class="col-lg-6">
                                     <div class="form-group">
                                         {{ Form::label('company_name', 'Company Name', ['class' => 'form-control-label']) }}
-                                        {{ Form::text('company_name', null, ['class' => 'form-control', 'placeholder' => 'Company Name']) }}
+                                        {{ Form::text('company_name', null, ['hidden']) }}
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -90,21 +146,16 @@
                                         {{ Form::label('company_administrator', 'Company Administrator', ['class' => 'form-control-label']) }}
                                         {{ Form::text('company_administrator', null, ['class' => 'form-control', 'placeholder' => 'Company Administrator']) }}
                                     </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        {{ Form::label('sdi', 'SDI', ['class' => 'form-control-label']) }}
-                                        {{ Form::text('sdi', null, ['class' => 'form-control', 'placeholder' => 'SDI']) }}
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
+                                </div> --}}
+                                
+                                <div class="col-lg-6 mt-2">
                                     <div class="form-group">
                                         {{ Form::label('benefit_id', 'Benefit', ['class' => 'form-control-label']) }}
                                         {{ Form::select('benefit_id', $benefit, null, [ 'class'=> ' form-control', 'placeholder' => 'Select Benefit...']) }}
                                         
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 mt-2">
                                     <div class="form-group">
                                         {{ Form::label('year', 'Year', ['class' => 'form-control-label']) }}
                                         {{ Form::number('year', null, ['class' => 'form-control', 'placeholder' => 'E.g 2022']) }}
@@ -114,6 +165,12 @@
                                     <div class="form-group">
                                         {{ Form::label('fee', 'Fee', ['class' => 'form-control-label']) }}
                                         {{ Form::text('fee', null, ['class' => 'form-control', 'placeholder' => 'Fee']) }}
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        {{ Form::label('sdi', 'SDI', ['class' => 'form-control-label']) }}
+                                        {{ Form::text('sdi', null, ['class' => 'form-control', 'placeholder' => 'SDI']) }}
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -135,7 +192,7 @@
                         {{-- <hr class="my-4" /> --}}
                         
                         <div class="col-md-12">
-                            {{ Form::submit('Submit', ['class'=> 'mt-5 btn btn-primary']) }}
+                            {{ Form::submit('Save File', ['class'=> 'mt-5 btn btn-primary']) }}
                         </div>
 
                     {!! Form::close() !!}
@@ -169,35 +226,52 @@
         jQuery('#uploadFile').filemanager('file');
     
     
-        $('#get_data').on('click', function(){
-           var vat_number = $('#vat_number').val();
-           var country = $('#countries').val();
-           console.log(vat_number);
-           console.log(country);
+        $('#data_base').on('click', function(){
+             var url =  "{{ route('files.get_data_database') }}";
+             getdata(url);
 
+        });
+        $('#creditsafe').on('click', function(){
+             var url =  "{{ route('files.get_data_api') }}";
+             getdata(url);
+        });
+
+        function getdata(geturl){
+           var vat_number = $('#vat_number').val();
+           if(vat_number.length == 0){
+            alert( 'Please enter VAT Number');
+            return;
+           }
+           var country = $('#country').val();
            $.ajax({
             type:"post",
-            url: "{{ route('file.get_data') }}",
+            url: geturl,
             data:{
                 "_token": "{{ csrf_token() }}",
                 vat_num:vat_number,
                 country:country
             },
+            
             success:function(report){
-                console.log(report);
-                $('#vat_number').val(report.vatNo);
-                $('#company_name').val(report.businessName);
-                $('#company_address').val(report.address);
-                $('#phone_number').val(report.telephone);
-                $('#region').val(report.region);
-                $('#email_address').val(report.pec_email);
-                $('#ateco_code').val(report.ateco_code);
-                $('#creditsafe_rating').val(report.creditSafeRating);
-                $('#credit').val(report.credits);
-                $('#company_administrator').val(report.director);
-            }
+                $('#table_companyName').html(report.businessName);
+                $('#table_companyName').html(report.businessName);
+                $('#table_vatNo').html(report.vatNo);
+                $('#table_companyAddress').html(report.address);
+                $('#table_phone').html(report.telephone);
+                $('#table_emailAddress').html(report.pec_email);
+                $('#table_director').html(report.director);
+                $('#table_rating').html(report.creditSafeRating);
+                $('#table_credit').html(report.credits);
+                $('#table_region').html(report.region);
+                $('#table_atecoCode').html(report.ateco_code);
+                
+            },
+                error: function(responce) {
+                    // console.log(responce.responseJSON);
+                    alert(responce.responseJSON);
+                }
            })
-        })
+        }
     });
 
     

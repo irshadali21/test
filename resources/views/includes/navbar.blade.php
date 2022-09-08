@@ -48,7 +48,7 @@
                                 
                                 @canany(['create-file'])
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{route('file.create')}}">
+                                    <a class="nav-link" href="{{route('files.create')}}">
                                         <span class="sidenav-mini-icon">D </span>
                                         <span class="nav-link-text">Create New File</span>
                                     </a>
@@ -56,7 +56,7 @@
                                 @endcan
                                 @canany(['update-file'])
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{route('file.index')}}">
+                                    <a class="nav-link" href="{{route('files.index')}}">
                                         <span class="sidenav-mini-icon">D </span>
                                         <span class="nav-link-text">Edit File</span>
                                     </a>

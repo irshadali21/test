@@ -12,8 +12,8 @@ class SettingsSeeder extends Seeder
      */
     public function run()
     {
-        Setting::set('company_name', 'Inventory Management');
-        Setting::set('company_email', 'help@email.com');
+        Setting::set('company_name', 'Revman');
+        Setting::set('company_email', 'help@revman.com');
         Setting::set('company_phone', '+98765432111');
         Setting::set('company_address', 'Bikaner');
         Setting::set('company_city', 'Bikaner');

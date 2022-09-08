@@ -93,7 +93,7 @@ class AssignmentController extends Controller
         $data["title"] = "From revman.com";
         $data["body"] = "You'll find the attachment below";
         $data["auditor"] = $auditor->name;
-        dd($data["auditor"]);
+        // dd($data["auditor"]);
 
         $pdf = PDF::loadView('assignment.pdf2', $fileData);
         

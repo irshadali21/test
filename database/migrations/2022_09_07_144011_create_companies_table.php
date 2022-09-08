@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFilesTable extends Migration
+class CreateCompaniesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,14 @@ class CreateFilesTable extends Migration
      */
     public function up()
     {
-        Schema::create('files', function (Blueprint $table) {
+        Schema::create('companies', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('vat_number');
-            $table->string('countries')->nullable();
+            $table->unsignedBigInteger('created_by');
+            $table->string('contact_id')->nullable();
             $table->string('company_name')->nullable();
+            $table->string('vat_number');
             $table->string('company_address')->nullable();
+            $table->string('country')->nullable();
             $table->string('email_address')->nullable();
             $table->string('phone_number')->nullable();
             $table->string('region')->nullable();
@@ -27,16 +29,9 @@ class CreateFilesTable extends Migration
             $table->string('credit')->nullable();
             $table->string('company_administrator')->nullable();
             $table->string('sdi')->nullable();
-            $table->unsignedBigInteger('benefit_id');
-            $table->unsignedBigInteger('created_by');
-            
-            $table->string('year')->nullable();
-            $table->string('fee')->nullable();
-            $table->string('customer_email')->nullable();
-            $table->string('opration_email')->nullable();
             $table->timestamps();
 
-            $table->foreign('benefit_id')->references('id')->on('summaries')->onDelete('cascade');
+            // $table->foreign('benefit_id')->references('id')->on('summaries')->onDelete('cascade');
             $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
         });
     }
@@ -48,6 +43,6 @@ class CreateFilesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('files');
+        Schema::dropIfExists('companies');
     }
 }

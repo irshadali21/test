@@ -68,12 +68,8 @@ Route::group(['middleware' => ['auth','verified', 'stampCheck']], function () {
     Route::post('/profile', 'UserController@profileUpdate')->name('profile.update');
 
     Route::resource('roles', 'RoleController')->except('show');
-
+    
     Route::resource('permissions', 'PermissionController')->except(['show','destroy','update']);
-
-    Route::resource('category', 'CategoryController')->except('show');
-
-    Route::resource('post', 'PostController');
 
     Route::get('/activity-log', 'SettingController@activity')->name('activity-log.index');
 
@@ -86,36 +82,36 @@ Route::group(['middleware' => ['auth','verified', 'stampCheck']], function () {
         return view('media.index');
     })->name('media.index');
 
-    //API Routes
-    Route::get('/api/testing', [
-        'uses' => 'ApiDataController@index',
-        'as' => 'api.index',
-        'middleware' => 'permission:view-api'
-    ]);
-    Route::post('/api/test/check', [
-        'uses'=> 'ApiDataController@test',
-        'as' => 'api.test',
-        'middleware'=> 'permission:test-api'
-    ]);
-
     //files routes
 
-    Route::get('/files/index', [
-        'uses'=> 'FileController@index',
-        'as' => 'file.index',
+    Route::resource('files', 'FileController');
+
+    Route::post('/files/create/get-data-database', [
+        'uses'=> 'FileController@get_data_database',
+        'as' => 'files.get_data_database',
     ]);
-    Route::get('/files/create', [
-        'uses'=> 'FileController@create',
-        'as' => 'file.create',
+    Route::post('/files/create/get-data-creditsafe', [
+        'uses'=> 'FileController@get_data_api',
+        'as' => 'files.get_data_api',
     ]);
-    Route::post('/files/create/get-data', [
-        'uses'=> 'FileController@get_data',
-        'as' => 'file.get_data',
-    ]);
-    Route::post('/files/store', [
-        'uses'=> 'FileController@store',
-        'as' => 'file.store',
+    
+    Route::get('/files/file/client/{id}', [
+        'uses'=> 'FileController@client_assignment',
+        'as' => 'files.client_assignment',
     ]);
 
+    Route::get('/files/file/advisor/{id}', [
+        'uses'=> 'FileController@advoiser_assignment',
+        'as' => 'files.advoiser_assignment',
+    ]);
+    Route::get('/files/file/client/download/{id}', [
+        'uses'=> 'FileController@client_assignment_download',
+        'as' => 'files.client_assignment_download',
+    ]);
+
+    Route::get('/files/file/advisor/download/{id}', [
+        'uses'=> 'FileController@advoiser_assignment_download',
+        'as' => 'files.advoiser_assignment_download',
+    ]);
 
 });
