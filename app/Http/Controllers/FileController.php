@@ -250,7 +250,7 @@ class FileController extends Controller
         }
         $fileData = HelperFunction::getClientAssignment($file);        
         $pdf = PDF::loadView('assignment.index', $fileData);
-        $name = $file->company->company_name;
+        // $name = $file->company->company_name;
         
         $data["email"] = $file->customer_email;
         $data["name"] = $file->company_name;
@@ -263,7 +263,7 @@ class FileController extends Controller
         Mail::send('emails.myTestMail', $data, function($message)use($data, $pdf) {
             $message->to($data["email"], $data["email"])
                     ->subject($data["title"])
-                    ->attachData($pdf->output(), $name.".pdf");
+                    ->attachData($pdf->output(), $file->company->company_name.".pdf");
         });
         
         
@@ -281,7 +281,7 @@ class FileController extends Controller
             }
         $fileData = HelperFunction::getAuditAssignment($file);            
         $pdf = PDF::loadView('assignment.pdf2', $fileData);
-            $name = $file->company->company_name;
+            // $name = $file->company->company_name;
 
             $data["email"] = $file->advisor->email_pec;
             $data["title"] = "From revman.com";
@@ -294,7 +294,7 @@ class FileController extends Controller
             Mail::send('emails.myTestMail', $data, function($message)use($data, $pdf) {
                 $message->to($data["email"], $data["email"])
                         ->subject($data["title"])
-                        ->attachData($pdf->output(), $name.".pdf");
+                        ->attachData($pdf->output(), $file->company->company_name.".pdf");
             });
 
             flash('Assignment sent to Advoiser via Email')->success();
