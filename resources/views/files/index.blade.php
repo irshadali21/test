@@ -33,7 +33,7 @@
                                     <th scope="col">VAT Number </th>
                                     <th scope="col">Benefit</th>
                                     <th scope="col">Year</th>
-                                    <th scope="col">Create By</th>
+                                    <th scope="col">Advisor</th>
                                     <th scope="col" class="text-center">Actions</th>
                                 </tr>
                                 </thead>

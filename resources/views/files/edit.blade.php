@@ -113,7 +113,14 @@
                                         {{ Form::email('opration_email', $file->opration_email, ['class' => 'form-control', 'placeholder' => 'Opration_Email@domain.com']) }}
                                     </div>
                                 </div>
-                                
+                                @if (Auth::user()->hasRole('super-admin'))
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        {{ Form::label('advisor', 'Select advisor', ['class' => 'form-control-label']) }}
+                                        {{ Form::select('advisor', $advisor, $file->advisor_id, [ 'class'=> ' form-control', 'required']) }}
+                                    </div>
+                                </div>
+                            @endif 
                             </div>
                                 
 

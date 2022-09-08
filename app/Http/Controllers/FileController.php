@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Core\HelperFunction;
 use App\Http\Requests\FileRequest;
+use App\User;
 
 use App\Models\ApiData;
 use App\Models\File;
@@ -48,8 +49,9 @@ class FileController extends Controller
     {
         $exceptThis = [1];
         $cuntries = HelperFunction::getCountries();
+        $advisor = User::role('advisor')->pluck('name', 'id');
         $benefit = Summary::whereNotIn('id', $exceptThis)->pluck('column1', 'id');
-        return view('files.create', compact('benefit', 'cuntries'));
+        return view('files.create', compact('benefit', 'cuntries', 'advisor'));
     }
 
     /**
@@ -62,19 +64,15 @@ class FileController extends Controller
     {
         DB::beginTransaction();
         try{
-            // $userData = $request->except(['profile_photo']);
-            // $userData['code'] = $code;
-            // $request->merge(['vat_number'=> $request->vat_numbe]);
-            // dd($request->all());
-            if($request->advisor_id){
-                $advisor = $request->advisor_id;
+            if($request->advisor){
+                $advisor = $request->advisor;
             }else{
                 $advisor = Auth::user()->id;
             }
             $company = Company::where('vat_number', $request->vat_number)->first();
-            $query="->where('company_id', $company->id)->Where('benefit_id' , $request->benefit_id)->Where('year', $request->year)";
-            $check_file = File::where(function ($query) {})->first();
-            
+            $check_file = File::where('company_id', $company->id)
+                ->Where('benefit_id' , $request->benefit_id)
+                ->Where('year', $request->year)->first();
             if($check_file){
                 flash('File Already Exist with same Year and Benefits!')->error();
                 return back();
@@ -91,10 +89,7 @@ class FileController extends Controller
                 'advisor_id' => $advisor,
             ]);
             }
-            DB::commit();
-            
-            // $getClientAssignment = HelperFunction::getClientAssignment($file);
-            // $getAuditAssignment = HelperFunction::getAuditAssignment($file);            
+            DB::commit();          
             flash('File created successfully!')->success();
             return redirect()->route('files.index');
 
@@ -114,12 +109,13 @@ class FileController extends Controller
         $report = Company::where('vat_number', $request->vat_num)->first();
         if($report)
         {
-            // $data = ['massage' => 'Company already exist in database'];
             return response()->json('Company already exist in database' , 400,);
         }else{
             return $this->get_data($request);
         }
     }
+
+
     public function get_data_database(Request $request)
     {
         $company = Company::where('vat_number', $request->vat_num)->first();
@@ -221,7 +217,6 @@ class FileController extends Controller
     public function show($id)
     {
         $file = File::where('id', $id)->first();
-        // dd($file, $file->company);
         return view('files.show', compact('file'));
 
     }
@@ -233,10 +228,9 @@ class FileController extends Controller
         $pdf = PDF::loadView('assignment.index', $fileData);
         $name = $file->company->company_name;
         return $pdf->download($name.'.pdf');
-
-        return view( 'assignment.client', $fileData);
-
     }
+
+
     public function advoiser_assignment_download($id)
     {
         $file = File::where('id', $id)->first();
@@ -244,10 +238,9 @@ class FileController extends Controller
         $pdf = PDF::loadView('assignment.pdf2', $fileData);
             $name = $file->company->company_name;
             return $pdf->download($name.'.pdf');
-        
-        return view('assignment.advisor', $fileData);
-
     }
+
+
     public function client_assignment($id)
     {
         $file = File::where('id', $id)->first();
@@ -277,6 +270,8 @@ class FileController extends Controller
         flash('Assignment sent to Client via Email')->success();
         return back();
     }
+    
+    
     public function advoiser_assignment($id)
     {
         $file = File::where('id', $id)->first();
@@ -307,18 +302,19 @@ class FileController extends Controller
 
     }
 
+
     public function edit($id)
     {
         $file = File::where('id', $id)->first();
         $cuntries = HelperFunction::getCountries();
-
+        $advisor = User::role('advisor')->pluck('name', 'id');
         $exceptThis = [1];
         $benefit = Summary::whereNotIn('id', $exceptThis)->pluck('column1', 'id');
         if (!$file) {
             flash('File Does Not Exist');
             return back();
         }
-        return view('files.edit', compact('file', 'benefit', 'cuntries'));
+        return view('files.edit', compact('file', 'benefit', 'cuntries', 'advisor'));
     }
 
 
@@ -327,15 +323,19 @@ class FileController extends Controller
         $file = File::where('id', $request->file_id)->firstorFail();
         DB::beginTransaction();
         try{
-            if($request->advisor_id){
-                $advisor = $request->advisor_id;
+            if($request->advisor){
+                $advisor = $request->advisor;
             }else{
                 $advisor = Auth::user()->id;
             }
             $company = Company::where('vat_number', $request->vat_number)->first();
             $query="->where('company_id', $company->id)->Where('benefit_id' , $request->benefit_id)->Where('year', $request->year)";
-            $check_file = File::where('id', '!=', $request->file_id )->where(function ($query) {})->first();
-            // dd($check_file);
+            
+            $check_file = File::where('id', '!=', $request->file_id )
+            ->where('company_id', $company->id)
+            ->Where('benefit_id' , $request->benefit_id)
+            ->Where('year', $request->year)->first();
+            
             if($check_file){
                 flash('File Already Exist with same Year and Benefits!')->error();
                 return back();
@@ -343,6 +343,7 @@ class FileController extends Controller
             $file = $file->update([
                 'company_id' => $company->id,
                 'benefit_id' => $request->benefit_id,
+                'advisor_id' => $advisor,
                 'year' => $request->year,
                 'fee' => $request->fee,
                 'sdi' => $request->sdi,
