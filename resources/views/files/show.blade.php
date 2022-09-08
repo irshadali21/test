@@ -4,10 +4,10 @@
         <div class="btn-group ">
             <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Assignment Options</button>
             <div class="dropdown-menu " style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, -183px, 0px);" x-placement="top-start">
-                <a class="dropdown-item"  href="{{route('files.client_assignment',$file->id)}}">Preview for Client</a>
+                <a class="dropdown-item"  href="{{route('files.client_assignment',$file->id)}}">Email to Client</a>
                 <a class="dropdown-item"  href="{{route('files.client_assignment_download',$file->id)}}">Download for Client</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item"  href="{{route('files.advoiser_assignment',$file->id)}}">Preview for Advoiser</a>
+                <a class="dropdown-item"  href="{{route('files.advoiser_assignment',$file->id)}}">Email to Advoiser</a>
                 <a class="dropdown-item"  href="{{route('files.advoiser_assignment_download',$file->id)}}">Download for Advoiser</a>
             </div>
         </div>

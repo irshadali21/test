@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Document</title>
+        <title>{{ $company_name}}</title>
         
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
@@ -47,7 +47,6 @@
                 <br>
                 <center><strong>CONFERISCE</strong></center>
                 <br>
-                <br>
                 <p>
                     Alla Società di revisione contabile “SOLIDA S.r.l.” in persona del Legale rapp.te p.t. Dott. Marco
                     Sforza, nato a Venezia il 11/09/1964 e residenti in Napoli, alla Via Nicolardi, n. 300 – 80131 -
@@ -57,7 +56,6 @@
                         successivamente denominata “Società”, 
                     </strong></span>
                 </p>
-                <br>
                 <br>
                 <p>
                     il seguente incarico professionale disciplinato dai seguenti articoli ed accettato dalla Solida mediante
@@ -90,8 +88,6 @@
                     Qualora il Cliente ravvisasse la necessita di ricevere altre specifiche prestazioni dovrà farne esplicita
                     richiesta e quindi tali prestazioni formeranno oggetto di specifico incarico. 
                 </p>
-                <br>
-                <br>
                 <br>
                 <br>
                 
