@@ -18,6 +18,7 @@ class CreateFilesTable extends Migration
             $table->unsignedBigInteger('company_id');
             $table->string('year')->nullable();
             $table->string('fee')->nullable();
+            $table->string('sdi')->nullable();
             $table->string('customer_email')->nullable();
             $table->string('opration_email')->nullable();
             $table->unsignedBigInteger('created_by');

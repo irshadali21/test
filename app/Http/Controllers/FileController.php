@@ -47,8 +47,9 @@ class FileController extends Controller
     public function create()
     {
         $exceptThis = [1];
+        $cuntries = HelperFunction::getCountries();
         $benefit = Summary::whereNotIn('id', $exceptThis)->pluck('column1', 'id');
-        return view('files.create', compact('benefit'));
+        return view('files.create', compact('benefit', 'cuntries'));
     }
 
     /**
@@ -83,6 +84,7 @@ class FileController extends Controller
                 'benefit_id' => $request->benefit_id,
                 'year' => $request->year,
                 'fee' => $request->fee,
+                'sdi' => $request->sdi,
                 'customer_email' => $request->customer_email,
                 'opration_email' => $request->opration_email,
                 'created_by' => Auth::user()->id,
@@ -249,6 +251,10 @@ class FileController extends Controller
     public function client_assignment($id)
     {
         $file = File::where('id', $id)->first();
+        if (!$file->customer_email) {
+        flash('Please add a customer email in Aassignment')->error();
+            return back();
+        }
         $fileData = HelperFunction::getClientAssignment($file);        
         $pdf = PDF::loadView('assignment.index', $fileData);
         $name = $file->company->company_name;
@@ -274,6 +280,10 @@ class FileController extends Controller
     public function advoiser_assignment($id)
     {
         $file = File::where('id', $id)->first();
+        if (!$file->advisor->email_pec) {
+            flash('Please Update your PEC email in Profile of Advoiser')->error();
+                return back();
+            }
         $fileData = HelperFunction::getAuditAssignment($file);            
         $pdf = PDF::loadView('assignment.pdf2', $fileData);
             $name = $file->company->company_name;
@@ -297,5 +307,59 @@ class FileController extends Controller
 
     }
 
+    public function edit($id)
+    {
+        $file = File::where('id', $id)->first();
+        $cuntries = HelperFunction::getCountries();
 
+        $exceptThis = [1];
+        $benefit = Summary::whereNotIn('id', $exceptThis)->pluck('column1', 'id');
+        if (!$file) {
+            flash('File Does Not Exist');
+            return back();
+        }
+        return view('files.edit', compact('file', 'benefit', 'cuntries'));
+    }
+
+
+    public function update(Request $request)
+    {
+        $file = File::where('id', $request->file_id)->firstorFail();
+        DB::beginTransaction();
+        try{
+            if($request->advisor_id){
+                $advisor = $request->advisor_id;
+            }else{
+                $advisor = Auth::user()->id;
+            }
+            $company = Company::where('vat_number', $request->vat_number)->first();
+            $query="->where('company_id', $company->id)->Where('benefit_id' , $request->benefit_id)->Where('year', $request->year)";
+            $check_file = File::where('id', '!=', $request->file_id )->where(function ($query) {})->first();
+            // dd($check_file);
+            if($check_file){
+                flash('File Already Exist with same Year and Benefits!')->error();
+                return back();
+            }else{
+            $file = $file->update([
+                'company_id' => $company->id,
+                'benefit_id' => $request->benefit_id,
+                'year' => $request->year,
+                'fee' => $request->fee,
+                'sdi' => $request->sdi,
+                'customer_email' => $request->customer_email,
+                'opration_email' => $request->opration_email,
+            ]);
+            }
+            DB::commit();
+        
+            flash('File created successfully!')->success();
+            return redirect()->route('files.index');
+
+        }catch (\Exception $e) {
+            DB::rollback();
+            flash('There was an error')->error();
+            return back();
+
+        }
+    }
 }

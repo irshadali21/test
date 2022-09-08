@@ -12,7 +12,7 @@
             </div>
         </div>
         <a class="btn btn-info btn-sm m-1"  
-        {{-- href="{{route('files.edit',$file->id)}}" --}}
+        href="{{route('files.edit',$file->id)}}"
         >
             <i class="fa fa-edit" aria-hidden="true"></i> Edit File
         </a>

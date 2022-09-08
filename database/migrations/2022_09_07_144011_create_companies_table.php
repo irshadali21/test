@@ -28,7 +28,6 @@ class CreateCompaniesTable extends Migration
             $table->string('creditsafe_rating')->nullable();
             $table->string('credit')->nullable();
             $table->string('company_administrator')->nullable();
-            $table->string('sdi')->nullable();
             $table->timestamps();
 
             // $table->foreign('benefit_id')->references('id')->on('summaries')->onDelete('cascade');

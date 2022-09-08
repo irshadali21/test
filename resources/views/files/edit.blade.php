@@ -7,20 +7,21 @@
         <div class="col-md-12">
             <div class="card mb-5">
                 <div class="card-body">
-                    {!! Form::open(['route' => 'files.store', 'files' => true]) !!}
+                    {!! Form::open(['route' => ['files.update', $file], 'files' => true, 'method' => 'put']) !!}
                     <h6 class="heading-small text-muted mb-4">File information</h6>
                         <div class="pl-lg-4">
                             <div class="row">
                                 <div class="col-lg-5">
                                     <div class="form-group">
                                         {{ Form::label('vat_number', 'VAT Number', ['class' => 'form-control-label']) }}
-                                        {{ Form::text('vat_number', null, ['class' => 'form-control', 'placeholder' => 'VAT Number', 'required' ]) }}
+                                        {{ Form::text('vat_number', $file->company->vat_number, ['class' => 'form-control', 'placeholder' => 'VAT Number', 'required' ]) }}
+                                        {{ Form::hidden('file_id', $file->id) }}
                                     </div>
                                 </div>
                                 <div class="col-lg-3">
                                     <div class="form-group">
                                         {{ Form::label('country', 'country', ['class' => 'form-control-label']) }}
-                                        {{ Form::select('country', $cuntries, null, [ 'class'=> ' form-control', 'required']) }}
+                                        {{ Form::select('country', $cuntries, $file->company->country, [ 'class'=> ' form-control', 'required']) }}
                                     </div>
                                 </div>
                                 <div class="col-lg-2">
@@ -44,128 +45,72 @@
                                             {{-- <thead class="thead-light"> --}}
                                             <tr class="thead-light">
                                                 <th scope="col" style="width: 50px">Company Name</th>
-                                                <td scope="budget" style="width: 350px" id="table_companyName"></td>
+                                                <td scope="budget" style="width: 350px" id="table_companyName">{{ $file->company->company_name }}</td>
                                                 <th scope="col" style="width: 50px">VAT Number </th>
-                                                <td scope="budget" style="width: 350px" id="table_vatNo"></td>
+                                                <td scope="budget" style="width: 350px" id="table_vatNo">{{ $file->company->vat_number }}</td>
                                             </tr><tr class="thead-light">
                                             <tr class="thead-light">
                                                 <th scope="col" style="width: 50px">Company Address</th>
-                                                <td scope="budget" style="width: 350px" id="table_companyAddress"></td>
+                                                <td scope="budget" style="width: 350px" id="table_companyAddress">{{ $file->company->company_address }}</td>
                                                 <th scope="col" style="width: 50px">Phone Number </th>
-                                                <td scope="budget" style="width: 350px" id="table_phone"></td>
+                                                <td scope="budget" style="width: 350px" id="table_phone">{{ $file->company->phone_number }}</td>
                                             </tr><tr class="thead-light">
                                             <tr class="thead-light">
                                                 <th scope="col" style="width: 50px">Email Address</th>
-                                                <td scope="budget" style="width: 350px" id="table_emailAddress"></td>
+                                                <td scope="budget" style="width: 350px" id="table_emailAddress">{{ $file->company->email_address }}</td>
                                                 <th scope="col" style="width: 50px">Director </th>
-                                                <td scope="budget" style="width: 350px" id="table_director"></td>
+                                                <td scope="budget" style="width: 350px" id="table_director">{{ $file->company->company_administrator }}</td>
                                             </tr><tr class="thead-light">
                                                 <th scope="col" style="width: 50px">CreditSafe Rating</th>
-                                                <td scope="budget" style="width: 350px" id="table_rating"></td>
+                                                <td scope="budget" style="width: 350px" id="table_rating">{{ $file->company->creditsafe_rating }}</td>
                                                 <th scope="col" style="width: 50px">Credit </th>
-                                                <td scope="budget" style="width: 350px" id="table_credit"></td>
+                                                <td scope="budget" style="width: 350px" id="table_credit">{{ $file->company->credit }}</td>
                                             </tr><tr class="thead-light">
                                                 <th scope="col" style="width: 50px">Ateco Code</th>
-                                                <td scope="budget" style="width: 350px" id="table_atecoCode"></td>
+                                                <td scope="budget" style="width: 350px" id="table_atecoCode">{{ $file->company->ateco_code }}</td>
                                                 <th scope="col" style="width: 50px">Region </th>
-                                                <td scope="budget" style="width: 350px" id="table_region"></td>
+                                                <td scope="budget" style="width: 350px" id="table_region">{{ $file->company->region }}</td>
                                             </tr>
                                         </table>
                                     </div>
                                 </div>
 
-
-
-                                {{-- <div class="col-lg-6">
-                                    <div class="form-group">
-                                        {{ Form::label('company_name', 'Company Name', ['class' => 'form-control-label']) }}
-                                        {{ Form::text('company_name', null, ['hidden']) }}
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        {{ Form::label('company_address', 'Company Address', ['class' => 'form-control-label']) }}
-                                        {{ Form::text('company_address', null, ['class' => 'form-control', 'placeholder' => 'Company Address']) }}
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        {{ Form::label('email_address', 'Email Address', ['class' => 'form-control-label']) }}
-                                        {{ Form::email('email_address', null, ['class' => 'form-control', 'placeholder' => 'email@domain.com']) }}
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        {{ Form::label('phone_number', 'Phone Number', ['class' => 'form-control-label']) }}
-                                        {{ Form::text('phone_number', null, ['class' => 'form-control', 'placeholder' => 'Phone Number']) }}
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        {{ Form::label('region', 'Region', ['class' => 'form-control-label']) }}
-                                        {{ Form::text('region', null, ['class' => 'form-control', 'placeholder' => 'Region']) }}
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        {{ Form::label('ateco_code', 'ATECO Code', ['class' => 'form-control-label']) }}
-                                        {{ Form::text('ateco_code', null, ['class' => 'form-control', 'placeholder' => 'ATECO Code']) }}
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        {{ Form::label('creditsafe_rating', 'Creditsafe Rating', ['class' => 'form-control-label']) }}
-                                        {{ Form::text('creditsafe_rating', null, ['class' => 'form-control', 'placeholder' => 'Creditsafe Rating']) }}
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        {{ Form::label('credit', 'Credit', ['class' => 'form-control-label']) }}
-                                        {{ Form::text('credit', null, ['class' => 'form-control', 'placeholder' => 'Credit']) }}
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        {{ Form::label('company_administrator', 'Company Administrator', ['class' => 'form-control-label']) }}
-                                        {{ Form::text('company_administrator', null, ['class' => 'form-control', 'placeholder' => 'Company Administrator']) }}
-                                    </div>
-                                </div> --}}
                                 
                                 <div class="col-lg-6 mt-2">
                                     <div class="form-group">
                                         {{ Form::label('benefit_id', 'Benefit', ['class' => 'form-control-label']) }}
-                                        {{ Form::select('benefit_id', $benefit, null, [ 'class'=> ' form-control', 'required']) }}
+                                        {{ Form::select('benefit_id', $benefit, $file->benefit_id, [ 'class'=> ' form-control', 'required']) }}
                                         
                                     </div>
                                 </div>
                                 <div class="col-lg-6 mt-2">
                                     <div class="form-group">
                                         {{ Form::label('year', 'Year', ['class' => 'form-control-label']) }}
-                                        {{ Form::number('year', null, ['class' => 'form-control', 'placeholder' => 'E.g 2022', 'required']) }}
+                                        {{ Form::number('year', $file->year, ['class' => 'form-control', 'placeholder' => 'E.g 2022', 'required']) }}
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         {{ Form::label('fee', 'Fee', ['class' => 'form-control-label']) }}
-                                        {{ Form::text('fee', null, ['class' => 'form-control', 'placeholder' => 'Fee']) }}
+                                        {{ Form::text('fee', $file->fee, ['class' => 'form-control', 'placeholder' => 'Fee']) }}
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         {{ Form::label('sdi', 'SDI', ['class' => 'form-control-label']) }}
-                                        {{ Form::text('sdi', null, ['class' => 'form-control', 'placeholder' => 'SDI']) }}
+                                        {{ Form::text('sdi', $file->sdi, ['class' => 'form-control', 'placeholder' => 'SDI']) }}
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         {{ Form::label('customer_email', 'Customer Email', ['class' => 'form-control-label']) }}
-                                        {{ Form::email('customer_email', null, ['class' => 'form-control', 'placeholder' => 'Customer_Email@domain.com', 'required']) }}
+                                        {{ Form::email('customer_email', $file->customer_email, ['class' => 'form-control', 'placeholder' => 'Customer_Email@domain.com', 'required']) }}
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         {{ Form::label('opration_email', 'Opration Email', ['class' => 'form-control-label']) }}
-                                        {{ Form::email('opration_email', null, ['class' => 'form-control', 'placeholder' => 'Opration_Email@domain.com']) }}
+                                        {{ Form::email('opration_email', $file->opration_email, ['class' => 'form-control', 'placeholder' => 'Opration_Email@domain.com']) }}
                                     </div>
                                 </div>
                                 

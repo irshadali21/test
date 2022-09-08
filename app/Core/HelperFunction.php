@@ -154,6 +154,27 @@ class HelperFunction
 
         // return $pdf->download('test.pdf');
     }
-
+    
+    public static function getCountries(){
+        return [
+            'IT' => 'Italy',
+            'US' => 'United States',
+            'GB' => 'United Kingdom',
+            'SE' => 'Sweden',
+            'NO' => 'Norway',
+            'NL' => 'Netherlands',
+            'MX' => 'Mexico',
+            'LU' => 'Luxembourg',
+            'JP' => 'Japan',
+            'IT' => 'Italy',
+            'IE' => 'Ireland',
+            'DE' => 'Germany',
+            'FR' => 'France',
+            'DK' => 'Denmark',
+            'CA' => 'Canada',
+            'BE' => 'Belgium',
+        ];
+    
+    }
 
 }
