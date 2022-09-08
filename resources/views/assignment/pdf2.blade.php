@@ -138,7 +138,7 @@
                 
                 <footer>
                     <small> <div  style="border-top: 2px solid #681B2C ; "></div>
-                    <p style="font-size: 11px;"> <strong> REV-{{ $benefits_year }}-{{ $code_date }}-{{ $vat_number }}</strong> <span style="float:right"><strong>Pag. 1 di 5</strong></span> </p>
+                    <p style="font-size: 11px;"> <strong> REV-{{ $benefits_year }}-{{ $code_date }}-{{ $vat_number }}</strong> <span style="float:right"><strong>Pag. 1 di 3</strong></span> </p>
                         <div  style="font-size: 10px;">
                             SOLIDA S.R.L. <br>
                             Via Stella 1/G - 84091 Battipaglia (Sa) IT <br>
@@ -233,7 +233,7 @@
                 
                 <footer>
                     <small> <div  style="border-top: 2px solid #681B2C ; "></div>
-                    <p style="font-size: 11px;"> <strong> REV-{{ $benefits_year }}-{{ $code_date }}-{{ $vat_number }}</strong> <span style="float:right"><strong>Pag. 2 di 5</strong></span> </p>
+                    <p style="font-size: 11px;"> <strong> REV-{{ $benefits_year }}-{{ $code_date }}-{{ $vat_number }}</strong> <span style="float:right"><strong>Pag. 2 di 3</strong></span> </p>
                         <div  style="font-size: 9px;">
                             SOLIDA S.R.L. <br>
                             Via Stella 1/G - 84091 Battipaglia (Sa) IT <br>
@@ -300,7 +300,7 @@
 
                                                 <p style="text-align: left">dott.</p>
                                                 <p style="text-align: left">{{ $auditor }}</p>
-                                                <img style="text-align: left" src="{{ public_path($auditor_signature) }}" width="170px" height="90px">
+                                                <img style="text-align: left" src="{{ $auditor_signature }}" width="170px" height="90px">
                                                 {{-- <p>{{ $auditor_signature }}</p> --}}
                                             </strong>
                                         </span>
@@ -333,7 +333,7 @@
 
                                                 <p style="text-align: left">dott.</p>
                                                 <p style="text-align: left">{{ $auditor }}</p>
-                                                <img style="text-align: left" src="{{ public_path($auditor_signature) }}" width="170px" height="90px">
+                                                <img style="text-align: left" src="{{ $auditor_signature }}" width="170px" height="90px">
                                                 {{-- <p>{{ $auditor_signature }}</p> --}}
                                             </strong>
                                         </span>
@@ -347,7 +347,7 @@
                 
                 <footer>
                     <small> <div  style="border-top: 2px solid #681B2C ; "></div>
-                    <p style="font-size: 11px;"> <strong> REV-{{ $benefits_year }}-{{ $code_date }}-{{ $vat_number }}</strong> <span style="float:right"><strong>Pag. 3 di 5</strong></span> </p>
+                    <p style="font-size: 11px;"> <strong> REV-{{ $benefits_year }}-{{ $code_date }}-{{ $vat_number }}</strong> <span style="float:right"><strong>Pag. 3 di 3</strong></span> </p>
                         <div  style="font-size: 9px;">
                             SOLIDA S.R.L. <br>
                             Via Stella 1/G - 84091 Battipaglia (Sa) IT <br>
