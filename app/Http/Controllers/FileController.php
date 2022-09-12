@@ -36,6 +36,7 @@ class FileController extends Controller
      */
     public function index()
     {
+        
         $files = File::paginate(setting('record_per_page', 15));
         return view('files.index', compact('files'));
     }
@@ -47,11 +48,14 @@ class FileController extends Controller
      */
     public function create()
     {
+        $Total_api_calls = ApiData::first();
+        $Total_api_calls = $Total_api_calls->total_api_count;
+
         $exceptThis = [1];
         $cuntries = HelperFunction::getCountries();
         $advisor = User::role('advisor')->pluck('name', 'id');
         $benefit = Summary::whereNotIn('id', $exceptThis)->pluck('column1', 'id');
-        return view('files.create', compact('benefit', 'cuntries', 'advisor'));
+        return view('files.create', compact('benefit', 'cuntries', 'advisor','Total_api_calls'));
     }
 
     /**

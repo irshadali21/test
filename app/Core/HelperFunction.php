@@ -13,6 +13,8 @@ use App\Models\Summary;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use App\Http\Controllers\HomeController;
+use App\User;
+use Illuminate\Support\Facades\Auth;
 
 
 class HelperFunction
@@ -27,8 +29,15 @@ class HelperFunction
     public static function GetResponse($url, $pramas){
 
         $api = ApiData::firstorfail();
+        $user =User::where('id', Auth::user()->id)->first();
         $response = Http::withToken($api->token)->get($url, $pramas);
-
+        //updating user count in user profile
+        $user->api_count++;
+        $user->save();
+        //updating overall api count
+        $api->total_api_count++;
+        $api->save();
+        
         if($response->successful()){
             return $response;
         }else if($response->failed()){

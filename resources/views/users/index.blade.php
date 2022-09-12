@@ -33,6 +33,7 @@
                                     <th scope="col">Status</th>
                                     <th scope="col">Verified at</th>
                                     <th scope="col">Photo</th>
+                                    <th scope="col">Api Calls</th>
                                     <th scope="col" class="text-center">Action</th>
                                 </tr>
                                 </thead>
@@ -66,6 +67,14 @@
                                                 <i class="far avatar avatar-sm rounded-circle fa-user"></i>
                                                 @endif
                                             </div>
+                                        </td>
+                                        <td class="budget">
+                                            @if ($user->api_count)
+                                            {{$user->api_count}}
+                                            @else
+                                            0
+                                            @endif
+                                            
                                         </td>
                                         <td class="text-center">
                                             @can('destroy-user')
