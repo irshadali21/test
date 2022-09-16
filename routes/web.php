@@ -43,6 +43,10 @@ Route::get('/assignment', [
     'uses' => 'AssignmentController@index',
     'as' => 'assignment.index',
 ]);
+Route::get('/certificate/dummy', [
+    'uses' => 'AssignmentController@certificate',
+    'as' => 'certificate.dummy',
+]);
 Route::get('/pdf2', [
     'uses' => 'AssignmentController@pdf2',
     'as' => 'assignment.index',
@@ -68,7 +72,7 @@ Route::group(['middleware' => ['auth','verified', 'stampCheck']], function () {
     Route::post('/profile', 'UserController@profileUpdate')->name('profile.update');
 
     Route::resource('roles', 'RoleController')->except('show');
-    
+        
     Route::resource('permissions', 'PermissionController')->except(['show','destroy','update']);
 
     Route::get('/activity-log', 'SettingController@activity')->name('activity-log.index');
@@ -113,5 +117,9 @@ Route::group(['middleware' => ['auth','verified', 'stampCheck']], function () {
         'uses'=> 'FileController@advoiser_assignment_download',
         'as' => 'files.advoiser_assignment_download',
     ]);
+
+    //Certificate
+
+    Route::resource('certificate', 'CertificateController');
 
 });

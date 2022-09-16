@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Core\HelperFunction;
 use Illuminate\Http\Request;
 use App\Http\Requests\AssignmentRequest;
 
@@ -16,11 +17,10 @@ class AssignmentController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('permission:view-file');
-        $this->middleware('permission:create-file', ['only' => ['create','store']]);
-        $this->middleware('permission:update-file', ['only' => ['edit','update']]);
-        $this->middleware('permission:destroy-file', ['only' => ['destroy']]);
-        // $this->middleware('permission:destroy-file', ['except' => ['pdf2']]);
+        $this->middleware('permission:view-certificate');
+        $this->middleware('permission:create-certificate', ['only' => ['create','store']]);
+        $this->middleware('permission:update-certificate', ['only' => ['edit','update']]);
+        $this->middleware('permission:destroy-certificate', ['only' => ['destroy']]);
     }
 
      /**
@@ -172,5 +172,15 @@ class AssignmentController extends Controller
     public function destroy($id)
     {
         //
+    }
+    
+    public function certificate()
+    {
+        $file = File::first();
+        $fileData = HelperFunction::getAuditAssignment($file);            
+        $pdf = PDF::loadView('certificate.certificate', $fileData);
+            $name = $file->company->company_name;
+            return $pdf->download($name.'.pdf');
+    
     }
 }

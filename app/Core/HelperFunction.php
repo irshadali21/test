@@ -164,6 +164,48 @@ class HelperFunction
         // return $pdf->download('test.pdf');
     }
     
+    public static function getCertificateData($certificate){
+
+        $file = File::where('id', $certificate->file_id)->firstorfail();
+// dd($file);
+        $benefits = Summary::where('id', $file->benefit_id)->firstorfail();
+        $auditor = $file->advisor;
+        $code_date = Date('dmy');
+        $date = Date('d/m/Y');
+        $logo = url('/').'/image/signature/Solida_logo.png';
+        $signature = url('/').'/image/signature/sigh.png';
+        $square = url('/').'/image/signature/test.jpg';
+        $square2 = url('/').'/image/signature/test2.jpg';
+        $stamp = url('/').$auditor->advoiser_stamp;
+        $cost_ecnomics = $certificate->cost_ecnomic_report;
+        $cost_ecnomics = json_decode($cost_ecnomics);
+        $fileData = [
+            'benefits_name' => $benefits->column1,
+            'benefits_year' => $file->year,
+            'benefits_requirment' => $benefits->column2,
+            'company_name' => $file->company->company_name,
+            'company_address' => $file->company->company_address,
+            'vat_number' => $file->company->vat_number,
+            'cost_ecnomics' => $cost_ecnomics,
+
+            'auditor' => $auditor->name,
+            'auditor_address' => $auditor->ofc_address,
+            'auditor_pec_email' => $auditor->email_pec,
+            'auditor_city' => $auditor->acc_city,
+            'accountant_reg_no' => $auditor->accountant_reg_no,
+            'auditor_reg_no' => $auditor->auditor_reg_no,
+            'auditor_office_no' => $auditor->ofc_name,
+            'auditor_signature' => $stamp,
+            'date' => $date,
+            'solida_logo' => $logo,
+            'code_date' => $code_date,
+            'signature' => $signature,
+        ];
+        
+        return ($fileData);
+
+    }
+    
     public static function getCountries(){
         return [
             'IT' => 'Italy',

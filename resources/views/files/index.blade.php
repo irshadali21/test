@@ -1,5 +1,7 @@
 @extends('layouts.app')
+
 @push('pg_btn')
+
 @can('create-post')
     <a href="{{ route('files.create') }}" class="btn btn-sm btn-neutral">Create New File</a>
 @endcan
@@ -60,25 +62,24 @@
                                             {{$post->company_administrator}}
                                         </td> --}}
                                         <td class="text-center">
-                                            {{-- @can('destroy-post')
-                                            {!! Form::open(['route' => ['post.destroy', $post],'method' => 'delete',  'class'=>'d-inline-block dform']) !!}
-                                            @endcan --}}
-                                            @can('view-file')
-                                            <a class="btn btn-primary btn-sm m-1" data-toggle="tooltip" data-placement="top" title="View and edit post details" href="{{route('files.show', $post->id)}}">
-                                                <i class="fa fa-eye" aria-hidden="true"></i>
-                                            </a>
-                                            @endcan
-                                            {{-- @can('update-post')
-                                            <a class="btn btn-info btn-sm m-1" data-toggle="tooltip" data-placement="top" title="Edit post details" href="{{route('post.edit',$post)}}">
-                                                <i class="fa fa-edit" aria-hidden="true"></i>
-                                            </a>
-                                            @endcan
-                                            @can('destroy-post')
-                                                <button type="submit" class="btn delete btn-danger btn-sm m-1" data-toggle="tooltip" data-placement="top" title="Delete post" href="">
-                                                    <i class="fas fa-trash"></i>
-                                                </button> 
-                                            @endcan --}}
-                                            {!! Form::close() !!}
+                                            <div class="btn-group ">
+                                                <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Options</i></button>
+                                                <div class="dropdown-menu " style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, -183px, 0px);" x-placement="top-start">
+                                                    @can('view-file')
+                                                        <a class="dropdown-item"  href="{{route('files.show', $post->id)}}">View File</a>
+                                                    @endcan
+                                                    @can('update-file')
+                                                        <a class="dropdown-item"  href="{{route('files.edit',$post->id)}}">Edit File</a>
+                                                    @endcan
+                                                    @can('view-certificate')
+                                                        <a class="dropdown-item"  href="{{route('certificate.show',$post->id)}}">Create/View Certificate</a>
+                                                    @endcan
+
+                                                    {{-- <a class="dropdown-item"  href="{{route('files.advoiser_assignment_download',$post->id)}}">Download for Advoiser</a> --}}
+                                                </div>
+                                            </div>
+                                            
+                                            {{-- {!! Form::close() !!} --}}
                                         </td>
                                     </tr>
                                 @endforeach

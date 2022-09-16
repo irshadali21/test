@@ -43,7 +43,7 @@
                             <i class="fas text-primary fa-tasks"></i>
                             <span class="nav-link-text">Manage Files</span>
                         </a>
-                        <div class="collapse {{ (request()->is('files*')) ? 'show' : '' }}" id="navbar-files">
+                        <div class="collapse {{ (request()->is('files*')) ? 'show' : '' }} {{ (request()->is('certificate*')) ? 'show' : '' }}" id="navbar-files">
                             <ul class="nav nav-sm flex-column">
                                 
                                 @canany(['create-file'])
@@ -59,6 +59,14 @@
                                     <a class="nav-link" href="{{route('files.index')}}">
                                         <span class="sidenav-mini-icon">D </span>
                                         <span class="nav-link-text">Edit File</span>
+                                    </a>
+                                </li>
+                                @endcan
+                                @canany(['update-file'])
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{route('certificate.index')}}">
+                                        <span class="sidenav-mini-icon">D </span>
+                                        <span class="nav-link-text">Consult</span>
                                     </a>
                                 </li>
                                 @endcan

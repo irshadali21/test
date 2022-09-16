@@ -27,7 +27,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/node-snackbar@latest/dist/snackbar.min.css" />
     
     @stack('styles')
-
+    @yield('style')
 </head>
 
 <body>

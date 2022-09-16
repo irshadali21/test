@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Models\Company;
 use App\Models\Summary;
+use App\Models\Certificate;
 
 
 
@@ -41,6 +42,10 @@ class File extends Model
     public function benefit()
     {
         return $this->hasOne(Summary::class,'id','benefit_id');
+    }
+    public function certificate()
+    {
+        return $this->hasOne(Certificate::class,'file_id','id');
     }
 
 }
