@@ -1,9 +1,9 @@
 @extends('layouts.app')
-{{-- @php
+@php
     if (session()->get('files_allowed') == null) {
         return redirect()->to('files')->send();
     }
-@endphp --}}
+@endphp
 @push('pg_btn')
     <a href="{{route('certificate.index')}}" class="btn btn-sm btn-neutral">All Certificate</a>
 @endpush
