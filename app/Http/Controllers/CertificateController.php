@@ -67,6 +67,7 @@ class CertificateController extends Controller
         $request->session()->put('files_allowed', $id);
 
         $file = File::where('id', $id)->first();
+        // dd($file->company);
         return view('certificate.create', compact('file'));
     }
 
@@ -135,7 +136,7 @@ class CertificateController extends Controller
             
             $CertificateData = HelperFunction::getCertificateData($certificate);        
             // dd($CertificateData['cost_ecnomics'][0]);
-            dd($CertificateData);
+            // dd($CertificateData);
             $pdf = PDF::loadView('certificate.certificate', $CertificateData);
             $name = $CertificateData['company_name'];
             return $pdf->download($name.'.pdf');

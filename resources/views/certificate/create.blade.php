@@ -13,7 +13,7 @@
             <div class="card mb-5">
                 <div class="card-body">
                     {!! Form::open(['route' => 'certificate.store', 'files' => true]) !!}
-                    <h6 class="heading-small text-muted mb-4">Certificate information</h6>
+                    <h6 class="heading-small text-muted mb-4">Certificate information for <strong>{{ $file->company->company_name }}</strong></h6>
                         <div class="pl-lg-4">
                                 <div class="row">
                                     <div class="col-lg-4 col-md-6 mt-2">
@@ -375,13 +375,13 @@
                                 <div class="col-lg-3">
                                     <div class="form-group">
                                         {{ Form::label('sdi', 'SDI', ['class' => 'form-control-label']) }}
-                                        {{ Form::text('sdi', null, ['class' => 'form-control', 'readonly']) }}
+                                        {{ Form::text('sdi', $file->sdi, ['class' => 'form-control', 'readonly']) }}
                                     </div>
                                 </div>
                                 <div class="col-lg-3">
                                     <div class="form-group">
                                         {{ Form::label('phone', 'phone', ['class' => 'form-control-label']) }}
-                                        {{ Form::text('phone', null, ['class' => 'form-control', 'readonly']) }}
+                                        {{ Form::text('phone', $file->company->phone_number, ['class' => 'form-control', 'readonly']) }}
                                     </div>
                                 </div>
                             </div>
