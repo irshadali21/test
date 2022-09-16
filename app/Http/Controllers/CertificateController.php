@@ -115,7 +115,7 @@ class CertificateController extends Controller
             
             DB::commit();          
             flash('certificate created successfully!')->success();
-            return redirect()->route('files.index');
+            return redirect()->route('certificategit.index');
 
         }catch (\Exception $e) {
 // dd($e);

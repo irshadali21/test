@@ -71,9 +71,7 @@
                                                     @can('update-file')
                                                         <a class="dropdown-item"  href="{{route('files.edit',$post->id)}}">Edit File</a>
                                                     @endcan
-                                                    @can('view-certificate')
-                                                        <a class="dropdown-item"  href="{{route('certificate.show',$post->id)}}">Create/View Certificate</a>
-                                                    @endcan
+                                                    
 
                                                     {{-- <a class="dropdown-item"  href="{{route('files.advoiser_assignment_download',$post->id)}}">Download for Advoiser</a> --}}
                                                 </div>

@@ -383,7 +383,7 @@
                     <p style="font-size: 11px;"> <strong> </strong> <span style="float:right"><strong>pagina 4</strong></span> </p>
                 </footer>
             </div>
-            <div style="page-break-after: always;">
+            <div>
                 <header>
                     <img src="{{ $solida_logo }}" width="190px" height="60px">
                     <br>
@@ -476,36 +476,5 @@
                     <p style="font-size: 11px;"> <strong> </strong> <span style="float:right"><strong>pagina 5</strong></span> </p>
                 </footer>
             </div>
-            <div  >
-                <header>
-                    <img src="{{ $solida_logo }}" width="190px" height="60px">
-                    <br>
-                    <br>
-                    <div  style="border-top: 2px solid #681B2C ; "></div>
-                </header>
-                
-                <body style="font-weight: 50; font-size: 20px" >
-                    <br><br><br><br><br>
-                
-                    
-                    
-
-
-
-                </body>
-
-                
-                <footer>
-                    <small> <div  style="border-top: 2px solid #681B2C ; "></div>
-                        <div  style="font-size: 9px;">
-                            SOLIDA S.R.L. <br>
-                            Via Stella 1/G - 84091 Battipaglia (Sa) IT <br>
-                            p.iva 05829650653 <br>
-                            <a href="mailto:certificazioni@solidateam.it">certificazioni@solidateam.it</a> <br>
-                            Capitale sociale 20.000 € i.v. 
-                        </div>
-                    </small>
-                    <p style="font-size: 11px;"> <strong> </strong> <span style="float:right"><strong>pagina 6</strong></span> </p>
-                </footer>
-            </div>
+            
 </html>
