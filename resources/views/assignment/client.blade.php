@@ -110,8 +110,8 @@
             <p><strong>2. Esecuzione dell’incarico </strong></p>
             <p>
                 Il Cliente prende atto ed accetta con la sottoscrizione del presente conferimento incarico che
-                l’esecuzione dello stesso sarà affidato al Dott./Rag. {{ $auditor }} con studio in {{ $auditor_address }}, iscritto all'Ordine dei Dottori Commercialisti e degli Esperti Contabili di
-                Benevento, sez.A / sez.B con il n. <b>$auditor->law_sections</b>, e al n. <b>$auditor->law_sections</b> del Registro dei Revisori, indirizzo e.mail/pec: <a href="mailto:{{ $auditor_pec_email }}">{{ $auditor_pec_email }}</a>
+                l’esecuzione dello stesso sarà affidato al Dott./Rag. {{ $auditor }} con studio in {{ $auditor_address }}, iscritto all'Ordine dei Dottori Commercialisti e degli Esperti Contabili
+                {{ $auditor_city }}, sez.A / sez.B con il n. {{ $auditor__register_number_accountent }}, e al n. {{ $auditor__register_number_auditor }} del Registro dei Revisori, indirizzo e.mail/pec: <a href="mailto:{{ $auditor_pec_email }}">{{ $auditor_pec_email }}</a>
                 che potrà avvalersi, sotto la propria direzione e responsabilità, di ausiliari e, solo
                 in relazione a particolari attività caratterizzate da sopravvenute esigenze non prevedibili, di sostituti,
                 preventivamente indicati appartenenti al network della Società. 
@@ -127,7 +127,7 @@
                 della stessa, avuto riguardo all’importanza dell’opera richiesta e tenuto conto delle prestazioni
                 professionali che si rendono necessarie ed indispensabili per una corretta esecuzione dell’incarico
                 conferito, si prevede per l’espletamento dell’incarico, oggetto del presente mandato, un compenso
-                al revisore legale preconcordato nella misura di <b>$benifits->money</b> (IVA esclusa) da corrispondersi a 30 gg.
+                al revisore legale preconcordato nella misura di {{ $auditor_fee }} (IVA esclusa) da corrispondersi a 30 gg.
                 dalla conclusione dell'incarico ovvero dall’emissione della fattura. 
             </p>
             <p>

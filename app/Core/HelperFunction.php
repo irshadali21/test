@@ -72,7 +72,7 @@ class HelperFunction
 
     public static function getClientAssignment($file){
         $benefits = Summary::where('id', $file->benefit_id)->firstorfail();
-        
+        $auditor = $file->advisor;
         $date = Date('d/m/Y');
 // dd($file->advisor);
         $img = url('/').'/image/signature/sigh.png';
@@ -82,11 +82,20 @@ class HelperFunction
             'company_address' => $file->company->company_address,
             'benefits_name' => $benefits->column1,
             'benefits_year' => $file->year,
-            'auditor' => $file->advisor->name,
-            'auditor_address' => $file->advisor->ofc_address,
-            'auditor_pec_email' => $file->advisor->email_pec,
             'date' => $date,
             'signature' => $img,
+
+
+            'auditor' => $auditor->name,
+            'auditor_address' => $auditor->ofc_address,
+            'auditor_pec_email' => $auditor->email_pec,
+            'auditor_city' => $auditor->acc_city,
+            'accountant_reg_no' => $auditor->accountant_reg_no,
+            'auditor_reg_no' => $auditor->auditor_reg_no,
+            'auditor_office_no' => $auditor->ofc_name,
+            'auditor_fee' => $file->fee,
+
+
         ];
         
 
@@ -126,7 +135,6 @@ class HelperFunction
             'company_address' => $file->company->company_address,
             'benefits_name' => $benefits->column1,
             'benefits_year' => $file->year,
-
             'auditor' => $auditor->name,
             'auditor_address' => $auditor->ofc_address,
             'auditor_pec_email' => $auditor->email_pec,
@@ -145,23 +153,6 @@ class HelperFunction
         
         return ($fileData);
 
-        $data["email"] = $auditor->email_pec;
-        $data["title"] = "From revman.com";
-        $data["body"] = "You'll find the attachment below";
-        $data["name"] = $auditor->name;
-        // dd($data["auditor"]);
-
-        $pdf = PDF::loadView('assignment.pdf2', $fileData);
-        
-        Mail::send('emails.myTestMail', $data, function($message)use($data, $pdf) {
-            $message->to($data["email"], $data["email"])
-                    ->subject($data["title"])
-                    ->attachData($pdf->output(), "text.pdf");
-        });
-
-        // dd('Mail sent successfully');
-
-        // return $pdf->download('test.pdf');
     }
     
     public static function getCertificateData($certificate){

@@ -230,7 +230,7 @@ class FileController extends Controller
         $file = File::where('id', $id)->first();
         $fileData = HelperFunction::getClientAssignment($file);        
         $pdf = PDF::loadView('assignment.index', $fileData);
-        $name = $file->company->company_name;
+        $name = $file->company->company_name .' - Incarico_Cli - '. $file->benefit->column1 .' - '. $file->year;
         return $pdf->download($name.'.pdf');
     }
 
@@ -238,9 +238,10 @@ class FileController extends Controller
     public function advoiser_assignment_download($id)
     {
         $file = File::where('id', $id)->first();
+        
         $fileData = HelperFunction::getAuditAssignment($file);            
         $pdf = PDF::loadView('assignment.pdf2', $fileData);
-            $name = $file->company->company_name;
+            $name = $file->company->company_name .' - Incarico_Rev - '. $file->benefit->column1 .' - '. $file->year;
             return $pdf->download($name.'.pdf');
     }
 

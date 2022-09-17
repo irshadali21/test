@@ -72,7 +72,7 @@
                     <br>
                     <p>
                         al Dott./Rag. {{ $auditor }} con studio in {{ $auditor_address }}, iscritto all'Ordine dei Dottori
-                        Commercialisti e degli Esperti Contabili di {{ $auditor_city }}, sez.A / sez.B
+                        Commercialisti e degli Esperti Contabili {{ $auditor_city }}, sez.A / sez.B
                         con il n. {{ $accountant_reg_no }}, e al n. {{ $auditor_reg_no }} del Registro dei Revisori, indirizzo e.mail/pec: {{ $auditor_pec_email }}  che opera in proprio/quale associato dello studio {{ $auditor_office_no }} successivamente denominato
                         "Professionista", 
                         
@@ -281,7 +281,7 @@
                         Il Professionista incaricato si impegna - per se stesso e per i suoi eventuali colalboratori - nei confronti della
                         Società a trattare i dati del Cliente finale nel rispetto della normativa vigente in materia. 
                     </p>
-                    <p>Battipaglia, lì «DATA»</p>
+                    <p>Battipaglia, lì {{ $date }}</p>
 
                     <div class="row">
                         <div >
@@ -300,7 +300,7 @@
 
                                                 <p style="text-align: left">dott.</p>
                                                 <p style="text-align: left">{{ $auditor }}</p>
-                                                <img style="text-align: left" src="{{ $auditor_signature }}" width="170px" height="90px">
+                                                <img style="text-align: left" src="{{ $auditor_signature }}" style="width: 100%; max-width: 170px; height: auto;" >
                                                 {{-- <p>{{ $auditor_signature }}</p> --}}
                                             </strong>
                                         </span>
@@ -333,7 +333,7 @@
 
                                                 <p style="text-align: left">dott.</p>
                                                 <p style="text-align: left">{{ $auditor }}</p>
-                                                <img style="text-align: left" src="{{ $auditor_signature }}" width="170px" height="90px">
+                                                <img style="text-align: left" src="{{ $auditor_signature }}" style="width: 100%; max-width: 170px; height: auto;" >
                                                 {{-- <p>{{ $auditor_signature }}</p> --}}
                                             </strong>
                                         </span>
