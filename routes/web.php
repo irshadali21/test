@@ -66,6 +66,11 @@ Route::group(['middleware' => ['auth','verified', 'stampCheck']], function () {
 
 
     Route::resource('users', 'UserController');
+    
+    Route::post('/users/Update/{id}', [
+        'uses'=> 'UserController@update_user',
+        'as' => 'users.update_user',
+    ]);
 
     Route::get('/profile', 'UserController@profile')->name('profile.edit');
 

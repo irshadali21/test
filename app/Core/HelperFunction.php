@@ -74,6 +74,7 @@ class HelperFunction
         $benefits = Summary::where('id', $file->benefit_id)->firstorfail();
         $auditor = $file->advisor;
         $date = Date('d/m/Y');
+        $code_date = Date('dmy');
 // dd($file->advisor);
         $img = url('/').'/image/signature/sigh.png';
         $fileData = [
@@ -83,6 +84,7 @@ class HelperFunction
             'benefits_name' => $benefits->column1,
             'benefits_year' => $file->year,
             'date' => $date,
+            'code_date' => $code_date,
             'signature' => $img,
 
 

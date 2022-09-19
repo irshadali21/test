@@ -139,12 +139,45 @@ class UserController extends Controller
      */
     public function update(UserUpdateRequest $request, User $user)
     {
+
         $userData = $request->except(['role', 'profile_photo', 'advoiser_stamp']);
         if ($request->profile_photo) {
             $userData['profile_photo'] = parse_url($request->profile_photo, PHP_URL_PATH);
         }
         if ($request->advoiser_stamp) {
             $userData['advoiser_stamp'] = parse_url($request->advoiser_stamp, PHP_URL_PATH);
+        }
+        $user->update($userData);
+        $user->syncRoles($request->role);
+        flash('User updated successfully!')->success();
+        return redirect()->route('users.index');
+    }
+    public function update_user(Request $request, $id)
+    {
+        
+        $user = User::where('id', $id)->first();
+        $this->validate($request, [
+            'name'=> 'required',
+            'email' => 'nullable|email|unique:users,email,'.$id,
+            'password' => 'nullable|confirmed|min:6'
+        ]);
+
+        
+        if(is_null($request->password)){
+            $userData = $request->except(['role', 'profile_photo', 'advoiser_stamp','password', 'password_confirmation']);
+        }else{
+        $userData = $request->except(['role', 'profile_photo', 'advoiser_stamp' ]);
+        }
+        if ($request->profile_photo) {
+            $userData['profile_photo'] = parse_url($request->profile_photo, PHP_URL_PATH);
+        }
+        if ($request->hasFile('advoiser_stamp')) {
+            $destinationPath = public_path('/storage/files/'.$id.'/');
+            $files = $request->file('advoiser_stamp');
+            $file_name = time().'.advoiser_stamp.'.$request->advoiser_stamp->extension();
+            $files->move($destinationPath , $file_name);
+
+            $userData['advoiser_stamp'] = '/storage/files/'.$id.'/' . $file_name;
         }
         $user->update($userData);
         $user->syncRoles($request->role);

@@ -2,17 +2,29 @@
 @push('pg_btn')
     <a href="{{route('users.index')}}" class="btn btn-sm btn-neutral">All Users</a>
 @endpush
+@push('styles')
+    <style>
+        .inputfile {
+            width: 0.1px;
+            height: 0.1px;
+            opacity: 0;
+            overflow: hidden;
+            position: absolute;
+            z-index: -1;
+        }
+    </style>
+@endpush
 @section('content')
     <div class="row">
         <div class="col-md-12">
             <div class="card mb-5">
                 <div class="card-body">
                     @can('update-user')
-                    {!! Form::open(['route' => ['users.update', $user], 'method'=>'put', 'files' => true]) !!}
+                    {!! Form::open(['route' => ['users.update_user', $user], 'method'=>'post', 'files' => true]) !!}
                     @endcan
                     <h6 class="heading-small text-muted mb-4">User information</h6>
                     <div class="pl-lg-4">
-                        <div class="row">
+                        {{-- <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     {{ Form::label('code', 'CODE:', ['class' => 'form-control-label']) }}
@@ -20,7 +32,7 @@
                                 </div>
                             </div>
 
-                        </div>
+                        </div> --}}
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
@@ -33,25 +45,42 @@
                                     {{ Form::label('advoiser_stamp', 'Advoiser Stamp / signature', ['class' => 'form-control-label']) }}
                                     <div class="input-group">
                                         <span class="input-group-btn">
-                                            <a id="uploadFile" data-input="thumbnail" data-preview="holder"
+                                            <input name="advoiser_stamp" accept="image/*" type='file' id="imgInp" class="inputfile"/>
+                                            <label for="imgInp" class="btn btn-secondary">Choose Photo</label>
+                                            {{-- <a id="uploadFile" data-input="thumbnail" data-preview="holder"
                                                 class="btn btn-secondary">
                                                 <i class="fa fa-picture-o"></i> Choose Photo
-                                            </a>
+                                            </a> --}}
                                         </span>
-                                        <input id="thumbnail" class="form-control d-none" type="text"
-                                            name="advoiser_stamp">
+                                        {{-- <input id="thumbnail" class="form-control d-none" type="text"
+                                            name="advoiser_stamp"> --}}
                                     </div>
                                 </div>
                                 
                             </div>
                             <div class="col-md-2">
                                 @if ($user->advoiser_stamp)
-                                    <a href="{{ asset($user->advoiser_stamp) }}" target="_blank">
+                                    <a href="{{ asset($user->advoiser_stamp) }}" target="_blank" id="avatar_image">
                                         <img alt="Image placeholder"
-                                        class="avatar avatar-xl  rounded-circle"
-                                        data-toggle="tooltip" data-original-title="{{ $user->name }} Logo"
-                                        src="{{ asset($user->advoiser_stamp) }}">
+                                        class="avatar avatar-xl "
+                                        data-toggle="tooltip" data-original-title="{{ $user->name }} Stamp"
+                                        src="{{ asset($user->advoiser_stamp) }}"
+                                        >
                                     </a>
+                                    <img alt="Image placeholder"
+                                        class="avatar avatar-xl"
+                                        src="#"
+                                        id="selected_avatar_image"
+                                        style="display: none;"
+                                        >
+                                @else
+                                <span id="avatar_image"><i class="far avatar avatar-xl fa-user" ></i>    </span>
+                                <img alt="Image placeholder"
+                                        class="avatar avatar-xl"
+                                        src="#"
+                                        id="selected_avatar_image"
+                                        style="display: none;"
+                                        >
                                 @endif
                         </div>
                         </div>
@@ -185,6 +214,23 @@
     <script>
         jQuery(document).ready(function(){
             jQuery('#uploadFile').filemanager('file');
+
+            
+            ///adding image preview
+            imgInp.onchange = evt => {
+                const [file] = imgInp.files;
+                if (file) {
+                    jQuery('#avatar_image').hide();
+                    jQuery('#selected_avatar_image').show();
+                    jQuery('#selected_avatar_image').attr('src', URL.createObjectURL(file));
+                }
+            }
+
+
         })
+
+
+        
+        
     </script>
 @endpush

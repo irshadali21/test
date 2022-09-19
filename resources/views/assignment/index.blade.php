@@ -93,7 +93,7 @@
                 
                 <footer><small>
                     <div  style="border-top: 0.5px solid black ; "></div>
-                    <p style="font-size: 11px;"> <strong> CLI-Form {{ $benefits_year }}-250722-{{ $vat_number }}</strong> <span style="float:right"><strong>Pag. 1 di 5</strong></span> </p>
+                    <p style="font-size: 11px;"> <strong> CLI-Form {{ $benefits_year }}-{{ $code_date }}-{{ $vat_number }}</strong> <span style="float:right"><strong>Pag. 1 di 5</strong></span> </p>
                 </small></footer>
                 
         </div>
@@ -168,7 +168,7 @@
             <br>
             <footer><small>
                 <div  style="border-top: 0.5px solid black ; "></div>
-                <p style="font-size: 11px;"> <strong> CLI-Form {{ $benefits_year }}-250722-{{ $vat_number }}</strong> <span style="float:right"><strong>Pag. 2 di 5</strong></span> </p>
+                <p style="font-size: 11px;"> <strong> CLI-Form {{ $benefits_year }}-{{ $code_date }}-{{ $vat_number }}</strong> <span style="float:right"><strong>Pag. 2 di 5</strong></span> </p>
             </small></footer>
         </div>
         <div style="page-break-after: always;">
@@ -251,7 +251,7 @@
 
             <footer><small>
                 <div  style="border-top: 0.5px solid black; "></div>
-                <p style="font-size: 11px;"> <strong> CLI-Form {{ $benefits_year }}-250722-{{ $vat_number }}</strong> <span style="float:right"><strong>Pag. 3 di 5</strong></span> </p>
+                <p style="font-size: 11px;"> <strong> CLI-Form {{ $benefits_year }}-{{ $code_date }}-{{ $vat_number }}</strong> <span style="float:right"><strong>Pag. 3 di 5</strong></span> </p>
             </small></footer>
             
         </div>
@@ -334,7 +334,7 @@
             <br>
             <footer><small>
                 <div  style="border-top: 0.5px solid black; "></div>
-                <p style="font-size: 11px;"> <strong> CLI-Form {{ $benefits_year }}-250722-{{ $vat_number }}</strong> <span style="float:right"><strong>Pag. 4 di 5</strong></span> </p>
+                <p style="font-size: 11px;"> <strong> CLI-Form {{ $benefits_year }}-{{ $code_date }}-{{ $vat_number }}</strong> <span style="float:right"><strong>Pag. 4 di 5</strong></span> </p>
             </small></footer>
             
         </div>
@@ -432,7 +432,7 @@
             
             <footer><small>
                 <div  style="border-top: 0.5px solid black; " ></div>
-                <p style="font-size: 11px;"> <strong> CLI-Form {{ $benefits_year }}-250722-{{ $vat_number }}</strong> <span style="float:right"><strong>Pag. 5 di 5</strong></span> </p>
+                <p style="font-size: 11px;"> <strong> CLI-Form {{ $benefits_year }}-{{ $code_date }}-{{ $vat_number }}</strong> <span style="float:right"><strong>Pag. 5 di 5</strong></span> </p>
             </small></footer>
         </div>
 
