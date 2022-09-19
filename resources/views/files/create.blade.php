@@ -68,7 +68,7 @@
                                             </tr><tr class="thead-light">
                                                 <th scope="col" style="width: 50px">Ateco Code</th>
                                                 <td scope="budget" style="width: 350px" id="table_atecoCode"></td>
-                                                <th scope="col" style="width: 50px">Region </th>
+                                                <th scope="col" style="width: 50px">City </th>
                                                 <td scope="budget" style="width: 350px" id="table_region"></td>
                                             </tr>
                                         </table>
