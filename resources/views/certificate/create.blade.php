@@ -199,7 +199,7 @@
                                     </div>
                                     <div class="col-lg-4 col-md-4" style="margin-top: -15px">
                                         <div class="form-group">
-                                            {{ Form::number('Cost_ecnomic_report[]', '0', ['class' => 'form-control calculations', ]) }}
+                                            {{ Form::number('Cost_ecnomic_report[]', '0', ['class' => 'form-control calculations', 'step' =>'any' ]) }}
                                             
                                         </div>
                                     </div>
@@ -215,7 +215,7 @@
                                     </div>
                                     <div class="col-lg-4 col-md-4" style="margin-top: -15px">
                                         <div class="form-group">
-                                            {{ Form::number('Cost_ecnomic_report[]', '0', ['class' => 'form-control calculations', ]) }}
+                                            {{ Form::number('Cost_ecnomic_report[]', '0', ['class' => 'form-control calculations', 'step' =>'any' ]) }}
                                             
                                         </div>
                                     </div>
@@ -231,7 +231,7 @@
                                     </div>
                                     <div class="col-lg-4 col-md-4" style="margin-top: -20px">
                                         <div class="form-group">
-                                            {{ Form::number('Cost_ecnomic_report[]', '0', ['class' => 'form-control calculations', ]) }}
+                                            {{ Form::number('Cost_ecnomic_report[]', '0', ['class' => 'form-control calculations', 'step' =>'any' ]) }}
                                             
                                         </div>
                                     </div>
@@ -247,7 +247,7 @@
                                     </div>
                                     <div class="col-lg-4 col-md-4" style="margin-top: -20px">
                                         <div class="form-group">
-                                            {{ Form::number('Cost_ecnomic_report[]', '0', ['class' => 'form-control calculations', ]) }}
+                                            {{ Form::number('Cost_ecnomic_report[]', '0', ['class' => 'form-control calculations', 'step' =>'any']) }}
                                             
                                         </div>
                                     </div>
@@ -263,7 +263,7 @@
                                     </div>
                                     <div class="col-lg-4 col-md-4" style="margin-top: -20px">
                                         <div class="form-group">
-                                            {{ Form::number('Cost_ecnomic_report[]', '0', ['class' => 'form-control calculations', ]) }}
+                                            {{ Form::number('Cost_ecnomic_report[]', '0', ['class' => 'form-control calculations', 'step' =>'any' ]) }}
                                             
                                         </div>
                                     </div>
@@ -279,7 +279,7 @@
                                     </div>
                                     <div class="col-lg-4 col-md-4" style="margin-top: -20px">
                                         <div class="form-group">
-                                            {{ Form::number('Cost_ecnomic_report[]', '0', ['class' => 'form-control calculations', ]) }}
+                                            {{ Form::number('Cost_ecnomic_report[]', '0', ['class' => 'form-control calculations','step' =>'any' ]) }}
                                             
                                         </div>
                                     </div>
@@ -295,7 +295,7 @@
                                     </div>
                                     <div class="col-lg-4 col-md-4" style="margin-top: -20px">
                                         <div class="form-group">
-                                            {{ Form::number('Cost_ecnomic_report[]', '0', ['class' => 'form-control calculations', ]) }}
+                                            {{ Form::number('Cost_ecnomic_report[]', '0', ['class' => 'form-control calculations', 'step' =>'any']) }}
                                             
                                         </div>
                                     </div>
@@ -311,7 +311,7 @@
                                     </div>
                                     <div class="col-lg-4 col-md-4" style="margin-top: -20px">
                                         <div class="form-group">
-                                            {{ Form::number('Cost_ecnomic_report[]', '0', ['class' => 'form-control calculations', ]) }}
+                                            {{ Form::number('Cost_ecnomic_report[]', '0', ['class' => 'form-control calculations', 'step' =>'any']) }}
                                             
                                         </div>
                                     </div>
@@ -327,7 +327,7 @@
                                     </div>
                                     <div class="col-lg-4 col-md-4" style="margin-top: -20px">
                                         <div class="form-group">
-                                            {{ Form::number('total_cost', '0', ['class' => 'form-control total', ]) }}
+                                            {{ Form::number('total_cost', '0', ['class' => 'form-control total',  'step' =>'any']) }}
                                             
                                         </div>
                                     </div>
