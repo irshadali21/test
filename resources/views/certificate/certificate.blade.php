@@ -40,7 +40,7 @@
 
             <div style="page-break-after: always;">
                 <header>
-                    <img src="{{ $solida_logo }}" width="190px" height="60px">
+                    <img src="{{ $solida_logo }}" style="width: 100%; max-width: 190px; max-height: 60;">
                     <br>
                     <br>
                     <div  style="border-top: 2px solid #681B2C ; "></div>
@@ -116,7 +116,7 @@
 
             <div style="page-break-after: always;">
                 <header>
-                    <img src="{{ $solida_logo }}" width="190px" height="60px" >
+                    <img src="{{ $solida_logo }}" style="width: 100%; max-width: 190px; max-height: 60;" >
                     <br>
                     <br>
                     <div  style="border-top: 2px solid #681B2C; "></div>
@@ -197,7 +197,7 @@
 
             <div style="page-break-after: always;">
                 <header>
-                    <img src="{{ $solida_logo }}" width="190px" height="60px">
+                    <img src="{{ $solida_logo }}" style="width: 100%; max-width: 190px; max-height: 60;">
                     <br>
                     <br>
                     <div  style="border-top: 2px solid #681B2C ; "></div>
@@ -254,7 +254,7 @@
             </div>
             <div style="page-break-after: always;">
                 <header>
-                    <img src="{{ $solida_logo }}" width="190px" height="60px">
+                    <img src="{{ $solida_logo }}" style="width: 100%; max-width: 190px; max-height: 60;">
                     <br>
                     <br>
                     <div  style="border-top: 2px solid #681B2C ; "></div>
@@ -385,7 +385,7 @@
             </div>
             <div>
                 <header>
-                    <img src="{{ $solida_logo }}" width="190px" height="60px">
+                    <img src="{{ $solida_logo }}" style="width: 100%; max-width: 190px; max-height: 60;">
                     <br>
                     <br>
                     <div  style="border-top: 2px solid #681B2C ; "></div>

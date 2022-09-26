@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @push('pg_btn')
-    <a href="{{route('users.index')}}" class="btn btn-sm btn-neutral">All Users</a>
+    <a href="{{ route('users.index') }}" class="btn btn-sm btn-neutral">All Users</a>
 @endpush
 @push('styles')
     <style>
@@ -20,7 +20,7 @@
             <div class="card mb-5">
                 <div class="card-body">
                     @can('update-user')
-                    {!! Form::open(['route' => ['users.update_user', $user], 'method'=>'post', 'files' => true]) !!}
+                        {!! Form::open(['route' => ['users.update_user', $user], 'method' => 'post', 'files' => true]) !!}
                     @endcan
                     <h6 class="heading-small text-muted mb-4">User information</h6>
                     <div class="pl-lg-4">
@@ -45,7 +45,8 @@
                                     {{ Form::label('advoiser_stamp', 'Advoiser Stamp / signature', ['class' => 'form-control-label']) }}
                                     <div class="input-group">
                                         <span class="input-group-btn">
-                                            <input name="advoiser_stamp" accept="image/*" type='file' id="imgInp" class="inputfile"/>
+                                            <input name="advoiser_stamp" accept="image/*" type='file' id="imgInp"
+                                                class="inputfile" />
                                             <label for="imgInp" class="btn btn-secondary">Choose Photo</label>
                                             {{-- <a id="uploadFile" data-input="thumbnail" data-preview="holder"
                                                 class="btn btn-secondary">
@@ -56,33 +57,23 @@
                                             name="advoiser_stamp"> --}}
                                     </div>
                                 </div>
-                                
+
                             </div>
                             <div class="col-md-2">
                                 @if ($user->advoiser_stamp)
                                     <a href="{{ asset($user->advoiser_stamp) }}" target="_blank" id="avatar_image">
-                                        <img alt="Image placeholder"
-                                        class="avatar avatar-xl "
-                                        data-toggle="tooltip" data-original-title="{{ $user->name }} Stamp"
-                                        src="{{ asset($user->advoiser_stamp) }}"
-                                        >
+                                        <img alt="Image placeholder" class="avatar avatar-xl " data-toggle="tooltip"
+                                            data-original-title="{{ $user->name }} Stamp"
+                                            src="{{ asset($user->advoiser_stamp) }}">
                                     </a>
-                                    <img alt="Image placeholder"
-                                        class="avatar avatar-xl"
-                                        src="#"
-                                        id="selected_avatar_image"
-                                        style="display: none;"
-                                        >
+                                    <img alt="Image placeholder" class="avatar avatar-xl" src="#"
+                                        id="selected_avatar_image" style="display: none;">
                                 @else
-                                <span id="avatar_image"><i class="far avatar avatar-xl fa-user" ></i>    </span>
-                                <img alt="Image placeholder"
-                                        class="avatar avatar-xl"
-                                        src="#"
-                                        id="selected_avatar_image"
-                                        style="display: none;"
-                                        >
+                                    <span id="avatar_image"><i class="far avatar avatar-xl fa-user"></i> </span>
+                                    <img alt="Image placeholder" class="avatar avatar-xl" src="#"
+                                        id="selected_avatar_image" style="display: none;">
                                 @endif
-                        </div>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-6">
@@ -161,7 +152,7 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     {{ Form::label('role', 'Select Role', ['class' => 'form-control-label']) }}
-                                        {{ Form::select('role', $roles, $user->roles, [ 'class'=> 'selectpicker form-control', 'placeholder' => 'Select role...']) }}
+                                    {{ Form::select('role', $roles, $user->roles, ['class' => 'selectpicker form-control', 'placeholder' => 'Select role...']) }}
                                 </div>
                             </div>
                         </div>
@@ -191,31 +182,31 @@
                                     {{ Form::label('status', 'Status', ['class' => 'custom-control-label']) }}
                                 </div>
                             </div>
-                            
-                                @can('update-user')
+
+                            @can('update-user')
                                 <div class="col-md-12">
-                                    {{ Form::submit('Submit', ['class'=> 'mt-5 btn btn-primary']) }}
+                                    {{ Form::submit('Submit', ['class' => 'mt-5 btn btn-primary']) }}
                                 </div>
-                                @endcan
-                            </div>
+                            @endcan
                         </div>
+                    </div>
                     @can('update-user')
-                    {!! Form::close() !!}
+                        {!! Form::close() !!}
                     @endcan
-                </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 @endsection
 
 @push('scripts')
     <script src="{{ asset('vendor/laravel-filemanager/js/stand-alone-button.js') }}"></script>
     <script>
-        jQuery(document).ready(function(){
+        jQuery(document).ready(function() {
             jQuery('#uploadFile').filemanager('file');
 
-            
+
             ///adding image preview
             imgInp.onchange = evt => {
                 const [file] = imgInp.files;
@@ -228,9 +219,5 @@
 
 
         })
-
-
-        
-        
     </script>
 @endpush

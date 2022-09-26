@@ -253,21 +253,28 @@ class FileController extends Controller
         flash('Please add a customer email in Aassignment')->error();
             return back();
         }
-        $fileData = HelperFunction::getClientAssignment($file);        
+        $fileData = HelperFunction::getClientAssignment($file); 
+        $benefits = Summary::where('id', $file->benefit_id)->firstorfail();
         $pdf = PDF::loadView('assignment.index', $fileData);
         $name = $file->company->company_name;
         
         $data["email"] = $file->customer_email;
         $data["name"] = $file->company_name;
         $data["title"] = "From revman.com";
-        $data["body"] = "You'll find the attachment below";
+        $data["subject"] = "Conferimento incarico per attività di ".$benefits->column1." annualità ". $file->year;
+        $data["body"] = `Buondì,
+        la presente per inviare quanto in oggetto.
+        Allorquando riceveremo l’incarico controfirmato, verranno avviate le attività relative alla certificazione, al termine delle quali sarà nostra premura inoltrarvi tutta la
+        documentazione inerente.
+        Cordialità
+        `;
         $data["auditor"] = $file->advisor->name;
 
         $pdf = PDF::loadView('assignment.index', $fileData);
 
         Mail::send('emails.myTestMail', $data, function($message)use($data, $pdf, $name) {
             $message->to($data["email"], $data["email"])
-                    ->subject($data["title"])
+                    ->subject($data["subject"])
                     ->attachData($pdf->output(), $name.".pdf");
         });
         
@@ -288,7 +295,7 @@ class FileController extends Controller
         $pdf = PDF::loadView('assignment.pdf2', $fileData);
             $name = $file->company->company_name;
 
-            $data["email"] = $file->advisor->email_pec;
+            $data["email"] = $file->advisor->email;
             $data["title"] = "From revman.com";
             $data["body"] = "You'll find the attachment below";
             $data["name"] = $file->advisor->name;

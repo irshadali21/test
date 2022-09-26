@@ -13,7 +13,7 @@
             <div class="card mb-5">
                 <div class="card-body">
                     {!! Form::open(['route' => 'certificate.store', 'files' => true]) !!}
-                    <h6 class="heading-small text-muted mb-4">Certificate information for <strong>{{ $file->company->company_name }}</strong></h6>
+                    <h6 class="heading-small text-muted mb-4">Certificate information for <strong>{{ $file->company->company_name }}</strong> - {{ $file->benefit->column1 }} - {{ $file->year }}</h6>
                         <div class="pl-lg-4">
                                 <div class="row">
                                     <div class="col-lg-4 col-md-6 mt-2">

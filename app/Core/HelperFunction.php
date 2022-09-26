@@ -103,21 +103,6 @@ class HelperFunction
 
         return ($fileData);
 
-
-
-        // $data["email"] = $file->customer_email;
-        // $data["name"] = $file->company_name;
-        // $data["title"] = "From revman.com";
-        // $data["body"] = "You'll find the attachment below";
-        // $data["auditor"] = $file->auditor->name;
-
-        // $pdf = PDF::loadView('assignment.index', $fileData);
-
-        // Mail::send('emails.myTestMail', $data, function($message)use($data, $pdf) {
-        //     $message->to($data["email"], $data["email"])
-        //             ->subject($data["title"])
-        //             ->attachData($pdf->output(), "text.pdf");
-        // });
     }
 
     public static function getAuditAssignment($file){
@@ -144,6 +129,8 @@ class HelperFunction
             'accountant_reg_no' => $auditor->accountant_reg_no,
             'auditor_reg_no' => $auditor->auditor_reg_no,
             'auditor_office_no' => $auditor->ofc_name,
+            'insurance_company' => $auditor->insurance_company,
+            'insurance_no' => $auditor->insurance_no,
             'auditor_signature' => $stamp,
             'date' => $date,
             'solida_logo' => $logo,

@@ -93,7 +93,7 @@
                 
                 <footer><small>
                     <div  style="border-top: 0.5px solid black ; "></div>
-                    <p style="font-size: 11px;"> <strong> CLI-Form {{ $benefits_year }}-{{ $code_date }}-{{ $vat_number }}</strong> <span style="float:right"><strong>Pag. 1 di 5</strong></span> </p>
+                    <p style="font-size: 11px;"> <strong> CLI-{{ $benefits_name }} {{ $benefits_year }}-{{ $code_date }}-{{ $vat_number }}</strong> <span style="float:right"><strong>Pag. 1 di 5</strong></span> </p>
                 </small></footer>
                 
         </div>
@@ -120,7 +120,7 @@
                 della stessa, avuto riguardo all’importanza dell’opera richiesta e tenuto conto delle prestazioni
                 professionali che si rendono necessarie ed indispensabili per una corretta esecuzione dell’incarico
                 conferito, si prevede per l’espletamento dell’incarico, oggetto del presente mandato, un compenso
-                al revisore legale preconcordato nella misura di {{ $auditor_fee }} (IVA esclusa) da corrispondersi a 30 gg.
+                al revisore legale preconcordato nella misura di Euro {{ $auditor_fee }} (IVA esclusa) da corrispondersi a 30 gg.
                 dalla conclusione dell'incarico ovvero dall’emissione della fattura. 
             </p>
             <p>
@@ -168,7 +168,7 @@
             <br>
             <footer><small>
                 <div  style="border-top: 0.5px solid black ; "></div>
-                <p style="font-size: 11px;"> <strong> CLI-Form {{ $benefits_year }}-{{ $code_date }}-{{ $vat_number }}</strong> <span style="float:right"><strong>Pag. 2 di 5</strong></span> </p>
+                <p style="font-size: 11px;"> <strong> CLI-{{ $benefits_name }} {{ $benefits_year }}-{{ $code_date }}-{{ $vat_number }}</strong> <span style="float:right"><strong>Pag. 2 di 5</strong></span> </p>
             </small></footer>
         </div>
         <div style="page-break-after: always;">
@@ -251,7 +251,7 @@
 
             <footer><small>
                 <div  style="border-top: 0.5px solid black; "></div>
-                <p style="font-size: 11px;"> <strong> CLI-Form {{ $benefits_year }}-{{ $code_date }}-{{ $vat_number }}</strong> <span style="float:right"><strong>Pag. 3 di 5</strong></span> </p>
+                <p style="font-size: 11px;"> <strong> CLI-{{ $benefits_name }} {{ $benefits_year }}-{{ $code_date }}-{{ $vat_number }}</strong> <span style="float:right"><strong>Pag. 3 di 5</strong></span> </p>
             </small></footer>
             
         </div>
@@ -334,7 +334,7 @@
             <br>
             <footer><small>
                 <div  style="border-top: 0.5px solid black; "></div>
-                <p style="font-size: 11px;"> <strong> CLI-Form {{ $benefits_year }}-{{ $code_date }}-{{ $vat_number }}</strong> <span style="float:right"><strong>Pag. 4 di 5</strong></span> </p>
+                <p style="font-size: 11px;"> <strong> CLI-{{ $benefits_name }} {{ $benefits_year }}-{{ $code_date }}-{{ $vat_number }}</strong> <span style="float:right"><strong>Pag. 4 di 5</strong></span> </p>
             </small></footer>
             
         </div>
@@ -366,7 +366,7 @@
                                     <p style="text-align: center">La Società</p>
                                     <strong> <center>  SOLIDA SRL </center></strong>
                                     <small><center> L’Amministratore dr. Marco Sforza</center></small>
-                                    <center><img src="{{ $signature }}" width="170px" height="90px"></center>
+                                    <center><img src="{{ $signature }}" style="width: 100%; max-width: 170px; height: auto;"></center>
                                 </span>
                             </td>
                         </tr>
@@ -395,7 +395,7 @@
                                     <p style="text-align: center">La Società</p>
                                     <strong> <center>  SOLIDA SRL </center></strong>
                                     <small><center> L’Amministratore dr. Marco Sforza</center></small>
-                                    <center><img src="{{ $signature }}" width="170px" height="90px"></center>
+                                    <center><img src="{{ $signature }}" style="width: 100%; max-width: 170px; height: auto;"></center>
                                 </span>
                             </td>
                         </tr>
@@ -418,7 +418,7 @@
                                     <p style="text-align: center">La Società</p>
                                     <strong> <center>  SOLIDA SRL </center></strong>
                                     <small><center> L’Amministratore dr. Marco Sforza</center></small>
-                                    <center><img src="{{ $signature }}" width="170px" height="90px"></center>
+                                    <center><img src="{{ $signature }}" style="width: 100%; max-width: 170px; height: auto;"></center>
                                 </span>
                             </td>
                         </tr>
@@ -432,7 +432,7 @@
             
             <footer><small>
                 <div  style="border-top: 0.5px solid black; " ></div>
-                <p style="font-size: 11px;"> <strong> CLI-Form {{ $benefits_year }}-{{ $code_date }}-{{ $vat_number }}</strong> <span style="float:right"><strong>Pag. 5 di 5</strong></span> </p>
+                <p style="font-size: 11px;"> <strong> CLI-{{ $benefits_name }} {{ $benefits_year }}-{{ $code_date }}-{{ $vat_number }}</strong> <span style="float:right"><strong>Pag. 5 di 5</strong></span> </p>
             </small></footer>
         </div>
 

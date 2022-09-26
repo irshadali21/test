@@ -1,7 +1,20 @@
 @extends('layouts.app')
+@push('styles')
+    <style>
+        .inputfile {
+            width: 0.1px;
+            height: 0.1px;
+            opacity: 0;
+            overflow: hidden;
+            position: absolute;
+            z-index: -1;
+        }
+    </style>
+@endpush
 @push('pg_btn')
     <a href="{{ route('users.index') }}" class="btn btn-sm btn-neutral">All Users</a>
 @endpush
+
 @section('content')
     <div class="row">
         <div class="col-md-12">
@@ -26,7 +39,7 @@
                                     {{ Form::text('name', null, ['class' => 'form-control']) }}
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            {{-- <div class="col-lg-6">
                                 <div class="form-group">
                                     {{ Form::label('advoiser_stamp', 'Advoiser Stamp / signature', ['class' => 'form-control-label']) }}
                                     <div class="input-group">
@@ -40,8 +53,24 @@
                                             name="advoiser_stamp">
                                     </div>
                                 </div>
+                            </div> --}}
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    {{ Form::label('advoiser_stamp', 'Advoiser Stamp / signature', ['class' => 'form-control-label']) }}
+                                    <div class="input-group">
+                                        <span class="input-group-btn">
+                                            <input name="advoiser_stamp" accept="image/*" type='file' id="imgInp"
+                                                class="inputfile" />
+                                            <label for="imgInp" class="btn btn-secondary">Choose Photo</label>
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
-
+                            <div class="col-md-2">
+                                <span id="avatar_image"><i class="far avatar avatar-xl fa-user"></i> </span>
+                                <img alt="Image placeholder" class="avatar avatar-xl" src="#"
+                                    id="selected_avatar_image" style="display: none;">
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-6">
@@ -166,8 +195,19 @@
 @push('scripts')
     <script src="{{ asset('vendor/laravel-filemanager/js/stand-alone-button.js') }}"></script>
     <script>
-        jQuery(document).ready(function() {
+       jQuery(document).ready(function() {
             jQuery('#uploadFile').filemanager('file');
+            ///adding image preview
+            imgInp.onchange = evt => {
+                const [file] = imgInp.files;
+                if (file) {
+                    jQuery('#avatar_image').hide();
+                    jQuery('#selected_avatar_image').show();
+                    jQuery('#selected_avatar_image').attr('src', URL.createObjectURL(file));
+                }
+            }
+
+
         })
     </script>
 @endpush

@@ -45,14 +45,14 @@
 
             <div style="page-break-after: always;">
                 <header>
-                    <img src="{{ $solida_logo }}" width="190px" height="60px">
+                    <img src="{{ $solida_logo }}" style="width: 100%; max-width: 150px; max-height: 60;">
                     <br>
                     <br>
                     <div  style="border-top: 2px solid #681B2C ; "></div>
                 </header>
                 
                 <body>
-                    <br><br><br><br><br>
+                    <br><br><br><br><br><br><br>
                     <center> <strong>
                         LETTERA DI INCARICO PROFESSIONALE PER L’AFFIDAMENTO DI SERVIZI LEGATI <br>
                         ALL’ATTIVITÀ DI REVISIONE PER NOSTRO CONTO IN MATERIA DI INDUSTRIA 4.0 <br>    
@@ -60,10 +60,11 @@
                     </strong></center>
                     <br><br><br>
                     <p>
-                        Ilsottoscritto Dott. Marco Sforza, nato a Venezia il 11/09/1964 e residenti in Napoli, alla Via Nicolardi,
+                        Il sottoscritto Dott. Marco Sforza, nato a Venezia il 11/09/1964 e residenti in Napoli, alla Via Nicolardi,
                         n. 300 – 80131 - C.F. SFR MRC 64P11 L736M - con sede legale in 84091 - BATTIPAGLIA (SA) alla
-                        Via STELLA n. 1/G, P.IVA: 05829650653, esercente l’attività di amministratore successivamente
-                        denominato "Società di revisione" 
+                        Via STELLA n. 1/G, P.IVA: 05829650653, esercente l’attività di “legale rappresentante della società di
+                        revisione Solida srl successivamente
+                        denominato "Società" 
                     </p>
                     <br>
                     <center><strong>
@@ -72,7 +73,7 @@
                     <br>
                     <p>
                         al Dott./Rag. {{ $auditor }} con studio in {{ $auditor_address }}, iscritto all'Ordine dei Dottori
-                        Commercialisti e degli Esperti Contabili {{ $auditor_city }}, sez.A / sez.B
+                        Commercialisti e degli Esperti Contabili {{ $auditor_city }}, sez. A/B
                         con il n. {{ $accountant_reg_no }}, e al n. {{ $auditor_reg_no }} del Registro dei Revisori, indirizzo e.mail/pec: {{ $auditor_pec_email }}  che opera in proprio/quale associato dello studio {{ $auditor_office_no }} successivamente denominato
                         "Professionista", 
                         
@@ -125,20 +126,11 @@
                             &nbsp;&nbsp;&nbsp;&nbsp;
                             <img src="{{ $square }}" alt="" height="30px"  > 
                     </div>
-                  
-                    <p>
-                        la maggiorazíone di cui all'articolo 23 e le indennità di cui all'articolo 19 della Tariffa
-                        professionale. 
-                    </p>
-                    <p>
-                        Per le eventuali prestazioni specifiche diverse da quelle indicate nella presente lettera d’incarico i
-                        corrispondenti onorari saranno determinati come segue: 
-                    </p>
                 </body>
                 
                 <footer>
                     <small> <div  style="border-top: 2px solid #681B2C ; "></div>
-                    <p style="font-size: 11px;"> <strong> REV-{{ $benefits_year }}-{{ $code_date }}-{{ $vat_number }}</strong> <span style="float:right"><strong>Pag. 1 di 3</strong></span> </p>
+                    <p style="font-size: 11px;"> <strong> REV-{{ $benefits_name }}-{{ $benefits_year }}-{{ $code_date }}-{{ $vat_number }}</strong> <span style="float:right"><strong>Pag. 1 di 4</strong></span> </p>
                         <div  style="font-size: 10px;">
                             SOLIDA S.R.L. <br>
                             Via Stella 1/G - 84091 Battipaglia (Sa) IT <br>
@@ -151,13 +143,21 @@
 
             <div style="page-break-after: always;">
                 <header>
-                    <img src="{{ $solida_logo }}" width="190px" height="60px" >
+                    <img src="{{ $solida_logo }}" style="width: 100%; max-width: 150px; max-height: 60;" >
                     <br>
                     <br>
                     <div  style="border-top: 2px solid #681B2C; "></div>
                 </header>
                 <body>
-                    <br><br><br><br><br>
+                    <br><br><br><br><br><br><br>
+                    <p>
+                        la maggiorazíone di cui all'articolo 23 e le indennità di cui all'articolo 19 della Tariffa
+                        professionale. 
+                    </p>
+                    <p>
+                        Per le eventuali prestazioni specifiche diverse da quelle indicate nella presente lettera d’incarico i
+                        corrispondenti onorari saranno determinati come segue: 
+                    </p>
                     <img src="{{ $square2 }}" alt="" height="50px" style=" margin-left: 10px">
 
                     <p>
@@ -217,23 +217,12 @@
                         alla indicazioni contenute nelle linee guida emanate dal Consiglio Nazionale dei Dottori Commercialisti e degli
                         Esperti Contabili e adempie a tutti gli altri obblighi previsti dal citato decreto. 
                     </p>
-                    <p><strong>8) Recesso</strong></p>
-                    <p>
-                        Il Professionista può recedere dal contratto per giusta causa. Il diritto di recedere dal contratto deve essere
-                        esercitato dal Professionista in modo da non recare pregiudizio né alla Società né al Cliente finale, mediante
-                        comunicazione per iscritto a mezzo raccomandata a/r e/o a mezzo pec, con un preavviso di 30 giorni. 
-                    </p>
-                    <p>
-                        La Società può recedere dal contratto in qualsiasi momento, revocando l’incarico, senza alcun obbligo di
-                        motivazione venuto meno il rapporto di fiducia. In tal caso la Società sarà tenuta a rimborsare le eventuali
-                        spese sostenute ed a pagare il compenso dovuto per l’opera già svolta laddove la Società abbia incassato dal
-                        Cliente finale.     
-                    </p>
+                    
                 </body>
                 
                 <footer>
                     <small> <div  style="border-top: 2px solid #681B2C ; "></div>
-                    <p style="font-size: 11px;"> <strong> REV-{{ $benefits_year }}-{{ $code_date }}-{{ $vat_number }}</strong> <span style="float:right"><strong>Pag. 2 di 3</strong></span> </p>
+                    <p style="font-size: 11px;"> <strong> REV-{{ $benefits_name }}-{{ $benefits_year }}-{{ $code_date }}-{{ $vat_number }}</strong> <span style="float:right"><strong>Pag. 2 di 4</strong></span> </p>
                         <div  style="font-size: 9px;">
                             SOLIDA S.R.L. <br>
                             Via Stella 1/G - 84091 Battipaglia (Sa) IT <br>
@@ -244,21 +233,32 @@
                 </footer>
             </div>
 
-            <div>
+            <div style="page-break-after: always;">
                 <header>
-                    <img src="{{ $solida_logo }}" width="190px" height="60px">
+                    <img src="{{ $solida_logo }}" style="width: 100%; max-width: 150px; max-height: 60;">
                     <br>
                     <br>
                     <div  style="border-top: 2px solid #681B2C ; "></div>
                 </header>
                 
                 <body>
-                    <br><br><br><br><br>
-                    
+                    <br><br><br><br><br><br><br>
+                    <p><strong>8) Recesso</strong></p>
+                    <p>
+                        Il Professionista può recedere dal contratto per giusta causa. Il diritto di recedere dal contratto deve essere
+                        esercitato dal Professionista in modo da non recare pregiudizio né alla Società né al Cliente finale, mediante
+                        comunicazione per iscritto a mezzo raccomandata a/r e/o a mezzo pec, con un preavviso di 40 giorni. 
+                    </p>
+                    <p>
+                        La Società può recedere dal contratto in qualsiasi momento, revocando l’incarico, senza alcun obbligo di
+                        motivazione venuto meno il rapporto di fiducia. In tal caso la Società sarà tenuta a rimborsare le eventuali
+                        spese sostenute ed a pagare il compenso dovuto per l’opera già svolta laddove la Società abbia incassato dal
+                        Cliente finale.     
+                    </p>
                     <p><strong>9) Polizza assicurativa</strong></p>
                     <p>
                         Si dà atto che il Professionista attualmente è assicurato per la responsabilità civile contro i rischi professionali,
-                        con apposita polizza n. contratta con la Compagnia di Assicurazioni 
+                        con apposita polizza n. {{ $insurance_no }} contratta con la Compagnia di Assicurazioni {{ $insurance_company }}
                     </p>
                     <p><strong>10) Foro competente</strong></p>
                     <p>
@@ -281,6 +281,33 @@
                         Il Professionista incaricato si impegna - per se stesso e per i suoi eventuali colalboratori - nei confronti della
                         Società a trattare i dati del Cliente finale nel rispetto della normativa vigente in materia. 
                     </p>
+                </body>
+                
+                <footer>
+                    <small> <div  style="border-top: 2px solid #681B2C ; "></div>
+                    <p style="font-size: 11px;"> <strong> REV-{{ $benefits_name }}-{{ $benefits_year }}-{{ $code_date }}-{{ $vat_number }}</strong> <span style="float:right"><strong>Pag. 3 di 4</strong></span> </p>
+                        <div  style="font-size: 9px;">
+                            SOLIDA S.R.L. <br>
+                            Via Stella 1/G - 84091 Battipaglia (Sa) IT <br>
+                            p.iva 05829650653 <br>
+                            <a href="mailto:certificazioni@solidateam.it">certificazioni@solidateam.it</a> <br>
+                            Capitale sociale 20.000 € i.v. 
+                        </div></small>
+                </footer>
+            </div>
+
+            <div>
+                <header>
+                    <img src="{{ $solida_logo }}" style="width: 100%; max-width: 150px; max-height: 60;">
+                    <br>
+                    <br>
+                    <div  style="border-top: 2px solid #681B2C ; "></div>
+                </header>
+                
+                <body>
+                    <br><br><br><br><br>
+                    
+                    
                     <p>Battipaglia, lì {{ $date }}</p>
 
                     <div class="row">
@@ -292,7 +319,7 @@
                                         <strong> <center>  SOLIDA SRL </center></strong>
                                         <small><center> Il legale rappresentante</center></small>
                                         <small><center> dr. Marco Sforza</center></small>
-                                        <center><img src="{{ $signature }}" width="170px" height="90px"></center>
+                                        <center><img src="{{ $signature }}" style="width: 100%; max-width: 170px; max-height: 60;"></center>
                                     </td>
                                     <td align="right" class="col-6   p-0"> 
                                         <span style="float: right">
@@ -325,7 +352,7 @@
                                         <strong> <center>  SOLIDA SRL </center></strong>
                                         <small><center> Il legale rappresentante</center></small>
                                         <small><center> dr. Marco Sforza</center></small>
-                                        <center><img src="{{ $signature }}" width="170px" height="90px"></center>
+                                        <center><img src="{{ $signature }}" style="width: 100%; max-width: 170px; max-height: 60;"></center>
                                     </td>
                                     <td align="right" class="col-6   p-0"> 
                                         <span style="float: right">
@@ -347,7 +374,7 @@
                 
                 <footer>
                     <small> <div  style="border-top: 2px solid #681B2C ; "></div>
-                    <p style="font-size: 11px;"> <strong> REV-{{ $benefits_year }}-{{ $code_date }}-{{ $vat_number }}</strong> <span style="float:right"><strong>Pag. 3 di 3</strong></span> </p>
+                    <p style="font-size: 11px;"> <strong> REV-{{ $benefits_name }}-{{ $benefits_year }}-{{ $code_date }}-{{ $vat_number }}</strong> <span style="float:right"><strong>Pag. 4 di 4</strong></span> </p>
                         <div  style="font-size: 9px;">
                             SOLIDA S.R.L. <br>
                             Via Stella 1/G - 84091 Battipaglia (Sa) IT <br>

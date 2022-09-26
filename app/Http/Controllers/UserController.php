@@ -81,9 +81,19 @@ class UserController extends Controller
         if ($request->profile_photo) {
             $userData['profile_photo'] = parse_url($request->profile_photo, PHP_URL_PATH);
         }
-        if ($request->advoiser_stamp) {
-            $userData['advoiser_stamp'] = parse_url($request->advoiser_stamp, PHP_URL_PATH);
+        // if ($request->advoiser_stamp) {
+        //     $userData['advoiser_stamp'] = parse_url($request->advoiser_stamp, PHP_URL_PATH);
+        // }
+
+        if ($request->hasFile('advoiser_stamp')) {
+            $destinationPath = public_path('/storage/files/'.Auth::user()->id.'/');
+            $files = $request->file('advoiser_stamp');
+            $file_name = time().'.advoiser_stamp.'.$request->advoiser_stamp->extension();
+            $files->move($destinationPath , $file_name);
+
+            $userData['advoiser_stamp'] = '/storage/files/'.Auth::user()->id.'/' . $file_name;
         }
+        
         // dd($userData);
         $user = User::create($userData);
         $user->assignRole($request->role);
@@ -230,9 +240,20 @@ class UserController extends Controller
         if ($request->profile_photo) {
             $userData['profile_photo'] = parse_url($request->profile_photo, PHP_URL_PATH);
         }
-        if ($request->advoiser_stamp) {
-            $userData['advoiser_stamp'] = parse_url($request->advoiser_stamp, PHP_URL_PATH);
+        // if ($request->advoiser_stamp) {
+        //     $userData['advoiser_stamp'] = parse_url($request->advoiser_stamp, PHP_URL_PATH);
+        // }
+
+        if ($request->hasFile('advoiser_stamp')) {
+            $destinationPath = public_path('/storage/files/'.Auth::user()->id.'/');
+            $files = $request->file('advoiser_stamp');
+            $file_name = time().'.advoiser_stamp.'.$request->advoiser_stamp->extension();
+            $files->move($destinationPath , $file_name);
+
+            $userData['advoiser_stamp'] = '/storage/files/'.Auth::user()->id.'/' . $file_name;
         }
+
+
         // dd($userData);
         // $user->update($userData);
         // $user->syncRoles($request->role);
