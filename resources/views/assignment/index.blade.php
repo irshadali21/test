@@ -6,34 +6,77 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
         
+
         <style>
-            /* body {
-                padding: 0;
-                font: 5pt ;
-            } */
-            
-            /* @media print {
-                .pos { position: relative; z-index: 0; left: 0px; top: 0px }
-            } */
-            p{
-                font: 1pt;
-                margin-top: 6px; 
-                margin-bottom: 6px; 
+            @font-face {
+                font-family: "Roboto";
+                src: url("fonts/roboto/Roboto-Regular.ttf");
             }
+            @font-face {
+                font-family: "Robotobold";
+                src: url("fonts/roboto/Roboto-Bold.ttf");
+            }
+            @font-face {
+                font-family: "Robotoitalic";
+                src: url("fonts/roboto/Roboto-BoldItalic.ttf");
+            }
+            @font-face {
+                font-family: "Robotoi";
+                src: url("fonts/roboto/Roboto-Italic.ttf");
+            }
+            p{
+                margin-top: 6px; 
+                margin-bottom: 3px; 
+                font:normal 15px/14px Roboto;
+                text-align: justify;
+  text-justify: inter-word;
+            }
+            strong{
+                font:normal 15px/14px Robotobold;
+            }
+            center{
+                font:normal 15px/14px Robotobold;
+            }
+           i{
+                font:normal 15px/14px Robotoitalic;
+           }
+           .i{
+                font:normal 15px/14px Robotoi;
+           }
+
+           .last p{
+                margin-top: 6px; 
+                margin-bottom: 3px; 
+                font:normal 14px/14px Roboto;
+            }
+            .last strong{
+                font:normal 14px/14px Robotobold;
+            }
+            .last center{
+                font:normal 14px/14px Robotobold;
+            }
+            .last i{
+                font:normal 14px/14px Robotoitalic;
+           }
+
+        footer {  
+            position: fixed;  
+            bottom: 5px;  
+            width: 95%;  
+        }  
             </style>
     </head>
-    <body >
+    <body style="margin-left: 27px; margin-right: 27px;">
         <br><br>
         <div style="page-break-after: always;">
-            <center class="pos" style="font-size: 20px"><strong>  SCRITTURA PRIVATA AVENTE AD OGGETTO <br>
-                IL CONFERIMENTO DELL’INCARICO PROFESSIONALE </strong></center>
+            <center><strong>  SCRITTURA PRIVATA AVENTE AD OGGETTO <br> IL CONFERIMENTO DELL’INCARICO PROFESSIONALE </strong></center>
                 <br>
                 <p>
                     Il sottoscritto Sig. _____________________________________ nato a ___________________
                     il______________, residente a ___________________________________________________
                     in via ____________________________________________________________ n. _________,
-                    C.F. ______________________________, in nome e per conto della <strong>{{ $company_name}} </strong>, con
-                    sede in  <strong>{{ $company_address }}</strong> , p.iva <b>{{ $vat_number }}</b>,
+                    C.F. ______________________________, in nome e per conto della {{ $company_name}}, con
+                    sede in  {{ $company_address }} , p.iva {{ $vat_number }},
                     <br>
                     P.E.C._____________________
                     <br>
@@ -88,12 +131,11 @@
                     Qualora il Cliente ravvisasse la necessita di ricevere altre specifiche prestazioni dovrà farne esplicita
                     richiesta e quindi tali prestazioni formeranno oggetto di specifico incarico. 
                 </p>
-                <br>
-                <br>
+                
                 
                 <footer><small>
                     <div  style="border-top: 0.5px solid black ; "></div>
-                    <p style="font-size: 11px;"> <strong> CLI-{{ $benefits_name }} {{ $benefits_year }}-{{ $code_date }}-{{ $vat_number }}</strong> <span style="float:right"><strong>Pag. 1 di 5</strong></span> </p>
+                   <p> <i style="font-size: 11px;"> CLI-{{ $benefits_name }} {{ $benefits_year }}-{{ $code_date }}-{{ $vat_number }} </i>  <span style="float:right" ><i style="font-size: 11px;">Pag. 1 di 5</i></span> </p>
                 </small></footer>
                 
         </div>
@@ -164,11 +206,10 @@
                 per iscritto, al Cliente i nominativi di ausiliari e/o di sostituti, diversi rispetto a quelli indicati di cui
                 intende avvalersi. 
             </p>
-            <br>
-            <br>
+
             <footer><small>
                 <div  style="border-top: 0.5px solid black ; "></div>
-                <p style="font-size: 11px;"> <strong> CLI-{{ $benefits_name }} {{ $benefits_year }}-{{ $code_date }}-{{ $vat_number }}</strong> <span style="float:right"><strong>Pag. 2 di 5</strong></span> </p>
+               <p> <i style="font-size: 11px;"> CLI-{{ $benefits_name }} {{ $benefits_year }}-{{ $code_date }}-{{ $vat_number }} </i>  <span style="float:right" ><i style="font-size: 11px;">Pag. 2 di 5</i></span> </p>
             </small></footer>
         </div>
         <div style="page-break-after: always;">
@@ -241,23 +282,22 @@
             <p>e) i diritti di cui all’art. 7 del d.lgs. n. 196/2003;</p>
             <p>f) il nome, la denominazione o la ragione sociale e il domicilio, la residenza o la sede del responsabile del trattamento.</p>
             
+            
+            <footer><small>
+                <div  style="border-top: 0.5px solid black ; "></div>
+               <p> <i style="font-size: 11px;"> CLI-{{ $benefits_name }} {{ $benefits_year }}-{{ $code_date }}-{{ $vat_number }} </i>  <span style="float:right" ><i style="font-size: 11px;">Pag. 3 di 5</i></span> </p>
+            </small></footer>
+            
+        </div>
+        <div style="page-break-after: always;" class="last">
+            
+            <br>
             <p><strong>9. Interessi di mora </strong></p>
             <p>
                 Nel caso in cui i pagamenti dei compensi, delle spese e degli acconti non siano effettuati nei termini
                 di cui al precedente art. 3, saranno da corrispondere gli interessi di mora determinati ai sensi di
                 legge. 
             </p>
-            <br>
-
-            <footer><small>
-                <div  style="border-top: 0.5px solid black; "></div>
-                <p style="font-size: 11px;"> <strong> CLI-{{ $benefits_name }} {{ $benefits_year }}-{{ $code_date }}-{{ $vat_number }}</strong> <span style="float:right"><strong>Pag. 3 di 5</strong></span> </p>
-            </small></footer>
-            
-        </div>
-        <div style="page-break-after: always;">
-            
-            <br>
             
             <p><strong>10. Clausola risolutiva espressa </strong></p>
             <p>
@@ -328,19 +368,21 @@
                 Essendo i compensi previsti dalla presente lettera di incarico soggetti ad I.V.A., l’eventuale
                 registrazione in caso d’uso deve ritenersi soggetta ad imposta fissa. 
             </p>
-            <p><strong>15. Elezione di domicilio</strong></p>
-            <p>Per gli effetti della presente, la Società elegge domicilio nei luoghi in precedenza indicati. </p>
-            <br>
-            <br>
+            
             <footer><small>
-                <div  style="border-top: 0.5px solid black; "></div>
-                <p style="font-size: 11px;"> <strong> CLI-{{ $benefits_name }} {{ $benefits_year }}-{{ $code_date }}-{{ $vat_number }}</strong> <span style="float:right"><strong>Pag. 4 di 5</strong></span> </p>
+                <div  style="border-top: 0.5px solid black ; "></div>
+               <p> <i style="font-size: 11px;"> CLI-{{ $benefits_name }} {{ $benefits_year }}-{{ $code_date }}-{{ $vat_number }} </i>  <span style="float:right" ><i style="font-size: 11px;">Pag. 4 di 5</i></span> </p>
             </small></footer>
             
+            
+             
         </div>
-        <div>
+        <div class="last">
             
             <br>
+            
+            <p><strong>15. Elezione di domicilio</strong></p>
+            <p>Per gli effetti della presente, la Società elegge domicilio nei luoghi in precedenza indicati. </p>
             <p><strong>16. Rinvio </strong></p>
             <p>
                 Per quanto non espressamente previsto dalla presente lettera di incarico, si rinvia alle disposizioni
@@ -358,8 +400,8 @@
                     <table class="w-100" style="height: 230px">
                         <tr>
                             <td class="col-6 p-0">
-                                <p>Il Cliente </p> 
-                                <b>{{ $company_name }}</b>
+                                <div class="i">Il Cliente </div> 
+                                <strong>{{ $company_name }}</strong>
                             </td>
                             <td align="right" class="col-6   p-0"> 
                                 <span style="float: right">
@@ -387,8 +429,8 @@
                     <table class="w-100" style="height: 230px">
                         <tr>
                             <td class="col-6 p-0">
-                                <p>Il Cliente </p> 
-                                <b>{{ $company_name }}</b>
+                                <div class="i">Il Cliente </div> 
+                                <strong>{{ $company_name }}</strong>
                             </td>
                             <td align="right" class="col-6   p-0"> 
                                 <span style="float: right">
@@ -410,8 +452,8 @@
                     <table class="w-100" style="height: 230px">
                         <tr>
                             <td class="col-6 p-0">
-                                <p>Il Cliente </p> 
-                                <b>{{ $company_name }}</b>
+                                <div class="i">Il Cliente </div> 
+                                <strong>{{ $company_name }}</strong>
                             </td>
                             <td align="right" class="col-6   p-0"> 
                                 <span style="float: right">
@@ -431,8 +473,8 @@
             
             
             <footer><small>
-                <div  style="border-top: 0.5px solid black; " ></div>
-                <p style="font-size: 11px;"> <strong> CLI-{{ $benefits_name }} {{ $benefits_year }}-{{ $code_date }}-{{ $vat_number }}</strong> <span style="float:right"><strong>Pag. 5 di 5</strong></span> </p>
+                <div  style="border-top: 0.5px solid black ; "></div>
+               <p> <i style="font-size: 11px;"> CLI-{{ $benefits_name }} {{ $benefits_year }}-{{ $code_date }}-{{ $vat_number }} </i>  <span style="float:right" ><i style="font-size: 11px;">Pag. 5 di 5</i></span> </p>
             </small></footer>
         </div>
 

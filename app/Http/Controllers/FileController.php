@@ -2,32 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Core\HelperFunction;
 use App\Http\Requests\FileRequest;
-use App\User;
-
 use App\Models\ApiData;
+use App\Models\Company;
 use App\Models\File;
 use App\Models\Summary;
-use App\Models\Company;
-use Illuminate\Support\Facades\DB;
+use App\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\AssignmentRequest;
+use Illuminate\Support\Facades\DB;
 use Mail;
 use PDF;
-
 
 class FileController extends Controller
 {
     public function __construct()
     {
         $this->middleware('permission:view-file');
-        $this->middleware('permission:create-file', ['only' => ['create','store']]);
-        $this->middleware('permission:update-file', ['only' => ['edit','update']]);
+        $this->middleware('permission:create-file', ['only' => ['create', 'store']]);
+        $this->middleware('permission:update-file', ['only' => ['edit', 'update']]);
         $this->middleware('permission:destroy-file', ['only' => ['destroy']]);
     }
-
 
     /**
      * Display a listing of the resource.
@@ -36,7 +32,7 @@ class FileController extends Controller
      */
     public function index()
     {
-        
+
         $files = File::paginate(setting('record_per_page', 15));
         return view('files.index', compact('files'));
     }
@@ -55,7 +51,7 @@ class FileController extends Controller
         $cuntries = HelperFunction::getCountries();
         $advisor = User::role('advisor')->pluck('name', 'id');
         $benefit = Summary::whereNotIn('id', $exceptThis)->pluck('column1', 'id');
-        return view('files.create', compact('benefit', 'cuntries', 'advisor','Total_api_calls'));
+        return view('files.create', compact('benefit', 'cuntries', 'advisor', 'Total_api_calls'));
     }
 
     /**
@@ -67,135 +63,131 @@ class FileController extends Controller
     public function store(FileRequest $request)
     {
         DB::beginTransaction();
-        try{
-            if($request->advisor){
+        try {
+            if ($request->advisor) {
                 $advisor = $request->advisor;
-            }else{
+            } else {
                 $advisor = Auth::user()->id;
             }
             $company = Company::where('vat_number', $request->vat_number)->first();
             $check_file = File::where('company_id', $company->id)
-                ->Where('benefit_id' , $request->benefit_id)
+                ->Where('benefit_id', $request->benefit_id)
                 ->Where('year', $request->year)->first();
-            if($check_file){
+            if ($check_file) {
                 flash('File Already Exist with same Year and Benefits!')->error();
                 return back();
-            }else{
-            $file = File::create([
-                'company_id' => $company->id,
-                'benefit_id' => $request->benefit_id,
-                'year' => $request->year,
-                'fee' => $request->fee,
-                'sdi' => $request->sdi,
-                'customer_email' => $request->customer_email,
-                'opration_email' => $request->opration_email,
-                'created_by' => Auth::user()->id,
-                'advisor_id' => $advisor,
-            ]);
+            } else {
+                $file = File::create([
+                    'company_id' => $company->id,
+                    'benefit_id' => $request->benefit_id,
+                    'year' => $request->year,
+                    'fee' => $request->fee,
+                    'sdi' => $request->sdi,
+                    'customer_email' => $request->customer_email,
+                    'opration_email' => $request->opration_email,
+                    'created_by' => Auth::user()->id,
+                    'advisor_id' => $advisor,
+                ]);
             }
-            DB::commit();          
+            DB::commit();
             flash('File created successfully!')->success();
             return redirect()->route('files.index');
 
-        }catch (\Exception $e) {
+        } catch (\Exception $e) {
 
             DB::rollback();
             flash('There was an error')->error();
             return back();
 
         }
-        
-    }
 
+    }
 
     public function get_data_api(Request $request)
     {
         $report = Company::where('vat_number', $request->vat_num)->first();
-        if($report)
-        {
-            return response()->json('Company already exist in database' , 400,);
-        }else{
+        if ($report) {
+            return response()->json('Company already exist in database', 400, );
+        } else {
             return $this->get_data($request);
         }
     }
 
-
     public function get_data_database(Request $request)
     {
         $company = Company::where('vat_number', $request->vat_num)->first();
-        if($company)
-        {
-            $report = ['businessName'=> $company->company_name];
+        if ($company) {
+            $report = ['businessName' => $company->company_name];
             $report += ['vatNo' => $company->vat_number];
-            $report += ['address'=> $company->company_address];
-            $report += ['country'=> $company->country ];
-            $report += ['pec_email'=> $company->email_address];
-            $report += ['telephone'=> $company->phone_number];
-            $report += ['region'=> $company->region];
-            $report += ['ateco_code'=> $company->ateco_code];
-            $report += ['creditSafeRating'=> $company->creditsafe_rating];
-            $report += ['credits'=> $company->credit];
-            $report += ['director'=> $company->company_administrator];
-            $report += ['sdi'=> $company->sdi];
+            $report += ['address' => $company->company_address];
+            $report += ['country' => $company->country];
+            $report += ['pec_email' => $company->email_address];
+            $report += ['telephone' => $company->phone_number];
+            $report += ['region' => $company->region];
+            $report += ['ateco_code' => $company->ateco_code];
+            $report += ['creditSafeRating' => $company->creditsafe_rating];
+            $report += ['credits' => $company->credit];
+            $report += ['director' => $company->company_administrator];
+            $report += ['sdi' => $company->sdi];
 
-            return response()->json($report, 200,);
-        }else{
-            return response()->json('Company does not exist in database' , 400,);
+            return response()->json($report, 200, );
+        } else {
+            return response()->json('Company does not exist in database', 400, );
 
         }
     }
 
     public function get_data(Request $request)
     {
-        
+
         // https://documenter.getpostman.com/view/1432087/S1TZxF4w
 
         //getting company id from vat number
         $url = 'https://connect.creditsafe.com/v1/companies';
-        $params = ['vatNo'=>$request->vat_num , 'countries'=>$request->country];
+        $params = ['vatNo' => $request->vat_num, 'countries' => $request->country];
         $company = HelperFunction::GetResponse($url, $params);
         $company = $company['companies'];
         $company_id = $company[0]['id'];
 
         //geting company report by company id
-        $url = 'https://connect.creditsafe.com/v1/companies/'.$company_id;
-        $params = ['template'=>"complete" ,'language' => "en"];
+        $url = 'https://connect.creditsafe.com/v1/companies/' . $company_id;
+        $params = ['template' => "complete", 'language' => "en"];
         $company = HelperFunction::GetResponse($url, $params);
         $company = $company['report'];
-        
+
         //createing report array
         $report = ['company_id' => $company['companyId']];
-        $report += ['vatNo'=> $request->vat_num ];
-        $report += ['businessName'=> $company['companySummary']['businessName']];
-        $report += ['creditSafeRating'=> $company['creditScore']['currentCreditRating']['commonDescription']];
-        $report += ['credits'=> $company['creditScore']['currentCreditRating']['creditLimit']['value']];
-        
-        if($company['contactInformation']['emailAddresses']){
-            $report += ['pec_email'=> $company['contactInformation']['emailAddresses']['0']];
-        }else{
-            $report += ['pec_email'=> ''];
+        $report += ['vatNo' => $request->vat_num];
+        $report += ['businessName' => $company['companySummary']['businessName']];
+        $report += ['creditSafeRating' => $company['creditScore']['currentCreditRating']['commonDescription']];
+        $report += ['credits' => $company['creditScore']['currentCreditRating']['creditLimit']['value']];
+
+        if ($company['contactInformation']['emailAddresses']) {
+            $report += ['pec_email' => $company['contactInformation']['emailAddresses']['0']];
+        } else {
+            $report += ['pec_email' => ''];
         }
-        if(array_key_exists("telephone",$company['contactInformation']['mainAddress'])){
-            $report += ['telephone'=> $company['contactInformation']['mainAddress']['telephone']];
-        }else{
-            $report += ['telephone'=> ''];
+        if (array_key_exists("telephone", $company['contactInformation']['mainAddress'])) {
+            $report += ['telephone' => $company['contactInformation']['mainAddress']['telephone']];
+        } else {
+            $report += ['telephone' => ''];
         }
-        if($company['contactInformation']['mainAddress']){
-            $report += ['address'=> $company['contactInformation']['mainAddress']['simpleValue']];
-            $report += ['region'=> $company['contactInformation']['mainAddress']['city']];
-        }else{
-            $report += ['address'=> ''];
-            $report += ['region'=> ''];
+        if ($company['contactInformation']['mainAddress']) {
+            $report += ['address' => $company['contactInformation']['mainAddress']['simpleValue']];
+            $report += ['region' => $company['contactInformation']['mainAddress']['city']];
+        } else {
+            $report += ['address' => ''];
+            $report += ['region' => ''];
         }
-        if($company['directors']['currentDirectors']){
-            $report += ['director'=> $company['directors']['currentDirectors']['0']['name']];
-        }else{
-            $report += ['director'=> ''];
+        if ($company['directors']['currentDirectors']) {
+            $report += ['director' => $company['directors']['currentDirectors']['0']['name']];
+        } else {
+            $report += ['director' => ''];
         }
-        if($company['companySummary']['mainActivity']){
-            $report += ['ateco_code'=> $company['companySummary']['mainActivity']['code']];
-        }else{
-            $report += ['ateco_code'=> ''];
+        if ($company['companySummary']['mainActivity']) {
+            $report += ['ateco_code' => $company['companySummary']['mainActivity']['code']];
+        } else {
+            $report += ['ateco_code' => ''];
         }
 
         //saving it in database
@@ -213,9 +205,9 @@ class FileController extends Controller
             'creditsafe_rating' => $report['creditSafeRating'],
             'credit' => $report['credits'],
             'company_administrator' => $report['director'],
-            ]);
+        ]);
         // dd($report);
-        return response()->json($report, 200,);
+        return response()->json($report, 200, );
     }
 
     public function show($id)
@@ -228,92 +220,107 @@ class FileController extends Controller
     public function client_assignment_download($id)
     {
         $file = File::where('id', $id)->first();
-        $fileData = HelperFunction::getClientAssignment($file);        
+        $fileData = HelperFunction::getClientAssignment($file);
         $pdf = PDF::loadView('assignment.index', $fileData);
-        $name = $file->company->company_name .' - Incarico_Cli - '. $file->benefit->column1 .' - '. $file->year;
-        return $pdf->download($name.'.pdf');
+        $name = $file->company->company_name . ' - Incarico_Cli - ' . $file->benefit->column1 . ' - ' . $file->year;
+        return $pdf->download($name . '.pdf');
     }
-
 
     public function advoiser_assignment_download($id)
     {
         $file = File::where('id', $id)->first();
-        
-        $fileData = HelperFunction::getAuditAssignment($file);            
-        $pdf = PDF::loadView('assignment.pdf2', $fileData);
-            $name = $file->company->company_name .' - Incarico_Rev - '. $file->benefit->column1 .' - '. $file->year;
-            return $pdf->download($name.'.pdf');
-    }
 
+        $fileData = HelperFunction::getAuditAssignment($file);
+        $pdf = PDF::loadView('assignment.pdf2', $fileData);
+        $name = $file->company->company_name . ' - Incarico_Rev - ' . $file->benefit->column1 . ' - ' . $file->year;
+        return $pdf->download($name . '.pdf');
+    }
 
     public function client_assignment($id)
     {
         $file = File::where('id', $id)->first();
-        if (!$file->customer_email) {
-        flash('Please add a customer email in Aassignment')->error();
+
+        //Email Check
+        if (empty($file->customer_email)) {
+            flash('Please add a customer email in Aassignment')->error();
+            return back();
+        } else if (empty($file->advisor->email)) {
+            flash('Please add a Advisor Email in Advisor Profile')->error();
+            return back();
+        } else if (empty($file->opration_email)) {
+            flash('Please add a Opration Email in Aassignment')->error();
             return back();
         }
-        $fileData = HelperFunction::getClientAssignment($file); 
+
+        $fileData = HelperFunction::getClientAssignment($file);
         $benefits = Summary::where('id', $file->benefit_id)->firstorfail();
         $pdf = PDF::loadView('assignment.index', $fileData);
-        $name = $file->company->company_name;
-        
+
+        $data["title"] = "From Revman";
+
         $data["email"] = $file->customer_email;
-        $data["name"] = $file->company_name;
-        $data["title"] = "From revman.com";
-        $data["subject"] = "Conferimento incarico per attività di ".$benefits->column1." annualità ". $file->year;
-        $data["body"] = `Buondì,
-        la presente per inviare quanto in oggetto.
+        $data["solida_email"] = 'coordinamento.certificazioni@solidateam.it';
+        $data["opration_email"] = $file->opration_email;
+        $data["advisor_email"] = $file->advisor->email;
+
+        $data["subject"] = "Conferimento incarico per attività di " . $benefits->column1 . " annualità " . $file->year;
+        $data["body"] = "Buondì, <br>
+        la presente per inviare quanto in oggetto. <br>
         Allorquando riceveremo l’incarico controfirmato, verranno avviate le attività relative alla certificazione, al termine delle quali sarà nostra premura inoltrarvi tutta la
-        documentazione inerente.
-        Cordialità
-        `;
+        documentazione inerente. <br>
+        Cordialità";
         $data["auditor"] = $file->advisor->name;
+        $name = $file->company->company_name . '– INCARICO_CLI-' . $benefits->column1 . " - " . $file->year;
 
         $pdf = PDF::loadView('assignment.index', $fileData);
 
-        Mail::send('emails.myTestMail', $data, function($message)use($data, $pdf, $name) {
-            $message->to($data["email"], $data["email"])
-                    ->subject($data["subject"])
-                    ->attachData($pdf->output(), $name.".pdf");
+        Mail::send('emails.myTestMail', $data, function ($message) use ($data, $pdf, $name) {
+            $message
+                ->to($data["email"], $data["email"])
+                ->cc([$data["solida_email"], $data["opration_email"]])
+                ->bcc($data["advisor_email"])
+                ->subject($data["subject"])
+                ->attachData($pdf->output(), $name . ".pdf");
         });
-        
-        
+
         flash('Assignment sent to Client via Email')->success();
         return back();
     }
-    
-    
+
     public function advoiser_assignment($id)
     {
         $file = File::where('id', $id)->first();
-        if (!$file->advisor->email_pec) {
-            flash('Please Update your PEC email in Profile of Advoiser')->error();
-                return back();
-            }
-        $fileData = HelperFunction::getAuditAssignment($file);            
-        $pdf = PDF::loadView('assignment.pdf2', $fileData);
-            $name = $file->company->company_name;
+        $benefits = Summary::where('id', $file->benefit_id)->firstorfail();
 
-            $data["email"] = $file->advisor->email;
-            $data["title"] = "From revman.com";
-            $data["body"] = "You'll find the attachment below";
-            $data["name"] = $file->advisor->name;
-            // dd($data["auditor"]);
-    
-            $pdf = PDF::loadView('assignment.pdf2', $fileData);
-            
-            Mail::send('emails.myTestMail', $data, function($message)use($data, $pdf, $name) {
-                $message->to($data["email"], $data["email"])
-                        ->subject($data["title"])
-                        ->attachData($pdf->output(), $name.".pdf");
-            });
-
-            flash('Assignment sent to Advoiser via Email')->success();
+        if (!$file->advisor->email) {
+            flash('Please Update Login Email in Profile of Advoiser')->error();
             return back();
+        }
+        $fileData = HelperFunction::getAuditAssignment($file);
+        $pdf = PDF::loadView('assignment.pdf2', $fileData);
+        $data["email"] = $file->advisor->email;
+        $data["solida_email"] = 'coordinamento.certificazioni@solidateam.it';
+        $data["subject"] = "Affidamento attività di revisione relativamente a " . $benefits->column1 . " annualità " . $file->year . " per l’azienda" . $file->company->company_name;
+        $data["title"] = "From Revman";
+        $data["body"] = "Buondì, <br>
+            In allegato quanto in oggetto. <br>
+            Cordialità"; 
+        $data["name"] = $file->advisor->name;
+        $name = $file->company->company_name . " – INCARICO_REV - " . $benefits->column1 . " - " . $file->year;
+        $pdf = PDF::loadView('assignment.pdf2', $fileData);
+
+        Mail::send('emails.myTestMail', $data, function ($message) use ($data, $pdf, $name) {
+            $message
+                ->to($data["email"], $data["email"])
+                ->cc([$data["solida_email"]])
+                ->subject($data["subject"])
+                ->attachData($pdf->output(), $name . ".pdf");
+        });
+
+        flash('Assignment sent to Advoiser via Email')->success();
+        return back();
 
     }
-
 
     public function edit($id)
     {
@@ -329,46 +336,45 @@ class FileController extends Controller
         return view('files.edit', compact('file', 'benefit', 'cuntries', 'advisor'));
     }
 
-
     public function update(Request $request)
     {
         $file = File::where('id', $request->file_id)->firstorFail();
         DB::beginTransaction();
-        try{
-            if($request->advisor){
+        try {
+            if ($request->advisor) {
                 $advisor = $request->advisor;
-            }else{
+            } else {
                 $advisor = Auth::user()->id;
             }
             $company = Company::where('vat_number', $request->vat_number)->first();
-            $query="->where('company_id', $company->id)->Where('benefit_id' , $request->benefit_id)->Where('year', $request->year)";
-            
-            $check_file = File::where('id', '!=', $request->file_id )
-            ->where('company_id', $company->id)
-            ->Where('benefit_id' , $request->benefit_id)
-            ->Where('year', $request->year)->first();
-            
-            if($check_file){
+            $query = "->where('company_id', $company->id)->Where('benefit_id' , $request->benefit_id)->Where('year', $request->year)";
+
+            $check_file = File::where('id', '!=', $request->file_id)
+                ->where('company_id', $company->id)
+                ->Where('benefit_id', $request->benefit_id)
+                ->Where('year', $request->year)->first();
+
+            if ($check_file) {
                 flash('File Already Exist with same Year and Benefits!')->error();
                 return back();
-            }else{
-            $file = $file->update([
-                'company_id' => $company->id,
-                'benefit_id' => $request->benefit_id,
-                'advisor_id' => $advisor,
-                'year' => $request->year,
-                'fee' => $request->fee,
-                'sdi' => $request->sdi,
-                'customer_email' => $request->customer_email,
-                'opration_email' => $request->opration_email,
-            ]);
+            } else {
+                $file = $file->update([
+                    'company_id' => $company->id,
+                    'benefit_id' => $request->benefit_id,
+                    'advisor_id' => $advisor,
+                    'year' => $request->year,
+                    'fee' => $request->fee,
+                    'sdi' => $request->sdi,
+                    'customer_email' => $request->customer_email,
+                    'opration_email' => $request->opration_email,
+                ]);
             }
             DB::commit();
-        
+
             flash('File created successfully!')->success();
             return redirect()->route('files.index');
 
-        }catch (\Exception $e) {
+        } catch (\Exception $e) {
             DB::rollback();
             flash('There was an error')->error();
             return back();

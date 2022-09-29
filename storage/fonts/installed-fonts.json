@@ -1,0 +1,17 @@
+{
+    "roboto": {
+        "normal": "roboto_normal_8144be9eb5b3240ee88303f9ac45cce3"
+    },
+    "robotobold": {
+        "normal": "robotobold_normal_4b84332a8b747e0571fcbefaef2109e1"
+    },
+    "robotoitalic": {
+        "normal": "robotoitalic_normal_58488ca9183dd714c18778e8e0b7a28e"
+    },
+    "robotoi": {
+        "normal": "robotoi_normal_e392fb748c7b8c9b33a1d9b310e8d3ab"
+    },
+    "robotolight": {
+        "normal": "robotolight_normal_a7b22b4a8835d4c8c742ea070c163223"
+    }
+}

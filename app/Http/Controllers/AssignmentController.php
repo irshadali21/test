@@ -3,35 +3,32 @@
 namespace App\Http\Controllers;
 
 use App\Core\HelperFunction;
-use Illuminate\Http\Request;
 use App\Http\Requests\AssignmentRequest;
-
 use App\Models\File;
 use App\Models\Summary;
-use Illuminate\Support\Facades\DB;
-use PDF;
+use Illuminate\Http\Request;
 use Mail;
-
+use PDF;
 
 class AssignmentController extends Controller
 {
     public function __construct()
     {
         $this->middleware('permission:view-certificate');
-        $this->middleware('permission:create-certificate', ['only' => ['create','store']]);
-        $this->middleware('permission:update-certificate', ['only' => ['edit','update']]);
+        $this->middleware('permission:create-certificate', ['only' => ['create', 'store']]);
+        $this->middleware('permission:update-certificate', ['only' => ['edit', 'update']]);
         $this->middleware('permission:destroy-certificate', ['only' => ['destroy']]);
     }
 
-     /**
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        
-        $file= File::firstorfail();
+
+        $file = File::firstorfail();
         $benefits = Summary::where('id', $file->benefit_id)->firstorfail();
         // dd($file->auditor);
         $date = Date('d/m/Y');
@@ -54,10 +51,10 @@ class AssignmentController extends Controller
         // dd($file);
         $pdf = PDF::loadView('assignment.index', $fileData);
         return $pdf->download('test.pdf');
-    }   
+    }
     public function pdf2()
     {
-        $file= File::firstorfail();
+        $file = File::firstorfail();
         $benefits = Summary::where('id', $file->benefit_id)->firstorfail();
         $auditor = $file->auditor;
         $code_date = Date('dmy');
@@ -66,13 +63,12 @@ class AssignmentController extends Controller
         $signature = 'image/signature/sigh.png';
         $square = 'image/signature/test.jpg';
         $square2 = 'image/signature/test2.jpg';
-         $fileData = [
+        $fileData = [
             'company_name' => $file->company_name,
             'vat_number' => $file->vat_number,
             'company_address' => $file->company_address,
             'benefits_name' => $benefits->column1,
             'benefits_year' => $file->year,
-            
             'auditor' => $auditor->name,
             'auditor_address' => $auditor->ofc_address,
             'auditor_city' => $auditor->acc_city,
@@ -88,7 +84,7 @@ class AssignmentController extends Controller
             'code_date' => $code_date,
             'signature' => $signature,
         ];
-        
+
         $data["email"] = "m.irshad.ali21@gmail.com";
         $data["title"] = "From revman.com";
         $data["body"] = "You'll find the attachment below";
@@ -96,17 +92,17 @@ class AssignmentController extends Controller
         // dd($data["auditor"]);
 
         $pdf = PDF::loadView('assignment.pdf2', $fileData);
-        
-        Mail::send('emails.myTestMail', $data, function($message)use($data, $pdf) {
+
+        Mail::send('emails.myTestMail', $data, function ($message) use ($data, $pdf) {
             $message->to($data["email"], $data["email"])
-                    ->subject($data["title"])
-                    ->attachData($pdf->output(), "text.pdf");
+                ->subject($data["title"])
+                ->attachData($pdf->output(), "text.pdf");
         });
-  
+
         dd('Mail sent successfully');
 
         return $pdf->download('test.pdf');
-    }  
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -173,14 +169,14 @@ class AssignmentController extends Controller
     {
         //
     }
-    
+
     public function certificate()
     {
         $file = File::first();
-        $fileData = HelperFunction::getAuditAssignment($file);            
+        $fileData = HelperFunction::getAuditAssignment($file);
         $pdf = PDF::loadView('certificate.certificate', $fileData);
-            $name = $file->company->company_name;
-            return $pdf->download($name.'.pdf');
-    
+        $name = $file->company->company_name;
+        return $pdf->download($name . '.pdf');
+
     }
 }
