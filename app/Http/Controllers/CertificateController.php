@@ -137,11 +137,10 @@ class CertificateController extends Controller
         if ($certificate) {
 
             $CertificateData = HelperFunction::getCertificateData($certificate);
-            // dd($CertificateData['cost_ecnomics'][0]);
-            // dd($CertificateData);
             $pdf = PDF::loadView('certificate.certificate', $CertificateData);
-            $name = $CertificateData['company_name'];
-            return $pdf->stream();
+            $name = $file->company->company_name . '– Certificato -' . $benefits->column1 . " - " . $file->year .".pdf";
+            
+            return $pdf->download($name);
         }
 
         $request->session()->put('files_id', $id);
