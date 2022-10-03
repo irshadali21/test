@@ -127,6 +127,13 @@ class CertificateController extends Controller
     public function show(Request $request, $id)
     {
         $certificate = Certificate::where('file_id', $id)->first();
+        $file = File::where('id', $certificate->file_id)->firstorfail();
+        $benefits = Summary::where('id', $file->benefit_id)->firstorfail();
+        if($benefits->column1 != 'R&S'){
+            flash('Still Working')->error();
+            return back();
+        }
+        
         if ($certificate) {
 
             $CertificateData = HelperFunction::getCertificateData($certificate);
@@ -134,7 +141,7 @@ class CertificateController extends Controller
             // dd($CertificateData);
             $pdf = PDF::loadView('certificate.certificate', $CertificateData);
             $name = $CertificateData['company_name'];
-            return $pdf->download($name . '.pdf');
+            return $pdf->stream();
         }
 
         $request->session()->put('files_id', $id);

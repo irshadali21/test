@@ -146,9 +146,21 @@ class HelperFunction
     
     public static function getCertificateData($certificate){
 
+
+
         $file = File::where('id', $certificate->file_id)->firstorfail();
 // dd($file);
         $benefits = Summary::where('id', $file->benefit_id)->firstorfail();
+        if($file->year < 2020){
+        
+            $description = "Credito d'imposta per Ricerca e Sviluppo";
+            $refrance = "Art. 3 del D.L 23.12.2013 N. 145";
+        }
+        else{
+            $description = "Credito d'imposta per Ricerca e Sviluppo";
+            $refrance = "Art. 1 Comma 201 – Legge n.160 del 27 dicembre 2019 Decreto del MISE del 26/05/2020";
+        }
+
         $auditor = $file->advisor;
         $code_date = Date('dmy');
         $date = Date('d/m/Y');
@@ -156,12 +168,15 @@ class HelperFunction
         $signature = url('/').'/image/signature/sigh.png';
         $square = url('/').'/image/signature/test.jpg';
         $square2 = url('/').'/image/signature/test2.jpg';
+        $euro = url('/').'/image/signature/euro.jpg';
+        $euro_lightBlue = url('/').'/image/signature/euro_lightBlue.jpg';
         $stamp = url('/').$auditor->advoiser_stamp;
         $cost_ecnomics = $certificate->cost_ecnomic_report;
         $cost_ecnomics = json_decode($cost_ecnomics);
         $fileData = [
             'benefits_name' => $benefits->column1,
             'benefits_year' => $file->year,
+            'fee' => $file->fee,
             'benefits_requirment' => $benefits->column2,
             'company_name' => $file->company->company_name,
             'company_address' => $file->company->company_address,
@@ -180,6 +195,15 @@ class HelperFunction
             'solida_logo' => $logo,
             'code_date' => $code_date,
             'signature' => $signature,
+            'euro' => $euro,
+            'euro_lightBlue' => $euro_lightBlue,
+            'refrance' => $refrance,
+            'description' =>$description,
+
+
+            'accrued_benifits' => $certificate->accrued_benifits,
+            'tribute_6938' => $certificate->tribute_6938,
+            'tribute_6939' => $certificate->tribute_6939,
         ];
         
         return ($fileData);

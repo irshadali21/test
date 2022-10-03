@@ -1,0 +1,191 @@
+@font-face {
+    font-family: "Roboto";
+    src: url("fonts/roboto/Roboto-Regular.ttf");
+    }
+    @font-face {
+        font-family: "Robotolight";
+        src: url("fonts/roboto/Roboto-Light.ttf");
+    }
+
+    @font-face {
+        font-family: "Robotobold";
+        src: url("fonts/roboto/Roboto-Bold.ttf");
+    }
+
+    @font-face {
+        font-family: "Robotoitalic";
+        src: url("fonts/roboto/Roboto-BoldItalic.ttf");
+    }
+
+    @font-face {
+        font-family: "Robotoi";
+        src: url("fonts/roboto/Roboto-Italic.ttf");
+    }
+    p {
+        margin-top: 6px;
+        margin-bottom: 3px;
+        font: normal 16px/16px Roboto;
+        text-align: justify;
+        text-justify: inter-word;
+    }
+
+    strong, center {
+        font: normal 16px/16px Robotobold;
+    }
+
+    i {
+        font: normal 16px/16px Robotoitalic;
+    }
+    .li {
+        font: normal 16px/16px Roboto;
+    }
+
+    .i {
+        font: normal 16px/16px Robotoi;
+    }
+
+    .lastp {
+        margin-top: 6px;
+        margin-bottom: 3px;
+        font: normal 14px/14px Roboto;
+        text-align: justify;
+        text-justify: inter-word;
+    }
+
+    .laststrong, .lastcenter {
+        font: normal 15px/15px Robotobold;
+    }
+
+    .lasti {
+        font: normal 15px/15px Robotoitalic;
+    }
+    .lastli {
+        font: normal 15px/15px Roboto;
+    }
+
+
+
+    header {
+        position: fixed;
+        top: -10px;
+        left: 0px;
+        right: 0px;
+        height: 50px;
+        margin-left: 27px;
+        margin-right: 27px;
+    }
+
+    footer {
+        position: fixed;
+        bottom: -1px;
+        left: 0px;
+        right: 0px;
+        height: 60px;
+        color: #911e37;
+        margin-left: 27px;
+        margin-right: 27px;
+    }
+
+    .pr {
+        margin-top: 7px;
+    }
+
+    
+    
+    .square {
+        display: inline-block;
+        height: 20px;
+        width: 20px;
+        margin-left: 10px;
+        border: 1px solid black;
+    }
+    .text {
+        display: inline-block;
+        height: 20px;
+        width: auto;
+        margin-left: 10px;
+        font: normal 16px/16px Roboto;
+    }
+    body{
+        margin-left: 27px;
+        margin-right: 27px;
+    }
+
+
+    #resp-table {
+        width: 100%;
+        display: table;
+    }
+    
+    #resp-table-body{
+        display: table-row-group;
+    }
+    .resp-table-row{
+        display: table-row;
+    }
+    /* .table-body-cell{
+        display: table-cell;
+        border: 1px solid black;
+        padding: 8px;
+       
+        vertical-align: top;
+    } */
+    .cell-table-name {
+        display: table-cell;
+        border-top:    1px solid black;
+        border-right:  1px solid black; 
+        border-left: 1px solid black;
+        border-bottom: 0;
+        padding-left: 8px;
+        padding-right: 8px;
+       
+        vertical-align: top;
+    }
+    .cell-table-value {
+        display: table-cell;
+        border-top:    1px solid black;
+        border-right:  1px solid black; 
+
+        border-bottom: 0;
+        padding-left: 8px;
+        padding-right: 8px;
+        vertical-align: top;
+    }
+    .fotter-table-name {
+        display: table-cell;
+        border-top:    1px solid black;
+        border-right:  1px solid black; 
+        border-left: 1px solid black;
+        border-bottom: 1px solid black;;
+        padding-left: 8px;
+        padding-right: 8px;
+       
+        vertical-align: top;
+    }
+    .fotter-table-value {
+        display: table-cell;
+        border-top:    1px solid black;
+        border-right:  1px solid black; 
+        border-left: 0;
+        border-bottom: 1px solid black;;
+        padding-left: 8px;
+        padding-right: 8px;
+        vertical-align: top;
+        margin: 0px;
+    }
+
+    table, tr, td, th{
+        border-color: black !important;
+        font: normal 13px/13px Roboto;
+    }
+   
+    td{
+        font: normal 13px/13px Roboto;
+    }
+    .b-lightblue{
+        background-color: #DEEAF6;
+    }
+    .footer_setting{
+        font-size: 9px;
+        margin-bottom: -3px !important;
+    }

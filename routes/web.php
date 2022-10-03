@@ -125,6 +125,12 @@ Route::group(['middleware' => ['auth','verified', 'stampCheck']], function () {
 
     //Certificate
 
+    Route::get('certificate/test', function(){
+        return view('certificate.test');});
+    
     Route::resource('certificate', 'CertificateController');
 
+    
 });
+
+
