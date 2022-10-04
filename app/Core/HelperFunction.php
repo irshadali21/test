@@ -2,20 +2,12 @@
 
 namespace App\Core;
 
-
-use PDF;
-use Mail;
-use Closure;
-use Exception;
-use App\Models\File;
 use App\Models\ApiData;
+use App\Models\File;
 use App\Models\Summary;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
-use App\Http\Controllers\HomeController;
 use App\User;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Http;
 
 class HelperFunction
 {
@@ -25,11 +17,11 @@ class HelperFunction
         return md5(date('Y-m-d') . microtime() . rand());
     }
 
-
-    public static function GetResponse($url, $pramas){
+    public static function GetResponse($url, $pramas)
+    {
 
         $api = ApiData::firstorfail();
-        $user =User::where('id', Auth::user()->id)->first();
+        $user = User::where('id', Auth::user()->id)->first();
         $response = Http::withToken($api->token)->get($url, $pramas);
         //updating user count in user profile
         $user->api_count++;
@@ -37,46 +29,46 @@ class HelperFunction
         //updating overall api count
         $api->total_api_count++;
         $api->save();
-        
-        if($response->successful()){
+
+        if ($response->successful()) {
             return $response;
-        }else if($response->failed()){
+        } else if ($response->failed()) {
             // genrate new token and save it
-            $response = Http::acceptJson()->post('https://connect.creditsafe.com/v1/authenticate',  [
+            $response = Http::acceptJson()->post('https://connect.creditsafe.com/v1/authenticate', [
                 'Username' => $api->user_name,
                 'Password' => $api->password,
             ]);
             $token = $api['token'] = $response['token'];
             $api->save();
-            
+
             // retry on api request
             $response = Http::withToken($api->token)->get($url, $pramas);
 
-                if($response->successful()){
-                    return $response;
-                }else if($response->failed()){
-                    //its an error with data sent please check the following error
-                    dd($response['details'], $response['message']);
-                }else if($response->serverError()){
-                    dd($response['details'], $response['message']);
-                }else{
-                    dd('unkown error');
-                }
-        }else if($response->serverError()){
+            if ($response->successful()) {
+                return $response;
+            } else if ($response->failed()) {
+                //its an error with data sent please check the following error
+                dd($response['details'], $response['message']);
+            } else if ($response->serverError()) {
+                dd($response['details'], $response['message']);
+            } else {
+                dd('unkown error');
+            }
+        } else if ($response->serverError()) {
             dd($response['details'], $response['message']);
-        }else{
+        } else {
             dd('unkown error');
         }
     }
 
-
-    public static function getClientAssignment($file){
+    public static function getClientAssignment($file)
+    {
         $benefits = Summary::where('id', $file->benefit_id)->firstorfail();
         $auditor = $file->advisor;
         $date = Date('d/m/Y');
         $code_date = Date('dmy');
 // dd($file->advisor);
-        $img = url('/').'/image/signature/sigh.png';
+        $img = url('/') . '/image/signature/sigh.png';
         $fileData = [
             'company_name' => $file->company->company_name,
             'vat_number' => $file->company->vat_number,
@@ -87,7 +79,6 @@ class HelperFunction
             'code_date' => $code_date,
             'signature' => $img,
 
-
             'auditor' => $auditor->name,
             'auditor_address' => $auditor->ofc_address,
             'auditor_pec_email' => $auditor->email_pec,
@@ -97,25 +88,24 @@ class HelperFunction
             'auditor_office_no' => $auditor->ofc_name,
             'auditor_fee' => $file->fee,
 
-
         ];
-        
 
         return ($fileData);
 
     }
 
-    public static function getAuditAssignment($file){
+    public static function getAuditAssignment($file)
+    {
 
         $benefits = Summary::where('id', $file->benefit_id)->firstorfail();
         $auditor = $file->advisor;
         $code_date = Date('dmy');
         $date = Date('d/m/Y');
-        $logo = url('/').'/image/signature/Solida_logo.png';
-        $signature = url('/').'/image/signature/sigh.png';
-        $square = url('/').'/image/signature/test.jpg';
-        $square2 = url('/').'/image/signature/test2.jpg';
-        $stamp = url('/').$auditor->advoiser_stamp;
+        $logo = url('/') . '/image/signature/Solida_logo.png';
+        $signature = url('/') . '/image/signature/sigh.png';
+        $square = url('/') . '/image/signature/test.jpg';
+        $square2 = url('/') . '/image/signature/test2.jpg';
+        $stamp = url('/') . $auditor->advoiser_stamp;
         $fileData = [
             'company_name' => $file->company->company_name,
             'vat_number' => $file->company->vat_number,
@@ -139,40 +129,49 @@ class HelperFunction
             'code_date' => $code_date,
             'signature' => $signature,
         ];
-        
+
         return ($fileData);
 
     }
-    
-    public static function getCertificateData($certificate){
 
-
+    public static function getCertificateData($certificate)
+    {
 
         $file = File::where('id', $certificate->file_id)->firstorfail();
-// dd($file);
+
         $benefits = Summary::where('id', $file->benefit_id)->firstorfail();
-        if($file->year < 2020){
-        
-            $description = "Credito d'imposta per Ricerca e Sviluppo";
-            $refrance = "Art. 3 del D.L 23.12.2013 N. 145";
+        if ($benefits->column1 == 'R&S') {
+            if ($file->year < 2020) {
+                $description = "Credito d'imposta per Ricerca e Sviluppo";
+                $refrance = "Art. 3 del D.L 23.12.2013 N. 145";
+            } else {
+                $description = "Credito d'imposta per Ricerca e Sviluppo";
+                $refrance = "Art. 1 Comma 201 – Legge n.160 del 27 dicembre 2019 Decreto del MISE del 26/05/2020";
+            }
+        } else {
+            $description = HelperFunction::getDescription($benefits->column1);
+            $refrance = HelperFunction::getRafrance($benefits->column1);
         }
-        else{
-            $description = "Credito d'imposta per Ricerca e Sviluppo";
-            $refrance = "Art. 1 Comma 201 – Legge n.160 del 27 dicembre 2019 Decreto del MISE del 26/05/2020";
-        }
+
 
         $auditor = $file->advisor;
         $code_date = Date('dmy');
         $date = Date('d/m/Y');
-        $logo = url('/').'/image/signature/Solida_logo.png';
-        $signature = url('/').'/image/signature/sigh.png';
-        $square = url('/').'/image/signature/test.jpg';
-        $square2 = url('/').'/image/signature/test2.jpg';
-        $euro = url('/').'/image/signature/euro.jpg';
-        $euro_lightBlue = url('/').'/image/signature/euro_lightBlue.jpg';
-        $stamp = url('/').$auditor->advoiser_stamp;
+        $logo = url('/') . '/image/signature/Solida_logo.png';
+        $signature = url('/') . '/image/signature/sigh.png';
+        $square = url('/') . '/image/signature/test.jpg';
+        $square2 = url('/') . '/image/signature/test2.jpg';
+        $euro = url('/') . '/image/signature/euro.jpg';
+        $euro_lightBlue = url('/') . '/image/signature/euro_lightBlue.jpg';
+        $stamp = url('/') . $auditor->advoiser_stamp;
         $cost_ecnomics = $certificate->cost_ecnomic_report;
         $cost_ecnomics = json_decode($cost_ecnomics);
+        $course_data = json_decode($certificate->course_data);
+        // foreach ($course_data as $data) {
+        //    foreach ($data as $key ) {
+        //     dd($key);
+        //    }
+        // }
         $fileData = [
             'benefits_name' => $benefits->column1,
             'benefits_year' => $file->year,
@@ -198,19 +197,20 @@ class HelperFunction
             'euro' => $euro,
             'euro_lightBlue' => $euro_lightBlue,
             'refrance' => $refrance,
-            'description' =>$description,
-
+            'description' => $description,
 
             'accrued_benifits' => $certificate->accrued_benifits,
             'tribute_6938' => $certificate->tribute_6938,
             'tribute_6939' => $certificate->tribute_6939,
+            'course_data' => $course_data,
         ];
-        
+
         return ($fileData);
 
     }
-    
-    public static function getCountries(){
+
+    public static function getCountries()
+    {
         return [
             'IT' => 'Italy',
             'US' => 'United States',
@@ -229,7 +229,39 @@ class HelperFunction
             'CA' => 'Canada',
             'BE' => 'Belgium',
         ];
-    
+
+    }
+    public static function getDescription($case)
+    {
+
+        switch ($case) {
+            case ('FORMAZIONE 4.0'):
+                return "Formazione 4.0";
+            case ('INNOVAZIONE TECNOLOGICA'):
+                return "Innovazione Technologic";
+            case ('INNOVIONE DIGITALE 4.0 & GREEN'):
+                return "Innovazione Digitale";
+            case ('INNOVAZIONE & DESIGN'):
+                return "Design s Ideazione Estetica";
+            default:
+                return 'Something went wrong.';
+        }
+    }
+    public static function getRafrance($case)
+    {
+
+        switch ($case) {
+            case ('FORMAZIONE 4.0'):
+                return "Legge 27/12/2017 Art. 1 Commi 46-56 e successive modifiche; Art.31 comma 3 del Regolamento (UE) n.651/2014";
+            case ('INNOVAZIONE TECNOLOGICA'):
+                return "Comma 201 della legge di bilancio n. 160 del 27 dicembre 2019";
+            case ('INNOVIONE DIGITALE 4.0 & GREEN'):
+                return "Legge 27 dicembre 2019, n. 160 – Art. 1 Comma 201; Legge 30 dicembre 2020, n. 178 – Art.1 Comma 1064 lettera d, f, g";
+            case ('INNOVAZIONE & DESIGN'):
+                return "Art. 1 Comma 202 – Legge n.160 del 27 dicembre 2019; Decreto del MISE del 26/05/2020";
+            default:
+                return 'Something went wrong.';
+        }
     }
 
 }
