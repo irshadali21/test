@@ -143,7 +143,7 @@ class CertificateController extends Controller
                 $pdf = PDF::loadView('certificate.certificate2', $CertificateData);
                 $name = $file->company->company_name . '– Certificato -' . $benefits->column1 . " - " . $file->year . ".pdf";
 
-                return $pdf->stream();
+                return $pdf->download($name);
             }
 
         }
