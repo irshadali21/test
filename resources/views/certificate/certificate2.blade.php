@@ -8,7 +8,9 @@
     <link type="text/css" href="{{ asset('css/certificate2.css') }}" rel="stylesheet" />
 
 </head>
-
+@php
+$fmt = new NumberFormatter(($locale = 'it_IT'), NumberFormatter::DECIMAL);
+@endphp
 <div style="page-break-after: always;">
     <header>
         <img src="{{ $solida_logo }}" style="width: 100%; max-width: 190px; max-height: 60;">
@@ -19,9 +21,10 @@
     <body>
         <br><br><br>
 
-        <center style="margin-left:100px; width:80%; margin-top:-5px"> <strong>
+        <center style="margin-left:100px; width:80%; margin-top:-5px"> 
+            <strong>
                 CERTIFICAZIONE RELATIVA AL CREDITO D’IMPOSTA <br>
-                {{ $description }} <br>
+                PER {{ $description }} <br>
                 ANNUALITÀ {{ $benefits_year }} <br>
             </strong>
             ( {{ $refrance }} )
@@ -324,21 +327,27 @@
     <body>
         <br><br><br>
         @php
-            $total = 0;
-            foreach ($cost_ecnomics as $cost) {
-                $total += $cost;
-            }
-            // dd($total);
-        @endphp
+          $total = 0;
+        foreach ($cost_ecnomics as $cost) {
+            $total += $cost;
+        }
+        $value = $fmt->format($total);
+        // dd(strpos($value, ','), $value);
+        
+        if (strpos($value, ',') == false) {
+            $value = $fmt->format($total) . ',00';
+        }
+        
+    @endphp
         <center>
-            <p><strong> SI ATTESTA </strong></p>
+            <strong style="font-size: 20px"> SI ATTESTA </strong>
         </center>
         <p>
             Che la società <span style="font-style: italic"><b>{{ $company_name }}</b> </span>ha sostenuto spese,
             relative al personale dipendente
             impegnato nelle attività di {{ $description }} ammissibili, limitatamente al costo aziendale riferito
             alle ore o alle giornate di formazione, di seguito elencate, per un importo complessivo pari
-            a <b>{{ $total }}</b>
+            a <b>{{ $value }}</b>
         </p>
         <p>
             In particolare, l’impresa ha sostenuto le seguenti spese agevolabili:
@@ -357,25 +366,25 @@
                     <tr>
                         <td>A - Spese di personale relative ai formator</td>
                         <td><img src="{{ $euro }}"
-                                style="width: 100%; max-width: 10px; height: auto; margin-top: 5px; margin-right: 4px"><b>{{ $cost_ecnomics[0] }}</b>
+                                style="width: 100%; max-width: 10px; height: auto; margin-top: 5px; margin-right: 4px"><b>{{ $fmt->format($cost_ecnomics[0]) }}</b>
                         </td>
                     </tr>
                     <tr>
                         <td>B - Costi di esercizio</td>
                         <td><img src="{{ $euro }}"
-                                style="width: 100%; max-width: 10px; height: auto; margin-top: 5px; margin-right: 4px"><b>{{ $cost_ecnomics[2] }}</b>
+                                style="width: 100%; max-width: 10px; height: auto; margin-top: 5px; margin-right: 4px"><b>{{ $fmt->format($cost_ecnomics[2]) }}</b>
                         </td>
                     </tr>
                     <tr>
                         <td>C - Costi dei servizi di consulenza connessi al progetto di formazione</td>
                         <td><img src="{{ $euro }}"
-                                style="width: 100%; max-width: 10px; height: auto; margin-top: 5px; margin-right: 4px"><b>{{ $cost_ecnomics[3] }}</b>
+                                style="width: 100%; max-width: 10px; height: auto; margin-top: 5px; margin-right: 4px"><b>{{ $fmt->format($cost_ecnomics[3]) }}</b>
                         </td>
                     </tr>
                     <tr>
                         <td>D - Spese di personale relative ai partecipanti e spese generali </td>
                         <td><img src="{{ $euro }}"
-                                style="width: 100%; max-width: 10px; height: auto; margin-top: 5px; margin-right: 4px"><b>{{ $cost_ecnomics[5] }}</b>
+                                style="width: 100%; max-width: 10px; height: auto; margin-top: 5px; margin-right: 4px"><b>{{ $fmt->format($cost_ecnomics[5]) }}</b>
                         </td>
                     </tr>
 
@@ -385,7 +394,7 @@
                             TOTALE
                         </th>
                         <th><img src="{{ $euro }}"
-                                style="width: 100%; max-width: 10px; height: auto; margin-top: 5px; margin-right: 4px"><b>{{ $total }}</b>
+                                style="width: 100%; max-width: 10px; height: auto; margin-top: 5px; margin-right: 4px"><b>{{ $value }}</b>
                         </th>
 
                     </tr>
@@ -475,7 +484,7 @@
         <p>
             Credito d’imposta spettante: .......................................................... <img
                 src="{{ $euro }}" alt=""
-                style="width: 100%; max-width: 10px; height: auto; margin-top: 5px; margin-right: 4px"><b>{{ $accrued_benifits }}</b>
+                style="width: 100%; max-width: 10px; height: auto; margin-top: 5px; margin-right: 4px"><b>{{ $fmt->format($accrued_benifits) }}</b>
         </p>
         <p>
            
@@ -486,10 +495,10 @@
         </p>
         <p style="margin-bottom: 0px">
             N.B. il credito d’imposta spettante di EURO <img src="{{ $euro }}" alt=""
-                style="width: 100%; max-width: 10px; height: auto; margin-top: 5px; margin-right: 4px"><b>{{ $accrued_benifits }}</b>
+                style="width: 100%; max-width: 10px; height: auto; margin-top: 5px; margin-right: 4px"><b>{{ $fmt->format($accrued_benifits) }}</b>
             è comprensivo dei costi di
             certificazione per <img src="{{ $euro }}" alt=""
-                style="width: 100%; max-width: 10px; height: auto; margin-top: 5px; margin-right: 4px"><b>{{ $fee }}</b>
+                style="width: 100%; max-width: 10px; height: auto; margin-top: 5px; margin-right: 4px"><b>{{ $fmt->format($fee) }}</b>
         </p>
         <p>
             La normativa prevede che il credito d’imposta relativo ai costi di certificazione sopra riportati,
@@ -509,7 +518,7 @@
             periodo – riportare beneficio complessivo
             comprensivo della certificazione (vedere beneficio complessivo indicato nella relazione
             economica):<img src="{{ $euro }}"
-                style="width: 100%; max-width: 10px; height: auto; margin-top: 5px; margin-right: 4px"><b>{{ $accrued_benifits }}</b>
+                style="width: 100%; max-width: 10px; height: auto; margin-top: 5px; margin-right: 4px"><b>{{ $fmt->format($accrued_benifits) }}</b>
         </p>
 
         <p class="lastp"><strong style="text-decoration: underline;">RU6:</strong> COMPENSAZIONI EFFETTUATE NELL’ANNO

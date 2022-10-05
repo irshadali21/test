@@ -142,10 +142,10 @@ class HelperFunction
         $benefits = Summary::where('id', $file->benefit_id)->firstorfail();
         if ($benefits->column1 == 'R&S') {
             if ($file->year < 2020) {
-                $description = "Credito d'imposta per Ricerca e Sviluppo";
+                $description = "RICERCA E SVILUPPO";
                 $refrance = "Art. 3 del D.L 23.12.2013 N. 145";
             } else {
-                $description = "Credito d'imposta per Ricerca e Sviluppo";
+                $description = "RICERCA E SVILUPPO";
                 $refrance = "Art. 1 Comma 201 – Legge n.160 del 27 dicembre 2019 Decreto del MISE del 26/05/2020";
             }
         } else {
@@ -167,11 +167,8 @@ class HelperFunction
         $cost_ecnomics = $certificate->cost_ecnomic_report;
         $cost_ecnomics = json_decode($cost_ecnomics);
         $course_data = json_decode($certificate->course_data);
-        // foreach ($course_data as $data) {
-        //    foreach ($data as $key ) {
-        //     dd($key);
-        //    }
-        // }
+        
+
         $fileData = [
             'benefits_name' => $benefits->column1,
             'benefits_year' => $file->year,
@@ -236,13 +233,13 @@ class HelperFunction
 
         switch ($case) {
             case ('FORMAZIONE 4.0'):
-                return "Formazione 4.0";
+                return "FORMAZIONE 4.0";
             case ('INNOVAZIONE TECNOLOGICA'):
-                return "Innovazione Technologic";
+                return "INNOVAZIONE TECHNOLOGIC";
             case ('INNOVIONE DIGITALE 4.0 & GREEN'):
-                return "Innovazione Digitale";
+                return "INNOVAZIONE DIGITALE";
             case ('INNOVAZIONE & DESIGN'):
-                return "Design s Ideazione Estetica";
+                return "DESIGN S IDEAZIONE ESTETICA";
             default:
                 return 'Something went wrong.';
         }

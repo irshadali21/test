@@ -325,14 +325,15 @@ class FileController extends Controller
     public function edit($id)
     {
         $file = File::where('id', $id)->first();
-        $cuntries = HelperFunction::getCountries();
-        $advisor = User::role('advisor')->pluck('name', 'id');
-        $exceptThis = [1];
-        $benefit = Summary::whereNotIn('id', $exceptThis)->pluck('column1', 'id');
         if (!$file) {
             flash('File Does Not Exist');
             return back();
         }
+        $cuntries = HelperFunction::getCountries();
+        $advisor = User::role('advisor')->pluck('name', 'id');
+        $exceptThis = [1];
+        $benefit = Summary::whereNotIn('id', $exceptThis)->pluck('column1', 'id');
+        
         return view('files.edit', compact('file', 'benefit', 'cuntries', 'advisor'));
     }
 

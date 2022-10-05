@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @php
     if (session()->get('files_allowed') == null) {
-        return redirect()->to('files')->send();
+        return redirect()->to('certificate')->send();
     }
 @endphp
 @push('pg_btn')
@@ -327,8 +327,9 @@
                                     </div>
                                     <div class="col-lg-4 col-md-4" style="margin-top: -20px">
                                         <div class="form-group">
-                                            {{ Form::number('total_cost', '0', ['class' => 'form-control total',  'step' =>'any']) }}
-                                            
+                                            {{ Form::text('', '', ['class' => 'form-control total', 'disabled' ]) }}
+
+                                                
                                         </div>
                                     </div>
                                         
@@ -340,13 +341,13 @@
                                 <div class="col-lg-6 col-md-6">
                                     <div class="form-group">
                                         {{ Form::label('accrued_benefit', 'Accrued Benefit', ['class' => 'form-control-label']) }}
-                                        {{ Form::text('accrued_benefit', null, ['class' => 'form-control', ]) }}
+                                        {{ Form::number('accrued_benefit', null, ['class' => 'form-control', ]) }}
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6">
                                     <div class="form-group">
                                         {{ Form::label('tribute_6897', 'Tribute 6897', ['class' => 'form-control-label']) }}
-                                        {{ Form::text('tribute_6897', null, ['class' => 'form-control', ]) }}
+                                        {{ Form::number('tribute_6897', null, ['class' => 'form-control', ]) }}
                                     </div>
                                 </div>
                             </div>
@@ -354,13 +355,13 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         {{ Form::label('tribute_6938', 'Tribute 6938', ['class' => 'form-control-label']) }}
-                                        {{ Form::text('tribute_6938', null, ['class' => 'form-control', ]) }}
+                                        {{ Form::number('tribute_6938', null, ['class' => 'form-control', ]) }}
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         {{ Form::label('tribute_6939', 'Tribute 6939', ['class' => 'form-control-label']) }}
-                                        {{ Form::text('tribute_6939', null, ['class' => 'form-control',]) }}
+                                        {{ Form::number('tribute_6939', null, ['class' => 'form-control',]) }}
                                     </div>
                                 </div>
                             </div>
@@ -368,20 +369,20 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         {{ Form::label('tribute_6940', 'Tribute 6940', ['class' => 'form-control-label']) }}
-                                        {{ Form::text('tribute_6940', null, ['class' => 'form-control']) }}
+                                        {{ Form::number('tribute_6940', null, ['class' => 'form-control']) }}
                                     </div>
                                 </div>
                                 
                                 <div class="col-lg-3">
                                     <div class="form-group">
                                         {{ Form::label('sdi', 'SDI', ['class' => 'form-control-label']) }}
-                                        {{ Form::text('sdi', $file->sdi, ['class' => 'form-control', 'readonly']) }}
+                                        {{ Form::number('sdi', $file->sdi, ['class' => 'form-control', 'readonly']) }}
                                     </div>
                                 </div>
                                 <div class="col-lg-3">
                                     <div class="form-group">
                                         {{ Form::label('phone', 'phone', ['class' => 'form-control-label']) }}
-                                        {{ Form::text('phone', $file->company->phone_number, ['class' => 'form-control', 'readonly']) }}
+                                        {{ Form::number('phone', $file->company->phone_number, ['class' => 'form-control', 'readonly']) }}
                                     </div>
                                 </div>
                             </div>
@@ -424,9 +425,13 @@
         jQuery('.calculations').on('keyup', function(){
             var sum = 0;
             jQuery('.calculations').each(function() {
-                sum += Number($(this).val()) || 0;            
+
+                let eur = jQuery(this).val().replace(/[^\d.]/g, '');
+                console.log(eur);
+                var ct = parseFloat(eur);
+                sum += ct;
         });
-        jQuery('.total').val(sum);
+        jQuery('.total').val(sum.toLocaleString('it-IT'));
         })
        
     });

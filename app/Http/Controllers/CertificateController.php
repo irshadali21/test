@@ -110,7 +110,7 @@ class CertificateController extends Controller
 
             DB::commit();
             flash('certificate created successfully!')->success();
-            return redirect()->route('certificategit.index');
+            return redirect()->route('certificate.index');
 
         } catch (\Exception $e) {
 // dd($e);
@@ -135,7 +135,7 @@ class CertificateController extends Controller
                 $CertificateData = HelperFunction::getCertificateData($certificate);
                 $pdf = PDF::loadView('certificate.certificate', $CertificateData);
                 $name = $file->company->company_name . '– Certificato -' . $benefits->column1 . " - " . $file->year . ".pdf";
-                return $pdf->download($name);
+                return $pdf->stream($name);
             }
             
             else{
@@ -143,7 +143,7 @@ class CertificateController extends Controller
                 $pdf = PDF::loadView('certificate.certificate2', $CertificateData);
                 $name = $file->company->company_name . '– Certificato -' . $benefits->column1 . " - " . $file->year . ".pdf";
 
-                return $pdf->download($name);
+                return $pdf->stream($name);
             }
 
         }
@@ -153,141 +153,58 @@ class CertificateController extends Controller
         // $this->create($id);
     }
 
-    public function client_assignment_download($id)
-    {
-        $file = File::where('id', $id)->first();
-        $fileData = HelperFunction::getClientAssignment($file);
-        $pdf = PDF::loadView('assignment.index', $fileData);
-        $name = $file->company->company_name;
-        return $pdf->download($name . '.pdf');
-    }
 
-    public function advoiser_assignment_download($id)
-    {
-        $file = File::where('id', $id)->first();
-        $fileData = HelperFunction::getAuditAssignment($file);
-        $pdf = PDF::loadView('assignment.pdf2', $fileData);
-        $name = $file->company->company_name;
-        return $pdf->download($name . '.pdf');
-    }
-
-    public function client_assignment($id)
-    {
-        $file = File::where('id', $id)->first();
-        if (!$file->customer_email) {
-            flash('Please add a customer email in Aassignment')->error();
-            return back();
-        }
-        $fileData = HelperFunction::getClientAssignment($file);
-        $pdf = PDF::loadView('assignment.index', $fileData);
-        $name = $file->company->company_name;
-
-        $data["email"] = $file->customer_email;
-        $data["name"] = $file->company_name;
-        $data["title"] = "From revman.com";
-        $data["body"] = "You'll find the attachment below";
-        $data["auditor"] = $file->advisor->name;
-
-        $pdf = PDF::loadView('assignment.index', $fileData);
-
-        Mail::send('emails.myTestMail', $data, function ($message) use ($data, $pdf, $name) {
-            $message
-                ->to($data["email"], $data["email"])
-                ->subject($data["title"])
-                ->attachData($pdf->output(), $name . ".pdf");
-        });
-
-        flash('Assignment sent to Client via Email')->success();
-        return back();
-    }
-
-    public function advoiser_assignment($id)
-    {
-        $file = File::where('id', $id)->first();
-        if (!$file->advisor->email_pec) {
-            flash('Please Update your PEC email in Profile of Advoiser')->error();
-            return back();
-        }
-        $fileData = HelperFunction::getAuditAssignment($file);
-        $pdf = PDF::loadView('assignment.pdf2', $fileData);
-        $name = $file->company->company_name;
-
-        $data["email"] = $file->advisor->email_pec;
-        $data["title"] = "From revman.com";
-        $data["body"] = "You'll find the attachment below";
-        $data["name"] = $file->advisor->name;
-        // dd($data["auditor"]);
-
-        $pdf = PDF::loadView('assignment.pdf2', $fileData);
-
-        Mail::send('emails.myTestMail', $data, function ($message) use ($data, $pdf, $name) {
-            $message->to($data["email"], $data["email"])
-                ->subject($data["title"])
-                ->attachData($pdf->output(), $name . ".pdf");
-        });
-
-        flash('Assignment sent to Advoiser via Email')->success();
-        return back();
-
-    }
-
+ 
     public function edit($id)
     {
-        $file = File::where('id', $id)->first();
-        $cuntries = HelperFunction::getCountries();
-        $advisor = User::role('advisor')->pluck('name', 'id');
-        $exceptThis = [1];
-        $benefit = Summary::whereNotIn('id', $exceptThis)->pluck('column1', 'id');
-        if (!$file) {
-            flash('File Does Not Exist');
-            return back();
-        }
-        return view('files.edit', compact('file', 'benefit', 'cuntries', 'advisor'));
+        $certificate = Certificate::where('id', $id)->first();
+        return view('certificate.edit', compact('certificate'));
     }
 
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        $file = File::where('id', $request->file_id)->firstorFail();
+        $OldCertificate = Certificate::where('id', $id)->first(); 
+        $file = File::where('id', $id)->first();
+        // dd( $id );
+        $data = array();
+        for ($i = 0; $i < count($request->course); $i++) {
+            $json = array(
+                'course' => $request->course[$i],
+                'hours' => $request->hours[$i],
+                'employe' => $request->employe[$i],
+            );
+            array_push($data, $json);
+
+        }
+        $course_data = json_encode($data);
+        $Cost_ecnomic_report = json_encode($request->Cost_ecnomic_report);
+        // dd($Cost_ecnomic_report);
+
         DB::beginTransaction();
         try {
-            if ($request->advisor) {
-                $advisor = $request->advisor;
-            } else {
-                $advisor = Auth::user()->id;
-            }
-            $company = Company::where('vat_number', $request->vat_number)->first();
-            $query = "->where('company_id', $company->id)->Where('benefit_id' , $request->benefit_id)->Where('year', $request->year)";
 
-            $check_file = File::where('id', '!=', $request->file_id)
-                ->where('company_id', $company->id)
-                ->Where('benefit_id', $request->benefit_id)
-                ->Where('year', $request->year)->first();
+            $certificate = Certificate::where('id', $id)->update([
+                'course_data' => $course_data,
+                'cost_ecnomic_report' => $Cost_ecnomic_report,
+                'accrued_benifits' => $request->accrued_benefit,
+                'tribute_6897' => $request->tribute_6897,
+                'tribute_6938' => $request->tribute_6938,
+                'tribute_6939' => $request->tribute_6939,
+                'tribute_6940' => $request->tribute_6940,
+                'status' => 0,
+            ]);
 
-            if ($check_file) {
-                flash('File Already Exist with same Year and Benefits!')->error();
-                return back();
-            } else {
-                $file = $file->update([
-                    'company_id' => $company->id,
-                    'benefit_id' => $request->benefit_id,
-                    'advisor_id' => $advisor,
-                    'year' => $request->year,
-                    'fee' => $request->fee,
-                    'sdi' => $request->sdi,
-                    'customer_email' => $request->customer_email,
-                    'opration_email' => $request->opration_email,
-                ]);
-            }
             DB::commit();
-
-            flash('File created successfully!')->success();
-            return redirect()->route('files.index');
+            flash('Certificate Update successfully!')->success();
+            return redirect()->route('certificate.index');
 
         } catch (\Exception $e) {
+// dd($e);
             DB::rollback();
             flash('There was an error')->error();
             return back();
 
         }
+        
     }
 }

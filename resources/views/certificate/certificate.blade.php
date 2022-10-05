@@ -8,7 +8,9 @@
     <link type="text/css" href="{{ asset('css/certificate.css') }}" rel="stylesheet" />
 
 </head>
-
+@php
+$fmt = new NumberFormatter(($locale = 'it_IT'), NumberFormatter::DECIMAL);
+@endphp
 <div style="page-break-after: always;">
     <header>
         <img src="{{ $solida_logo }}" style="width: 100%; max-width: 190px; max-height: 60;">
@@ -20,11 +22,13 @@
     <body>
         <br><br><br><br>
 
-        <center> <strong>
-                CERTIFICAZIONE RELATIVA AL {{ $description }} <br>
+        <center>
+            <strong>
+                CERTIFICAZIONE RELATIVA AL CREDITO D’IMPOSTA <br>
+                PER {{ $description }} <br>
                 ANNUALITÀ {{ $benefits_year }} <br>
             </strong>
-                ( {{ $refrance }} )
+            ( {{ $refrance }} )
         </center>
         <br>
         <p style="margin-left: -5px;">
@@ -41,7 +45,8 @@
             Abbiamo svolto la revisione contabile dei costi di ricerca e sviluppo sostenuti da
             <b>{{ $company_name }}</b>
             nell’esercizio <b>{{ $benefits_year }}</b> sulla base della documentazione predisposto ai fini
-            della determinazione del credito d’imposta ricerca e sviluppo ai sensi dall’{{ $refrance }} e successive modifiche.
+            della determinazione del credito d’imposta ricerca e sviluppo ai sensi dall’{{ $refrance }} e
+            successive modifiche.
 
         </p>
 
@@ -114,7 +119,8 @@
         <p>
             L’amministratore è responsabile per la valutazione di carattere tecnico in ordine
             all'ammissibilità al credito d’imposta per le attività di ricerca e sviluppo svolte dall'impresa
-            e la prova di dimostrare che le spese sostenute attengano effettivamente ad attività di {{ $benefits_name }}
+            e la prova di dimostrare che le spese sostenute attengano effettivamente ad attività di
+            {{ $benefits_name }}
             rimane in carico al legale rappresentante della società
         </p>
         <p><strong>Responsabilità della società di revisione per la revisione contabile dei costi di ricerca e sviluppo
@@ -266,18 +272,26 @@
     <body>
         <br><br><br><br>
         @php
-            $total = 0;
-            foreach ($cost_ecnomics as $cost) {
-                $total += $cost;
-            }
-            // dd($total);
+           $total = 0;
+        foreach ($cost_ecnomics as $cost) {
+            $total += $cost;
+        }
+        
+        $value = $fmt->format($total);
+        if (strpos($value, ',') == false) {
+
+            $value = $fmt->format($total) . ',00';
+        }
+        
         @endphp
         <center>
-            <p><strong> SI ATTESTA </strong></p>
+            <strong style="font-size: 20px"> SI ATTESTA </strong>
         </center>
         <p>
             Che la società <b>{{ $company_name }}</b> ha sostenuto spese relative ad attività di ricerca e
-            sviluppo, di seguito elencate, per un importo complessivo pari a <b>{{ $total }}</b>
+            sviluppo, di seguito elencate, per un importo complessivo pari a <img src="{{ $euro }}"
+                alt=""
+                style="width: 100%; max-width: 10px; height: auto; margin-top: 5px; margin-right: 4px"><b>{{ $value }}</b>
         </p>
         <p>
             In particolare, l’impresa ha sostenuto le seguenti spese agevolabili:
@@ -287,8 +301,8 @@
 
                 <head>
                     <tr>
-                        <th class=""><b> TIPOLOGIA DI SPESA </b></th>
-                        <th><b>IMPORTO</b></th>
+                        <th style="width: 400px; ">><b> TIPOLOGIA DI SPESA </b></th>
+                        <th style="width: 60px; "><b>IMPORTO</b></th>
                     </tr>
                 </head>
 
@@ -296,7 +310,7 @@
                     <tr>
                         <td class="b-lightblue">A) PERSONALE</td>
                         <td class="b-lightblue"><img src="{{ $euro_lightBlue }}" alt=""
-                                style="width: 100%; max-width: 10px; height: auto; margin-top: 5px; margin-right: 4px"><b>{{ $cost_ecnomics[0] }}</b>
+                                style="width: 100%; max-width: 10px; height: auto; margin-top: 5px; margin-right: 4px"><b>{{ $fmt->format($cost_ecnomics[0]) }}</b>
                         </td>
                     </tr>
 
@@ -305,19 +319,19 @@
                             LAUREA MAGISTRALE IN DISCIPLINE TECNICHE O SCIENTIFICHE
                         </td>
                         <td class="b-lightblue"><img src="{{ $euro_lightBlue }}" alt=""
-                                style="width: 100%; max-width: 10px; height: auto; margin-top: 5px; margin-right: 4px"><b>{{ $cost_ecnomics[1] }}</b>
+                                style="width: 100%; max-width: 10px; height: auto; margin-top: 5px; margin-right: 4px"><b>{{ $fmt->format($cost_ecnomics[1]) }}</b>
                         </td>
                     </tr>
                     <tr>
                         <td>B) SPESE STRUMENTI ED ATTREZZATURE</td>
                         <td><img src="{{ $euro }}" alt=""
-                                style="width: 100%; max-width: 10px; height: auto; margin-top: 5px; margin-right: 4px"><b>{{ $cost_ecnomics[2] }}</b>
+                                style="width: 100%; max-width: 10px; height: auto; margin-top: 5px; margin-right: 4px"><b>{{ $fmt->format($cost_ecnomics[2]) }}</b>
                         </td>
                     </tr>
                     <tr>
                         <td class="b-lightblue">C) SPESE PER CONTRATTI DI RICERCA “EXTRA-MUROS” </td>
                         <td class="b-lightblue"><img src="{{ $euro_lightBlue }}" alt=""
-                                style="width: 100%; max-width: 10px; height: auto; margin-top: 5px; margin-right: 4px"><b>{{ $cost_ecnomics[3] }}</b>
+                                style="width: 100%; max-width: 10px; height: auto; margin-top: 5px; margin-right: 4px"><b>{{ $fmt->format($cost_ecnomics[3]) }}</b>
                         </td>
                     </tr>
                     <tr>
@@ -325,33 +339,34 @@
                             ENTI DI RICERCA
                         </td>
                         <td class="b-lightblue"><img src="{{ $euro_lightBlue }}" alt=""
-                                style="width: 100%; max-width: 10px; height: auto; margin-top: 5px; margin-right: 4px"><b>{{ $cost_ecnomics[4] }}</b>
+                                style="width: 100%; max-width: 10px; height: auto; margin-top: 5px; margin-right: 4px"><b>{{ $fmt->format($cost_ecnomics[4]) }}</b>
                         </td>
                     </tr>
                     <tr>
                         <td>D) COMPETENZE TECNICHE E PRIVATIVE INDUSTRIALI</td>
                         <td><img src="{{ $euro }}" alt=""
-                                style="width: 100%; max-width: 10px; height: auto; margin-top: 5px; margin-right: 4px"><b>{{ $cost_ecnomics[5] }}</b>
+                                style="width: 100%; max-width: 10px; height: auto; margin-top: 5px; margin-right: 4px"><b>{{ $fmt->format($cost_ecnomics[5]) }}</b>
                         </td>
                     </tr>
                     <tr>
                         <td class="b-lightblue">E) SERVIZI DI CONSULENZA ED AFFINI</td>
                         <td class="b-lightblue"><img src="{{ $euro_lightBlue }}" alt=""
-                                style="width: 100%; max-width: 10px; height: auto; margin-top: 5px; margin-right: 4px"><b>{{ $cost_ecnomics[6] }}</b>
+                                style="width: 100%; max-width: 10px; height: auto; margin-top: 5px; margin-right: 4px"><b>{{ $fmt->format($cost_ecnomics[6]) }}</b>
                         </td>
                     </tr>
                     <tr>
                         <td>F) MATERIALI </td>
                         <td><img src="{{ $euro }}" alt=""
-                                style="width: 100%; max-width: 10px; height: auto; margin-top: 5px; margin-right: 4px"><b>{{ $cost_ecnomics[7] }}</b>
+                                style="width: 100%; max-width: 10px; height: auto; margin-top: 5px; margin-right: 4px"><b>{{ $fmt->format($cost_ecnomics[7]) }}</b>
                         </td>
                     </tr>
                     <tr>
                         <th>
                             TOTALE
                         </th>
+
                         <th><img src="{{ $euro }}" alt=""
-                                style="width: 100%; max-width: 10px; height: auto; margin-top: 5px; margin-right: 4px"><b>{{ $total }}</b>
+                                style="width: 100%; max-width: 10px; height: auto; margin-top: 5px; margin-right: 4px"><b>{{ $value }}</b>
                         </th>
 
                     </tr>
@@ -439,27 +454,27 @@
         <p>
             Credito d’imposta spettante: .......................................................... <img
                 src="{{ $euro }}" alt=""
-                style="width: 100%; max-width: 10px; height: auto; margin-top: 5px; margin-right: 4px"><b>{{ $accrued_benifits }}</b>
+                style="width: 100%; max-width: 10px; height: auto; margin-top: 5px; margin-right: 4px"><b>{{ $fmt->format($accrued_benifits) }}</b>
         </p>
         <p><strong>Codici tributo da utilizzare per compensazioni F24: </strong></p>
         <p>
             &nbsp;&nbsp;&nbsp;&nbsp;
             Codice Tributo 6938 anno di riferimento <b>{{ $benefits_year }}</b> ................................. <img
                 src="{{ $euro }}" alt=""
-                style="width: 100%; max-width: 10px; height: auto; margin-top: 5px; margin-right: 4px"><b>{{ $tribute_6938 }}</b>
+                style="width: 100%; max-width: 10px; height: auto; margin-top: 5px; margin-right: 4px"><b>{{ $fmt->format($tribute_6938) }}</b>
         </p>
         <p>
             &nbsp;&nbsp;&nbsp;&nbsp;
             Codice Tributo 6939 anno di riferimento <b>{{ $benefits_year }}</b> ................................. <img
                 src="{{ $euro }}" alt=""
-                style="width: 100%; max-width: 10px; height: auto; margin-top: 5px; margin-right: 4px"><b>{{ $tribute_6939 }}</b>
+                style="width: 100%; max-width: 10px; height: auto; margin-top: 5px; margin-right: 4px"><b>{{ $fmt->format($tribute_6939) }}</b>
         </p>
         <p style="margin-bottom: 0px">
             N.B. il credito d’imposta spettante di EURO <img src="{{ $euro }}" alt=""
-                style="width: 100%; max-width: 10px; height: auto; margin-top: 5px; margin-right: 4px"><b>{{ $accrued_benifits }}</b>
+                style="width: 100%; max-width: 10px; height: auto; margin-top: 5px; margin-right: 4px"><b>{{ $fmt->format($accrued_benifits) }}</b>
             è comprensivo dei costi di
             certificazione per <img src="{{ $euro }}" alt=""
-                style="width: 100%; max-width: 10px; height: auto; margin-top: 5px; margin-right: 4px"><b>{{ $fee }}</b>
+                style="width: 100%; max-width: 10px; height: auto; margin-top: 5px; margin-right: 4px"><b>{{ $fmt->format($fee) }}</b>
         </p>
         <p>
             La normativa prevede che il credito d’imposta relativo ai costi di certificazione sopra riportati,
@@ -472,7 +487,8 @@
                 </p>
             </center>
         </strong>
-        <p class="lastp"><strong style="text-decoration: underline;">RU1:</strong> Dati identificativi del credito d’imposta – CODICE
+        <p class="lastp"><strong style="text-decoration: underline;">RU1:</strong> Dati identificativi del credito
+            d’imposta – CODICE
             “L1” </p>
         <p class="lastp"><strong style="text-decoration: underline;">RU5: </strong></p>
         <p style="margin-left: 15px; margin-bottom: 0px" class="lastp">
@@ -480,7 +496,7 @@
             <strong> - colonna 1</strong> la maggiorazione del credito d’imposta spettante per gli investimenti in
             attività di ricerca e sviluppo effettuate nelle <strong>Regioni Abruzzo, Basilicata, Calabria,
                 Campania, Molise, Puglia, Sardegna e Sicilia </strong> <img src="{{ $euro }}" alt=""
-                style="width: 100%; max-width: 10px; height: auto; margin-top: 5px; margin-right: 4px"><b>{{ $tribute_6939 }}</b>
+                style="width: 100%; max-width: 10px; height: auto; margin-top: 5px; margin-right: 4px"><b>{{ $fmt->format($tribute_6939) }}</b>
         </p>
         <p style="margin-left: 15px; margin-bottom: 0px" class="lastp">
 
@@ -492,14 +508,16 @@
 
             <strong> - colonna 3</strong> l’ammontare complessivo del credito d’imposta maturato incluso gli importi
             delle colonne 1 e 2 <img src="{{ $euro }}" alt=""
-                style="width: 100%; max-width: 10px; height: auto; margin-top: 5px; margin-right: 4px"><b>{{ $accrued_benifits }}</b>
+                style="width: 100%; max-width: 10px; height: auto; margin-top: 5px; margin-right: 4px"><b>{{ $fmt->format($accrued_benifits) }}</b>
         </p>
-        <p class="lastp"><strong style="text-decoration: underline;">RU12: </strong> Credito d’imposta residuo – riportare il
+        <p class="lastp"><strong style="text-decoration: underline;">RU12: </strong> Credito d’imposta residuo –
+            riportare il
             beneficio complessivo come da Rigo RU5
             colonna 3
         </p>
         <p style="margin-bottom: 0px" class="lastp"><strong>SEZ. IV</strong></p>
-        <p style="margin-bottom: 0px" class="lastp"><strong style="text-decoration: underline;">RU100: </strong> <strong>Colonna
+        <p style="margin-bottom: 0px" class="lastp"><strong style="text-decoration: underline;">RU100: </strong>
+            <strong>Colonna
                 1</strong> L’ammontare complessivo delle spese agevolabili, incluse le
             maggiorazioni e le limitazioni (vedere relazione economica)
 
