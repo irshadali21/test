@@ -157,7 +157,7 @@ class CertificateController extends Controller
  
     public function edit($id)
     {
-        $certificate = Certificate::where('id', $id)->first();
+        $certificate = Certificate::where('file_id', $id)->first();
         return view('certificate.edit', compact('certificate'));
     }
 
