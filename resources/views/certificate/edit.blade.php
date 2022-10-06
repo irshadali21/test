@@ -3,18 +3,19 @@
     <a href="{{ route('certificate.index') }}" class="btn btn-sm btn-neutral">All Certificate</a>
 @endpush
 @section('content')
-@php
-$fmt = new NumberFormatter(($locale = 'it_IT'), NumberFormatter::DECIMAL);
-@endphp
+    @php
+        $fmt = new NumberFormatter(($locale = 'it_IT'), NumberFormatter::DECIMAL);
+    @endphp
     <div class="row">
         <div class="col-md-12">
             <div class="card mb-5">
                 <div class="card-body">
-                    {!! Form::open(['route' => ['certificate.update', $certificate->id], 'files' => true,  'method' => 'put']) !!}
+                    {!! Form::open(['route' => ['certificate.update', $certificate->id], 'files' => true, 'method' => 'put']) !!}
 
                     <h6 class="heading-small text-muted mb-4">Certificate information for
                         <strong>{{ $certificate->file->company->company_name }}</strong> -
-                        {{ $certificate->file->benefit->column1 }} - {{ $certificate->file->year }}</h6>
+                        {{ $certificate->file->benefit->column1 }} - {{ $certificate->file->year }}
+                    </h6>
                     <div class="pl-lg-4">
                         <div class="row">
 
@@ -47,30 +48,30 @@ $fmt = new NumberFormatter(($locale = 'it_IT'), NumberFormatter::DECIMAL);
                                 <div class="col-lg-4 col-md-6" style="margin-top: -20px">
                                     <div class="form-group">
                                         {{ Form::text('course[]', $course_data['course'], ['class' => 'form-control']) }}
-    
+
                                     </div>
                                 </div>
                                 <div class="col-lg-2 col-md-2" style="margin-top: -20px">
                                     <div class="form-group">
                                         {{ Form::text('hours[]', $course_data['hours'], ['class' => 'form-control']) }}
-    
+
                                     </div>
                                 </div>
-    
+
                                 <div class="col-lg-2 col-md-2" style="margin-top: -20px">
                                     <div class="form-group">
                                         {{ Form::text('employe[]', $course_data['employe'], ['class' => 'form-control']) }}
-    
+
                                     </div>
                                 </div>
                             </div>
                         @endforeach
 
-                       
 
-@php
-    $cost_ecnomic_report = json_decode($certificate->cost_ecnomic_report);
-@endphp
+
+                        @php
+                            $cost_ecnomic_report = json_decode($certificate->cost_ecnomic_report);
+                        @endphp
                         <p style="margin-left: 15%; font-weight: bold"> Cost ecnomic report</p>
                         <div class="row">
                             <div class="col-lg-2 col-md-2 " style="margin-top: -15px">
@@ -191,7 +192,7 @@ $fmt = new NumberFormatter(($locale = 'it_IT'), NumberFormatter::DECIMAL);
 
                                 </div>
                             </div>
-              
+
                             <div class="col-lg-4 col-md-4" style="margin-top: -20px">
                                 <div class="form-group">
                                     {{ Form::number('Cost_ecnomic_report[]', $cost_ecnomic_report[7], ['class' => 'form-control calculations', 'step' => 'any']) }}
@@ -209,22 +210,21 @@ $fmt = new NumberFormatter(($locale = 'it_IT'), NumberFormatter::DECIMAL);
                                 </div>
                             </div>
 
-                @php
-                $total = 0;
-                foreach ($cost_ecnomic_report as $cost) {
-                    $total += $cost;
-                }
-                
-                $value = $fmt->format($total);
-                if (strpos($value, ',') == false) {
-        
-                    $value = $fmt->format($total) . ',00';
-                }
-                
-                @endphp
+                            @php
+                                $total = 0;
+                                foreach ($cost_ecnomic_report as $cost) {
+                                    $total += $cost;
+                                }
+                                
+                                $value = $fmt->format($total);
+                                if (strpos($value, ',') == false) {
+                                    $value = $fmt->format($total) . ',00';
+                                }
+                                
+                            @endphp
                             <div class="col-lg-4 col-md-4" style="margin-top: -20px">
                                 <div class="form-group">
-                                    {{ Form::text('', $value, ['class' => 'form-control total', 'disabled' ]) }}
+                                    {{ Form::text('', $value, ['class' => 'form-control total', 'disabled']) }}
 
                                 </div>
                             </div>
@@ -318,19 +318,22 @@ $fmt = new NumberFormatter(($locale = 'it_IT'), NumberFormatter::DECIMAL);
                 ]
 
             });
-            jQuery('.calculations').on('keyup', function(){
-            var sum = 0;
-            jQuery('.calculations').each(function() {
+            jQuery('.calculations').on('keyup', function() {
+                var sum = 0;
+                jQuery('.calculations').each(function() {
 
-                let eur = jQuery(this).val().replace(/[^\d.]/g, '');
-                console.log(eur);
-                var ct = parseFloat(eur);
-                sum += ct;
-        });
-        jQuery('.total').val(sum.toLocaleString('it-IT'));
-        })
+                    let eur = jQuery(this).val().replace(/[^\d.]/g, '');
+                    if (eur) {
+                        var ct = parseFloat(eur);
+                        sum += ct;
+                    }
+                    // console.log(eur);
 
-            
+                });
+                jQuery('.total').val(sum.toLocaleString('it-IT'));
+            })
+
+
 
         });
     </script>

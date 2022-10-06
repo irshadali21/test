@@ -13,25 +13,25 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/test/{id}', 'HomeController@test');
+// Route::get('/test/{id}', 'HomeController@test');
    
-Route::get('/migrate', function () {
-    $exitCode = Artisan::call('migrate');
-    return 'migrate'; 
-});
-Route::get('/migrate/rollback', function () {
-    $exitCode = Artisan::call('migrate:rollback');
-    return 'migrate:rollback'; 
-});
+// Route::get('/migrate', function () {
+//     $exitCode = Artisan::call('migrate');
+//     return 'migrate'; 
+// });
+// Route::get('/migrate/rollback', function () {
+//     $exitCode = Artisan::call('migrate:rollback');
+//     return 'migrate:rollback'; 
+// });
 
-Route::get('/clear-cache', function () {
-    $exitCode = Artisan::call('optimize:clear');
-    return 'optimize:cleare'; //Return anything
-}); 
-Route::get('/link-storage', function () {
-    $exitCode = Artisan::call('storage:link');
-    return 'storage linked'; //Return anything
-});
+// Route::get('/clear-cache', function () {
+//     $exitCode = Artisan::call('optimize:clear');
+//     return 'optimize:cleare'; //Return anything
+// }); 
+// Route::get('/link-storage', function () {
+//     $exitCode = Artisan::call('storage:link');
+//     return 'storage linked'; //Return anything
+// });
 
 
 Route::get('/', function () {
