@@ -64,7 +64,7 @@ class HelperFunction
     public static function getClientAssignment($file)
     {
         $benefits = Summary::where('id', $file->benefit_id)->firstorfail();
-        $auditor = $file->advisor;
+        $auditor = User::where('id', $file->advisor_id)->withTrashed()->first();
         $date = Date('d/m/Y');
         $code_date = Date('dmy');
 // dd($file->advisor);
@@ -98,7 +98,7 @@ class HelperFunction
     {
 
         $benefits = Summary::where('id', $file->benefit_id)->firstorfail();
-        $auditor = $file->advisor;
+        $auditor = User::where('id', $file->advisor_id)->withTrashed()->first();
         $code_date = Date('dmy');
         $date = Date('d/m/Y');
         $logo = url('/') . '/image/signature/Solida_logo.png';
@@ -138,7 +138,7 @@ class HelperFunction
     {
 
         $file = File::where('id', $certificate->file_id)->firstorfail();
-
+        $auditor = User::where('id', $file->advisor_id)->withTrashed()->first();
         $benefits = Summary::where('id', $file->benefit_id)->firstorfail();
         if ($benefits->column1 == 'R&S') {
             if ($file->year < 2020) {
@@ -154,7 +154,6 @@ class HelperFunction
         }
 
 
-        $auditor = $file->advisor;
         $code_date = Date('dmy');
         $date = Date('d/m/Y');
         $logo = url('/') . '/image/signature/Solida_logo.png';

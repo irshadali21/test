@@ -122,15 +122,19 @@ Route::group(['middleware' => ['auth','verified', 'stampCheck']], function () {
         'uses'=> 'FileController@advoiser_assignment_download',
         'as' => 'files.advoiser_assignment_download',
     ]);
-
+    
     //Certificate
-
+    
     Route::get('certificate/test', function(){
         return view('certificate.test');});
-    
-    Route::resource('certificate', 'CertificateController');
-
-    
+        
+        Route::resource('certificate', 'CertificateController');
+        
+        Route::get('/certificate/send/{id}', [
+            'uses'=> 'CertificateController@send',
+            'as' => 'certificate.send',
+        ]);
+        
 });
 
 

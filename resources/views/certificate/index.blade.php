@@ -137,6 +137,7 @@
                                                     @endcan
                                                     @can('view-certificate')
                                                         <a class="dropdown-item"  href="{{route('certificate.show',$certificate->id)}}">Download Certificate</a>
+                                                        <a class="dropdown-item"  href="{{route('certificate.send',$certificate->id)}}">Send Certificate</a>
                                                     @endcan
                                                     
 
@@ -173,9 +174,9 @@
                                                     @can('update-file')
                                                         <a class="dropdown-item"  href="{{route('files.edit',$certificate->id)}}">Edit File</a>
                                                     @endcan
-                                                    @can('view-certificate')
-                                                        <a class="dropdown-item"  href="{{route('certificate.show',$certificate->id)}}">Create/Download Certificate</a>
-                                                    @endcan
+                                                    <a class="dropdown-item"  href="{{route('certificate.edit',$certificate->id)}}">Modify Certificate</a>
+                                                    <a class="dropdown-item"  href="{{route('certificate.show',$certificate->id)}}">Download Certificate</a>
+                                                    <a class="dropdown-item"  href="{{route('certificate.send',$certificate->id)}}">Send Certificate</a>
 
                                                     {{-- <a class="dropdown-item"  href="{{route('files.advoiser_assignment_download',$post->id)}}">Download for Advoiser</a> --}}
                                                 </div>

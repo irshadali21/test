@@ -7,6 +7,7 @@ use App\Models\Certificate;
 use App\Models\Company;
 use App\Models\File;
 use App\Models\Summary;
+use App\Models\EmailTrack;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -131,14 +132,13 @@ class CertificateController extends Controller
 
             $file = File::where('id', $certificate->file_id)->firstorfail();
             $benefits = Summary::where('id', $file->benefit_id)->firstorfail();
+
             if ($benefits->column1 == 'R&S') {
                 $CertificateData = HelperFunction::getCertificateData($certificate);
                 $pdf = PDF::loadView('certificate.certificate', $CertificateData);
                 $name = $file->company->company_name . '– Certificato -' . $benefits->column1 . " - " . $file->year . ".pdf";
                 return $pdf->download($name);
-            }
-            
-            else{
+            } else {
                 $CertificateData = HelperFunction::getCertificateData($certificate);
                 $pdf = PDF::loadView('certificate.certificate2', $CertificateData);
                 $name = $file->company->company_name . '– Certificato -' . $benefits->column1 . " - " . $file->year . ".pdf";
@@ -153,8 +153,6 @@ class CertificateController extends Controller
         // $this->create($id);
     }
 
-
- 
     public function edit($id)
     {
         $certificate = Certificate::where('file_id', $id)->first();
@@ -163,7 +161,8 @@ class CertificateController extends Controller
 
     public function update(Request $request, $id)
     {
-        $OldCertificate = Certificate::where('id', $id)->first(); 
+        
+        $OldCertificate = Certificate::where('id', $id)->first();
         $file = File::where('id', $id)->first();
         // dd( $id );
         $data = array();
@@ -179,7 +178,11 @@ class CertificateController extends Controller
         $course_data = json_encode($data);
         $Cost_ecnomic_report = json_encode($request->Cost_ecnomic_report);
         // dd($Cost_ecnomic_report);
-
+        if ($request->status == 1) {
+            $paid_date = date('Y-d-m');
+        }else{
+            $paid_date = '';
+        }
         DB::beginTransaction();
         try {
 
@@ -191,7 +194,9 @@ class CertificateController extends Controller
                 'tribute_6938' => $request->tribute_6938,
                 'tribute_6939' => $request->tribute_6939,
                 'tribute_6940' => $request->tribute_6940,
-                'status' => 0,
+                'status' => $request->status,
+                'paid_date' => $paid_date,
+
             ]);
 
             DB::commit();
@@ -205,6 +210,68 @@ class CertificateController extends Controller
             return back();
 
         }
-        
+
+    }
+    public function send($id)
+    {
+        $certificate = Certificate::where('file_id', $id)->first();
+        if ($certificate) {
+
+            $file = File::where('id', $id)->firstorfail();
+            $benefits = Summary::where('id', $file->benefit_id)->firstorfail();
+            $auditor = User::where('id', $file->advisor_id)->withTrashed()->first();
+
+            if ($benefits->column1 == 'R&S') {
+                $CertificateData = HelperFunction::getCertificateData($certificate);
+                $pdf = PDF::loadView('certificate.certificate', $CertificateData);
+
+                $name = $file->company->company_name . '– Certificato -' . $benefits->column1 . " - " . $file->year . ".pdf";
+
+                
+               
+
+                // return $pdf->download($name);
+            } else {
+                $CertificateData = HelperFunction::getCertificateData($certificate);
+                $pdf = PDF::loadView('certificate.certificate2', $CertificateData);
+                $name = $file->company->company_name . '– Certificato -' . $benefits->column1 . " - " . $file->year . ".pdf";
+
+                // return $pdf->download($name);
+            }
+
+
+            $data["email"] = 'coordinamento.certificazioni@solidateam.it';
+            $data["solida_email"] = 'coordinamento.certificazioni@solidateam.it';
+            $data["subject"] = "Please Issue invoice";
+            $data["title"] = "From Revman";
+            $data["body"] = `“Please Issue invoice to:
+                company: `.$CertificateData['company_name'].`
+                VAT number: `.$CertificateData['vat_number'].`
+                company email: `.$certificate->file->company->email_address.`
+                company SDI code: `.$certificate->file->sdi.`
+                phone number: `.$certificate->file->company->phone_number.`”`; 
+
+            Mail::send('emails.myTestMail', $data, function ($message) use ($data, $pdf, $name) {
+                $message
+                    ->to($data["email"], $data["email"])
+                    ->subject($data["subject"])
+                    ->attachData($pdf->output(), $name . ".pdf");
+            });
+            
+            EmailTrack::create([
+                'created_by' => Auth::user()->id,
+                'model' => 'App\Models\Certificate',
+                'model_id' => $file->id,
+                'date' => date('Y-m-d'),
+                
+            ]);
+            flash('Certificatw Sent')->success();
+            return back();
+
+        }
+
+        $request->session()->put('files_id', $id);
+        return redirect()->route('certificate.create');
+
     }
 }

@@ -347,7 +347,9 @@ $fmt = new NumberFormatter(($locale = 'it_IT'), NumberFormatter::DECIMAL);
             relative al personale dipendente
             impegnato nelle attività di {{ $description }} ammissibili, limitatamente al costo aziendale riferito
             alle ore o alle giornate di formazione, di seguito elencate, per un importo complessivo pari
-            a <b>{{ $value }}</b>
+            a  <img src="{{ $euro }}"
+            alt=""
+            style="width: 100%; max-width: 10px; height: auto; margin-top: 5px; margin-right: 4px"><b>{{ $value }}</b>
         </p>
         <p>
             In particolare, l’impresa ha sostenuto le seguenti spese agevolabili:

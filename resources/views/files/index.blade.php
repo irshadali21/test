@@ -56,7 +56,11 @@
                                             {{$post->year}}
                                         </td>
                                         <td class="budget">
+                                            @if ($post->advisor)
                                             {{$post->advisor->name}}
+                                                @else
+                                                <span style="color: red"> Advisor Deleted </span>
+                                            @endif
                                         </td>
                                         {{-- <td class="budget">
                                             {{$post->company_administrator}}

@@ -282,7 +282,15 @@
                                 </div>
                             </div>
                         </div>
-
+                        <div class="col-md-12">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" name="status" value="1" class="custom-control-input"
+                                    id="status" @if ($certificate->status == 1)
+                                        checked
+                                    @endif>
+                                {{ Form::label('status', 'Status', ['class' => 'custom-control-label']) }}
+                            </div>
+                        </div>
 
                         {{-- <hr class="my-4" /> --}}
 

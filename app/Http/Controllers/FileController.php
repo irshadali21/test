@@ -8,7 +8,9 @@ use App\Models\ApiData;
 use App\Models\Company;
 use App\Models\File;
 use App\Models\Summary;
+use App\Models\EmailTrack;
 use App\User;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -213,7 +215,9 @@ class FileController extends Controller
     public function show($id)
     {
         $file = File::where('id', $id)->first();
-        return view('files.show', compact('file'));
+        $EmailTrackFile = EmailTrack::where('model_id', $id)->where('model', 'App\Models\File')->get();
+        $EmailTrackCertificate = EmailTrack::where('model_id', $id)->where('model', 'App\Models\Certificate')->get();
+        return view('files.show', compact('file', 'EmailTrackFile', 'EmailTrackCertificate'));
 
     }
 
@@ -283,6 +287,13 @@ class FileController extends Controller
                 ->attachData($pdf->output(), $name . ".pdf");
         });
 
+        EmailTrack::create([
+            'created_by' => Auth::user()->id,
+            'model' => 'App\Models\File',
+            'model_id' => $file->id,
+            'date' => date('Y-m-d'),
+            
+        ]);
         flash('Assignment sent to Client via Email')->success();
         return back();
     }
@@ -307,7 +318,7 @@ class FileController extends Controller
             Cordialità"; 
         $data["name"] = $file->advisor->name;
         $name = $file->company->company_name . " – INCARICO_REV - " . $benefits->column1 . " - " . $file->year;
-        $pdf = PDF::loadView('assignment.pdf2', $fileData);
+        
 
         Mail::send('emails.myTestMail', $data, function ($message) use ($data, $pdf, $name) {
             $message
@@ -316,7 +327,13 @@ class FileController extends Controller
                 ->subject($data["subject"])
                 ->attachData($pdf->output(), $name . ".pdf");
         });
-
+        EmailTrack::create([
+            'created_by' => Auth::user()->id,
+            'model' => 'App\Models\File',
+            'model_id' => $file->id,
+            'date' => date('Y-m-d'),
+            
+        ]);
         flash('Assignment sent to Advoiser via Email')->success();
         return back();
 

@@ -9,10 +9,12 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use Notifiable, HasRoles, LogsActivity, ThrottlesLogins;
+    use Notifiable, HasRoles, LogsActivity, ThrottlesLogins, SoftDeletes;
     protected static $ignoreChangedAttributes = ['password'];
 
     /**
@@ -44,6 +46,20 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // protected static function boot()
+    // {
+    //     parent::boot();
+
+    //     function ($model) {
+
+    //         if ( $model->deleted_at ) {
+    //                 $model = Auth::user()->company_id;
+    //         }
+    //     };
+    // }
+
+
 
     public function setStatusAttribute($status)
     {

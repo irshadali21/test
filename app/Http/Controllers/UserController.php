@@ -11,9 +11,21 @@ use Illuminate\Support\Facades\Storage;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Str;
 
-
+use App\Http\Controllers\Controller;
+use App\Providers\RouteServiceProvider;
+use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
+use App\Mail\UserRegistered;
 class UserController extends Controller
 {
+
+    use RegistersUsers;
+    protected $redirectTo = RouteServiceProvider::HOME;
+
+
+
     public function __construct()
     {
 
@@ -97,6 +109,10 @@ class UserController extends Controller
         // dd($userData);
         $user = User::create($userData);
         $user->assignRole($request->role);
+
+        if (setting('register_notification_email')) {
+            Mail::to($userData['email'])->send( new UserRegistered($user));
+        }
         flash('User created successfully!')->success();
         return redirect()->route('users.index');
 

@@ -55,8 +55,8 @@ class AssignmentController extends Controller
     public function pdf2()
     {
         $file = File::firstorfail();
-        $benefits = Summary::where('id', $file->benefit_id)->firstorfail();
-        $auditor = $file->auditor;
+        $benefits = Summary::withTrashed()->where('id', $file->benefit_id)->firstorfail();
+        $auditor = $file->auditor->withTrashed();
         $code_date = Date('dmy');
         $date = Date('d/m/Y');
         $logo = 'image/signature/Solida_logo.png';

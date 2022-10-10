@@ -105,6 +105,74 @@
                             <strong>{{ $file->benefit->column1}}</strong> 
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            FILE CREATION DATE
+                        </div>
+                        <div class="col-sm-6">
+                            <strong>{{ $file->created_at}}</strong> 
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            INCARICO_CLI SEND DATE
+                        </div>
+                        <div class="col-sm-6">
+                            @foreach ($EmailTrackFile as $item)
+                                
+                            <strong> - {{ $item->date}}</strong> <br>
+                            @endforeach
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            CERTIFICATE SEND DATE
+                        </div>
+                        <div class="col-sm-6">
+                            @foreach ($EmailTrackCertificate as $item)
+                                
+                            <strong> - {{ $item->date}}</strong> <br>
+                            @endforeach
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            CERTIFICATE PAYIED
+                        </div>
+                        <div class="col-sm-6">
+                        @if ($file->certificate)
+                        @if ($file->certificate->status == 1)
+                            <strong>Paid</strong>
+                            @else
+                            <strong>Not Paid</strong>
+                            
+                            @endif
+
+                            @else
+                            <strong>Certificate Not created</strong>
+
+                        @endif
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-4">
+                            DATE PAYMENT
+                        </div>
+                        <div class="col-sm-6">
+                        @if ($file->certificate)
+                        @if ($file->certificate->status == 1)
+                            <strong>{{ $file->certificate->paid_date }}</strong>
+                            @else
+                            <strong>Not Paid</strong>
+                            
+                            @endif
+
+                            @else
+                            <strong>Certificate Not created</strong>
+
+                        @endif
+                    </div>
                     
                 </div>
             </div>
