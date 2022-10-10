@@ -108,11 +108,9 @@ class UserController extends Controller
         
         // dd($userData);
         $user = User::create($userData);
+        $user->markEmailAsVerified();
         $user->assignRole($request->role);
 
-        if (setting('register_notification_email')) {
-            Mail::to($userData['email'])->send( new UserRegistered($user));
-        }
         flash('User created successfully!')->success();
         return redirect()->route('users.index');
 

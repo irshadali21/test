@@ -174,7 +174,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" name="status" value="1" class="custom-control-input"
+                                    <input type="checkbox" name="status" value="1"  checked class="custom-control-input"
                                         id="status">
                                     {{ Form::label('status', 'Status', ['class' => 'custom-control-label']) }}
                                 </div>
