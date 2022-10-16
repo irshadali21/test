@@ -183,7 +183,7 @@
                         {{-- <hr class="my-4" /> --}}
                         
                         <div class="col-md-12">
-                            {{ Form::submit('Save File', ['class'=> 'mt-5 btn btn-primary']) }}
+                            {{ Form::submit('Save File', ['class'=> 'mt-5 btn btn-secondary']) }}
                         </div>
 
                     {!! Form::close() !!}

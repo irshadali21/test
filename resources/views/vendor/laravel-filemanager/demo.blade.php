@@ -30,7 +30,7 @@
         <h2 class="mt-4">Standalone Image Button</h2>
         <div class="input-group">
           <span class="input-group-btn">
-            <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary text-white">
+            <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-secondary text-white">
               <i class="fa fa-picture-o"></i> Choose
             </a>
           </span>
@@ -40,7 +40,7 @@
         <h2 class="mt-4">Standalone File Button</h2>
         <div class="input-group">
           <span class="input-group-btn">
-            <a id="lfm2" data-input="thumbnail2" data-preview="holder2" class="btn btn-primary text-white">
+            <a id="lfm2" data-input="thumbnail2" data-preview="holder2" class="btn btn-secondary text-white">
               <i class="fa fa-picture-o"></i> Choose
             </a>
           </span>

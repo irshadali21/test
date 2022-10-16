@@ -59,7 +59,7 @@
       </table>
       <div class="d-flex mb-3">
         <button class="btn btn-secondary w-50 mr-1" onclick="loadItems()">{{ trans('laravel-filemanager::lfm.btn-cancel') }}</button>
-        <button class="btn btn-primary w-50" onclick="doResize()">{{ trans('laravel-filemanager::lfm.btn-resize') }}</button>
+        <button class="btn btn-secondary w-50" onclick="doResize()">{{ trans('laravel-filemanager::lfm.btn-resize') }}</button>
       </div>
 
       <input type="hidden" id="img" name="img" value="{{ $img->name }}">

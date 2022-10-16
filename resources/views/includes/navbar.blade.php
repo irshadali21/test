@@ -32,7 +32,7 @@
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link {{ (request()->is('home*')) ? 'active' : '' }}" href="{{route('home')}}">
-                            <i class="ni ni-shop text-primary"></i>
+                            <i class="ni ni-shop " style="color: #B5ABA2"></i>
                             <span class="nav-link-text">Dashboard</span>
                         </a>
                     </li>
@@ -40,7 +40,7 @@
                     
                     <li class="nav-item">
                         <a class="nav-link {{ (request()->is('files*')) ? 'active' : '' }}" href="#navbar-files"  data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-files">
-                            <i class="fas text-primary fa-tasks"></i>
+                            <i class="fas fa-tasks" style="color: #B5ABA2"></i>
                             <span class="nav-link-text">Manage Files</span>
                         </a>
                         <div class="collapse {{ (request()->is('files*')) ? 'show' : '' }} {{ (request()->is('certificate*')) ? 'show' : '' }}" id="navbar-files">
@@ -78,7 +78,7 @@
                     @can('update-settings')
                     <li class="nav-item">
                         <a class="nav-link {{ (request()->is('settings*')) ? 'active' : '' }}" href="{{route('settings.index')}}">
-                            <i class="ni ni-settings-gear-65 text-primary"></i>
+                            <i class="ni ni-settings-gear-65" style="color: #B5ABA2"></i>
                             <span class="nav-link-text">Manage Settings</span>
                         </a>
                     </li>
@@ -89,7 +89,7 @@
                     
                     <li class="nav-item">
                         <a class="nav-link {{ (request()->is('users*')) ? 'active' : '' }}" href="#navbar-users"  data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-users">
-                            <i class="fas text-primary fa-user"></i>
+                            <i class="fas fa-user" style="color: #B5ABA2"></i>
                             <span class="nav-link-text">Manage Users</span>
                         </a>
                         <div class="collapse {{ (request()->is('users*')) ? 'show' : '' }}" id="navbar-users">
@@ -112,7 +112,7 @@
                     @canany(['view-permission', 'create-permission'])
                     <li class="nav-item">
                         <a class="nav-link {{ (request()->is('permissions*')) ? 'active' : '' }}" href="{{route('permissions.index')}}">
-                            <i class="fas fa-lock-open text-primary"></i>
+                            <i class="fas fa-lock-open "style="color: #B5ABA2"></i>
                             <span class="nav-link-text">Manage Permissions</span>
                         </a>
                     </li>
@@ -120,7 +120,7 @@
                     @canany(['view-role', 'create-role'])
                     <li class="nav-item">
                         <a class="nav-link {{ (request()->is('roles*')) ? 'active' : '' }}" href="{{route('roles.index')}}">
-                            <i class="fas fa-lock text-primary"></i>
+                            <i class="fas fa-lock "style="color: #B5ABA2"></i>
                             <span class="nav-link-text">Manage Roles</span>
                         </a>
                     </li>
@@ -129,7 +129,7 @@
                     @canany(['media'])
                     <li class="nav-item">
                         <a class="nav-link {{ (request()->is('media*')) ? 'active' : '' }}" href="{{route('media.index')}}">
-                            <i class="fas fa-images text-primary"></i>
+                            <i class="fas fa-images "style="color: #B5ABA2"></i>
                             <span class="nav-link-text">Manage Media</span>
                         </a>
                     </li>
@@ -137,7 +137,7 @@
                     @canany(['view-activity-log'])
                     <li class="nav-item">
                         <a class="nav-link {{ (request()->is('activity-log*')) ? 'active' : '' }}" href="{{route('activity-log.index')}}">
-                            <i class="fas fa-history text-primary"></i>
+                            <i class="fas fa-history "style="color: #B5ABA2"></i>
                             <span class="nav-link-text">Activity Log</span>
                         </a>
                     </li>

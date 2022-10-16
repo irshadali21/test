@@ -106,7 +106,7 @@
                             <h3 class="mb-0">Page visits</h3>
                         </div>
                         <div class="col text-right">
-                            <a href="#!" class="btn btn-sm btn-primary">See all</a>
+                            <a href="#!" class="btn btn-sm btn-secondary">See all</a>
                         </div>
                     </div>
                 </div>
@@ -205,7 +205,7 @@
                             <h3 class="mb-0">Social traffic</h3>
                         </div>
                         <div class="col text-right">
-                            <a href="#!" class="btn btn-sm btn-primary">See all</a>
+                            <a href="#!" class="btn btn-sm btn-secondary">See all</a>
                         </div>
                     </div>
                 </div>

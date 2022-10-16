@@ -180,7 +180,7 @@
                                 </div>
                             </div>
                             <div class="col-md-12">
-                                {{ Form::submit('Submit', ['class' => 'mt-5 btn btn-primary']) }}
+                                {{ Form::submit('Submit', ['class' => 'mt-5 btn btn-secondary']) }}
                             </div>
                         </div>
                     </div>

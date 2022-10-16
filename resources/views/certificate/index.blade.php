@@ -86,7 +86,7 @@
                                         </td>
                                         <td class="text-center">
                                             <div class="btn-group ">
-                                                <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Options</i></button>
+                                                <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Options</i></button>
                                                 <div class="dropdown-menu " style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, -183px, 0px);" x-placement="top-start">
                                                     @can('view-file')
                                                         <a class="dropdown-item"  href="{{route('files.show', $post->id)}}">View File</a>
@@ -124,7 +124,7 @@
                                         </td>
                                         <td class="text-center">
                                             <div class="btn-group ">
-                                                <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Options</i></button>
+                                                <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Options</i></button>
                                                 <div class="dropdown-menu " style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, -183px, 0px);" x-placement="top-start">
                                                     @can('view-file')
                                                         <a class="dropdown-item"  href="{{route('files.show', $certificate->id)}}">View File</a>
@@ -166,7 +166,7 @@
                                         </td>
                                         <td class="text-center">
                                             <div class="btn-group ">
-                                                <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Options</i></button>
+                                                <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Options</i></button>
                                                 <div class="dropdown-menu " style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, -183px, 0px);" x-placement="top-start">
                                                     @can('view-file')
                                                         <a class="dropdown-item"  href="{{route('files.show', $certificate->id)}}">View File</a>

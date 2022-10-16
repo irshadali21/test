@@ -81,7 +81,7 @@
                                             {!! Form::open(['route' => ['users.destroy', $user],'method' => 'delete',  'class'=>'d-inline-block dform']) !!}
                                             @endcan
                                             @can('view-user')
-                                            <a class="btn btn-primary btn-sm m-1" data-toggle="tooltip" data-placement="top" title="View and edit user details" href="{{route('users.show', $user)}}">
+                                            <a class="btn btn-secondary btn-sm m-1" data-toggle="tooltip" data-placement="top" title="View and edit user details" href="{{route('users.show', $user)}}">
                                                 <i class="fa fa-eye" aria-hidden="true"></i>
                                             </a>
                                             @endcan

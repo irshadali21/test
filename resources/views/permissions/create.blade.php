@@ -22,7 +22,7 @@
                         <div class="pl-lg-1">
                             <div class="row">
                                 <div class="col-md-12">
-                                    {{ Form::submit('Submit', ['class'=> 'mt-3 btn btn-primary']) }}
+                                    {{ Form::submit('Submit', ['class'=> 'mt-3 btn btn-secondary']) }}
                                 </div>
                             </div>
                         </div>
