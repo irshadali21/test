@@ -120,7 +120,7 @@
                         <div class="col-sm-6">
                             @foreach ($EmailTrackFile as $item)
                                 
-                            <strong> - {{ $item->date}}</strong> <br>
+                            <strong>  {{ $item->created_at}}</strong> <br>
                             @endforeach
                         </div>
                     </div>
@@ -131,7 +131,7 @@
                         <div class="col-sm-6">
                             @foreach ($EmailTrackCertificate as $item)
                                 
-                            <strong> - {{ $item->date}}</strong> <br>
+                            <strong>  {{ $item->created_at}}</strong> <br>
                             @endforeach
                         </div>
                     </div>

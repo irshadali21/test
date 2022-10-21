@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use App\Core\HelperFunction;
 use App\Models\Certificate;
 use App\Models\Company;
+use App\Models\EmailTrack;
 use App\Models\File;
 use App\Models\Summary;
-use App\Models\EmailTrack;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -34,21 +34,38 @@ class CertificateController extends Controller
     {
 
         // $certificate = Certificate::paginate(setting('record_per_page', 15));
-
-        $uncertified = File::get();
-        $unpaid_files = File::join('certificates', 'files.id', '=', 'certificates.file_id')
-            ->join('summaries', 'files.benefit_id', '=', 'summaries.id')
-            ->join('companies', 'files.company_id', '=', 'companies.id')
-            ->where('certificates.status', 0)
-            ->select('files.id as id', 'summaries.column1 as benefits', 'companies.company_name as company_name', 'files.year as benefits_year')
-            ->get();
-        $paid_files = File::join('certificates', 'files.id', '=', 'certificates.file_id')
-            ->join('summaries', 'files.benefit_id', '=', 'summaries.id')
-            ->join('companies', 'files.company_id', '=', 'companies.id')
-            ->where('certificates.status', 1)
-            ->select('files.id as id', 'summaries.column1 as benefits', 'companies.company_name as company_name', 'files.year as benefits_year')
-            ->get();
-        // dd($unpaid_files);
+        if (Auth::user()->hasrole('super-admin')) {
+            $uncertified = File::get();
+            $unpaid_files = File::join('certificates', 'files.id', '=', 'certificates.file_id')
+                ->join('summaries', 'files.benefit_id', '=', 'summaries.id')
+                ->join('companies', 'files.company_id', '=', 'companies.id')
+                ->where('certificates.status', 0)
+                ->select('files.id as id', 'summaries.column1 as benefits', 'companies.company_name as company_name', 'files.year as benefits_year')
+                ->get();
+            $paid_files = File::join('certificates', 'files.id', '=', 'certificates.file_id')
+                ->join('summaries', 'files.benefit_id', '=', 'summaries.id')
+                ->join('companies', 'files.company_id', '=', 'companies.id')
+                ->where('certificates.status', 1)
+                ->select('files.id as id', 'summaries.column1 as benefits', 'companies.company_name as company_name', 'files.year as benefits_year')
+                ->get();
+            // dd($unpaid_files);
+        } else {
+            $uncertified = File::where('advisor_id', auth()->user()->id)->get();
+            $unpaid_files = File::join('certificates', 'files.id', '=', 'certificates.file_id')
+                ->join('summaries', 'files.benefit_id', '=', 'summaries.id')
+                ->join('companies', 'files.company_id', '=', 'companies.id')
+                ->where('certificates.status', 0)
+                ->where('files.advisor_id', auth()->user()->id)
+                ->select('files.id as id', 'summaries.column1 as benefits', 'companies.company_name as company_name', 'files.year as benefits_year')
+                ->get();
+            $paid_files = File::join('certificates', 'files.id', '=', 'certificates.file_id')
+                ->join('summaries', 'files.benefit_id', '=', 'summaries.id')
+                ->join('companies', 'files.company_id', '=', 'companies.id')
+                ->where('certificates.status', 1)
+                ->where('files.advisor_id', auth()->user()->id)
+                ->select('files.id as id', 'summaries.column1 as benefits', 'companies.company_name as company_name', 'files.year as benefits_year')
+                ->get();
+        }
         return view('certificate.index', compact('uncertified', 'unpaid_files', 'paid_files'));
     }
 
@@ -161,7 +178,7 @@ class CertificateController extends Controller
 
     public function update(Request $request, $id)
     {
-        
+
         $OldCertificate = Certificate::where('id', $id)->first();
         $file = File::where('id', $id)->first();
         // dd( $id );
@@ -180,7 +197,7 @@ class CertificateController extends Controller
         // dd($Cost_ecnomic_report);
         if ($request->status == 1) {
             $paid_date = date('Y-d-m');
-        }else{
+        } else {
             $paid_date = '';
         }
         DB::beginTransaction();
@@ -227,9 +244,6 @@ class CertificateController extends Controller
 
                 $name = $file->company->company_name . '– Certificato -' . $benefits->column1 . " - " . $file->year . ".pdf";
 
-                
-               
-
                 // return $pdf->download($name);
             } else {
                 $CertificateData = HelperFunction::getCertificateData($certificate);
@@ -239,17 +253,17 @@ class CertificateController extends Controller
                 // return $pdf->download($name);
             }
 
-
             $data["email"] = 'coordinamento.certificazioni@solidateam.it';
             $data["solida_email"] = 'coordinamento.certificazioni@solidateam.it';
             $data["subject"] = "Please Issue invoice";
             $data["title"] = "From Revman";
-            $data["body"] = `“Please Issue invoice to:
-                company: `.$CertificateData['company_name'].`
-                VAT number: `.$CertificateData['vat_number'].`
-                company email: `.$certificate->file->company->email_address.`
-                company SDI code: `.$certificate->file->sdi.`
-                phone number: `.$certificate->file->company->phone_number.`”`; 
+            $data["body"] = "Please Issue invoice to: <br>" .
+            " BENEFIT: " . $CertificateData['benefits_name'] . "<br>" .
+            " COMPANY: " . $CertificateData['company_name'] . "<br>" .
+            " VAT NUMBER: " . $CertificateData['vat_number'] . "<br>" .
+            "COMPANY EMAIL: " . $certificate->file->customer_email . "<br>" .
+            "COMPANY SDI CODE: " . $certificate->file->sdi . "<br>" .
+            " PHONE NUMBER: " . $certificate->file->company->phone_number . "<br>";
 
             Mail::send('emails.myTestMail', $data, function ($message) use ($data, $pdf, $name) {
                 $message
@@ -257,13 +271,23 @@ class CertificateController extends Controller
                     ->subject($data["subject"])
                     ->attachData($pdf->output(), $name . ".pdf");
             });
-            
+
+            // foreach (['coordinamento.certificazioni@solidateam.it', 'coordinamento.certificazioni@solidateam.it'] as $recipient) {
+            foreach (['easyfun@greendike.com', 'easyfun@greendike.com'] as $recipient) {
+                Mail::send('emails.myTestMail', $data, function ($message) use ($data, $pdf, $name, $recipient) {
+                    $message
+                        ->to($recipient)
+                        ->subject($data["subject"])
+                        ->attachData($pdf->output(), $name . ".pdf");
+                });
+            }
+
             EmailTrack::create([
                 'created_by' => Auth::user()->id,
                 'model' => 'App\Models\Certificate',
                 'model_id' => $file->id,
                 'date' => date('Y-m-d'),
-                
+
             ]);
             flash('Certificatw Sent')->success();
             return back();

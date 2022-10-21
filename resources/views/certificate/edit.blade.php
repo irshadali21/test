@@ -288,7 +288,7 @@
                                     id="status" @if ($certificate->status == 1)
                                         checked
                                     @endif>
-                                {{ Form::label('status', 'Status', ['class' => 'custom-control-label']) }}
+                                {{ Form::label('status', 'Certificate Paid', ['class' => 'custom-control-label']) }}
                             </div>
                         </div>
 

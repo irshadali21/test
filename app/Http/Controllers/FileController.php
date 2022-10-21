@@ -34,8 +34,14 @@ class FileController extends Controller
      */
     public function index()
     {
+        if (Auth::user()->hasrole('super-admin')) {
 
         $files = File::paginate(setting('record_per_page', 15));
+    }else{
+            $files = File::where('advisor_id', auth()->user()->id)->paginate(setting('record_per_page', 15));
+
+        }
+        
         return view('files.index', compact('files'));
     }
 
@@ -262,10 +268,12 @@ class FileController extends Controller
 
         $data["title"] = "From Revman";
 
-        $data["email"] = $file->customer_email;
-        $data["solida_email"] = 'coordinamento.certificazioni@solidateam.it';
-        $data["opration_email"] = $file->opration_email;
-        $data["advisor_email"] = $file->advisor->email;
+
+        // $data["email"] = $file->customer_email;
+        // $data["solida_email"] = $file->customer_email;
+        // // $data["solida_email"] = 'coordinamento.certificazioni@solidateam.it';
+        // $data["opration_email"] = $file->opration_email;
+        // $data["advisor_email"] = $file->advisor->email;
 
         $data["subject"] = "Conferimento incarico per attività di " . $benefits->column1 . " annualità " . $file->year;
         $data["body"] = "Buondì, <br>
@@ -278,14 +286,25 @@ class FileController extends Controller
 
         $pdf = PDF::loadView('assignment.index', $fileData);
 
-        Mail::send('emails.myTestMail', $data, function ($message) use ($data, $pdf, $name) {
-            $message
-                ->to($data["email"], $data["email"])
-                ->cc([$data["solida_email"], $data["opration_email"]])
-                ->bcc($data["advisor_email"])
-                ->subject($data["subject"])
-                ->attachData($pdf->output(), $name . ".pdf");
-        });
+        foreach (['coordinamento.certificazioni@solidateam.it', $file->customer_email, $file->opration_email, $file->advisor->email] as $recipient) {
+            Mail::send('emails.myTestMail', $data, function ($message) use ($data, $pdf, $name, $recipient) {
+                $message
+                    ->to($recipient)
+                    ->subject($data["subject"])
+                    ->attachData($pdf->output(), $name . ".pdf");
+            });
+        }
+
+
+
+        // Mail::send('emails.myTestMail', $data, function ($message) use ($data, $pdf, $name) {
+        //     $message
+        //         ->to($data["email"], $data["email"])
+        //         ->cc([$data["solida_email"], $data["opration_email"]])
+        //         ->bcc($data["advisor_email"])
+        //         ->subject($data["subject"])
+        //         ->attachData($pdf->output(), $name . ".pdf");
+        // });
 
         EmailTrack::create([
             'created_by' => Auth::user()->id,
@@ -309,8 +328,8 @@ class FileController extends Controller
         }
         $fileData = HelperFunction::getAuditAssignment($file);
         $pdf = PDF::loadView('assignment.pdf2', $fileData);
-        $data["email"] = $file->advisor->email;
-        $data["solida_email"] = 'coordinamento.certificazioni@solidateam.it';
+        // $data["email"] = $file->advisor->email;
+        // $data["solida_email"] = 'coordinamento.certificazioni@solidateam.it';
         $data["subject"] = "Affidamento attività di revisione relativamente a " . $benefits->column1 . " annualità " . $file->year . " per l’azienda" . $file->company->company_name;
         $data["title"] = "From Revman";
         $data["body"] = "Buondì, <br>
@@ -320,13 +339,24 @@ class FileController extends Controller
         $name = $file->company->company_name . " – INCARICO_REV - " . $benefits->column1 . " - " . $file->year;
         
 
-        Mail::send('emails.myTestMail', $data, function ($message) use ($data, $pdf, $name) {
-            $message
-                ->to($data["email"], $data["email"])
-                ->cc([$data["solida_email"]])
-                ->subject($data["subject"])
-                ->attachData($pdf->output(), $name . ".pdf");
-        });
+        // Mail::send('emails.myTestMail', $data, function ($message) use ($data, $pdf, $name) {
+        //     $message
+        //         ->to($data["email"], $data["email"])
+        //         ->cc([$data["solida_email"]])
+        //         ->subject($data["subject"])
+        //         ->attachData($pdf->output(), $name . ".pdf");
+        // });
+
+
+        foreach (['coordinamento.certificazioni@solidateam.it', $file->advisor->email] as $recipient) {
+            Mail::send('emails.myTestMail', $data, function ($message) use ($data, $pdf, $name, $recipient) {
+                $message
+                    ->to($recipient)
+                    ->subject($data["subject"])
+                    ->attachData($pdf->output(), $name . ".pdf");
+            });
+        }
+
         EmailTrack::create([
             'created_by' => Auth::user()->id,
             'model' => 'App\Models\File',

@@ -53,7 +53,7 @@
                             
                            
 
-                            <table class="table table-hover align-items-center">
+                            <table class="table table-hover align-items-center" style="min-height: 200px">
                                 <thead class="thead-light">
                                 <tr>
                                     <th scope="col">Company Name</th>

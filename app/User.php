@@ -47,17 +47,18 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-    // protected static function boot()
-    // {
-    //     parent::boot();
+    protected static function boot()
+    {
+        parent::boot();
 
-    //     function ($model) {
+        static::creating(function ($model) {
 
-    //         if ( $model->deleted_at ) {
-    //                 $model = Auth::user()->company_id;
-    //         }
-    //     };
-    // }
+            if ( !$model->created_by ) {
+                
+                    $model->created_by = auth()->user()->id;
+            }
+        });
+    }
 
 
 
