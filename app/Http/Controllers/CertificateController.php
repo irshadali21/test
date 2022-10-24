@@ -256,7 +256,7 @@ class CertificateController extends Controller
                 $name = $file->company->company_name . '– Certificato -' . $benefits->column1 . " - " . $file->year . ".pdf";
                 // return $pdf->download($name);
             }
-
+            if($file->customer_email && $file->opration_email && $file->advisor->email){
             $data["email"] = $file->customer_email;
             $data["solida_email"] = 'coordinamento.certificazioni@solidateam.it';
             $data["opration_email"] = $file->opration_email;
@@ -288,8 +288,12 @@ class CertificateController extends Controller
 
             ]);
 
-            flash('Certificatw Sent')->success();
+            flash('Certificate Sent')->success();
             return back();
+        }else{
+            flash('There was a missing email please revise your data')->error();
+            return back();   
+        }
 
         }
 
