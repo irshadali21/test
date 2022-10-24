@@ -20,8 +20,8 @@ class CertificateController extends Controller
     public function __construct()
     {
         $this->middleware('permission:view-certificate');
-        $this->middleware('permission:create-certificate', ['only' => ['create', 'store']]);
-        $this->middleware('permission:update-certificate', ['only' => ['edit', 'update']]);
+        // $this->middleware('permission:create-certificate', ['only' => ['create', 'store']]);
+        // $this->middleware('permission:update-certificate', ['only' => ['edit', 'update']]);
         $this->middleware('permission:destroy-certificate', ['only' => ['destroy']]);
     }
 
@@ -238,25 +238,23 @@ class CertificateController extends Controller
             $benefits = Summary::where('id', $file->benefit_id)->firstorfail();
             $auditor = User::where('id', $file->advisor_id)->withTrashed()->first();
 
-            if ($benefits->column1 == 'R&S') {
-                $CertificateData = HelperFunction::getCertificateData($certificate);
-                $pdf = PDF::loadView('certificate.certificate', $CertificateData);
-
-                $name = $file->company->company_name . '– Certificato -' . $benefits->column1 . " - " . $file->year . ".pdf";
-
-                // return $pdf->download($name);
-            } else {
+            if ($benefits->column1 == 'FORMAZIONE 4.0') {
                 $CertificateData = HelperFunction::getCertificateData($certificate);
                 $pdf = PDF::loadView('certificate.certificate2', $CertificateData);
                 $name = $file->company->company_name . '– Certificato -' . $benefits->column1 . " - " . $file->year . ".pdf";
-
+                // return $pdf->download($name);
+                
+            } else {
+                $CertificateData = HelperFunction::getCertificateData($certificate);
+                $pdf = PDF::loadView('certificate.certificate', $CertificateData);
+                $name = $file->company->company_name . '– Certificato -' . $benefits->column1 . " - " . $file->year . ".pdf";
                 // return $pdf->download($name);
             }
 
             $data["email"] = 'coordinamento.certificazioni@solidateam.it';
-            $data["solida_email"] = 'coordinamento.certificazioni@solidateam.it';
             $data["subject"] = "Please Issue invoice";
             $data["title"] = "From Revman";
+
             $data["body"] = "Please Issue invoice to: <br>" .
             " BENEFIT: " . $CertificateData['benefits_name'] . "<br>" .
             " COMPANY: " . $CertificateData['company_name'] . "<br>" .
@@ -271,17 +269,7 @@ class CertificateController extends Controller
                     ->subject($data["subject"])
                     ->attachData($pdf->output(), $name . ".pdf");
             });
-
-            // foreach (['coordinamento.certificazioni@solidateam.it', 'coordinamento.certificazioni@solidateam.it'] as $recipient) {
-            foreach (['easyfun@greendike.com', 'easyfun@greendike.com'] as $recipient) {
-                Mail::send('emails.myTestMail', $data, function ($message) use ($data, $pdf, $name, $recipient) {
-                    $message
-                        ->to($recipient)
-                        ->subject($data["subject"])
-                        ->attachData($pdf->output(), $name . ".pdf");
-                });
-            }
-
+    
             EmailTrack::create([
                 'created_by' => Auth::user()->id,
                 'model' => 'App\Models\Certificate',
@@ -289,6 +277,7 @@ class CertificateController extends Controller
                 'date' => date('Y-m-d'),
 
             ]);
+
             flash('Certificatw Sent')->success();
             return back();
 

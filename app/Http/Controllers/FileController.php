@@ -57,7 +57,7 @@ class FileController extends Controller
 
         $exceptThis = [1];
         $cuntries = HelperFunction::getCountries();
-        $advisor = User::role('advisor')->pluck('name', 'id');
+        $advisor = User::pluck('name', 'id');
         $benefit = Summary::whereNotIn('id', $exceptThis)->pluck('column1', 'id');
         return view('files.create', compact('benefit', 'cuntries', 'advisor', 'Total_api_calls'));
     }
@@ -269,11 +269,17 @@ class FileController extends Controller
         $data["title"] = "From Revman";
 
 
-        // $data["email"] = $file->customer_email;
+        $data["email"] = $file->customer_email;
         // $data["solida_email"] = $file->customer_email;
-        // // $data["solida_email"] = 'coordinamento.certificazioni@solidateam.it';
-        // $data["opration_email"] = $file->opration_email;
-        // $data["advisor_email"] = $file->advisor->email;
+        $data["solida_email"] = 'coordinamento.certificazioni@solidateam.it';
+        $data["opration_email"] = $file->opration_email;
+        $data["advisor_email"] = $file->advisor->email;
+        
+        // $data["email"] ='easyfun1@greendike.com';
+        // $data["opration_email"] = 'easyfun2@greendike.com';
+        // $data["advisor_email"] = 'easyfun3@greendike.com';
+        // $data["solida_email"] = 'easyfun4@greendike.com';
+
 
         $data["subject"] = "Conferimento incarico per attività di " . $benefits->column1 . " annualità " . $file->year;
         $data["body"] = "Buondì, <br>
@@ -286,25 +292,22 @@ class FileController extends Controller
 
         $pdf = PDF::loadView('assignment.index', $fileData);
 
-        foreach (['coordinamento.certificazioni@solidateam.it', $file->customer_email, $file->opration_email, $file->advisor->email] as $recipient) {
-            Mail::send('emails.myTestMail', $data, function ($message) use ($data, $pdf, $name, $recipient) {
-                $message
-                    ->to($recipient)
-                    ->subject($data["subject"])
-                    ->attachData($pdf->output(), $name . ".pdf");
-            });
-        }
-
-
-
-        // Mail::send('emails.myTestMail', $data, function ($message) use ($data, $pdf, $name) {
-        //     $message
-        //         ->to($data["email"], $data["email"])
-        //         ->cc([$data["solida_email"], $data["opration_email"]])
-        //         ->bcc($data["advisor_email"])
-        //         ->subject($data["subject"])
-        //         ->attachData($pdf->output(), $name . ".pdf");
-        // });
+        // foreach (['coordinamento.certificazioni@solidateam.it', $file->customer_email, $file->opration_email, $file->advisor->email] as $recipient) {
+        //     Mail::send('emails.myTestMail', $data, function ($message) use ($data, $pdf, $name, $recipient) {
+        //         $message
+        //             ->to($recipient)
+        //             ->subject($data["subject"])
+        //             ->attachData($pdf->output(), $name . ".pdf");
+        //     });
+        // }
+        // dd($data);
+        Mail::send('emails.myTestMail', $data, function ($message) use ($data, $pdf, $name) {
+            $message
+                ->to($data["email"], $data["email"])
+                ->cc([$data["solida_email"], $data["opration_email"], $data["advisor_email"]])
+                ->subject($data["subject"])
+                ->attachData($pdf->output(), $name . ".pdf");
+        });
 
         EmailTrack::create([
             'created_by' => Auth::user()->id,
@@ -328,8 +331,8 @@ class FileController extends Controller
         }
         $fileData = HelperFunction::getAuditAssignment($file);
         $pdf = PDF::loadView('assignment.pdf2', $fileData);
-        // $data["email"] = $file->advisor->email;
-        // $data["solida_email"] = 'coordinamento.certificazioni@solidateam.it';
+        $data["email"] = $file->advisor->email;
+        $data["solida_email"] = 'coordinamento.certificazioni@solidateam.it';
         $data["subject"] = "Affidamento attività di revisione relativamente a " . $benefits->column1 . " annualità " . $file->year . " per l’azienda" . $file->company->company_name;
         $data["title"] = "From Revman";
         $data["body"] = "Buondì, <br>
@@ -339,23 +342,23 @@ class FileController extends Controller
         $name = $file->company->company_name . " – INCARICO_REV - " . $benefits->column1 . " - " . $file->year;
         
 
-        // Mail::send('emails.myTestMail', $data, function ($message) use ($data, $pdf, $name) {
-        //     $message
-        //         ->to($data["email"], $data["email"])
-        //         ->cc([$data["solida_email"]])
-        //         ->subject($data["subject"])
-        //         ->attachData($pdf->output(), $name . ".pdf");
-        // });
+        Mail::send('emails.myTestMail', $data, function ($message) use ($data, $pdf, $name) {
+            $message
+                ->to($data["email"], $data["email"])
+                ->cc([$data["solida_email"]])
+                ->subject($data["subject"])
+                ->attachData($pdf->output(), $name . ".pdf");
+        });
 
 
-        foreach (['coordinamento.certificazioni@solidateam.it', $file->advisor->email] as $recipient) {
-            Mail::send('emails.myTestMail', $data, function ($message) use ($data, $pdf, $name, $recipient) {
-                $message
-                    ->to($recipient)
-                    ->subject($data["subject"])
-                    ->attachData($pdf->output(), $name . ".pdf");
-            });
-        }
+        // foreach (['coordinamento.certificazioni@solidateam.it', $file->advisor->email] as $recipient) {
+        //     Mail::send('emails.myTestMail', $data, function ($message) use ($data, $pdf, $name, $recipient) {
+        //         $message
+        //             ->to($recipient)
+        //             ->subject($data["subject"])
+        //             ->attachData($pdf->output(), $name . ".pdf");
+        //     });
+        // }
 
         EmailTrack::create([
             'created_by' => Auth::user()->id,
@@ -377,7 +380,7 @@ class FileController extends Controller
             return back();
         }
         $cuntries = HelperFunction::getCountries();
-        $advisor = User::role('advisor')->pluck('name', 'id');
+        $advisor = User::pluck('name', 'id');
         $exceptThis = [1];
         $benefit = Summary::whereNotIn('id', $exceptThis)->pluck('column1', 'id');
         

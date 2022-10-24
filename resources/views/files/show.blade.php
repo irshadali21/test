@@ -107,6 +107,14 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-4">
+                            Advisor
+                        </div>
+                        <div class="col-sm-6">
+                            <strong>{{ $file->advisor->name}}</strong> 
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
                             FILE CREATION DATE
                         </div>
                         <div class="col-sm-6">

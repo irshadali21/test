@@ -345,13 +345,13 @@ if (session()->get('files_allowed') == null) {
                             <div class="col-lg-6 col-md-6">
                                 <div class="form-group">
                                     {{ Form::label('accrued_benefit', 'Accrued Benefit', ['class' => 'form-control-label']) }}
-                                    {{ Form::number('accrued_benefit', null, ['class' => 'form-control']) }}
+                                    {{ Form::number('accrued_benefit', null, ['class' => 'form-control', 'step' => 'any']) }}
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6">
                                 <div class="form-group">
                                     {{ Form::label('tribute_6897', 'Tribute 6897', ['class' => 'form-control-label']) }}
-                                    {{ Form::number('tribute_6897', null, ['class' => 'form-control']) }}
+                                    {{ Form::number('tribute_6897', null, ['class' => 'form-control', 'step' => 'any']) }}
                                 </div>
                             </div>
                         </div>
@@ -359,13 +359,13 @@ if (session()->get('files_allowed') == null) {
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     {{ Form::label('tribute_6938', 'Tribute 6938', ['class' => 'form-control-label']) }}
-                                    {{ Form::number('tribute_6938', null, ['class' => 'form-control']) }}
+                                    {{ Form::number('tribute_6938', null, ['class' => 'form-control', 'step' => 'any']) }}
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     {{ Form::label('tribute_6939', 'Tribute 6939', ['class' => 'form-control-label']) }}
-                                    {{ Form::number('tribute_6939', null, ['class' => 'form-control']) }}
+                                    {{ Form::number('tribute_6939', null, ['class' => 'form-control', 'step' => 'any']) }}
                                 </div>
                             </div>
                         </div>
@@ -373,20 +373,20 @@ if (session()->get('files_allowed') == null) {
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     {{ Form::label('tribute_6940', 'Tribute 6940', ['class' => 'form-control-label']) }}
-                                    {{ Form::number('tribute_6940', null, ['class' => 'form-control']) }}
+                                    {{ Form::number('tribute_6940', null, ['class' => 'form-control', 'step' => 'any']) }}
                                 </div>
                             </div>
 
                             <div class="col-lg-3">
                                 <div class="form-group">
                                     {{ Form::label('sdi', 'SDI', ['class' => 'form-control-label']) }}
-                                    {{ Form::number('sdi', $file->sdi, ['class' => 'form-control', 'readonly']) }}
+                                    {{ Form::number('sdi', $file->sdi, ['class' => 'form-control', 'readonly', 'step' => 'any']) }}
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="form-group">
                                     {{ Form::label('phone', 'phone', ['class' => 'form-control-label']) }}
-                                    {{ Form::number('phone', $file->company->phone_number, ['class' => 'form-control', 'readonly']) }}
+                                    {{ Form::number('phone', $file->company->phone_number, ['class' => 'form-control', 'readonly', 'step' => 'any']) }}
                                 </div>
                             </div>
                         </div>

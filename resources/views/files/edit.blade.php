@@ -92,7 +92,7 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         {{ Form::label('fee', 'Fee', ['class' => 'form-control-label']) }}
-                                        {{ Form::number('fee', $file->fee, ['class' => 'form-control', 'placeholder' => 'Fee']) }}
+                                        {{ Form::number('fee', $file->fee, ['class' => 'form-control', 'placeholder' => 'Fee' , 'step' => 'any']) }}
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
