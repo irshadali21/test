@@ -257,8 +257,8 @@ class CertificateController extends Controller
                 // return $pdf->download($name);
             }
 
-            $data["email"] = 'coordinamento.certificazioni@solidateam.it';
             $data["email"] = $file->customer_email;
+            $data["solida_email"] = 'coordinamento.certificazioni@solidateam.it';
             $data["opration_email"] = $file->opration_email;
             $data["advisor_email"] = $file->advisor->email;
             $data["subject"] = "Please Issue invoice";
@@ -275,6 +275,7 @@ class CertificateController extends Controller
             Mail::send('emails.myTestMail', $data, function ($message) use ($data, $pdf, $name) {
                 $message
                     ->to($data["email"], $data["email"])
+                    ->cc([$data["solida_email"], $data["opration_email"], $data["advisor_email"]])
                     ->subject($data["subject"])
                     ->attachData($pdf->output(), $name . ".pdf");
             });
