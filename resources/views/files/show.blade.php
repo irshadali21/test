@@ -2,18 +2,21 @@
 @push('pg_btn')
     @can('update-file')
         <div class="btn-group ">
-            <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Assignment Options</button>
-            <div class="dropdown-menu " style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, -183px, 0px);" x-placement="top-start">
-                <a class="dropdown-item"  href="{{route('files.client_assignment',$file->id)}}">Email to Client</a>
-                <a class="dropdown-item"  href="{{route('files.client_assignment_download',$file->id)}}">Download for Client</a>
+            <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="true">Assignment Options</button>
+            <div class="dropdown-menu "
+                style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, -183px, 0px);"
+                x-placement="top-start">
+                <a class="dropdown-item" href="{{ route('files.client_assignment', $file->id) }}">Email to Client</a>
+                <a class="dropdown-item" href="{{ route('files.client_assignment_download', $file->id) }}">Download for
+                    Client</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item"  href="{{route('files.advoiser_assignment',$file->id)}}">Email to Advoiser</a>
-                <a class="dropdown-item"  href="{{route('files.advoiser_assignment_download',$file->id)}}">Download for Advoiser</a>
+                <a class="dropdown-item" href="{{ route('files.advoiser_assignment', $file->id) }}">Email to Advoiser</a>
+                <a class="dropdown-item" href="{{ route('files.advoiser_assignment_download', $file->id) }}">Download for
+                    Advoiser</a>
             </div>
         </div>
-        <a class="btn btn-info btn-sm m-1"  
-        href="{{route('files.edit',$file->id)}}"
-        >
+        <a class="btn btn-info btn-sm m-1" href="{{ route('files.edit', $file->id) }}">
             <i class="fa fa-edit" aria-hidden="true"></i> Edit File
         </a>
     @endcan
@@ -60,7 +63,7 @@
                         </div>
                         <div class="col-sm-6">
                             <strong>{{ $file->company->creditsafe_rating }}</strong>
-                           
+
                         </div>
                     </div>
                     <div class="row">
@@ -69,7 +72,7 @@
                         </div>
                         <div class="col-sm-6">
                             <strong>{{ $file->company->credit }}</strong>
-                           
+
                         </div>
                     </div>
                     <div class="row">
@@ -77,16 +80,16 @@
                             Company Address
                         </div>
                         <div class="col-sm-6">
-                           <strong>{{ $file->company->company_address}}</strong> 
+                            <strong>{{ $file->company->company_address }}</strong>
                         </div>
                     </div>
-                    
+
                     <div class="row">
                         <div class="col-sm-4">
                             Company Aadministrator
                         </div>
                         <div class="col-sm-6">
-                            <strong>{{ $file->company->company_administrator}}</strong> 
+                            <strong>{{ $file->company->company_administrator }}</strong>
                         </div>
                     </div>
                     <div class="row">
@@ -94,7 +97,7 @@
                             Year
                         </div>
                         <div class="col-sm-6">
-                            <strong>{{ $file->year}}</strong> 
+                            <strong>{{ $file->year }}</strong>
                         </div>
                     </div>
                     <div class="row">
@@ -102,7 +105,7 @@
                             Benefits
                         </div>
                         <div class="col-sm-6">
-                            <strong>{{ $file->benefit->column1}}</strong> 
+                            <strong>{{ $file->benefit->column1 }}</strong>
                         </div>
                     </div>
                     <div class="row">
@@ -110,7 +113,7 @@
                             Advisor
                         </div>
                         <div class="col-sm-6">
-                            <strong>{{ $file->advisor->name}}</strong> 
+                            <strong>{{ $file->advisor->name }}</strong>
                         </div>
                     </div>
                     <div class="row">
@@ -118,7 +121,7 @@
                             FILE CREATION DATE
                         </div>
                         <div class="col-sm-6">
-                            <strong>{{ $file->created_at}}</strong> 
+                            <strong>{{ $file->created_at }}</strong>
                         </div>
                     </div>
                     <div class="row">
@@ -127,8 +130,7 @@
                         </div>
                         <div class="col-sm-6">
                             @foreach ($EmailTrackFile as $item)
-                                
-                            <strong>  {{ $item->created_at}}</strong> <br>
+                                <strong> {{ $item->created_at }}</strong> <br>
                             @endforeach
                         </div>
                     </div>
@@ -138,8 +140,7 @@
                         </div>
                         <div class="col-sm-6">
                             @foreach ($EmailTrackCertificate as $item)
-                                
-                            <strong>  {{ $item->created_at}}</strong> <br>
+                                <strong> {{ $item->created_at }}</strong> <br>
                             @endforeach
                         </div>
                     </div>
@@ -148,18 +149,15 @@
                             CERTIFICATE PAYIED
                         </div>
                         <div class="col-sm-6">
-                        @if ($file->certificate)
-                        @if ($file->certificate->status == 1)
-                            <strong>Paid</strong>
+                            @if ($file->certificate)
+                                @if ($file->certificate->status == 1)
+                                    <strong>Paid</strong>
+                                @else
+                                    <strong>Not Paid</strong>
+                                @endif
                             @else
-                            <strong>Not Paid</strong>
-                            
+                                <strong>Certificate Not created</strong>
                             @endif
-
-                            @else
-                            <strong>Certificate Not created</strong>
-
-                        @endif
                         </div>
                     </div>
 
@@ -168,22 +166,19 @@
                             DATE PAYMENT
                         </div>
                         <div class="col-sm-6">
-                        @if ($file->certificate)
-                        @if ($file->certificate->status == 1)
-                            <strong>{{ $file->certificate->paid_date }}</strong>
+                            @if ($file->certificate)
+                                @if ($file->certificate->status == 1)
+                                    <strong>{{ $file->certificate->paid_date }}</strong>
+                                @else
+                                    <strong>Not Paid</strong>
+                                @endif
                             @else
-                            <strong>Not Paid</strong>
-                            
+                                <strong>Certificate Not created</strong>
                             @endif
+                        </div>
 
-                            @else
-                            <strong>Certificate Not created</strong>
-
-                        @endif
                     </div>
-                    
                 </div>
             </div>
         </div>
-    </div>
-@endsection
+    @endsection

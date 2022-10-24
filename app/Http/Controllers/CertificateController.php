@@ -12,6 +12,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 use Mail;
 use PDF;
 
@@ -182,6 +183,7 @@ class CertificateController extends Controller
 
         $OldCertificate = Certificate::where('id', $id)->first();
         $file = File::where('id', $id)->first();
+        $status = 0;
         // dd( $id );
         $data = array();
         for ($i = 0; $i < count($request->course); $i++) {
@@ -197,10 +199,13 @@ class CertificateController extends Controller
         $Cost_ecnomic_report = json_encode($request->Cost_ecnomic_report);
         // dd($Cost_ecnomic_report);
         if ($request->status == 1) {
-            $paid_date = date('Y-d-m');
+            $paid_date = Carbon::now()->toDateTimeString();
+            $status = 1;
+            // dd($paid_date);
         } else {
-            $paid_date = '';
+            $paid_date = Null;
         }
+        // dd('asd');
         DB::beginTransaction();
         try {
 
@@ -212,17 +217,17 @@ class CertificateController extends Controller
                 'tribute_6938' => $request->tribute_6938,
                 'tribute_6939' => $request->tribute_6939,
                 'tribute_6940' => $request->tribute_6940,
-                'status' => $request->status,
+                'status' => $status,
                 'paid_date' => $paid_date,
 
             ]);
-
+            // dd($certificate);
             DB::commit();
             flash('Certificate Update successfully!')->success();
             return redirect()->route('certificate.index');
 
         } catch (\Exception $e) {
-// dd($e);
+dd($e);
             DB::rollback();
             flash('There was an error')->error();
             return back();
