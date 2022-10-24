@@ -227,7 +227,7 @@ class CertificateController extends Controller
             return redirect()->route('certificate.index');
 
         } catch (\Exception $e) {
-dd($e);
+// dd($e);
             DB::rollback();
             flash('There was an error')->error();
             return back();
@@ -258,6 +258,9 @@ dd($e);
             }
 
             $data["email"] = 'coordinamento.certificazioni@solidateam.it';
+            $data["email"] = $file->customer_email;
+            $data["opration_email"] = $file->opration_email;
+            $data["advisor_email"] = $file->advisor->email;
             $data["subject"] = "Please Issue invoice";
             $data["title"] = "From Revman";
 
