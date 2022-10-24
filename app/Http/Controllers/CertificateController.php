@@ -9,10 +9,10 @@ use App\Models\EmailTrack;
 use App\Models\File;
 use App\Models\Summary;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Carbon\Carbon;
 use Mail;
 use PDF;
 
@@ -157,12 +157,12 @@ class CertificateController extends Controller
                 $pdf = PDF::loadView('certificate.certificate2', $CertificateData);
                 $name = $file->company->company_name . '– Certificato -' . $benefits->column1 . " - " . $file->year . ".pdf";
                 return $pdf->download($name);
-            } else {    
+            } else {
                 $CertificateData = HelperFunction::getCertificateData($certificate);
                 $pdf = PDF::loadView('certificate.certificate', $CertificateData);
                 $name = $file->company->company_name . '– Certificato -' . $benefits->column1 . " - " . $file->year . ".pdf";
                 return $pdf->download($name);
-                
+
             }
 
         }
@@ -203,7 +203,7 @@ class CertificateController extends Controller
             $status = 1;
             // dd($paid_date);
         } else {
-            $paid_date = Null;
+            $paid_date = null;
         }
         // dd('asd');
         DB::beginTransaction();
@@ -249,51 +249,57 @@ class CertificateController extends Controller
                 $pdf = PDF::loadView('certificate.certificate2', $CertificateData);
                 $name = $file->company->company_name . '– Certificato -' . $benefits->column1 . " - " . $file->year . ".pdf";
                 // return $pdf->download($name);
-                
+
             } else {
                 $CertificateData = HelperFunction::getCertificateData($certificate);
                 $pdf = PDF::loadView('certificate.certificate', $CertificateData);
                 $name = $file->company->company_name . '– Certificato -' . $benefits->column1 . " - " . $file->year . ".pdf";
                 // return $pdf->download($name);
             }
-            if($file->customer_email && $file->opration_email && $file->advisor->email){
-            $data["email"] = $file->customer_email;
-            $data["solida_email"] = 'coordinamento.certificazioni@solidateam.it';
-            $data["opration_email"] = $file->opration_email;
-            $data["advisor_email"] = $file->advisor->email;
-            $data["subject"] = "Please Issue invoice";
-            $data["title"] = "From Revman";
+            if ($file->advisor) {
+                if ($file->customer_email && $file->opration_email && $file->advisor->email) {
+                    $data["email"] = $file->customer_email;
+                    $data["solida_email"] = 'coordinamento.certificazioni@solidateam.it';
+                    $data["opration_email"] = $file->opration_email;
+                    $data["advisor_email"] = $file->advisor->email;
+                    $data["subject"] = "Please Issue invoice";
+                    $data["title"] = "From Revman";
 
-            $data["body"] = "Please Issue invoice to: <br>" .
-            " BENEFIT: " . $CertificateData['benefits_name'] . "<br>" .
-            " COMPANY: " . $CertificateData['company_name'] . "<br>" .
-            " VAT NUMBER: " . $CertificateData['vat_number'] . "<br>" .
-            "COMPANY EMAIL: " . $certificate->file->customer_email . "<br>" .
-            "COMPANY SDI CODE: " . $certificate->file->sdi . "<br>" .
-            " PHONE NUMBER: " . $certificate->file->company->phone_number . "<br>";
+                    $data["body"] = "Please Issue invoice to: <br>" .
+                    " BENEFIT: " . $CertificateData['benefits_name'] . "<br>" .
+                    " COMPANY: " . $CertificateData['company_name'] . "<br>" .
+                    " VAT NUMBER: " . $CertificateData['vat_number'] . "<br>" .
+                    "COMPANY EMAIL: " . $certificate->file->customer_email . "<br>" .
+                    "COMPANY SDI CODE: " . $certificate->file->sdi . "<br>" .
+                    " PHONE NUMBER: " . $certificate->file->company->phone_number . "<br>";
 
-            Mail::send('emails.myTestMail', $data, function ($message) use ($data, $pdf, $name) {
-                $message
-                    ->to($data["email"], $data["email"])
-                    ->cc([$data["solida_email"], $data["opration_email"], $data["advisor_email"]])
-                    ->subject($data["subject"])
-                    ->attachData($pdf->output(), $name . ".pdf");
-            });
-    
-            EmailTrack::create([
-                'created_by' => Auth::user()->id,
-                'model' => 'App\Models\Certificate',
-                'model_id' => $file->id,
-                'date' => date('Y-m-d'),
+                    Mail::send('emails.myTestMail', $data, function ($message) use ($data, $pdf, $name) {
+                        $message
+                            ->to($data["email"], $data["email"])
+                            ->cc([$data["solida_email"], $data["opration_email"], $data["advisor_email"]])
+                            ->subject($data["subject"])
+                            ->attachData($pdf->output(), $name . ".pdf");
+                    });
 
-            ]);
+                    EmailTrack::create([
+                        'created_by' => Auth::user()->id,
+                        'model' => 'App\Models\Certificate',
+                        'model_id' => $file->id,
+                        'date' => date('Y-m-d'),
 
-            flash('Certificate Sent')->success();
-            return back();
-        }else{
-            flash('There was a missing email please revise your data')->error();
-            return back();   
-        }
+                    ]);
+
+                    flash('Certificate Sent')->success();
+                    return back();
+
+                } else {
+                    flash('There was a missing email please revise your data')->error();
+                    return back();
+                }
+            } else {
+                flash('There was a error please revise your data')->error();
+                return back();
+            }
 
         }
 
