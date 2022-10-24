@@ -150,17 +150,18 @@ class CertificateController extends Controller
             $file = File::where('id', $certificate->file_id)->firstorfail();
             $benefits = Summary::where('id', $file->benefit_id)->firstorfail();
 
-            if ($benefits->column1 == 'R&S') {
+            // if ($benefits->column1 == 'R&S') {
+            if ($benefits->column1 == 'FORMAZIONE 4.0') {
+                $CertificateData = HelperFunction::getCertificateData($certificate);
+                $pdf = PDF::loadView('certificate.certificate2', $CertificateData);
+                $name = $file->company->company_name . '– Certificato -' . $benefits->column1 . " - " . $file->year . ".pdf";
+                return $pdf->download($name);
+            } else {    
                 $CertificateData = HelperFunction::getCertificateData($certificate);
                 $pdf = PDF::loadView('certificate.certificate', $CertificateData);
                 $name = $file->company->company_name . '– Certificato -' . $benefits->column1 . " - " . $file->year . ".pdf";
                 return $pdf->download($name);
-            } else {
-                $CertificateData = HelperFunction::getCertificateData($certificate);
-                $pdf = PDF::loadView('certificate.certificate2', $CertificateData);
-                $name = $file->company->company_name . '– Certificato -' . $benefits->column1 . " - " . $file->year . ".pdf";
-
-                return $pdf->download($name);
+                
             }
 
         }
