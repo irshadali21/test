@@ -262,21 +262,35 @@ class CertificateController extends Controller
                     $data["solida_email"] = 'coordinamento.certificazioni@solidateam.it';
                     $data["opration_email"] = $file->opration_email;
                     $data["advisor_email"] = $file->advisor->email;
-                    $data["subject"] = "Please Issue invoice";
-                    $data["title"] = "From Revman";
+                    $data["title"] = "Ufficio Certificazioni Solida s.r.l";
+                    
+                    $data["subject"] = "Invio certificazione ";
+                   
+                    $data["body"] = "Salve, <br> in allegato quanto in oggetto <br> Cordialità <br> Ufficio Certificazioni Solida s.r.l.";
 
-                    $data["body"] = "Please Issue invoice to: <br>" .
-                    " BENEFIT: " . $CertificateData['benefits_name'] . "<br>" .
-                    " COMPANY: " . $CertificateData['company_name'] . "<br>" .
-                    " VAT NUMBER: " . $CertificateData['vat_number'] . "<br>" .
-                    "COMPANY EMAIL: " . $certificate->file->customer_email . "<br>" .
-                    "COMPANY SDI CODE: " . $certificate->file->sdi . "<br>" .
-                    " PHONE NUMBER: " . $certificate->file->company->phone_number . "<br>";
 
+                  
                     Mail::send('emails.myTestMail', $data, function ($message) use ($data, $pdf, $name) {
                         $message
                             ->to($data["email"], $data["email"])
                             ->cc([$data["solida_email"], $data["opration_email"], $data["advisor_email"]])
+                            ->subject($data["subject"])
+                            ->attachData($pdf->output(), $name . ".pdf");
+                    });
+
+                    $data["subject"] = "Emissione Fattura";
+
+                    $data["body"] = "Prego emettere fattura nei confronti di:  <br>" .
+                    " * Ragione Sociale: " . $CertificateData['company_name'] . "<br>" .
+                    " * P.IVA: " . $CertificateData['vat_number'] . "<br>" .
+                    " * SDI: " . $certificate->file->sdi . "<br>" .
+                    " * Indirizzo email: " . $certificate->file->customer_email . "<br>" .
+                    " * telefono: " . $certificate->file->company->phone_number . "<br>";
+
+
+                    Mail::send('emails.myTestMail', $data, function ($message) use ($data, $pdf, $name) {
+                        $message
+                            ->to( $data["solida_email"],  $data["solida_email"])
                             ->subject($data["subject"])
                             ->attachData($pdf->output(), $name . ".pdf");
                     });
