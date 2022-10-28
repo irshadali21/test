@@ -6,11 +6,10 @@ use App\Core\HelperFunction;
 use App\Http\Requests\FileRequest;
 use App\Models\ApiData;
 use App\Models\Company;
+use App\Models\EmailTrack;
 use App\Models\File;
 use App\Models\Summary;
-use App\Models\EmailTrack;
 use App\User;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -32,15 +31,14 @@ class FileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        if (Auth::user()->hasrole('super-admin')) {
-
-        $files = File::paginate(setting('record_per_page', 15));
-    }else{
-            $files = File::where('advisor_id', auth()->user()->id)->paginate(setting('record_per_page', 15));
-
-        }
+        
+            if (Auth::user()->hasrole('super-admin')) {
+                $files = File::get();
+            } else {
+                $files = File::where('advisor_id', auth()->user()->id)->get();
+            }
         
         return view('files.index', compact('files'));
     }
@@ -222,7 +220,7 @@ class FileController extends Controller
     {
         // dd();
         $file = File::where('id', $id)->first();
-        
+
         $advisor = User::withTrashed()->find($file->advisor_id);
         $EmailTrackCLI = EmailTrack::where('model_id', $id)->where('model', 'App\Models\File::CLI')->get();
         $EmailTrackREV = EmailTrack::where('model_id', $id)->where('model', 'App\Models\File::REV')->get();
@@ -272,18 +270,16 @@ class FileController extends Controller
 
         $data["title"] = "From Revman";
 
-
         $data["email"] = $file->customer_email;
         // $data["solida_email"] = $file->customer_email;
         $data["solida_email"] = 'coordinamento.certificazioni@solidateam.it';
         $data["opration_email"] = $file->opration_email;
         $data["advisor_email"] = $file->advisor->email;
-        
+
         // $data["email"] ='easyfun1@greendike.com';
         // $data["opration_email"] = 'easyfun2@greendike.com';
         // $data["advisor_email"] = 'easyfun3@greendike.com';
         // $data["solida_email"] = 'easyfun4@greendike.com';
-
 
         $data["subject"] = "Conferimento incarico per attività di " . $benefits->column1 . " annualità " . $file->year;
         $data["body"] = "Buondì, <br>
@@ -318,7 +314,7 @@ class FileController extends Controller
             'model' => 'App\Models\File::CLI',
             'model_id' => $file->id,
             'date' => date('d/m/Y H:m:s'),
-            
+
         ]);
         flash('Assignment sent to Client via Email')->success();
         return back();
@@ -341,10 +337,9 @@ class FileController extends Controller
         $data["title"] = "From Revman";
         $data["body"] = "Buondì, <br>
             In allegato quanto in oggetto. <br>
-            Cordialità"; 
+            Cordialità";
         $data["name"] = $file->advisor->name;
         $name = $file->company->company_name . " – INCARICO_REV - " . $benefits->column1 . " - " . $file->year;
-        
 
         Mail::send('emails.myTestMail', $data, function ($message) use ($data, $pdf, $name) {
             $message
@@ -359,7 +354,7 @@ class FileController extends Controller
             'model' => 'App\Models\File::REV',
             'model_id' => $file->id,
             'date' => date('d/m/Y H:m:s'),
-            
+
         ]);
         flash('Assignment sent to Advoiser via Email')->success();
         return back();
@@ -377,7 +372,7 @@ class FileController extends Controller
         $advisor = User::pluck('name', 'id');
         $exceptThis = [1];
         $benefit = Summary::whereNotIn('id', $exceptThis)->pluck('column1', 'id');
-        
+
         return view('files.edit', compact('file', 'benefit', 'cuntries', 'advisor'));
     }
 

@@ -15,20 +15,19 @@
                         <div class="col-lg-8">
                             <h3 class="mb-0">All Files</h3>
                         </div>
-                        <div class="col-lg-4">
-                    {{-- {!! Form::open(['route' => 'post.index', 'method'=>'get']) !!}
-                        <div class="form-group mb-0">
-                        {{ Form::text('search', request()->query('search'), ['class' => 'form-control form-control-sm', 'placeholder'=>'Search post']) }}
-                    </div>
-
-                    {!! Form::close() !!} --}}
-                </div>
+                        {{-- <div class="col-lg-4">
+                            {!! Form::open(['route' => 'users.index', 'method'=>'get']) !!}
+                                <div class="form-group mb-0">
+                                {{ Form::text('search', request()->query('search'), ['class' => 'form-control form-control-sm', 'placeholder'=>'Search files']) }}
+                            </div>
+                            {!! Form::close() !!}
+                        </div> --}}
                     </div>
                 </div>
                 <div class="card-body p-0">
                     <div class="table-responsive">
                         <div>
-                            <table class="table table-hover align-items-center">
+                            <table class="table table-hover align-items-center" id="file_tabel">
                                 <thead class="thead-light">
                                 <tr>
                                     <th scope="col">Company Name</th>
@@ -86,13 +85,6 @@
                                     </tr>
                                 @endforeach
                                 </tbody>
-                                <tfoot >
-                                <tr>
-                                    <td colspan="6">
-                                        {{$files->links()}}
-                                    </td>
-                                </tr>
-                                </tfoot>
                             </table>
                         </div>
                     </div>
@@ -128,4 +120,9 @@
         })
 
     </script> --}}
+    <script>
+    jQuery(document).ready( function () {
+        $('#file_tabel').DataTable();
+    } );
+</script>
 @endpush

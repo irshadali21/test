@@ -53,7 +53,8 @@
 
 
 
-                            <table class="table table-hover align-items-center" style="min-height: 200px">
+                            <table class="table table-hover align-items-center" style="min-height: 200px"
+                                id="certificate_table">
                                 <thead class="thead-light">
                                     <tr>
                                         <th scope="col">Company Name</th>
@@ -131,7 +132,7 @@
                                                 @php
                                                     $counter = 0;
                                                     $emailssent = $certificate->EmailTrack;
-                                                    if ($emailssent) {                                                    
+                                                    if ($emailssent) {
                                                         foreach ($emailssent as $sent) {
                                                             if ($sent->model == 'App\Models\Certificate') {
                                                                 $counter++;
@@ -162,7 +163,8 @@
                                                         @endcan
                                                         @can('update-file')
                                                             <a class="dropdown-item"
-                                                                href="{{ route('files.edit', $certificate->id) }}">Edit File</a>
+                                                                href="{{ route('files.edit', $certificate->id) }}">Edit
+                                                                File</a>
                                                         @endcan
 
                                                         @can('view-certificate')
@@ -216,7 +218,8 @@
                                                         @endcan
                                                         @can('update-file')
                                                             <a class="dropdown-item"
-                                                                href="{{ route('files.edit', $certificate->id) }}">Edit File</a>
+                                                                href="{{ route('files.edit', $certificate->id) }}">Edit
+                                                                File</a>
                                                         @endcan
                                                         <a class="dropdown-item"
                                                             href="{{ route('certificate.edit', $certificate->id) }}">Modify
@@ -237,13 +240,6 @@
                                         </tr>
                                     @endforeach
                                 </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <td colspan="6">
-                                            {{-- {{$files->links()}} --}}
-                                        </td>
-                                    </tr>
-                                </tfoot>
                             </table>
                         </div>
                     </div>
@@ -323,6 +319,9 @@
             // Read in the image file as a data URL.
             reader.readAsDataURL(file);
 
+        });
+        jQuery(document).ready(function() {
+            $('#certificate_table').DataTable();
         });
     </script>
 @endpush

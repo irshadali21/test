@@ -24,6 +24,8 @@
     <link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" type="text/css">
 
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/node-snackbar@latest/src/js/snackbar.min.js"></script>
+    
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/node-snackbar@latest/dist/snackbar.min.css" />
     
     @stack('styles')
@@ -48,7 +50,7 @@
     <script src="{{asset('assets/js/bootstrap-select.min.js')}}"></script>
     <script src="{{asset('assets/js/jquery-confirm.min.js')}}"></script>
     <script src="{{asset('assets/js/dashboard.js')}}"></script>
-
+    <script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
     
 <script>
     $('#flash-overlay-modal').modal();

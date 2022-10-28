@@ -9,6 +9,11 @@ use App\ApiData;
 use Session;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
+use App\Models\File;
+use App\Models\Company;
+
+use App\User;
+
 
 class HomeController extends Controller
 {
@@ -38,5 +43,13 @@ class HomeController extends Controller
         echo '<br>';
         echo '<br>';
         print_r(shell_exec($id));
+    }
+    public function search(Request $request)
+    {
+        // dd($request->all());
+        $user_result = User::where('name','LIKE','%'.$request->search.'%')->get();
+        $company_result = Company::where('company_name','LIKE','%'.$request->search.'%')->get();
+        
+        return view('search.index', compact('user_result', 'company_result'));
     }
 }
