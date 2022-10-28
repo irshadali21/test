@@ -168,12 +168,14 @@
                                     {{ Form::email('email', $user->email, ['class' => 'form-control']) }}
                                 </div>
                             </div>
+                            {{-- @hasanyrole('super-admin')
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     {{ Form::label('role', 'Select Role', ['class' => 'form-control-label']) }}
                                     {{ Form::select('role', $roles, $user->roles, ['class' => 'selectpicker form-control', 'placeholder' => 'Select role...']) }}
                                 </div>
                             </div>
+                            @endhasrole --}}
                         </div>
                         <div class="row">
                             <div class="col-md-6">

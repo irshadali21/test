@@ -243,6 +243,13 @@ class CertificateController extends Controller
             $file = File::where('id', $id)->firstorfail();
             $benefits = Summary::where('id', $file->benefit_id)->firstorfail();
             $auditor = User::where('id', $file->advisor_id)->withTrashed()->first();
+            
+            $EmailTrackCLI = EmailTrack::where('model_id', $id)->where('model', 'App\Models\File::CLI')->get();
+            $EmailTrackREV = EmailTrack::where('model_id', $id)->where('model', 'App\Models\File::REV')->get();
+            if(!$EmailTrackCLI->count() || !$EmailTrackREV->count()){
+                flash('Please send INCARICO_CLI and INCARICO_REV  first ')->error();
+                return redirect()->back();
+            }
 
             if ($benefits->column1 == 'FORMAZIONE 4.0') {
                 $CertificateData = HelperFunction::getCertificateData($certificate);
@@ -299,7 +306,7 @@ class CertificateController extends Controller
                         'created_by' => Auth::user()->id,
                         'model' => 'App\Models\Certificate',
                         'model_id' => $file->id,
-                        'date' => date('Y-m-d'),
+                        'date' => date('d/m/Y H:m:s'),
 
                     ]);
 

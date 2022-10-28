@@ -220,10 +220,14 @@ class FileController extends Controller
 
     public function show($id)
     {
+        // dd();
         $file = File::where('id', $id)->first();
-        $EmailTrackFile = EmailTrack::where('model_id', $id)->where('model', 'App\Models\File')->get();
+        
+        $advisor = User::withTrashed()->find($file->advisor_id);
+        $EmailTrackCLI = EmailTrack::where('model_id', $id)->where('model', 'App\Models\File::CLI')->get();
+        $EmailTrackREV = EmailTrack::where('model_id', $id)->where('model', 'App\Models\File::REV')->get();
         $EmailTrackCertificate = EmailTrack::where('model_id', $id)->where('model', 'App\Models\Certificate')->get();
-        return view('files.show', compact('file', 'EmailTrackFile', 'EmailTrackCertificate'));
+        return view('files.show', compact('file', 'advisor', 'EmailTrackCLI', 'EmailTrackREV', 'EmailTrackCertificate'));
 
     }
 
@@ -311,9 +315,9 @@ class FileController extends Controller
 
         EmailTrack::create([
             'created_by' => Auth::user()->id,
-            'model' => 'App\Models\File',
+            'model' => 'App\Models\File::CLI',
             'model_id' => $file->id,
-            'date' => date('Y-m-d'),
+            'date' => date('d/m/Y H:m:s'),
             
         ]);
         flash('Assignment sent to Client via Email')->success();
@@ -350,21 +354,11 @@ class FileController extends Controller
                 ->attachData($pdf->output(), $name . ".pdf");
         });
 
-
-        // foreach (['coordinamento.certificazioni@solidateam.it', $file->advisor->email] as $recipient) {
-        //     Mail::send('emails.myTestMail', $data, function ($message) use ($data, $pdf, $name, $recipient) {
-        //         $message
-        //             ->to($recipient)
-        //             ->subject($data["subject"])
-        //             ->attachData($pdf->output(), $name . ".pdf");
-        //     });
-        // }
-
         EmailTrack::create([
             'created_by' => Auth::user()->id,
-            'model' => 'App\Models\File',
+            'model' => 'App\Models\File::REV',
             'model_id' => $file->id,
-            'date' => date('Y-m-d'),
+            'date' => date('d/m/Y H:m:s'),
             
         ]);
         flash('Assignment sent to Advoiser via Email')->success();

@@ -113,7 +113,11 @@
                             Advisor
                         </div>
                         <div class="col-sm-6">
-                            <strong>{{ $file->advisor->name }}</strong>
+                            @if ($advisor->deleted_at)
+                                <strong style="color: red"> This Advisor is deleted please change it before sending/creating files  </strong>
+                            @else
+                            <strong>{{ $advisor->name }}</strong>
+                            @endif
                         </div>
                     </div>
                     <div class="row">
@@ -121,7 +125,11 @@
                             FILE CREATION DATE
                         </div>
                         <div class="col-sm-6">
-                            <strong>{{ $file->created_at }}</strong>
+                            @php
+                              $date=  \Carbon\Carbon::createFromFormat('Y-m-d H:m:s', $file->created_at)->format('d/m/Y H:m:s');
+                            // dd($date);
+                            @endphp
+                            <strong>{{ $date }}</strong>
                         </div>
                     </div>
                     <div class="row">
@@ -129,8 +137,18 @@
                             INCARICO_CLI SEND DATE
                         </div>
                         <div class="col-sm-6">
-                            @foreach ($EmailTrackFile as $item)
-                                <strong> {{ $item->created_at }}</strong> <br>
+                            @foreach ($EmailTrackCLI as $item)
+                                <strong> {{ $item->date }}</strong> <br>
+                            @endforeach
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            INCARICO_REV SEND DATE
+                        </div>
+                        <div class="col-sm-6">
+                            @foreach ($EmailTrackREV as $item)
+                                <strong> {{ $item->date }}</strong> <br>
                             @endforeach
                         </div>
                     </div>

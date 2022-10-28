@@ -189,9 +189,9 @@ class UserController extends Controller
         ]);
 
         if (is_null($request->password)) {
-            $userData = $request->except(['role', 'profile_photo', 'advoiser_stamp', 'password', 'password_confirmation']);
+            $userData = $request->except(['profile_photo', 'advoiser_stamp', 'password', 'password_confirmation']);
         } else {
-            $userData = $request->except(['role', 'profile_photo', 'advoiser_stamp']);
+            $userData = $request->except(['profile_photo', 'advoiser_stamp']);
         }
         if ($request->profile_photo) {
             $userData['profile_photo'] = parse_url($request->profile_photo, PHP_URL_PATH);

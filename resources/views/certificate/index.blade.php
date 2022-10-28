@@ -82,7 +82,7 @@
                                             {{$post->year}}
                                         </td>
                                         <td class="budget">
-                                            to be certified
+                                            TO BE CERTIFIED
                                         </td>
                                         <td class="text-center">
                                             <div class="btn-group ">
@@ -107,6 +107,19 @@
                                     </tr>
                                     @endif
                                 @endforeach
+                                {{-- @php
+                                
+                                // dd($unpaid_files[1]->EmailTrack)
+                                $emailsdate = $unpaid_files[1]->EmailTrack;
+                                // dd($emailsdate[0]->model);
+                                if($emailsdate[3]->model == 'App\Models\Certificate') ;
+                                {
+                                   dd( $emailsdate[3]->model);
+                                }
+                                dd('asd');
+                                @endphp --}}
+
+
                                 @foreach($unpaid_files as $certificate)
                                     <tr>
                                         <th scope="row">
@@ -120,7 +133,22 @@
                                             {{$certificate->benefits_year}}
                                         </td>
                                         <td class="budget">
-                                            certified and unpaid
+                                            @php
+                                            $counter = 0;
+                                                $emailssent = $certificate->EmailTrack;
+                                                foreach ($emailssent as $sent) {
+                                                    if($sent->model == 'App\Models\Certificate'){
+                                                        $counter++;
+                                                    }
+                                                }
+                                                if($counter > 0){
+                                                    echo('CERTIFIED AND UNPAID');
+                                                }else{
+                                                    echo('TO BE CERTIFIED');
+                                                }
+                                            @endphp
+                                            {{-- {{}} --}}
+                                            
                                         </td>
                                         <td class="text-center">
                                             <div class="btn-group ">
@@ -161,7 +189,7 @@
                                             {{$certificate->benefits_year}}
                                         </td>
                                         <td class="budget">
-                                            certified and already paid
+                                            CERTIFIED AND PAID
                                         </td>
                                         <td class="text-center">
                                             <div class="btn-group ">

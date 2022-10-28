@@ -18,7 +18,7 @@ class CreateEmailTracksTable extends Migration
             $table->unsignedBigInteger('created_by');
             $table->string('model')->nullable();
             $table->string('model_id')->nullable();
-            $table->date('date');
+            $table->string('date');
             $table->timestamps();
 
             // $table->foreign('benefit_id')->references('id')->on('summaries')->onDelete('cascade');
