@@ -126,7 +126,8 @@
                         </div>
                         <div class="col-sm-6">
                             @php
-                              $date=  \Carbon\Carbon::createFromFormat('Y-m-d H:m:s', $file->created_at)->format('d/m/Y H:m:s');
+                            // dd($file->created_at);
+                              $date=  \Carbon\Carbon::parse($file->created_at)->format('d/m/Y H:m:s');
                             // dd($date);
                             @endphp
                             <strong>{{ $date }}</strong>
@@ -159,7 +160,7 @@
                         <div class="col-sm-6">
                             @foreach ($EmailTrackCertificate as $item)
                             @php
-                              $formateddate=  \Carbon\Carbon::createFromFormat('Y-m-d H:m:s', $item->created_at)->format('d/m/Y H:m:s');
+                              $formateddate=  \Carbon\Carbon::parse($item->created_at)->format('d/m/Y H:m:s');
                             @endphp
                                 <strong> {{ $formateddate }}</strong> <br>
                             @endforeach
