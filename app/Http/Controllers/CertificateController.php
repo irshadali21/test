@@ -199,7 +199,7 @@ class CertificateController extends Controller
         $Cost_ecnomic_report = json_encode($request->Cost_ecnomic_report);
         // dd($Cost_ecnomic_report);
         if ($request->status == 1) {
-            $paid_date = Carbon::now()->toDateTimeString();
+            $paid_date =  date('d/m/Y H:m:s');
             $status = 1;
             // dd($paid_date);
         } else {
