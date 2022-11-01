@@ -131,9 +131,11 @@
                                             <td class="budget">
                                                 @php
                                                     $counter = 0;
+                                                    // dd($certificate->EmailTrack);
                                                     $emailssent = $certificate->EmailTrack;
                                                     if ($emailssent) {
                                                         foreach ($emailssent as $sent) {
+                                                            // dd($sent);
                                                             if ($sent->model == 'App\Models\Certificate') {
                                                                 $counter++;
                                                             }

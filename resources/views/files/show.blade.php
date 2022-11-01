@@ -158,7 +158,10 @@
                         </div>
                         <div class="col-sm-6">
                             @foreach ($EmailTrackCertificate as $item)
-                                <strong> {{ $item->created_at }}</strong> <br>
+                            @php
+                              $formateddate=  \Carbon\Carbon::createFromFormat('Y-m-d H:m:s', $item->created_at)->format('d/m/Y H:m:s');
+                            @endphp
+                                <strong> {{ $formateddate }}</strong> <br>
                             @endforeach
                         </div>
                     </div>
