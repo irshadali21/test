@@ -70,6 +70,14 @@
                                     </a>
                                 </li>
                                 @endcan
+                                @canany(['update-file'])
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{route('reports.index')}}">
+                                        <span class="sidenav-mini-icon">D </span>
+                                        <span class="nav-link-text">Reports</span>
+                                    </a>
+                                </li>
+                                @endcan
                                 
                             </ul>
                         </div>

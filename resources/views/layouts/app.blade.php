@@ -28,8 +28,22 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/node-snackbar@latest/dist/snackbar.min.css" />
     
+    {{-- select2 --}}
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    
     @stack('styles')
     @yield('style')
+    <style>
+       .select2-selection__rendered {
+    line-height: 20px !important;
+}
+.select2-container .select2-selection--single {
+    height: 45px !important;
+}
+.select2-selection__arrow {
+    height: 34px !important;
+}
+    </style>
 </head>
 
 <body>
@@ -51,9 +65,16 @@
     <script src="{{asset('assets/js/jquery-confirm.min.js')}}"></script>
     <script src="{{asset('assets/js/dashboard.js')}}"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+
+    {{-- select2 --}}
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
     
 <script>
     $('#flash-overlay-modal').modal();
+    jQuery(document).ready(function() {
+        jQuery('.select2').select2();
+    });
 </script>
     @stack('scripts')
 

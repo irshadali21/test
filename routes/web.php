@@ -33,6 +33,10 @@ use Illuminate\Support\Facades\Route;
 //     return 'storage linked'; //Return anything
 // });
 
+Route::get('/emailtemplatecheck', function () {
+    return view('levelina.email');
+});
+
 Route::get('/', function () {
     return redirect()->route('home');
 });
@@ -125,15 +129,37 @@ Route::group(['middleware' => ['auth', 'verified', 'stampCheck']], function () {
         return view('certificate.test');});
 
     Route::resource('certificate', 'CertificateController');
-
+    
     Route::get('/certificate/send/{id}', [
         'uses' => 'CertificateController@send',
         'as' => 'certificate.send',
     ]);
-
+    
     Route::post('/search', [
         'uses' => 'HomeController@search',
         'as' => 'search',
+    ]);
+    
+    //Reports
+    
+    Route::get('/reports', [
+        'uses' => 'ReportController@index',
+        'as' => 'reports.index',
+    ]);
+
+    Route::post('/reports', [
+        'uses' => 'ReportController@create',
+        'as' => 'getreport',
+    ]);
+    
+
+    //LeVelina
+    Route::resource('levelina', 'LeVelinaController');
+
+      //download csv
+      Route::post('/download/csv', [
+        'uses' => 'DownloadController@download_csv',
+        'as' => 'download.csv',
     ]);
 
 });
