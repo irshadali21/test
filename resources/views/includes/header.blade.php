@@ -1,7 +1,7 @@
-<nav class="navbar navbar-top navbar-expand navbar-dark  border-bottom" style="background-color: #F0F1F5">
+<nav class="navbar navbar-top navbar-expand navbar-dark  border-bottom" style="background-color: #68150F">
     <div class="container-fluid">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <!-- Search form -->
+            {{-- <!-- Search form -->
             <form class="navbar-search navbar-search-light form-inline mr-sm-3" id="navbar-search-main"
                 action="{{ route('search') }}" method="POST">
                 @csrf
@@ -17,7 +17,7 @@
                     aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
-            </form>
+            </form> --}}
             <!-- Navbar links -->
             <ul class="navbar-nav align-items-center  ml-md-auto ">
                 <li class="nav-item d-xl-none">
@@ -39,7 +39,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false">
-                        <i class="ni ni-bell-55" style="color: black"></i>
+                        <i class="ni ni-bell-55" style="color: white"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-xl  dropdown-menu-right  py-0 overflow-hidden">
                         <!-- Dropdown header -->
@@ -153,7 +153,14 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false">
-                        <i class="ni ni-ungroup" style="color: black"></i>
+                        <i class="ni ni-chat-round" style="color: white"></i>
+                    </a>
+                    
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        <i class="ni ni-ungroup" style="color: white"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-dark bg-default  dropdown-menu-right ">
                         <div class="row shortcuts px-4">
@@ -202,17 +209,18 @@
                     <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
                         <div class="media align-items-center">
-                            <span class="avatar avatar-sm rounded-circle">
+                            {{-- <span class="avatar avatar-sm rounded-circle">
                                 @if (Auth::user()->profile_photo)
                                     <img width="45" height="45" class="img-fluid rounded-pill"
                                         src="{{ asset(Auth::user()->profile_photo) }}" alt="">
                                 @else
-                                    <i class="far avatar avatar-sm rounded-circle fa-user"></i>
+                                <i class="far avatar avatar-sm rounded-circle fa-user"></i>
                                 @endif
-                            </span>
+                            </span> --}}
+                            <i class="fa fa-user-circle-o fa-6" aria-hidden="true" style="font-size: 25px"></i>
                             <div class="media-body  ml-2  d-none d-lg-block">
                                 <span class="mb-0 text-sm  font-weight-bold"
-                                    style="color:black">{{ Auth::user()->name }}</span>
+                                    style="color:white">{{ Auth::user()->name }}</span>
                             </div>
                         </div>
                     </a>
@@ -226,7 +234,7 @@
                         </a>
                         @can('settings.update')
                             <a href="{{ route('settings.index') }}" class="dropdown-item">
-                                <i class="ni ni-settings-gear-65"></i>
+                                <i class="fa fa-cog"></i>
                                 <span>Settings</span>
                             </a>
                         @endcan
