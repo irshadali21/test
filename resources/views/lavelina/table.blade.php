@@ -9,7 +9,7 @@
         <tbody>
         @foreach($tests as $test)
             <tr>
-                <td>{{ $test->title }}</td>
+                <td>{{ $test->name }}</td>
                 <td width="120">
                     {!! Form::open(['route' => ['lavelina.destroy', $test->id], 'method' => 'delete']) !!}
                     <div class='btn-group'>
