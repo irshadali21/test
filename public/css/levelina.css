@@ -1,99 +1,117 @@
+/* @page{
+    size: 7in 9.25in;
+} */
 @font-face {
     font-family: "Roboto";
     src: url("fonts/roboto/Roboto-Regular.ttf");
-    }
-    @font-face {
-        font-family: "Robotolight";
-        src: url("fonts/roboto/Roboto-Light.ttf");
-    }
+}
 
-    @font-face {
-        font-family: "Robotobold";
-        src: url("fonts/roboto/Roboto-Bold.ttf");
-    }
+@font-face {
+    font-family: "Robotolight";
+    src: url("fonts/roboto/Roboto-Light.ttf");
+}
 
-    @font-face {
-        font-family: "Robotoitalic";
-        src: url("fonts/roboto/Roboto-BoldItalic.ttf");
-    }
+@font-face {
+    font-family: "Robotobold";
+    src: url("fonts/roboto/Roboto-Bold.ttf");
+}
 
-    @font-face {
-        font-family: "Robotoi";
-        src: url("fonts/roboto/Roboto-Italic.ttf");
-    }
-    p {
-        margin-top: 6px;
-        margin-bottom: 3px;
-        font: normal 16px/16px Roboto;
-        text-align: justify;
-        text-justify: inter-word;
-    }
+@font-face {
+    font-family: "Robotoitalic";
+    src: url("fonts/roboto/Roboto-BoldItalic.ttf");
+}
 
-    strong {
-        font: normal 16px/16px Robotobold;
-    }
+@font-face {
+    font-family: "Robotoi";
+    src: url("fonts/roboto/Roboto-Italic.ttf");
+}
 
-    center {
-        font: normal 14px/14px Roboto;
-    }
+@font-face {
+    font-family: 'Xanh Mono', monospace;
+    src: url("fonts/Xanh_Mono/XanhMono-Regular.ttf");
+}
 
-    i {
-        font: normal 16px/16px Robotoitalic;
-    }
+@font-face {
+    font-family: 'Playfair Display', serif;
+    src: url("fonts/Playfair_Display/PlayfairDisplay-VariableFont_wght.ttf");
+}
+
+strong,
+i,
+b,
+p,
+table,
+tr,
+td,
+th,
+body,
+div,
+span,
+a {
+    font-family: 'Playfair Display', serif;
+}
 
 
 
-    .levelinahead {
-    background-color: antiquewhite;    
-    height: 350px;
-    }
+strong,
+i,
+b,
+p,
+table,
+tr,
+td,
+th,
+body,
+div,
+span,
+a {
+    text-align: justify;
+    text-justify: inter-word;
+}
 
-    footer {
-        position: fixed;
-        bottom: -1px;
-        left: 0px;
-        right: 0px;
-        height: 60px;
-        background-color: #911e37;
-        /* color: white; */
-        /* margin-left: 27px; */
-        /* margin-right: 27px; */
-    }
+.levelinahead {
+    height: 290px;
+    left: -1px;
+    top: -1px;
+    bottom: -1px;
+    right: -1px;
+}
 
-    table, tr, td, th{
-        border-color: black !important;
-        font: normal 13px/13px Roboto;
-    }
-   
-    td{
-        font: normal 13px/13px Roboto;
-    }
-    .footer_setting{
-        font-size: 9px;
-        margin-bottom: -3px !important;
-    }
+footer {
+    position: fixed;
+    bottom: -1px;
+    left: 0px;
+    right: 0px;
+    height: 60px;
+}
 
-    @page {
-        margin: 180px 50px;
-    }
 
-    #footer {
-        position: fixed;
-        left: 0px;
-        bottom: -1px;
-        right: 0px;
-        height: 80px;
-        background-color: #911e37;
-    }
 
-    #header {
-        position: fixed;
-        left: 0px;
-        top: 0px;
-        bottom: 0px;
-        right: 0px;
-        height: 50px;
-        margin-top: 50px;
-        margin-left: 50px;
-        margin-right: 50px;
-    }
+
+#footer {
+    position: fixed;
+    left: -60px;
+    bottom: -1px;
+    right: -60px;
+    height: 0px;
+    background-color: #6a1109;
+    /* margin: 5px; */
+}
+
+#header {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    height: 50px;
+}
+
+
+.last {
+    position: absolute;
+    bottom: 20px;
+    left: 0px;
+    right: 0px;
+
+}

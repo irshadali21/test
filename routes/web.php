@@ -34,7 +34,7 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/emailtemplatecheck', function () {
-    return view('levelina.email');
+    return view('lavelina.email');
 });
 
 Route::get('/', function () {
@@ -153,8 +153,8 @@ Route::group(['middleware' => ['auth', 'verified', 'stampCheck']], function () {
     ]);
     
 
-    //LeVelina
-    Route::resource('levelina', 'LeVelinaController');
+    //LaVelina
+    Route::resource('lavelina', 'LaVelinaController');
 
       //download csv
       Route::post('/download/csv', [

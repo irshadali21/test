@@ -16,14 +16,14 @@ class CreateLeVelinasTable extends Migration
         Schema::create('le_velinas', function (Blueprint $table) {
             $table->id();
             $table->uuid('uid');
-            $table->text('name');
+            $table->text('name')->nullable();
             $table->text('title');
-            $table->longText('body');
-            $table->longText('firms');
-            $table->longText('benefits');
-            $table->longText('benefits_in_number');
-            $table->longText('tex_breack');
-            $table->longText('source');
+            $table->longText('body')->nullable();
+            $table->longText('firms')->nullable();
+            $table->longText('benefits')->nullable();
+            $table->longText('benefits_in_number')->nullable();
+            $table->longText('tax_breack')->nullable();
+            $table->longText('source')->nullable();
             $table->unsignedBigInteger('created_by');
             $table->string('advisor_id');
             $table->string('creation_date');
