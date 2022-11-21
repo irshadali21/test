@@ -1,39 +1,51 @@
 @extends('layouts.app')
 
 @section('content')
-
-
+    <section class="content-header">
+        <div class="container-fluid">
+            <center>
+            <div class="row mb-2">
+                <div class="col-xl-3 col-md-6">
+                        <h1 style="margin-top: -20px">Area riservata </h1>
+                    </div>
+                    <div class="col-xl-3 col-md-6">
+                        <img src="{{ asset('image/signature/Solida_footer.png') }}" width="150px" height="70px" class="mb-1" style="margin-top: -40px">
+                    </div>
+                </div>
+            </div>
+        </center>
+    </section>
 
     <div class="row">
         <div class="col-xl-3 col-md-6">
             <div class="card card-stats" style="background-color: #e4e3e3">
                 <div class="card-body" style="height: 110px">
-                    <center class="h2 font-weight-bold mt-2" >Le tue aziende</center>
+                    <center class="h2 font-weight-bold mt-2">Le tue aziende</center>
                 </div>
             </div>
         </div>
         <div class="col-xl-3 col-md-6">
             <div class="card card-stats" style="background-color: #e4e3e3">
                 <div class="card-body" style="height: 110px">
-                    <center class="h2 font-weight-bold mt-2" >Hai inserito: N<sup>o</sup> aziende </center>
+                    <center class="h2 font-weight-bold mt-2">Hai inserito: N<sup>o</sup> aziende </center>
                 </div>
             </div>
         </div>
         <div class="col-xl-3 col-md-6">
             <div class="card card-stats" style="background-color: #e4e3e3">
                 <div class="card-body" style="height: 110px">
-                    <center class="h2 font-weight-bold mt-2" >Le tue pratiche</center>
+                    <center class="h2 font-weight-bold mt-2">Le tue pratiche</center>
                 </div>
             </div>
         </div>
         <div class="col-xl-3 col-md-6">
             <div class="card card-stats" style="background-color: #e4e3e3">
                 <div class="card-body" style="height: 110px">
-                    <center class="h2 font-weight-bold mt-2" >Hai gestito N<sup>o</sup> practiche</center>
+                    <center class="h2 font-weight-bold mt-2">Hai gestito N<sup>o</sup> practiche</center>
                 </div>
             </div>
         </div>
-        
+
         {{-- <div class="col-xl-3 col-md-6">
             <div class="card card-stats" style="background-color: #e4e3e3">
                 <!-- Card body -->
@@ -130,19 +142,20 @@
     {{-- ============= --}}
 
 
-    
-            <div class="card">
-                <div class="card-header border-0">
-                    <div class="row align-items-center">
-                        <div class="col">
-                            <center><h1>Seleziona cosa fare dal menù sulla sinistra</h1></center>
-                        </div>
 
-                    </div>
+    <div class="card">
+        <div class="card-header border-0">
+            <div class="row align-items-center">
+                <div class="col">
+                    <center>
+                        <h1>Seleziona cosa fare dal menù sulla sinistra</h1>
+                    </center>
                 </div>
 
             </div>
-      
+        </div>
+
+    </div>
 @endsection
 
 @section('script')
