@@ -89,7 +89,7 @@ $fmt = new NumberFormatter(($locale = 'it_IT'), NumberFormatter::DECIMAL);
             p.iva 05829650653
         </div>
         <div class="footer_setting">
-            <a href="mailto:certificazioni@solidateam.it">certificazioni@solidateam.it</a>
+            <a href="mailto:info@solidanetwork.com">info@solidanetwork.com</a>
         </div>
         <div class="footer_setting">
             Capitale sociale 20.000 € i.v. <span style="float:right; font-size: 9px">pagina 1</span>
@@ -181,7 +181,7 @@ $fmt = new NumberFormatter(($locale = 'it_IT'), NumberFormatter::DECIMAL);
             p.iva 05829650653
         </div>
         <div class="footer_setting">
-            <a href="mailto:certificazioni@solidateam.it">certificazioni@solidateam.it</a>
+            <a href="mailto:info@solidanetwork.com">info@solidanetwork.com</a>
         </div>
         <div class="footer_setting">
             Capitale sociale 20.000 € i.v. <span style="float:right; font-size: 9px">pagina 2</span>
@@ -254,7 +254,7 @@ $fmt = new NumberFormatter(($locale = 'it_IT'), NumberFormatter::DECIMAL);
             p.iva 05829650653
         </div>
         <div class="footer_setting">
-            <a href="mailto:certificazioni@solidateam.it">certificazioni@solidateam.it</a>
+            <a href="mailto:info@solidanetwork.com">info@solidanetwork.com</a>
         </div>
         <div class="footer_setting">
             Capitale sociale 20.000 € i.v. <span style="float:right; font-size: 9px">pagina 3</span>
@@ -431,7 +431,7 @@ $fmt = new NumberFormatter(($locale = 'it_IT'), NumberFormatter::DECIMAL);
             p.iva 05829650653
         </div>
         <div class="footer_setting">
-            <a href="mailto:certificazioni@solidateam.it">certificazioni@solidateam.it</a>
+            <a href="mailto:info@solidanetwork.com">info@solidanetwork.com</a>
         </div>
         <div class="footer_setting">
             Capitale sociale 20.000 € i.v. <span style="float:right; font-size: 9px">pagina 4</span>
@@ -559,7 +559,7 @@ $fmt = new NumberFormatter(($locale = 'it_IT'), NumberFormatter::DECIMAL);
             p.iva 05829650653
         </div>
         <div class="footer_setting">
-            <a href="mailto:certificazioni@solidateam.it">certificazioni@solidateam.it</a>
+            <a href="mailto:info@solidanetwork.com">info@solidanetwork.com</a>
         </div>
         <div class="footer_setting">
             Capitale sociale 20.000 € i.v. <span style="float:right; font-size: 9px">pagina 5</span>

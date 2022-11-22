@@ -221,7 +221,7 @@
                 SOLIDA S.R.L. <br>
                 Via Stella 1/G - 84091 Battipaglia (Sa) IT <br>
                 p.iva 05829650653 <br>
-                <a href="mailto:certificazioni@solidateam.it">certificazioni@solidateam.it</a> <br>
+                <a href="mailto:info@solidanetwork.com">info@solidanetwork.com</a> <br>
                 Capitale sociale 20.000 € i.v.
             </div>
         </small>
@@ -351,7 +351,7 @@
                 SOLIDA S.R.L. <br>
                 Via Stella 1/G - 84091 Battipaglia (Sa) IT <br>
                 p.iva 05829650653 <br>
-                <a href="mailto:certificazioni@solidateam.it">certificazioni@solidateam.it</a> <br>
+                <a href="mailto:info@solidanetwork.com">info@solidanetwork.com</a> <br>
                 Capitale sociale 20.000 € i.v.
             </div>
         </small>
@@ -425,7 +425,7 @@
                 SOLIDA S.R.L. <br>
                 Via Stella 1/G - 84091 Battipaglia (Sa) IT <br>
                 p.iva 05829650653 <br>
-                <a href="mailto:certificazioni@solidateam.it">certificazioni@solidateam.it</a> <br>
+                <a href="mailto:info@solidanetwork.com">info@solidanetwork.com</a> <br>
                 Capitale sociale 20.000 € i.v.
             </div>
         </small>
@@ -542,7 +542,7 @@
                 SOLIDA S.R.L. <br>
                 Via Stella 1/G - 84091 Battipaglia (Sa) IT <br>
                 p.iva 05829650653 <br>
-                <a href="mailto:certificazioni@solidateam.it">certificazioni@solidateam.it</a> <br>
+                <a href="mailto:info@solidanetwork.com">info@solidanetwork.com</a> <br>
                 Capitale sociale 20.000 € i.v.
             </div>
         </small>
