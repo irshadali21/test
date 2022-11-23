@@ -83,7 +83,7 @@
 <!-- tax_breack Field -->
 <div class="form-group col-sm-6" style="height:350px">
     {!! Form::label('tax_breack', 'Quali agevolazioni:') !!}
-    {!! Form::textarea('tax_breack', $lavelina->tex_breack, ['class' => 'form-control summernote']) !!}
+    <textarea name="tax_breack" id="tax_breack" class="form-control summernote">{!! $lavelina->tex_breack !!}</textarea>
 </div>
 
 <!-- source Field -->
