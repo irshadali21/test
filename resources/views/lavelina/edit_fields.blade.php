@@ -33,7 +33,11 @@
     Add another Testo articolo
     <button class="button_plus" id="add_body" type="button">+</button>
 </div>
-
+<!-- color Field -->
+<div class="col-sm-6">
+    Color
+    <input name="color" class="form-control" type="color" value="{{ $lavelina->color }}" id="example-color-input">
+</div>
 
 @php
     $count = 0;

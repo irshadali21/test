@@ -12,7 +12,7 @@
     </style>
 </head>
 <div id="footer">
-    <table class="w-100" style="background-color: #6a1109;">
+    <table class="w-100" style="background-color: {{ $color }};">
         <tr>
             <td>
                 <p style="margin-left: 40px; color: white; margin-bottom: 0px; font-size:5px;"> Powered by</p>
@@ -53,8 +53,8 @@
             background-size: cover;">
             <br><br>
             <strong>
-                <span style="font-size: 80px; color:#6a1109; font-weight:400">LA VELINA </span><br>
-                <span style="font-size:25px; color:#6a1109;">DEL TUO COMMERCIALISTA</span><br>
+                <span style="font-size: 80px; color:{{ $color }}; font-weight:400">LA VELINA </span><br>
+                <span style="font-size:25px; color:{{ $color }};">DEL TUO COMMERCIALISTA</span><br>
                 <span style="font-size:18px;"> DOTT . {{ $advisor }}</span><br>
             </strong>
             <br>
@@ -72,7 +72,7 @@
             <body>
                 <tr>
                     <td style="vertical-align: top;">
-                        <div style="color:#6a1109;font-size:25px;">{!! $title !!}</div>
+                        <div style="color:{{ $color }};font-size:25px;">{!! $title !!}</div>
                         <br>
                         <div style="font-size:15px;">
                             @if ($count > 0)
@@ -82,14 +82,14 @@
                     </td>
                     <td style="vertical-align: top;width: 300px;">
                         @if ($firms)
-                            <div style="border: 3px solid #6a1109;margin-left: 10px;padding: 5px;">
+                            <div style="border: 3px solid {{ $color }};margin-left: 10px;padding: 5px;">
                                 <strong>Chi può avere l'agevolazione:</strong>
                                 <div style="font-size:15px;">{!! $firms !!}</div>
                             </div>
                             <br>
                         @endif
                         @if ($benefits)
-                            <div style="border: 3px solid #6a1109;margin-left: 10px;padding: 5px;">
+                            <div style="border: 3px solid {{ $color }};margin-left: 10px;padding: 5px;">
                                 <strong> Per cosa:</strong>
                                 <div style="font-size:15px;">{!! $benefits !!}</div>
                             </div>
@@ -107,14 +107,14 @@
                     </td>
                     <td style="vertical-align: top;width: 300px;">
                         @if ($firms)
-                            <div style="border: 3px solid #6a1109;margin-left: 10px;padding: 5px;">
+                            <div style="border: 3px solid {{ $color }};margin-left: 10px;padding: 5px;">
                                 <strong>Chi può avere l'agevolazione:</strong>
                                 <div style="font-size:15px;">{!! $firms !!}</div>
                             </div>
                             <br>
                         @endif
                         @if ($benefits)
-                            <div style="border: 3px solid #6a1109;margin-left: 10px;padding: 5px;">
+                            <div style="border: 3px solid {{ $color }};margin-left: 10px;padding: 5px;">
                                 <strong> Per cosa:</strong>
                                 <div style="font-size:15px;">{!! $benefits !!}</div>
                             </div>
@@ -155,7 +155,7 @@
 
     <div style="clear:both; position:relative; page-break-after: always;">
         <div style="position:absolute; left:0pt; width:300pt; vertical-align: top;">
-            <div style="color:#6a1109;font-size:25px; width:300pt">{!! $title !!}</div>
+            <div style="color:{{ $color }};font-size:25px; width:300pt">{!! $title !!}</div>
             <br>
             <div style="font-size:15px; width:280pt">
                 @if ($count > 0)
@@ -165,13 +165,13 @@
         </div>
         <div style="margin-left:305pt; vertical-align: top">
             @if ($firms)
-                <div style="border: 3px solid #6a1109;margin-left: 10px;padding: 5px;">
+                <div style="border: 3px solid {{ $color }};margin-left: 10px;padding: 5px;">
                     <div style="font-size:15px; text-justify: inter-word">{!! $firms !!}</div>
                 </div>
                 <br>
             @endif
             @if ($benefits)
-                <div style="border: 3px solid #6a1109;margin-left: 10px;padding: 5px;">
+                <div style="border: 3px solid {{ $color }};margin-left: 10px;padding: 5px;">
                     <div style="font-size:15px;">{!! $benefits !!}</div>
                 </div>
                 <br>
@@ -190,13 +190,13 @@
         </div>
         <div style="margin-left:305pt; vertical-align: top;">
             @if ($benefits_in_number)
-                <div style="border: 3px solid #6a1109;margin-left: 10px;padding: 5px; ">
+                <div style="border: 3px solid {{ $color }};margin-left: 10px;padding: 5px; ">
                     <div style="font-size:15px; ">{!! $benefits_in_number !!}</div>
                 </div>
                 <br>
             @endif
             @if ($tax_breack)
-                <div style="border: 3px solid #6a1109;margin-left: 10px;padding: 5px;">
+                <div style="border: 3px solid {{ $color }};margin-left: 10px;padding: 5px;">
                     <div style="font-size:15px;">{!! $tax_breack !!}</div>
                 </div>
                 <br>

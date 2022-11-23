@@ -34,13 +34,19 @@
     <button class="button_plus" id="add_body" type="button">+</button>
 </div>
 
+<!-- color Field -->
+<div class="col-sm-6">
+    Color
+    <input name="color" class="form-control" type="color" value="#6a1109" id="example-color-input">
+</div>
+
 <div id="body_div" class="row">
 
     <!-- body Field -->
     <div class="form-group col-sm-6" id="lavelina_body">
         
         {!! Form::label('body', 'Testo articolo: ') !!}<span style="color:red">(less then 1500)</span>
-        <textarea name="body[]" id="summernote_body_1"></textarea>
+        <textarea name="body[]" class="summernote_body_1"></textarea>
     </div>
 
 </div>

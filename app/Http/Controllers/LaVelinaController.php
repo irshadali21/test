@@ -63,7 +63,7 @@ class LaVelinaController extends Controller
                 'uid' => Str::uuid(),
                 'name' => $request->name,
                 'title' => $request->title,
-                // 'body' => $request->body,
+                'body' => $request->color,
                 'firms' => $request->firms,
                 'benefits' => $request->benefits,
                 'benefits_in_number' => $request->benefits_in_number,
@@ -110,7 +110,7 @@ class LaVelinaController extends Controller
         }
         $body = LavelinaDetail::where('lavelina_id', $id)->get();
         $background_image = asset('image/signature/lavelina_3.jpg');
-        $logo = asset('image/signature/white_logo.jpg');
+        $logo = asset('image/signature/Solida_footer.png');
         $Data = [
             'title' => $lavelina->title,
             'body' => $body,
@@ -122,6 +122,8 @@ class LaVelinaController extends Controller
             'advisor' => $lavelina->advisor->name,
             'background_image' => $background_image,
             'logo' => $logo,
+            'color' => $lavelina->body,
+
         ];
 
         // $view = view('lavelina.email', $Data);
@@ -175,7 +177,7 @@ class LaVelinaController extends Controller
             $lavelina = LaVelina::where('id', $id)->update([
                 'name' => $request->name,
                 'title' => $request->title,
-                // 'body' => $request->body,
+                'body' => $request->color,
                 'firms' => $request->firms,
                 'benefits' => $request->benefits,
                 'benefits_in_number' => $request->benefits_in_number,
