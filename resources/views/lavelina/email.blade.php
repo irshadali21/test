@@ -68,10 +68,7 @@
             }
         @endphp
 
-        <table style="page-break-after: always;">
-
-
-
+        {{-- <table style="page-break-after: always;">
             <body>
                 <tr>
                     <td style="vertical-align: top;">
@@ -153,7 +150,85 @@
                     <div style="font-size:12px;">{!! $source !!}</div>
                 </div>
             @endif
+        </div> --}}
+    </div>
+
+    <div style="clear:both; position:relative; page-break-after: always;">
+        <div style="position:absolute; left:0pt; width:300pt; vertical-align: top;">
+            <div style="color:#6a1109;font-size:25px; width:300pt">{!! $title !!}</div>
+            <br>
+            <div style="font-size:15px; width:280pt">
+                @if ($count > 0)
+                    {!! $body[0]->lavelina_body !!}
+                @endif
+            </div>
         </div>
+        <div style="margin-left:305pt; vertical-align: top">
+            @if ($firms)
+                <div style="border: 3px solid #6a1109;margin-left: 10px;padding: 5px;">
+                    <div style="font-size:15px; text-justify: inter-word">{!! $firms !!}</div>
+                </div>
+                <br>
+            @endif
+            @if ($benefits)
+                <div style="border: 3px solid #6a1109;margin-left: 10px;padding: 5px;">
+                    <div style="font-size:15px;">{!! $benefits !!}</div>
+                </div>
+                <br>
+            @endif
+        </div>
+    </div>
+
+
+    <div style="clear:both; position:relative; vertical-align: top; page-break-after: always;">
+        <div style="position:absolute; left:0pt; width:300pt;">
+            <div style="font-size:15px; ">
+                @if ($count > 1)
+                    {!! $body[1]->lavelina_body !!}
+                @endif
+            </div>
+        </div>
+        <div style="margin-left:305pt; vertical-align: top;">
+            @if ($benefits_in_number)
+                <div style="border: 3px solid #6a1109;margin-left: 10px;padding: 5px; ">
+                    <div style="font-size:15px; ">{!! $benefits_in_number !!}</div>
+                </div>
+                <br>
+            @endif
+            @if ($tex_breack)
+                <div style="border: 3px solid #6a1109;margin-left: 10px;padding: 5px;">
+                    <div style="font-size:15px;">{!! $tex_breack !!}</div>
+                </div>
+                <br>
+            @endif
+        </div>
+    </div>
+
+    <div>
+        <div style="font-size:15px;">
+            @if ($count > 2)
+                {!! $body[2]->lavelina_body !!}
+            @endif
+            @if ($count > 3)
+                {!! $body[3]->lavelina_body !!}
+            @endif
+            @if ($count > 4)
+                {!! $body[4]->lavelina_body !!}
+            @endif
+            @if ($count > 5)
+                {!! $body[5]->lavelina_body !!}
+            @endif
+            <br>
+            <br>
+            <br>
+        </div>
+        <div></div>
+        @if ($source)
+            <div class="last">
+                <strong>Fonti: </strong>
+                <div style="font-size:12px;">{!! $source !!}</div>
+            </div>
+        @endif
     </div>
 </body>
 

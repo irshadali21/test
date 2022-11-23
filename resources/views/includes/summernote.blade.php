@@ -27,17 +27,33 @@
 
 
 $(document).ready(function() {
-  $('.summernote').summernote('code', {
-    height: 300,
+  $('#firms').summernote({
+    height: 250,
+    maxTextLength: 1500,
+  });
+  $('#benefits').summernote({
+    height: 250,
+    maxTextLength: 1500,
+  });
+  $('#benefits_in_number').summernote({
+    height: 250,
+    maxTextLength: 1500,
+  });
+  $('#tax_breack').summernote({
+    height: 250,
+    maxTextLength: 1500,
+  });
+  $('#source').summernote({
+    height: 250,
     maxTextLength: 1500,
   });
   
-  $('#summernote_body_1').summernote('code', {
-    height: 300,
+  $('.summernote_body_1').summernote({
+    height: 250,
     maxTextLength: 1500,
   });
-  $('.summernote_body').summernote('code', {
-    height: 300,
+  $('.summernote_body').summernote({
+    height: 250,
     maxTextLength: 2350,
   });
   
@@ -56,8 +72,8 @@ $(document).ready(function() {
 
     `)
 
-    $('.summernote_body').summernote('code', {
-    height: 300,
+    $('.summernote_body').summernote({
+    height: 250,
     maxTextLength: 2350,
   });
   });

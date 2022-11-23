@@ -16,12 +16,12 @@
         {{-- @include('adminlte-templates::common.errors') --}}
 
         <div class="card">
-
+{{-- @dd($lavelina) --}}
             {!! Form::model($lavelina, ['route' => ['lavelina.update', $lavelina->id], 'method' => 'patch']) !!}
 
             <div class="card-body">
                 <div class="row">
-                    @include('lavelina.fields')
+                    @include('lavelina.edit_fields')
                 </div>
             </div>
             <div class="card-footer">

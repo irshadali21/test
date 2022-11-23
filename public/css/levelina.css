@@ -53,17 +53,50 @@ a {
 
 
 
-strong,
-i,
-b,
-p,
-table,
-tr,
-td,
-th,
-body,
-div,
-span,
+strong{
+    text-align: justify;
+    text-justify: inter-word;
+}
+i{
+    text-align: justify;
+    text-justify: inter-word;
+}
+b{
+    text-align: justify;
+    text-justify: inter-word;
+}
+p{
+    text-align: justify;
+    text-justify: inter-word;
+}
+table{
+    text-align: justify;
+    text-justify: inter-word;
+}
+tr{
+    text-align: justify;
+    text-justify: inter-word;
+}
+td{
+    text-align: justify;
+    text-justify: inter-word;
+}
+th{
+    text-align: justify;
+    text-justify: inter-word;
+}
+body{
+    text-align: justify;
+    text-justify: inter-word;
+}
+div{
+    text-align: justify;
+    text-justify: inter-word;
+}
+span{
+    text-align: justify;
+    text-justify: inter-word;
+}
 a {
     text-align: justify;
     text-justify: inter-word;

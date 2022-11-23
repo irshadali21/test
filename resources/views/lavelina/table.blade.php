@@ -17,10 +17,10 @@
                            class='btn btn-default btn-sm'>
                            <i class="fa fa-eye" aria-hidden="true"></i>
                         </a>
-                        {{-- <a href="{{ route('lavelina.edit', [$test->id]) }}"
+                        <a href="{{ route('lavelina.edit', [$test->id]) }}"
                            class='btn btn-default btn-sm'>
                            <i class="fa fa-edit" aria-hidden="true"></i>
-                        </a> --}}
+                        </a>
                         {!! Form::button('<i class="fas fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'onclick' => "return confirm('Are you sure?')"]) !!}
                     </div>
                     {!! Form::close() !!}
