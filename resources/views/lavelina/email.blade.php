@@ -195,9 +195,9 @@
                 </div>
                 <br>
             @endif
-            @if ($tex_breack)
+            @if ($tax_breack)
                 <div style="border: 3px solid #6a1109;margin-left: 10px;padding: 5px;">
-                    <div style="font-size:15px;">{!! $tex_breack !!}</div>
+                    <div style="font-size:15px;">{!! $tax_breack !!}</div>
                 </div>
                 <br>
             @endif
