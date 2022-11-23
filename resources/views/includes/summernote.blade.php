@@ -50,11 +50,11 @@ $(document).ready(function() {
   
   $('.summernote_body_1').summernote({
     height: 250,
-    maxTextLength: 1500,
+    maxTextLength: 3000,
   });
   $('.summernote_body').summernote({
     height: 250,
-    maxTextLength: 2350,
+    maxTextLength: 3000,
   });
   
   
