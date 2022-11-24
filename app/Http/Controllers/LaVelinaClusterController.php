@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\CreateLaVelinaClusterRequest;
 use App\Http\Requests\UpdateLaVelinaClusterRequest;
+use App\Models\Company;
+use App\Models\Summary;
 use App\Repositories\LaVelinaClusterRepository;
-use App\Http\Controllers\AppBaseController;
-use Illuminate\Http\Request;
+use App\User;
+use Carbon\Carbon;
 use Flash;
+use Illuminate\Http\Request;
 use Response;
 
 class LaVelinaClusterController extends AppBaseController
@@ -42,7 +46,86 @@ class LaVelinaClusterController extends AppBaseController
      */
     public function create()
     {
-        return view('la_velina_clusters.create');
+        $exceptThis = [1];
+        $companies = Company::get();
+        $benefits = Summary::whereNotIn('id', $exceptThis)->pluck('column1', 'id');
+        $advisors = User::get(['id', 'name']);
+
+        return view('la_velina_clusters.create')
+            ->with('companies', $companies)
+            ->with('benefits', $benefits)
+            ->with('advisors', $advisors);
+    }
+
+    /**
+     * Store a newly created LaVelinaCluster in storage.
+     *
+     * @param CreateLaVelinaClusterRequest $request
+     *
+     * @return Response
+     */
+
+    public function filter_result(Request $request)
+    {
+        // dd($request->all());
+
+        $files = new Company();
+
+        if ($request->companies) {
+            $files = $files->where('id', $request->companies);
+
+        }
+
+        if ($request->advisor_name || $request->benefits || $request->opration_email || $request->inc_send_date || $request->certificate_issue_date || $request->file_date) {
+            $files = $files->whereHas('files', function ($query) use ($request) {
+                if ($request->benefits) {
+                    $query->where('benefit_id', $request->benefits);
+                }
+                if ($request->opration_email) {
+                    $query->where('opration_email', 'LIKE', "%{$request->opration_email}%");
+                }
+
+                if ($request->file_date) {
+                    $from = Carbon::parse($request->file_date)->format('Y-m-d');
+                    $to = Carbon::parse(now())->format('Y-m-d');
+                    $query->whereBetween('created_at', [$from, $to]);
+                }
+
+                if ($request->advisor_name) {
+                    $query->whereHas('advisor', function ($query) use ($request) {
+                        $query->where('name', 'LIKE', "%{$request->advisor_name}%");
+                    });
+                }
+
+                if ($request->inc_send_date) {
+                    $query->whereHas('EmailTrack', function ($query) use ($request) {
+                        $from = Carbon::parse($request->inc_send_date)->format('Y-m-d');
+                        $to = Carbon::parse(now())->format('Y-m-d');
+                        $query->where('model', '!=', 'App\Models\Certificate');
+                        $query->whereBetween('created_at', [$from, $to]);
+                    });
+                }
+
+                if ($request->certificate_issue_date) {
+                    $query->whereHas('EmailTrack', function ($query) use ($request) {
+                        $from = Carbon::parse($request->certificate_issue_date)->format('Y-m-d');
+                        $to = Carbon::parse(now())->format('Y-m-d');
+                        $query->where('model', 'App\Models\Certificate');
+                        $query->whereBetween('created_at', [$from, $to]);
+                    });
+                }
+
+            });
+        }
+
+        $companies = $files->get();
+
+        if ($companies == null || empty($companies) || count($companies) == 0) {
+            return $this->sendError('0 companies Found');
+        }
+
+        return $this->sendResponse($companies, 'companies retrieved successfully');
+
     }
 
     /**
@@ -55,6 +138,31 @@ class LaVelinaClusterController extends AppBaseController
     public function store(CreateLaVelinaClusterRequest $request)
     {
         $input = $request->all();
+        // dd($input);
+        $filters = array();
+
+        $filters = ['company' => $input['companies']];
+        $filters += ['benefits' => $input['benefits']];
+        $filters += ['inc_send_date' => $input['inc_send_date']];
+        $filters += ['certificate_issue_date' => $input['certificate_issue_date']];
+        $filters += ['file_date' => $input['file_date']];
+        $filters += ['advisor_name' => $input['advisor_name']];
+        $filters += ['opration_email' => $input['opration_email']];
+        $input['filters'] = json_encode($filters);
+
+        unset($input['companies']);
+        unset($input['benefits']);
+        unset($input['inc_send_date']);
+        unset($input['certificate_issue_date']);
+        unset($input['file_date']);
+        unset($input['advisor_name']);
+        unset($input['opration_email']);
+        unset($input['laVelinaClusters-table_length']);
+
+        $input['companies'] = json_encode($input['company']);
+        $input['name'] = 'test';
+
+        unset($input['company']);
 
         $laVelinaCluster = $this->laVelinaClusterRepository->create($input);
 
@@ -79,8 +187,17 @@ class LaVelinaClusterController extends AppBaseController
 
             return redirect(route('laVelinaClusters.index'));
         }
+        $companies_ids = json_decode($laVelinaCluster->companies );
+        $companies = array();
+        foreach ($companies_ids as $company_id) {
+                
+            $array = Company::where('id' , $company_id)->first();
+            if (!empty($array)) {
+                array_push($companies, $array);
+            }
+        }
 
-        return view('la_velina_clusters.show')->with('laVelinaCluster', $laVelinaCluster);
+        return view('la_velina_clusters.show')->with('laVelinaCluster', $laVelinaCluster)->with('companies', $companies);
     }
 
     /**

@@ -39,3 +39,10 @@
 
 @endsection
 
+@push('scripts')
+<script>
+
+    $('.datatable').DataTable();
+</script>
+
+@endpush
