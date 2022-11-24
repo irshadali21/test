@@ -55,8 +55,6 @@ Route::get('/pdf2', [
     'as' => 'assignment.index',
 ]);
 
-
-
 Route::group(['middleware' => ['auth', 'verified', 'admin']], function () {
 
     //crud routes
@@ -77,7 +75,6 @@ Route::group(['middleware' => ['auth', 'verified', 'admin']], function () {
     )->name('io_generator_builder_generate_from_file');
 
 });
-
 
 //////////////////////
 Auth::routes(['verify' => true]);
@@ -114,8 +111,6 @@ Route::group(['middleware' => ['auth', 'verified', 'stampCheck']], function () {
     Route::get('media', function () {
         return view('media.index');
     })->name('media.index');
-
-
 
     //files routes
 
@@ -155,19 +150,19 @@ Route::group(['middleware' => ['auth', 'verified', 'stampCheck']], function () {
         return view('certificate.test');});
 
     Route::resource('certificate', 'CertificateController');
-    
+
     Route::get('/certificate/send/{id}', [
         'uses' => 'CertificateController@send',
         'as' => 'certificate.send',
     ]);
-    
+
     Route::post('/search', [
         'uses' => 'HomeController@search',
         'as' => 'search',
     ]);
-    
+
     //Reports
-    
+
     Route::get('/reports', [
         'uses' => 'ReportController@index',
         'as' => 'reports.index',
@@ -177,20 +172,22 @@ Route::group(['middleware' => ['auth', 'verified', 'stampCheck']], function () {
         'uses' => 'ReportController@create',
         'as' => 'getreport',
     ]);
-    
 
     //LaVelina
     Route::resource('lavelina', 'LaVelinaController');
 
-      //download csv
-      Route::post('/download/csv', [
+    //download csv
+    Route::post('/download/csv', [
         'uses' => 'DownloadController@download_csv',
         'as' => 'download.csv',
     ]);
 
+    //Lavelina Cluster
+    Route::resource('laVelinaClusters', 'LaVelinaClusterController');
+
+    Route::post('/laVelinaClusters/filter', [
+        'uses' => 'LaVelinaClusterController@filter_result',
+        'as' => 'laVelinaClusters.filter',
+    ]);
+
 });
-
-
-
-
-Route::resource('laVelinaClusters', 'LaVelinaClusterController');

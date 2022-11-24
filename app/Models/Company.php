@@ -29,4 +29,11 @@ class Company extends Model
     {
         return $this->hasOne(User::class,'id','created_by');
     }
+
+
+    public function files(){
+        return $this->hasMany(File::class, 'company_id', 'id');
+    }
+
+    
 }

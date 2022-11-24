@@ -203,7 +203,7 @@ class LaVelinaController extends Controller
         } catch (\Exception $e) {
 
             DB::rollback();
-            dd($e);
+            // dd($e);
             flash('There was an error')->error();
             return back();
 

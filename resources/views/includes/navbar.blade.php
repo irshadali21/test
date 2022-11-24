@@ -93,6 +93,14 @@
                     @endcan
                     @can('update-settings')
                     <li class="nav-item">
+                        <a class="nav-link {{ (request()->is('laVelinaClusters*')) ? 'active' : '' }}" href="{{route('laVelinaClusters.index')}}">
+                            <i class="fa fa-users" style="color: #B5ABA2"></i>
+                            <span class="nav-link-text">LaVelina Clusters</span>
+                        </a>
+                    </li>
+                    @endcan
+                    @can('update-settings')
+                    <li class="nav-item">
                         <a class="nav-link {{ (request()->is('settings*')) ? 'active' : '' }}" href="{{route('settings.index')}}">
                             <i class="ni ni-settings-gear-65" style="color: #B5ABA2"></i>
                             <span class="nav-link-text">Manage Settings</span>
