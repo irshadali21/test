@@ -220,6 +220,7 @@ class LaVelinaController extends Controller
     {
         $lavelina = LaVelina::where('id', $id)->first();
         if ($lavelina) {
+            LavelinaDetail::where('lavelina_id', $id)->delete();
             $lavelina->delete();
             flash('LA VELINA Deleted')->success();
             return redirect()->back();
