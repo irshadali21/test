@@ -41,7 +41,7 @@
 
             </div>
             <div class="card-footer">
-                {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
+                {!! Form::submit('Send', ['class' => 'btn btn-primary']) !!}
                 <a href="{{ route('laVelinaClusters.index') }}" class="btn btn-default">Cancel</a>
             </div>
 
