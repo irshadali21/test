@@ -190,4 +190,14 @@ Route::group(['middleware' => ['auth', 'verified', 'stampCheck']], function () {
         'as' => 'laVelinaClusters.filter',
     ]);
 
+    Route::post('/laVelinaClusters/send', [
+        'uses' => 'LaVelinaClusterController@send',
+        'as' => 'laVelinaClusters.send',
+    ]);
+    
+    Route::get('/laVelinaClusters/send/{id}', [
+        'uses' => 'LaVelinaClusterController@sendlavelina',
+        'as' => 'laVelinaClusters.sendlavelina',
+    ]);
+
 });

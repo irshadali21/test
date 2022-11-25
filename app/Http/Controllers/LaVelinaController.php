@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Core\HelperFunction;
 use App\Models\LaVelina;
 use App\Models\LavelinaDetail;
 use App\User;
@@ -10,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use PDF;
+
 
 class LaVelinaController extends Controller
 {
@@ -108,28 +110,8 @@ class LaVelinaController extends Controller
             flash('LA VELINA did not exist );')->error();
             return redirect()->back();
         }
-        $body = LavelinaDetail::where('lavelina_id', $id)->get();
-        $background_image = asset('image/signature/lavelina_3.jpg');
-        $logo = asset('image/signature/Solida_footer.png');
-        $Data = [
-            'title' => $lavelina->title,
-            'body' => $body,
-            'firms' => $lavelina->firms,
-            'benefits' => $lavelina->benefits,
-            'benefits_in_number' => $lavelina->benefits_in_number,
-            'tax_breack' => $lavelina->tex_breack,
-            'source' => $lavelina->source,
-            'advisor' => $lavelina->advisor->name,
-            'background_image' => $background_image,
-            'logo' => $logo,
-            'color' => $lavelina->body,
 
-        ];
-
-        // $view = view('lavelina.email', $Data);
-        // $html = $view->render();
-        // $html = preg_replace('/>\s+</', "><", $html);
-        // $pdf = PDF::loadHTML($html);
+        $Data = HelperFunction::lavelina($id);
 
         $pdf = PDF::loadView('lavelina.email', $Data);
         return $pdf->stream();

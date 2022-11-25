@@ -5,12 +5,18 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\CreateLaVelinaClusterRequest;
 use App\Http\Requests\UpdateLaVelinaClusterRequest;
+use App\Core\HelperFunction;
 use App\Models\Company;
+use App\Models\LaVelina;
 use App\Models\Summary;
+use App\Models\File;
+
 use App\Repositories\LaVelinaClusterRepository;
 use App\User;
 use Carbon\Carbon;
 use Flash;
+use PDF;
+use Mail;
 use Illuminate\Http\Request;
 use Response;
 
@@ -267,6 +273,72 @@ class LaVelinaClusterController extends AppBaseController
         $this->laVelinaClusterRepository->delete($id);
 
         Flash::success('La Velina Cluster deleted successfully.');
+
+        return redirect(route('laVelinaClusters.index'));
+    }
+
+    public function sendlavelina($id){
+
+        $lavelina = LaVelina::get();
+        if (empty($lavelina)) {
+            Flash::error('create La Velina to Send');
+            return redirect(route('lavelina.index'));
+        }
+        $laVelinaCluster = $this->laVelinaClusterRepository->find($id);
+        if (empty($laVelinaCluster)) {
+            Flash::error('La Velina Cluster not found');
+            return redirect(route('laVelinaClusters.index'));
+        }
+        return view('la_velina_clusters.send')->with('lavelina', $lavelina)->with('laVelinaCluster', $laVelinaCluster);
+    }
+
+    public function send(Request $request){
+        
+        // dd($request->all());
+        
+        $laVelinaCluster = $this->laVelinaClusterRepository->find($request->cluster_id);
+
+        if (empty($laVelinaCluster)) {
+            Flash::error('La Velina Cluster not found');
+            return redirect(route('laVelinaClusters.index'));
+        }
+        $lavelina = LaVelina::where('id', $request->lavelina_id)->first();
+        if (!$lavelina) {
+            Flash::error('La Velina not found');
+            return redirect(route('laVelinaClusters.index'));
+        }
+
+        $Data = HelperFunction::lavelina($request->lavelina_id);
+        $pdf = PDF::loadView('lavelina.email', $Data);
+        
+        $data["title"] = "LaVelinaFrom Revman";
+        $data["subject"] = "LaVelina";
+        $data["body"] = "Buondì, <br>
+        la presente per inviare quanto in oggetto.<br>
+        Cordialità";
+        $name = "Lavelina";
+        
+        $companies_ids = json_decode($laVelinaCluster->companies );
+
+        foreach ($companies_ids as $company_id) {
+
+
+            $files = File::where('company_id' , $company_id)->get();
+            if (!empty($files) && count($files) ) {
+                foreach ($files as $file) {
+                    $data["email"] = $file->customer_email;
+                    $data["opration_email"] = $file->opration_email;
+                    Mail::send('emails.myTestMail', $data, function ($message) use ($data, $pdf, $name) {
+                        $message
+                            ->to($data["email"], $data["email"])
+                            ->cc([ $data["opration_email"]])
+                            ->subject($data["subject"])
+                            ->attachData($pdf->output(), $name . ".pdf");
+                    });
+                }
+            }
+        }
+        Flash::success('La Velina Sent  successfully.');
 
         return redirect(route('laVelinaClusters.index'));
     }

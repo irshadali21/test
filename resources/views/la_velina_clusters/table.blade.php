@@ -40,7 +40,7 @@
                                         class="far fa-eye"></i> Check Cluster</a>
                                 
                                         <a class="dropdown-item"
-                                    href="{{ route('laVelinaClusters.show', [$laVelinaCluster->id]) }}"><i
+                                    href="{{ route('laVelinaClusters.sendlavelina', [$laVelinaCluster->id]) }}"><i
                                         class="far fa-paper-plane"></i> Send LaVelina</a>
                                 {{-- @endcan --}}
                                 {{-- @can('update-file') --}}

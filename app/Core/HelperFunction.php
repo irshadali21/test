@@ -8,6 +8,9 @@ use App\Models\Summary;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
+use App\Models\LaVelina;
+use App\Models\LavelinaDetail;
+
 
 class HelperFunction
 {
@@ -258,6 +261,30 @@ class HelperFunction
             default:
                 return 'Something went wrong.';
         }
+    }
+
+    public static function lavelina($id)
+    {
+
+        $lavelina = LaVelina::where('id', $id)->first();
+        $body = LavelinaDetail::where('lavelina_id', $id)->get();
+        $background_image = asset('image/signature/lavelina_3.jpg');
+        $logo = asset('image/signature/Solida_footer.png');
+        $Data = [
+            'title' => $lavelina->title,
+            'body' => $body,
+            'firms' => $lavelina->firms,
+            'benefits' => $lavelina->benefits,
+            'benefits_in_number' => $lavelina->benefits_in_number,
+            'tax_breack' => $lavelina->tex_breack,
+            'source' => $lavelina->source,
+            'advisor' => $lavelina->advisor->name,
+            'background_image' => $background_image,
+            'logo' => $logo,
+            'color' => $lavelina->body,
+        ];
+
+        return $Data;
     }
 
 }
