@@ -10,7 +10,9 @@
             </div>
         </div>
     </section>
-
+    @php
+    $count = 0;
+@endphp
     <div class=" px-3">
 
         {{-- @include('adminlte-templates::common.errors') --}}
@@ -32,6 +34,22 @@
 
         </div>
     </div>
-    @include('includes.summernote')
+    @include('includes.ckeditor')
+
 
 @endsection
+
+@push('scripts')
+@foreach ($body as $body_text)
+@php
+    $count++;
+@endphp
+@endforeach
+<script>
+    console.log({{ $count }});
+@for ($i = 0; $i < $count; $i++)
+   ckapplyeditor('body{{ $count }}');
+    
+@endfor
+</script>
+@endpush

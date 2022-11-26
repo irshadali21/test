@@ -39,9 +39,7 @@
     <input name="color" class="form-control" type="color" value="{{ $lavelina->color }}" id="example-color-input">
 </div>
 
-@php
-    $count = 0;
-@endphp
+
 <div id="body_div" class="row">
 
 @foreach ($body as $body_text)
@@ -57,11 +55,7 @@
                 @else
                 (less then 1500)
                 @endif</span>
-            <textarea name="body[]" class="@if ($count > 1)
-                summernote_body
-                @else
-                summernote_body_1
-                @endif</span>">{!! $body_text->lavelina_body !!}</textarea>
+            <textarea name="body[]" id="body{{ $count }}">{!! $body_text->lavelina_body !!}</textarea>
         </div>
         @endforeach
     </div>
@@ -69,29 +63,29 @@
 <!-- firms Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('firms', 'Chi Può:') !!}
-    {!! Form::textarea('firms', $lavelina->firms, ['class' => 'form-control summernote']) !!}
+    {!! Form::textarea('firms', $lavelina->firms, ['class' => 'form-control']) !!}
 </div>
 
 <!-- benefits Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('benefits', 'Per Cosa:') !!}
-    {!! Form::textarea('benefits', $lavelina->benefits, ['class' => 'form-control summernote']) !!}
+    {!! Form::textarea('benefits', $lavelina->benefits, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Benefits Quantity Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('benefits_in_number', 'Quanto:') !!}
-    {!! Form::textarea('benefits_in_number', $lavelina->benefits_in_number, ['class' => 'form-control summernote']) !!}
+    {!! Form::textarea('benefits_in_number', $lavelina->benefits_in_number, ['class' => 'form-control']) !!}
 </div>
 
 <!-- tax_breack Field -->
 <div class="form-group col-sm-6" style="height:350px">
     {!! Form::label('tax_breack', 'Quali agevolazioni:') !!}
-    <textarea name="tax_breack" id="tax_breack" class="form-control summernote">{!! $lavelina->tex_breack !!}</textarea>
+    <textarea name="tax_breack" id="tax_breack" class="form-control">{!! $lavelina->tex_breack !!}</textarea>
 </div>
 
 <!-- source Field -->
 <div class="form-group col-sm-6" style="height:350px">
     {!! Form::label('source', 'Fonti:') !!}
-    {!! Form::textarea('source', $lavelina->source, ['class' => 'form-control summernote']) !!}
+    {!! Form::textarea('source', $lavelina->source, ['class' => 'form-control']) !!}
 </div>

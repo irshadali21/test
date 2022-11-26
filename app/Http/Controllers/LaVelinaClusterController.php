@@ -342,4 +342,7 @@ class LaVelinaClusterController extends AppBaseController
 
         return redirect(route('laVelinaClusters.index'));
     }
+
+    // bulk upload function php
+
 }

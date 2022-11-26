@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="{{asset('assets/vendor/@fortawesome/fontawesome-free/css/all.min.css')}}"type="text/css">
     <link rel="stylesheet" href="{{asset('assets/vendor/fontawesome4/css/font-awesome.min.css')}}"type="text/css">
     <!-- Page plugins -->
-    <link rel="stylesheet" href="{{asset('assets/vendor/fullcalendar/dist/fullcalendar.min.css')}}">
+    {{-- <link rel="stylesheet" href="{{asset('assets/vendor/fullcalendar/dist/fullcalendar.min.css')}}"> --}}
     <link rel="stylesheet" href="{{asset('assets/vendor/sweetalert2/dist/sweetalert2.min.css')}}">
 
     <link rel="stylesheet" href="{{asset('assets/css/bootstrap-select.min.css')}}" type="text/css">
