@@ -14,3 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+
+Route::resource('ateco_tables', 'ateco_tableAPIController');
+
+
+Route::resource('province_tables', 'province_tableAPIController');
+
+
+Route::resource('sector_tables', 'sector_tableAPIController');
