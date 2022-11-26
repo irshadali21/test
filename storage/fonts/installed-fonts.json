@@ -1,6 +1,7 @@
 {
     "roboto": {
-        "normal": "roboto_normal_8144be9eb5b3240ee88303f9ac45cce3"
+        "normal": "C:\\laragon\\www\\revman\\storage\\fonts\/roboto_normal_8144be9eb5b3240ee88303f9ac45cce3",
+        "100": "roboto_100_1c4e32da7e6c8539dd3a51af38f413be"
     },
     "robotobold": {
         "normal": "robotobold_normal_4b84332a8b747e0571fcbefaef2109e1"
@@ -13,5 +14,8 @@
     },
     "robotolight": {
         "normal": "robotolight_normal_a7b22b4a8835d4c8c742ea070c163223"
+    },
+    "prata": {
+        "normal": "prata_normal_d9d46417966d3bc05c1b3f73eab986ae"
     }
 }

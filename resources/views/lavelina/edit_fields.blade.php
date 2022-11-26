@@ -36,7 +36,7 @@
 <!-- color Field -->
 <div class="col-sm-6">
     Color
-    <input name="color" class="form-control" type="color" value="{{ $lavelina->color }}" id="example-color-input">
+    <input name="color" class="form-control" type="color" value="{{ $lavelina->body }}" id="example-color-input">
 </div>
 
 
