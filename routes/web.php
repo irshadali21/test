@@ -200,4 +200,25 @@ Route::group(['middleware' => ['auth', 'verified', 'stampCheck']], function () {
         'as' => 'laVelinaClusters.sendlavelina',
     ]);
 
+    Route::resource('atecoTables', 'ateco_tableController');
+
+
+    Route::get('/atecoTablesimport', [
+        'uses' => 'ateco_tableController@import',
+    ]);
+
+    Route::resource('provinceTables', 'province_tableController');
+
+    Route::get('/provinceTablesimport', [
+        'uses' => 'province_tableController@import',
+    ]);
+
+    Route::resource('sectorTables', 'sector_tableController');
+
+    Route::get('/sectorTablesimport', [
+        'uses' => 'sector_tableController@import',
+    ]);
+
 });
+
+
