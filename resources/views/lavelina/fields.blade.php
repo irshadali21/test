@@ -40,13 +40,13 @@
     <input name="color" class="form-control" type="color" value="#6a1109" id="example-color-input">
 </div>
 
-<div id="body_div" class="row">
+<div id="body_div" class=" col-sm-12 row">
 
     <!-- body Field -->
     <div class="form-group col-sm-6" id="lavelina_body">
         
         {!! Form::label('body', 'Testo articolo: ') !!}<span style="color:red">(less then 1500)</span>
-        <textarea name="body[]" class="summernote_body_1"></textarea>
+        <textarea name="body[]" id="body1" class="form-control "></textarea>
     </div>
 
 </div>
@@ -54,29 +54,29 @@
 <!-- firms Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('firms', 'Chi Può:') !!}
-    {!! Form::textarea('firms', null, ['class' => 'form-control summernote']) !!}
+    {!! Form::textarea('firms', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- benefits Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('benefits', 'Per Cosa:') !!}
-    {!! Form::textarea('benefits', null, ['class' => 'form-control summernote']) !!}
+    {!! Form::textarea('benefits', null, ['class' => 'form-control ']) !!}
 </div>
 
 <!-- Benefits Quantity Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('benefits_in_number', 'Quanto:') !!}
-    {!! Form::textarea('benefits_in_number', null, ['class' => 'form-control summernote']) !!}
+    {!! Form::textarea('benefits_in_number', null, ['class' => 'form-control ']) !!}
 </div>
 
 <!-- tax_breack Field -->
 <div class="form-group col-sm-6" style="height:350px">
     {!! Form::label('tax_breack', 'Quali agevolazioni:') !!}
-    {!! Form::textarea('tax_breack', null, ['class' => 'form-control summernote']) !!}
+    {!! Form::textarea('tax_breack', null, ['class' => 'form-control ']) !!}
 </div>
 
 <!-- source Field -->
 <div class="form-group col-sm-6" style="height:350px">
     {!! Form::label('source', 'Fonti:') !!}
-    {!! Form::textarea('source', null, ['class' => 'form-control summernote']) !!}
+    {!! Form::textarea('source', null, ['class' => 'form-control ']) !!}
 </div>

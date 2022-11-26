@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+
 @section('content')
     <section class="content-header">
         <div class="container-fluid">
@@ -10,7 +11,7 @@
             </div>
         </div>
     </section>
-
+    
     <div class=" px-3">
 
         {{-- @include('adminlte-templates::common.errors') --}}
@@ -36,5 +37,7 @@
 
         </div>
     </div>
-    @include('includes.summernote')
+    @include('includes.ckeditor')
 @endsection
+
+

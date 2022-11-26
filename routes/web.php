@@ -34,7 +34,7 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/emailtemplatecheck', function () {
-    return view('lavelina.email');
+    return view('emails.myTestMail');
 });
 
 Route::get('/', function () {
