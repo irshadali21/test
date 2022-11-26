@@ -48,7 +48,7 @@
 <script>
     console.log({{ $count }});
 @for ($i = 0; $i < $count; $i++)
-   ckapplyeditor('body{{ $count }}');
+   ckapplyeditor('body{{ $i+1 }}');
     
 @endfor
 </script>
