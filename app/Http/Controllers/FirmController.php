@@ -9,6 +9,9 @@ use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use Flash;
 use Response;
+use App\Imports\FirmImport;
+use Maatwebsite\Excel\Facades\Excel;
+
 
 class FirmController extends AppBaseController
 {
@@ -157,5 +160,43 @@ class FirmController extends AppBaseController
     public function import()
     {
         return view('firms.import');
+    }
+
+    public function import_upload(Request $request)
+    {
+        // dd($request->all());
+
+         // Handle  Uploaded File
+         if($request->hasFile('file')){
+            //Get FileName with extension
+            $fileNameWithExt = $request->file('file')->getClientOriginalName();
+            //get Only FileName
+            $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+            //Get only Extension
+            $extension = $request->file('file')->getClientOriginalExtension();
+            //FileName To Store
+            $file = $fileName.'_'.time().'.'.$extension;
+            //upload Image
+            $path = $request->file('file')->move(public_path('upload/firms'), $file);
+            // dd($file);
+
+            try {
+                Excel::import(new FirmImport, public_path('upload/firms/').$file);
+    // dd($_SESSION);
+                Flash::success('Firms Imported successfully.');
+        
+                return redirect(route('firms.index'));
+        
+            } catch (\Throwable $th) {
+               dd($th);
+            }
+
+        }else{
+            Flash::error('There was an error please try again');
+
+            return redirect(route('firms.import'));
+        }
+
+        
     }
 }

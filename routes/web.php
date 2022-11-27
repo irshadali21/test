@@ -222,6 +222,10 @@ Route::group(['middleware' => ['auth', 'verified', 'stampCheck']], function () {
         'uses' => 'FirmController@import',
         'as' => 'firms.import'
     ]);
+    Route::post('/import/firm/upload', [
+        'uses' => 'FirmController@import_upload',
+        'as' => 'firms.upload'
+    ]);
 });
 
 
