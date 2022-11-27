@@ -216,7 +216,14 @@ Route::group(['middleware' => ['auth', 'verified', 'stampCheck']], function () {
     //     'uses' => 'sector_tableController@import',
     // ]);
     
-
+    Route::resource('firms', 'FirmController');
+    
+    Route::get('/import/firm', [
+        'uses' => 'FirmController@import',
+        'as' => 'firms.import'
+    ]);
 });
+
+
 
 

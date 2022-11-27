@@ -83,22 +83,46 @@
                         </div>
                     </li>
                     @endcan
-                    @can('update-settings')
+                    {{-- @can('update-settings') --}}
                     <li class="nav-item">
                         <a class="nav-link {{ (request()->is('lavelina*')) ? 'active' : '' }}" href="{{route('lavelina.index')}}">
                             <i class="ni ni-collection" style="color: #B5ABA2"></i>
                             <span class="nav-link-text">La Velina</span>
                         </a>
                     </li>
-                    @endcan
-                    @can('update-settings')
-                    <li class="nav-item">
+                    {{-- @endcan --}}
+                     {{-- @can('update-settings') --}}
+                     <li class="nav-item">
                         <a class="nav-link {{ (request()->is('laVelinaClusters*')) ? 'active' : '' }}" href="{{route('laVelinaClusters.index')}}">
                             <i class="fa fa-users" style="color: #B5ABA2"></i>
                             <span class="nav-link-text">LaVelina Clusters</span>
                         </a>
                     </li>
-                    @endcan
+                    {{-- @endcan --}}
+                    
+                    {{-- firms --}}
+                    <li class="nav-item">
+                        <a class="nav-link {{ (request()->is('firms*')) ? 'active' : '' }}{{ (request()->is('import/firm')) ? 'active' : '' }}" href="#navbar-firms"  data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-firms">
+                            <i class="ni ni-collection" style="color: #B5ABA2"></i>
+                            <span class="nav-link-text">Manage firms</span>
+                        </a>
+                        <div class="collapse {{ (request()->is('firms*')) ? 'show' : '' }} {{ (request()->is('import/firm')) ? 'show' : '' }}" id="navbar-firms">
+                            <ul class="nav nav-sm flex-column">
+                                {{-- @can('view-user') --}}
+                                <li class="nav-item">
+                                    <a href="{{route('firms.index')}}" class="nav-link"><span class="sidenav-mini-icon">D </span><span class="sidenav-normal">All Firms</span></a>
+                                </li>
+                                {{-- @endcan --}}
+                                {{-- @can( 'create-user') --}}
+                                <li class="nav-item">
+                                    <a href="{{route('firms.import')}}" class="nav-link"><span class="sidenav-mini-icon">D </span><span class="sidenav-normal">Import Firms</span></a>
+                                </li>
+                                {{-- @endcan --}}
+                            </ul>
+                        </div>
+                    </li>
+
+
                     @can('update-settings')
                     <li class="nav-item">
                         <a class="nav-link {{ (request()->is('settings*')) ? 'active' : '' }}" href="{{route('settings.index')}}">
