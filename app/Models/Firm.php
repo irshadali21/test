@@ -3,7 +3,9 @@
 namespace App\Models;
 
 use Eloquent as Model;
-
+use App\Models\ateco_table;
+use App\Models\province_table;
+use App\Models\sector_table;
 /**
  * Class Firm
  * @package App\Models
@@ -50,21 +52,21 @@ class Firm extends Model
      *
      * @var array
      */
-    protected $casts = [
-        'id' => 'integer',
-        'firm_name' => 'string',
-        'firm_vat_no' => 'string',
-        'firm_type' => 'string',
-        'province_id' => 'integer',
-        'category' => 'string',
-        'phone_number' => 'string',
-        'firm_owner' => 'string',
-        'email' => 'string',
-        'email2' => 'string',
-        'sector_id' => 'integer',
-        'ateco_id' => 'integer',
-        'created_by' => 'integer'
-    ];
+    // protected $casts = [
+    //     'id' => 'integer',
+    //     'firm_name' => 'string',
+    //     'firm_vat_no' => 'string',
+    //     'firm_type' => 'string',
+    //     'province_id' => 'integer',
+    //     'category' => 'string',
+    //     'phone_number' => 'string',
+    //     'firm_owner' => 'string',
+    //     'email' => 'string',
+    //     'email2' => 'string',
+    //     'sector_id' => 'integer',
+    //     'ateco_id' => 'integer',
+    //     'created_by' => 'integer'
+    // ];
 
     /**
      * Validation rules
@@ -74,6 +76,20 @@ class Firm extends Model
     public static $rules = [
         
     ];
+
+
+    public function ateco()
+    {
+        return $this->hasOne(ateco_table::class,'id','ateco_id');
+    }
+    public function sector()
+    {
+        return $this->hasOne(sector_table::class,'id','sector_id');
+    }
+    public function province()
+    {
+        return $this->hasOne(province_table::class,'id','province_id');
+    }
 
     
 }
