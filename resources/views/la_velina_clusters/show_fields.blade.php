@@ -8,7 +8,7 @@
 <div class="col-sm-12">
     {!! Form::label('companies', 'Companies:', ['class' => 'form-control-label']) !!}
     @foreach ($companies as $company)
-    <p>{{ $company->company_name }} ( {{ $company->vat_number }} )</p>
+    <p>{{ $company->firm_name }} ( {{ $company->firm_vat_no }} )</p>
     @endforeach
 </div>
 

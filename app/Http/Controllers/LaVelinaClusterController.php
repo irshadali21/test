@@ -5,12 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\CreateLaVelinaClusterRequest;
 use App\Http\Requests\UpdateLaVelinaClusterRequest;
-use App\Core\HelperFunction;
-use App\Models\Company;
-use App\Models\LaVelina;
-use App\Models\Summary;
-use App\Models\File;
-
 use App\Repositories\LaVelinaClusterRepository;
 use App\User;
 use Carbon\Carbon;
@@ -19,6 +13,16 @@ use PDF;
 use Mail;
 use Illuminate\Http\Request;
 use Response;
+use App\Core\HelperFunction;
+use App\Models\Company;
+use App\Models\LaVelina;
+use App\Models\Summary;
+use App\Models\File;
+use App\Models\Firm;
+use App\Models\ateco_table;
+use App\Models\province_table;
+use App\Models\sector_table;
+
 
 class LaVelinaClusterController extends AppBaseController
 {
@@ -52,15 +56,18 @@ class LaVelinaClusterController extends AppBaseController
      */
     public function create()
     {
-        $exceptThis = [1];
-        $companies = Company::get();
-        $benefits = Summary::whereNotIn('id', $exceptThis)->pluck('column1', 'id');
         $advisors = User::get(['id', 'name']);
+        $firms = Firm::get(['id', 'firm_name', 'firm_vat_no']);
+        $ateco_code = ateco_table::get(['id', 'code']);
+        $province = province_table::get(['id', 'province']);
+        $sector = sector_table::get(['id', 'name']);
 
         return view('la_velina_clusters.create')
-            ->with('companies', $companies)
-            ->with('benefits', $benefits)
-            ->with('advisors', $advisors);
+            ->with('advisors', $advisors)
+            ->with('firms', $firms)
+            ->with('ateco_code', $ateco_code)
+            ->with('province', $province)
+            ->with('sector', $sector);
     }
 
     /**
@@ -75,57 +82,36 @@ class LaVelinaClusterController extends AppBaseController
     {
         // dd($request->all());
 
-        $files = new Company();
 
-        if ($request->companies) {
-            $files = $files->where('id', $request->companies);
+        $firms = new Firm();
 
+        if ($request->firm) {
+            $firms = $firms->orWhere('id', $request->firm);
+        }
+        if ($request->sector) {
+            $firms =  $firms->orWhere('sector_id', $request->sector);
+        }
+        if ($request->ateco_code) {
+            $firms =  $firms->orWhere('ateco_id', $request->ateco_code);
+        }
+        if ($request->province) {
+            $firms =  $firms->orWhere('province_id', $request->province);
+        }
+        if ($request->firm_type) {
+            $firms =  $firms->orWhere('firm_type', 'LIKE', "%{$request->firm_type}%");
+        }
+        if ($request->category) {
+            $firms =  $firms->orWhere('category', 'LIKE', "%{$request->category}%");
+        }
+        if ($request->firm_owner) {
+            $firms =  $firms->orWhere('firm_owner', 'LIKE', "%{$request->firm_owner}%");
+        }
+        if ($request->phone_number) {
+            $firms =  $firms->orWhere('phone_number', 'LIKE', "%{$request->phone_number}%");
         }
 
-        if ($request->advisor_name || $request->benefits || $request->opration_email || $request->inc_send_date || $request->certificate_issue_date || $request->file_date) {
-            $files = $files->whereHas('files', function ($query) use ($request) {
-                if ($request->benefits) {
-                    $query->where('benefit_id', $request->benefits);
-                }
-                if ($request->opration_email) {
-                    $query->where('opration_email', 'LIKE', "%{$request->opration_email}%");
-                }
-
-                if ($request->file_date) {
-                    $from = Carbon::parse($request->file_date)->format('Y-m-d');
-                    $to = Carbon::parse(now())->format('Y-m-d');
-                    $query->whereBetween('created_at', [$from, $to]);
-                }
-
-                if ($request->advisor_name) {
-                    $query->whereHas('advisor', function ($query) use ($request) {
-                        $query->where('name', 'LIKE', "%{$request->advisor_name}%");
-                    });
-                }
-
-                if ($request->inc_send_date) {
-                    $query->whereHas('EmailTrack', function ($query) use ($request) {
-                        $from = Carbon::parse($request->inc_send_date)->format('Y-m-d');
-                        $to = Carbon::parse(now())->format('Y-m-d');
-                        $query->where('model', '!=', 'App\Models\Certificate');
-                        $query->whereBetween('created_at', [$from, $to]);
-                    });
-                }
-
-                if ($request->certificate_issue_date) {
-                    $query->whereHas('EmailTrack', function ($query) use ($request) {
-                        $from = Carbon::parse($request->certificate_issue_date)->format('Y-m-d');
-                        $to = Carbon::parse(now())->format('Y-m-d');
-                        $query->where('model', 'App\Models\Certificate');
-                        $query->whereBetween('created_at', [$from, $to]);
-                    });
-                }
-
-            });
-        }
-
-        $companies = $files->get();
-
+        $companies = $firms->with('ateco')->with('sector')->with('province')->get();
+        
         if ($companies == null || empty($companies) || count($companies) == 0) {
             return $this->sendError('0 companies Found');
         }
@@ -147,13 +133,14 @@ class LaVelinaClusterController extends AppBaseController
         // dd($input);
         $filters = array();
 
-        $filters = ['company' => $input['companies']];
-        $filters += ['benefits' => $input['benefits']];
-        $filters += ['inc_send_date' => $input['inc_send_date']];
-        $filters += ['certificate_issue_date' => $input['certificate_issue_date']];
-        $filters += ['file_date' => $input['file_date']];
-        $filters += ['advisor_name' => $input['advisor_name']];
-        $filters += ['opration_email' => $input['opration_email']];
+        $filters = ['company' => $input['firm']];
+        $filters += ['sector' => $input['sector']];
+        $filters += ['ateco_code' => $input['ateco_code']];
+        $filters += ['province' => $input['province']];
+        $filters += ['firm_type' => $input['firm_type']];
+        $filters += ['category' => $input['category']];
+        $filters += ['firm_owner' => $input['firm_owner']];
+        $filters += ['phone_number' => $input['phone_number']];
         $input['filters'] = json_encode($filters);
 
         unset($input['companies']);
@@ -166,9 +153,9 @@ class LaVelinaClusterController extends AppBaseController
         unset($input['laVelinaClusters-table_length']);
 
         $input['companies'] = json_encode($input['company']);
-        $input['name'] = 'test';
+        // $input['name'] = 'test';
 
-        unset($input['company']);
+        // unset($input['company']);
 
         $laVelinaCluster = $this->laVelinaClusterRepository->create($input);
 
@@ -197,7 +184,7 @@ class LaVelinaClusterController extends AppBaseController
         $companies = array();
         foreach ($companies_ids as $company_id) {
                 
-            $array = Company::where('id' , $company_id)->first();
+            $array = Firm::where('id' , $company_id)->first();
             if (!empty($array)) {
                 array_push($companies, $array);
             }

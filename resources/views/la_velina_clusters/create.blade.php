@@ -63,35 +63,38 @@
 
                 $('#result_compnies').empty();
 
-                var companies = $("#companies").val()
-                var benefits = $("#benefits").val()
-                var inc_send_date = $("#inc_send_date").val()
-                var certificate_issue_date = $("#certificate_issue_date").val()
-                var file_date = $("#file_date").val()
-                var advisor_name = $("#advisor_name").val()
-                var opration_email = $("#opration_email").val()
-
+                var firm = $("#firm").val()
+                var sector = $("#sector").val()
+                var ateco_code = $("#ateco_code").val()
+                var province = $("#province").val()
+                var firm_type = $("#firm_type").val()
+                var category = $("#category").val()
+                var firm_owner = $("#firm_owner").val()
+                var phone_number = $("#phone_number").val()
                 $.ajax({
                     url: "{{ route('laVelinaClusters.filter') }}",
                     type: "post",
                     data: {
-                        companies: companies,
-                        benefits: benefits,
-                        inc_send_date: inc_send_date,
-                        certificate_issue_date: certificate_issue_date,
-                        file_date: file_date,
-                        advisor_name: advisor_name,
-                        opration_email: opration_email,
+                        firm: firm,
+                        sector: sector,
+                        ateco_code: ateco_code,
+                        province: province,
+                        firm_type: firm_type,
+                        category: category,
+                        firm_owner: firm_owner,
+                        phone_number: phone_number
                     },
                     success: function(result) {
+                        console.log(result);
                             const element = result.data;
                             var appenddata = `<table class="table datatable" id="laVelinaClusters-table"><thead><tr>
                                             <th>Add in Cluster</th>
-                                            <th>Company Name</th>
+                                            <th>Firm Name</th>
                                             <th>VAT No</th>
                                             <th>phone_number</th>
                                             <th>Ateco Code</th>
-                                            <th>Rating</th>
+                                            <th>sector</th>
+                                            <th>province</th>
                                             </tr></thead><tbody>`;
 
                             if (element.length > 0) {
@@ -101,11 +104,12 @@
                                     appenddata += `<tr>
             
                                         <td> <input type="checkbox" name="company[]" id="company" checked value="`+company.id+`"></td>
-                                        <td>`+company.company_name+`</td>
-                                        <td>`+company.vat_number+`</td>
+                                        <td>`+company.firm_name+`</td>
+                                        <td>`+company.firm_vat_no+`</td>
                                         <td>`+company.phone_number+`</td>
-                                        <td>`+company.ateco_code+`</td>
-                                        <td>`+company.creditsafe_rating+`</td>
+                                        <td>`+company.ateco.code+`</td>
+                                        <td>`+company.sector.name+`</td>
+                                        <td>`+company.province.province+`</td>
                                         </tr>`;
                                 }
                                 appenddata += '</tbody></table>';
