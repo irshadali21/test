@@ -23,3 +23,6 @@ Route::resource('province_tables', 'province_tableAPIController');
 
 
 Route::resource('sector_tables', 'sector_tableAPIController');
+
+
+Route::resource('firms', 'FirmAPIController');
