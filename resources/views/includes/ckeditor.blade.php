@@ -34,7 +34,7 @@
 @push('scripts')
     {{-- <script src="https://cdn.ckeditor.com/ckeditor5/35.3.2/classic/ckeditor.js"></script> --}}
     {{-- <script src="https://cdn.ckeditor.com/ckeditor5/35.3.2/super-build/ckeditor.js"></script> --}}
-    <script src="{{ asset('vendor/ckeditor5/build/ckeditor.js') }}"></script>
+    <script src="{{ asset('vendor/ckeditor4/ckeditor.js') }}"></script>
     <script>
    
    ckapplyeditor('body1');
@@ -45,8 +45,7 @@
    ckapplyeditor('source');
 
         function ckapplyeditor(params) {
-            ClassicEditor
-            .create(document.getElementById(params), {
+            CKEDITOR.replace(document.getElementById(params), {
                 toolbar: {
                     items: [
                         'heading', '|',
