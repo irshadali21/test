@@ -156,6 +156,8 @@
         </div> --}}
     </div>
 
+
+
     <div style="clear:both; position:relative; page-break-after: always;">
         <div style="position:absolute; left:0pt; width:300pt; vertical-align: top;">
             <div style="color:{{ $color }};font-size:25px; width:300pt">{!! $title !!}</div>
@@ -183,29 +185,39 @@
     </div>
 
 
-    <div style="clear:both; position:relative; vertical-align: top; page-break-after: always;">
-        <div style="position:absolute; left:0pt; width:300pt;">
-            <div style="font-size:15px; ">
-                @if ($count > 1)
-                    {!! $body[1]->lavelina_body !!}
+    @if (!empty($benefits_in_number) || !empty($tax_breack))
+
+        <div style="clear:both; position:relative; vertical-align: top; page-break-after: always;">
+            <div style="position:absolute; left:0pt; width:300pt;">
+                <div>
+                    @if ($count > 1)
+                        {!! $body[1]->lavelina_body !!}
+                    @endif
+                </div>
+            </div>
+            <div style="margin-left:305pt; vertical-align: top;">
+                @if ($benefits_in_number)
+                    <div style="border: 3px solid {{ $color }};margin-left: 10px;padding: 5px; ">
+                        <div>{!! $benefits_in_number !!}</div>
+                    </div>
+                    <br>
+                @endif
+                @if ($tax_breack)
+                    <div style="border: 3px solid {{ $color }};margin-left: 10px;padding: 5px;">
+                        <div>{!! $tax_breack !!}</div>
+                    </div>
+                    <br>
                 @endif
             </div>
         </div>
-        <div style="margin-left:305pt; vertical-align: top;">
-            @if ($benefits_in_number)
-                <div style="border: 3px solid {{ $color }};margin-left: 10px;padding: 5px; ">
-                    <div style="font-size:15px; ">{!! $benefits_in_number !!}</div>
-                </div>
-                <br>
-            @endif
-            @if ($tax_breack)
-                <div style="border: 3px solid {{ $color }};margin-left: 10px;padding: 5px;">
-                    <div style="font-size:15px;">{!! $tax_breack !!}</div>
-                </div>
-                <br>
-            @endif
-        </div>
-    </div>
+    @else
+        @if ($count > 1)
+            <div style="vertical-align: top; page-break-after: always;">
+                {!! $body[1]->lavelina_body !!}
+            </div>
+        @endif
+    @endif
+
 
     <div>
         <div style="font-size:15px;">

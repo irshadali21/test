@@ -56,6 +56,7 @@
                 (less then 1500)
                 @endif</span>
             <textarea name="body[]" id="body{{ $count }}">{!! $body_text->lavelina_body !!}</textarea>
+            <div id="bodyword-count"></div>
         </div>
         @endforeach
     </div>
