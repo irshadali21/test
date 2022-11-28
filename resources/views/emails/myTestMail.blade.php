@@ -8,21 +8,19 @@
 
     
 </head>
-<body>
+<body style="background-color: white">
 
 
     <p>{!! $body !!}</p>
 
 
-        <footer class="bg-light text-center " style="position: fixed;left: 0;bottom: 0;width: 100%;">
+        <footer class="container p-4" style="position: fixed;left: 0;bottom: 0;width: 100%;">
 
-        <div class="container p-4">
 
 
                 <div class="row"> UFFICIO CERTIFICAZIONI</div>
-                <div class="row"><img src="https://revman.solidanetwork.com/image/signature/Loghi%20solida%20copia.jpg" alt="Solida Logo" width="150px" height="40px" ></div>
+                <div class="row"><img src="https://revman.solidanetwork.com/image/signature/Solida_logo.png" alt="Solida Logo" width="150px" height="40px" ></div>
 
-        </div>
 
 
 
