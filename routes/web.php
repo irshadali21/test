@@ -24,10 +24,10 @@ use Illuminate\Support\Facades\Route;
 //     return 'migrate:rollback';
 // });
 
-// Route::get('/clear-cache', function () {
-//     $exitCode = Artisan::call('optimize:clear');
-//     return 'optimize:cleare'; //Return anything
-// });
+Route::get('/clear-cache', function () {
+    $exitCode = Artisan::call('optimize:clear');
+    return 'optimize:cleare'; //Return anything
+});
 // Route::get('/link-storage', function () {
 //     $exitCode = Artisan::call('storage:link');
 //     return 'storage linked'; //Return anything
