@@ -19,7 +19,7 @@
 
 
                 <div class="row"> UFFICIO CERTIFICAZIONI</div>
-                <div class="row"><img src="https://revman.solidanetwork.com/image/signature/logo_footer.jpg" alt="Solida Logo" width="150px" height="40px" ></div>
+                <div class="row"><img src="https://revman.solidanetwork.com/image/signature/logo_footer.jpg"  alt="Solida Logo" width="150px" height="40px" ></div>
 
 
 
