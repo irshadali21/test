@@ -29,14 +29,14 @@
                     dell’agevolazione o se hai dubbi in merito contattaci: </p>
                 <p style="text-align: center; margin-top: -6px;
         margin-bottom: -1px; padding: -1px"> <a
-                        href="mailto:contact@solidanetwork.com"
+                        href="mailto:info@solidanetwork.com"
                         style="font-size:10px; color: white; margin-top: -6px;
-        margin-bottom: -1px; padding: -1px">contact@solidanetwork.com</a>
+        margin-bottom: -1px; padding: -1px">info@solidanetwork.com</a>
                 </p>
                 <p
                     style="font-size:10px; color: white; text-align: center;margin-top: -6px;
         margin-bottom: -1px; padding: -1px">
-                    tel 081555655</p>
+                    tel 0828307850</p>
             </td>
         </tr>
     </table>
