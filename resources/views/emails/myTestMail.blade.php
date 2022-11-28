@@ -11,7 +11,7 @@
 <body>
 
 
-    {{-- <p>{!! $body !!}</p> --}}
+    <p>{!! $body !!}</p>
 
 
         <footer class="bg-light text-center " style="position: fixed;left: 0;bottom: 0;width: 100%;">
@@ -21,7 +21,7 @@
 
             <div class="row" >
                 <center>
-                <img src="{{ asset('image/signature/Loghi solida copia.jpg') }}" alt="Solida Logo" width="150px" height="40px" >
+                <img src="https://revman.solidanetwork.com/image/signature/Loghi%20solida%20copia.jpg" alt="Solida Logo" width="150px" height="40px" >
                 UFFICIO CERTIFICAZIONI
             </center>
             </div>
@@ -29,12 +29,12 @@
         </div>
 
 
-        <!-- Copyright -->
+        {{-- <!-- Copyright -->
         <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
             © 2021 Copyright:
             <a class="text-dark" href="https://revman.solidanetwork.com/">Solidanetwork</a>
         </div>
-        <!-- Copyright -->
+        <!-- Copyright --> --}}
 
     </footer>
     <!-- bulk upload function php -->
