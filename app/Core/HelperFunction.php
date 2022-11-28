@@ -237,7 +237,7 @@ class HelperFunction
             case ('FORMAZIONE 4.0'):
                 return "FORMAZIONE 4.0";
             case ('INNOVAZIONE TECNOLOGICA'):
-                return "INNOVAZIONE TECHNOLOGIC";
+                return "INNOVAZIONE TECNOLOGICA";
             case ('INNOVIONE DIGITALE 4.0 & GREEN'):
                 return "INNOVAZIONE DIGITALE";
             case ('INNOVAZIONE & DESIGN'):

@@ -55,7 +55,10 @@
                         'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', '|',
                         'alignment', 
                     ],
-                    shouldNotGroupWhenFull: true
+                    // shouldNotGroupWhenFull: true,
+                    colorButton_colors: '008000,454545,FFF', 
+                    colorButton_enableMore: true, 
+
                 },
                 // Changing the language of the interface requires loading the language file using the <script> tag.
                 // language: 'es',
@@ -143,7 +146,8 @@
                             }
                         }
                     }
-                },                
+                },  
+                       
             } )            
         }
 
