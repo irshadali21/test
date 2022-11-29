@@ -120,7 +120,7 @@ footer {
     bottom: -1px;
     left: 0px;
     right: 0px;
-    height: 60px;
+    height: 70px;
 }
 
 
@@ -129,10 +129,9 @@ footer {
 #footer {
     position: fixed;
     left: -60px;
-    bottom: -1px;
+    bottom: 0px;
     right: -60px;
-    height: 0px;
-    background-color: #6a1109;
+    height: 3.5px;
     /* margin: 5px; */
 }
 
