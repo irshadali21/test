@@ -118,7 +118,7 @@ class LaVelinaController extends Controller
         // $name = $file->company->company_name . ' - Incarico_Cli - ' . $file->benefit->column1 . ' - ' . $file->year;
         return $pdf->download($name . '.pdf');
 
-        return view('lavelina.show')->with('lavelian', $lavelina);
+        // return view('lavelina.show')->with('lavelian', $lavelina);
     }
 
     /**

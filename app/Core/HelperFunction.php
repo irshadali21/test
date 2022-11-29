@@ -270,6 +270,7 @@ class HelperFunction
         $body = LavelinaDetail::where('lavelina_id', $id)->get();
         $background_image = asset('image/signature/lavelina_3.jpg');
         $logo = asset('image/signature/Solida_footer.png');
+        $date = Date('d/m/Y');
         $Data = [
             'title' => $lavelina->title,
             'body' => $body,
@@ -282,6 +283,7 @@ class HelperFunction
             'background_image' => $background_image,
             'logo' => $logo,
             'color' => $lavelina->body,
+            'date' => $date,
         ];
 
         return $Data;
