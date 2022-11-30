@@ -42,7 +42,7 @@ $fmt = new NumberFormatter(($locale = 'it_IT'), NumberFormatter::DECIMAL);
         <strong>Giudizio</strong>
 
         <p>
-            Abbiamo svolto la revisione contabile dei costi di ricerca e sviluppo sostenuti da
+            Abbiamo svolto la revisione contabile dei costi di formazione sostenuti da
             <b>{{ $company_name }}</b>
             nell’esercizio <b>{{ $benefits_year }}</b> sulla base della documentazione predisposta ai sensi della
             normativa vigente.
