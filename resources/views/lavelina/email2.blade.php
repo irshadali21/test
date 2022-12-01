@@ -17,7 +17,7 @@
 
 <div id="footer">
     <table class="w-100" style="background-color: {{ $color }};">
-        <tr >
+        <tr>
             <td>
                 <p style="margin-left: 40px; color: white; margin-bottom: 0px; font-size:5px;"> Powered by</p>
                 <img src="{{ $logo }}" alt="" width="80px" height="35px" style="margin-left: 40px;">
@@ -59,7 +59,7 @@
             <strong>
                 <span style="font-size: 80px; color:{{ $color }}; font-weight:400">LA VELINA </span><br>
                 <span style="font-size:25px; color:{{ $color }};">DEL TUO COMMERCIALISTA</span><br>
-                <span style="font-size:18px;"> {{ $advisor }}</span><br>
+                <span style="font-size:18px;"> FIRM ADVISOR NAME </span><br>
                 <span style="font-size:15px;"> {{ $date }}</span><br>
             </strong>
             <br>
@@ -71,14 +71,11 @@
             if ($body) {
                 $count = count($body);
             }
-
-            // $linecount = substr_count($string, "\n");
-            // echo $linecount;
         @endphp
     </div>
 
 
-    {{-- @if (!empty($firms) || !empty($benefits))
+    @if (!empty($firms) || !empty($benefits))
         <div style="clear:both; position:relative; page-break-after: always;">
             <div style="position:absolute; left:0pt; width:300pt; vertical-align: top;">
                 <div style="color:{{ $color }};font-size:25px; width:300pt">{!! $title !!}</div>
@@ -86,10 +83,6 @@
                 <div style="font-size:15px; width:280pt">
                     @if ($count > 0)
                         {!! $body[0]->lavelina_body !!}
-                        @php
-                             $linecount = substr_count($body[0]->lavelina_body, "\n");
-                             @endphp
-                             {{ $linecount }};
                     @endif
                 </div>
             </div>
@@ -105,6 +98,13 @@
                     @if ($benefits)
                         <div style="border: 3px solid {{ $color }};margin-left: 10px;padding: 5px;">
                             <div style="font-size:15px;">{!! $benefits !!}</div>
+                        </div>
+                        <br>
+                    @endif
+                @elseif(empty($benefits_in_number) && empty($tax_breack) && empty($benefits) && !empty($firms))
+                    @if ($firms)
+                        <div style="border: 3px solid {{ $color }};margin-left: 10px;padding: 5px;">
+                            <div style="font-size:15px; text-justify: inter-word">{!! $firms !!}</div>
                         </div>
                         <br>
                     @endif
@@ -169,7 +169,6 @@
                     <div>
                         @if ($count > 1)
                             {!! $body[1]->lavelina_body !!}
-                           
                         @endif
                     </div>
                 </div>
@@ -207,46 +206,63 @@
         @endif
     @else
         @if ($count > 1)
-            <div style="vertical-align: top; page-break-after: always;">
-                {!! $body[1]->lavelina_body !!}
-                @php
-                $linecount = substr_count($body[1]->lavelina_body, "\n");
-                @endphp
+
+            @if ($count > 2)
+                <div style="vertical-align: top; page-break-after: always;">
+                @else
+                    <div>
+            @endif
+
+            {!! $body[1]->lavelina_body !!}
             </div>
         @endif
     @endif
 
-    asdasd {{ $linecount }}
+
 
     <div>
         <div>
             @if ($count > 2)
+                @if ($count > 3)
+                    <div style="vertical-align: top; page-break-after: always;">
+                    @else
+                        <div>
+                @endif
                 {!! $body[2]->lavelina_body !!}
-            @endif
-            @if ($count > 3)
-                {!! $body[3]->lavelina_body !!}
-            @endif
-            @if ($count > 4)
-                {!! $body[4]->lavelina_body !!}
-            @endif
-            @if ($count > 5)
-                {!! $body[5]->lavelina_body !!}
-            @endif
-            <br>
-            <br>
-            <br>
         </div>
-        <div></div>
-        @if ($source)
-            <div class="last">
-                <strong>Fonti: </strong>
-                <div>{!! $source !!}</div>
-            </div>
-        @endif --}}
-
-
-        {!! $body[0]->lavelina_body !!}
-
+        @endif
+        @if ($count > 3)
+            @if ($count > 4)
+                <div style="vertical-align: top; page-break-after: always;">
+                @else
+                    <div>
+            @endif
+            {!! $body[3]->lavelina_body !!}
+    </div>
+    @endif
+    @if ($count > 4)
+        @if ($count > 5)
+            <div style="vertical-align: top; page-break-after: always;">
+            @else
+                <div>
+        @endif
+        {!! $body[4]->lavelina_body !!}
+        </div>
+    @endif
+    @if ($count > 5)
+        {!! $body[5]->lavelina_body !!}
+    @endif
+    <br>
+    <br>
+    <br>
+    </div>
+    <div></div>
+    @if ($source)
+        <div class="last">
+            <strong>Fonti: </strong>
+            <div>{!! $source !!}</div>
+        </div>
+    @endif
     </div>
 </body>
 
