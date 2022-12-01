@@ -59,7 +59,7 @@
             <strong>
                 <span style="font-size: 80px; color:{{ $color }}; font-weight:400">LA VELINA </span><br>
                 <span style="font-size:25px; color:{{ $color }};">DEL TUO COMMERCIALISTA</span><br>
-                <span style="font-size:18px;"> {{ $advisor }}</span><br>
+                <span style="font-size:18px;"> {{ $advoiser_name }}</span><br>
                 <span style="font-size:15px;"> {{ $date }}</span><br>
             </strong>
             <br>

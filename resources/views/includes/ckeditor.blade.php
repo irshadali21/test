@@ -66,7 +66,15 @@
             wordcount: wordCountConf1,
             height: '470'
         })
-        CKEDITOR.replace(document.getElementById('body1'), {
+        CKEDITOR.replace(document.getElementById('body2'), {
+            wordcount: wordCountConf1,
+            height: '470'
+        })
+        CKEDITOR.replace(document.getElementById('body3'), {
+            wordcount: wordCountConf1,
+            height: '470'
+        })
+        CKEDITOR.replace(document.getElementById('body4'), {
             wordcount: wordCountConf1,
             height: '470'
         })
@@ -95,6 +103,19 @@
             $(clas).addClass(add);
             $(clas).removeClass(remove);
         }
+
+        $(document).on('click', '.body2div', function() {
+            if (document.getElementById('quanto_checkbox').checked || document.getElementById('quali_checkbox')
+                .checked || document.getElementById('body2_checkbox').checked || document.getElementById(
+                    'fonti_checkbox').checked) {$('#body2_row').show();} else {$('#body2_row').hide();}
+        })
+        
+        $('#body3div').on('click', function() {
+            if (document.getElementById('body3div').checked) {$('#body3_div').show();} else {$('#body3_div').hide();}
+        })
+        $('#body4div').on('click', function() {
+            if (document.getElementById('body4div').checked) {$('#body4_div').show();} else {$('#body4_div').hide();}
+        })
 
         $('#chipuo_checkbox').on('click', function() {
             if (document.getElementById('chipuo_checkbox').checked) {

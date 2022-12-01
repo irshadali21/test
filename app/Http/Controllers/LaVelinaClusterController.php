@@ -296,7 +296,6 @@ class LaVelinaClusterController extends AppBaseController
         }
 
         $Data = HelperFunction::lavelina($request->lavelina_id);
-        $pdf = PDF::loadView('lavelina.email', $Data);
         
         $data["title"] = "LaVelinaFrom Revman";
         $data["subject"] = "LaVelina";
@@ -309,12 +308,14 @@ class LaVelinaClusterController extends AppBaseController
 
         foreach ($companies_ids as $company_id) {
 
-
-            $files = File::where('company_id' , $company_id)->get();
-            if (!empty($files) && count($files) ) {
-                foreach ($files as $file) {
-                    $data["email"] = $file->customer_email;
-                    $data["opration_email"] = $file->opration_email;
+            $files = Firm::where('id' , $company_id)->first();
+            $advisors =$files->levlelina_advisor->name; 
+            $Data['advoiser_name'] =  $advisors;
+            $pdf = PDF::loadView('lavelina.email', $Data);
+            // return $pdf->stream();
+            if (!empty($files->email) && !empty($files->email2) ) {
+                    $data["email"] = $files->email;
+                    $data["opration_email"] = $files->email2;
                     Mail::send('emails.myTestMail', $data, function ($message) use ($data, $pdf, $name) {
                         $message
                             ->to($data["email"], $data["email"])
@@ -322,7 +323,6 @@ class LaVelinaClusterController extends AppBaseController
                             ->subject($data["subject"])
                             ->attachData($pdf->output(), $name . ".pdf");
                     });
-                }
             }
         }
         Flash::success('La Velina Sent  successfully.');

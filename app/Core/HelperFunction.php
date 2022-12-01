@@ -279,7 +279,7 @@ class HelperFunction
             'benefits_in_number' => $lavelina->benefits_in_number,
             'tax_breack' => $lavelina->tex_breack,
             'source' => $lavelina->source,
-            'advisor' => $lavelina->advisor->name,
+            // 'advisor' => $lavelina->advisor->name,
             'background_image' => $background_image,
             'logo' => $logo,
             'color' => $lavelina->body,

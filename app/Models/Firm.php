@@ -6,6 +6,7 @@ use Eloquent as Model;
 use App\Models\ateco_table;
 use App\Models\province_table;
 use App\Models\sector_table;
+use App\User;
 /**
  * Class Firm
  * @package App\Models
@@ -91,5 +92,8 @@ class Firm extends Model
         return $this->hasOne(province_table::class,'id','province_id');
     }
 
-    
+    public function levlelina_advisor()
+    {
+        return $this->hasOne(User::class,'id','created_by');
+    }
 }

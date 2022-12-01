@@ -58,6 +58,20 @@ class LaVelinaController extends Controller
     {
         // dd(Corbon::now());
         // dd($request->all());
+        
+        $input = $request->all();   
+        $checkbox = array();
+
+        $checkbox = ['chipuo_checkbox' =>  isset($input['chipuo_checkbox']) ? $input['chipuo_checkbox'] : ''];
+        $checkbox += ['percosa_checkbox' =>  isset($input['percosa_checkbox']) ? $input['percosa_checkbox'] : ''];
+        $checkbox += ['quanto_checkbox' => isset($input['quanto_checkbox']) ? $input['quanto_checkbox'] : ''];
+        $checkbox += ['quali_checkbox' => isset($input['quali_checkbox']) ? $input['quali_checkbox'] : ''];
+        $checkbox += ['fonti_checkbox' => isset($input['fonti_checkbox']) ? $input['fonti_checkbox'] : ''];
+        $checkbox += ['body2_checkbox' =>  isset($input['body2_checkbox']) ? $input['body2_checkbox'] : ''];
+        $checkbox += ['body3div' =>  isset($input['body3div']) ? $input['body3div'] : ''];
+        $checkbox += ['body4div' =>  isset($input['body4div']) ? $input['body4div'] : ''];
+        // dd($checkbox);
+        $checkbox = json_encode($checkbox);
 
         DB::beginTransaction();
         try {
@@ -73,7 +87,7 @@ class LaVelinaController extends Controller
                 'source' => $request->source,
                 'creation_date' => date('d/m/Y H:m:s'),
                 'created_by' => Auth::user()->id,
-                'advisor_id' => $request->advisor,
+                'advisor_id' => $checkbox,
             ]);
             foreach ($request->body as $body) {
 
@@ -82,7 +96,6 @@ class LaVelinaController extends Controller
                     'lavelina_body' => $body,
                 ]);
             }
-
             DB::commit();
             flash('La Velina created successfully!')->success();
             return redirect()->route('lavelina.index');
@@ -90,7 +103,7 @@ class LaVelinaController extends Controller
         } catch (\Exception $e) {
 
             DB::rollback();
-            // dd($e);
+            dd($e);
             flash('There was an error')->error();
             return back();
 
@@ -113,7 +126,7 @@ class LaVelinaController extends Controller
 
         $Data = HelperFunction::lavelina($id);
 
-        $pdf = PDF::loadView('lavelina.email', $Data);
+        $pdf = PDF::loadView('lavelina.email2', $Data);
         return $pdf->stream();
         // $name = $file->company->company_name . ' - Incarico_Cli - ' . $file->benefit->column1 . ' - ' . $file->year;
         return $pdf->download($name . '.pdf');
