@@ -57,7 +57,7 @@
             countSpacesAsChars: false,
             countHTML: false,
             maxWordCount: -1,
-            maxCharCount: 5000
+            maxCharCount: 3000
         }
 
         // CKEDITOR.replace( document.querySelector( '#body' ) )
@@ -71,11 +71,11 @@
             height: '470'
         })
         CKEDITOR.replace(document.getElementById('body3'), {
-            wordcount: wordCountConf1,
+            wordcount: wordCountConf2,
             height: '470'
         })
         CKEDITOR.replace(document.getElementById('body4'), {
-            wordcount: wordCountConf1,
+            wordcount: wordCountConf2,
             height: '470'
         })
         CKEDITOR.replace(document.getElementById('firms'), {
