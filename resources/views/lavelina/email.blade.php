@@ -207,24 +207,34 @@
 
 
 
+   
+<div>
     <div>
-        <div>
-            @if ($count > 2)
-                {!! $body[2]->lavelina_body !!}
-            @endif
+        @if ($count > 2)
             @if ($count > 3)
-                {!! $body[3]->lavelina_body !!}
-            @endif
-            @if ($count > 4)
-                {!! $body[4]->lavelina_body !!}
-            @endif
-            @if ($count > 5)
-                {!! $body[5]->lavelina_body !!}
-            @endif
-            <br>
-            <br>
-            <br>
+                <div style="vertical-align: top; page-break-after: always;"> @else <div> @endif
+            {!! $body[2]->lavelina_body !!}
         </div>
+        @endif
+        @if ($count > 3)
+            @if ($count > 4)
+                <div style="vertical-align: top; page-break-after: always;"> @else <div> @endif
+            {!! $body[3]->lavelina_body !!}
+        </div>
+        @endif
+        @if ($count > 4)
+            @if ($count > 5)
+                <div style="vertical-align: top; page-break-after: always;"> @else <div> @endif
+            {!! $body[4]->lavelina_body !!}
+        </div>
+        @endif
+        @if ($count > 5)
+            {!! $body[5]->lavelina_body !!}
+        @endif
+<br>
+<br>
+<br>
+</div>
         <div></div>
         @if ($source)
             <div class="last">
