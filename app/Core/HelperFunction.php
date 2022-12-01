@@ -241,7 +241,7 @@ class HelperFunction
             case ('INNOVAZIONE DIGITALE 4.0 & GREEN'):
                 return "INNOVAZIONE DIGITALE";
             case ('INNOVAZIONE & DESIGN'):
-                return "DESIGN S IDEAZIONE ESTETICA";
+                return "DESIGN E IDEAZIONE ESTETICA";
             default:
                 return 'Something went wrong.';
         }
