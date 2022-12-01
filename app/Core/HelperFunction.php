@@ -238,7 +238,7 @@ class HelperFunction
                 return "FORMAZIONE 4.0";
             case ('INNOVAZIONE TECNOLOGICA'):
                 return "INNOVAZIONE TECNOLOGICA";
-            case ('INNOVIONE DIGITALE 4.0 & GREEN'):
+            case ('INNOVAZIONE DIGITALE 4.0 & GREEN'):
                 return "INNOVAZIONE DIGITALE";
             case ('INNOVAZIONE & DESIGN'):
                 return "DESIGN S IDEAZIONE ESTETICA";
@@ -254,7 +254,7 @@ class HelperFunction
                 return "Legge 27/12/2017 Art. 1 Commi 46-56 e successive modifiche; Art.31 comma 3 del Regolamento (UE) n.651/2014";
             case ('INNOVAZIONE TECNOLOGICA'):
                 return "Comma 201 della legge di bilancio n. 160 del 27 dicembre 2019";
-            case ('INNOVIONE DIGITALE 4.0 & GREEN'):
+            case ('INNOVAZIONE DIGITALE 4.0 & GREEN'):
                 return "Legge 27 dicembre 2019, n. 160 – Art. 1 Comma 201; Legge 30 dicembre 2020, n. 178 – Art.1 Comma 1064 lettera d, f, g";
             case ('INNOVAZIONE & DESIGN'):
                 return "Art. 1 Comma 202 – Legge n.160 del 27 dicembre 2019; Decreto del MISE del 26/05/2020";
