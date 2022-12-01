@@ -245,8 +245,8 @@
         @endif --}}
 
 
+        {!! $body[0]->lavelina_body !!}
 
-        
     </div>
 </body>
 

@@ -22,9 +22,8 @@
 
             <div class="card-body">
 
-                <div class="row">
                     @include('lavelina.fields')
-                </div>
+                {{-- </div> --}}
 
             </div>
 
