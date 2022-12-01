@@ -5,7 +5,7 @@
         {!! Form::label('name', 'LA VELINA Name:') !!}
         {!! Form::text('name', null, ['class' => 'form-control']) !!}
     </div>
-{{-- 
+    {{-- 
     <!-- advisor Field -->
     <div class="form-group col-sm-4">
         {!! Form::label('advisor', 'Advisor:') !!}
@@ -26,16 +26,15 @@
         {!! Form::label('title', 'Tttolo articolo:') !!}
         {!! Form::text('title', null, ['class' => 'form-control']) !!}
     </div>
-     <!-- color Field -->
- <div class="col-sm-4">
-    <label for="example-color-input">color</label>
-    <input name="color" class="form-control" type="color" value="#6a1109" id="example-color-input">
-</div>
-
-
-    <div class="col-md-12">
-        <hr>
+    <!-- color Field -->
+    <div class="col-sm-4">
+        <label for="example-color-input">color</label>
+        <input name="color" class="form-control" type="color" value="#6a1109" id="example-color-input">
     </div>
+
+
+    <div class="col-md-12"><hr></div>
+
 
     <div class="form-group col-sm-2">
         <label>Body</label>
@@ -50,14 +49,14 @@
         <input type="checkbox" name="percosa_checkbox" id="percosa_checkbox">
     </div>
 
-    
+
     {{-- <!-- title Field -->
     <div class="col-sm-6">
         Add another Testo articolo
         <button class="button_plus" id="add_body" type="button">+</button>
     </div> --}}
 
-   
+
 </div>
 
 <!-- body Field -->
@@ -101,7 +100,7 @@
         {{-- <span style="color:red">(less then 1500)</span> --}}
         <textarea name="body[]" id="body2" class="form-control" rows="23"></textarea>
         <label for="body3div">Body page 3</label>
-        <input type="checkbox" class="body3div" name="body3div" id="body3div">        
+        <input type="checkbox" class="body3div" name="body3div" id="body3div">
     </div>
 
     <!-- Benefits Quantity Field -->
@@ -124,7 +123,7 @@
         {{-- <span style="color:red">(less then 1500)</span> --}}
         <textarea name="body[]" id="body3" class="form-control" rows="23"></textarea>
         <label for="body4div">Body page 4</label>
-        <input type="checkbox" class="body4div" name="body4div" id="body4div">        
+        <input type="checkbox" class="body4div" name="body4div" id="body4div">
     </div>
 </div>
 <div class="row">
