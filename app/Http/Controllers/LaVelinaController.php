@@ -198,11 +198,12 @@ class LaVelinaController extends Controller
             LavelinaDetail::where('lavelina_id', $id)->delete();
 
             foreach ($request->body as $body) {
-
-                LavelinaDetail::create([
-                    'lavelina_id' => $id,
-                    'lavelina_body' => $body,
-                ]);
+                if ($body) {
+                    LavelinaDetail::create([
+                        'lavelina_id' => $id,
+                        'lavelina_body' => $body,
+                    ]);
+                }
             }
 
             DB::commit();
