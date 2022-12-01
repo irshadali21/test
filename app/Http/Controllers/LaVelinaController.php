@@ -70,7 +70,6 @@ class LaVelinaController extends Controller
         $checkbox += ['body2_checkbox' =>  isset($input['body2_checkbox']) ? $input['body2_checkbox'] : ''];
         $checkbox += ['body3div' =>  isset($input['body3div']) ? $input['body3div'] : ''];
         $checkbox += ['body4div' =>  isset($input['body4div']) ? $input['body4div'] : ''];
-        // dd($checkbox);
         $checkbox = json_encode($checkbox);
 
         DB::beginTransaction();
@@ -103,7 +102,7 @@ class LaVelinaController extends Controller
         } catch (\Exception $e) {
 
             DB::rollback();
-            dd($e);
+            // dd($e);
             flash('There was an error')->error();
             return back();
 
@@ -143,13 +142,15 @@ class LaVelinaController extends Controller
     public function edit($id)
     {
         $lavelina = LaVelina::where('id', $id)->first();
-        $advisor = User::get(['id', 'name']);
+        // $advisor = User::get(['id', 'name']);
         if (!$lavelina) {
             flash('LA VELINA did not exist );')->error();
             return redirect()->back();
         }
-        $body = LavelinaDetail::where('lavelina_id', $id)->get();
-        return view('lavelina.edit')->with('lavelina', $lavelina)->with('advisor', $advisor)->with('body', $body);
+       $filters =(array) json_decode($lavelina->advisor_id);
+       $body = LavelinaDetail::where('lavelina_id', $id)->get();
+    //    dd($body);
+        return view('lavelina.edit')->with('lavelina', $lavelina)->with('filters', $filters)->with('body', $body);
     }
 
     /**
@@ -167,6 +168,19 @@ class LaVelinaController extends Controller
             return redirect()->route('lavelina.index');
         }
 
+        $input = $request->all();   
+        $checkbox = array();
+
+        $checkbox = ['chipuo_checkbox' =>  isset($input['chipuo_checkbox']) ? $input['chipuo_checkbox'] : ''];
+        $checkbox += ['percosa_checkbox' =>  isset($input['percosa_checkbox']) ? $input['percosa_checkbox'] : ''];
+        $checkbox += ['quanto_checkbox' => isset($input['quanto_checkbox']) ? $input['quanto_checkbox'] : ''];
+        $checkbox += ['quali_checkbox' => isset($input['quali_checkbox']) ? $input['quali_checkbox'] : ''];
+        $checkbox += ['fonti_checkbox' => isset($input['fonti_checkbox']) ? $input['fonti_checkbox'] : ''];
+        $checkbox += ['body2_checkbox' =>  isset($input['body2_checkbox']) ? $input['body2_checkbox'] : ''];
+        $checkbox += ['body3div' =>  isset($input['body3div']) ? $input['body3div'] : ''];
+        $checkbox += ['body4div' =>  isset($input['body4div']) ? $input['body4div'] : ''];
+        $checkbox = json_encode($checkbox);
+
         DB::beginTransaction();
         try {
             $lavelina = LaVelina::where('id', $id)->update([
@@ -179,7 +193,7 @@ class LaVelinaController extends Controller
                 'tax_breack' => $request->tax_breack,
                 'source' => $request->source,
                 'created_by' => Auth::user()->id,
-                'advisor_id' => $request->advisor,
+                'advisor_id' => $checkbox,
             ]);
             LavelinaDetail::where('lavelina_id', $id)->delete();
 

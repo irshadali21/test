@@ -22,9 +22,9 @@
             {!! Form::model($lavelina, ['route' => ['lavelina.update', $lavelina->id], 'method' => 'patch']) !!}
 
             <div class="card-body">
-                <div class="row">
+                {{-- <div class="row"> --}}
                     @include('lavelina.edit_fields')
-                </div>
+                {{-- </div> --}}
             </div>
             <div class="card-footer">
                 {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
