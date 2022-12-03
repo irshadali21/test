@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Imports;
-
+use Session;
 use App\Models\Firm;
 use App\Models\ateco_table;
 use App\Models\province_table;
@@ -36,6 +36,7 @@ class FirmImport implements ToCollection
         // dd($row);
 
         $duplicate = array();
+        $count = 0;
 
         DB::beginTransaction();
         try {
@@ -72,6 +73,14 @@ class FirmImport implements ToCollection
                     array_push($duplicate, $name);
                     continue;
                 }
+                $firm = Firm::where('firm_vat_no', $row[$i][1])->first();
+                if($firm)
+                {
+                    $name = array();
+                    $name = $row[$i][1];
+                    array_push($duplicate, $name);
+                    continue;
+                }
 
                 $firm_name = $row[$i][2];
                 $firm_vat_no = $row[$i][1];
@@ -101,22 +110,23 @@ class FirmImport implements ToCollection
                     'ateco_id'    => $ateco_id, 
                     'created_by'    => $created_by, 
                 ]);
+                $count++;
                 // dd($firm);
             }
             DB::commit();
-            $_SESSION['duplicates'] = $duplicate;
+            if (count($duplicate)) {
+                Session::put('duplicates', $duplicate);
+            }
+            if ($count > 0) {
+                Session::put('added', $count);
+            }
         } catch (\Exception $e) {
-            dd($e);
-            $_SESSION['duplicates'] = ['error'];
+            // dd($e);
+            // $_SESSION['duplicates'] = ['error'];
             DB::rollback();
             return;
         }
     }
 
-    public function rules(): array
-    {
-        return [
-            '*.firm_vat_no' => ['string', 'unique:Firm,firm_vat_no']
-        ];
-    }
+    
 }

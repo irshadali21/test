@@ -33,7 +33,10 @@
     </div>
 
 
-    <div class="col-md-12"><hr></div>
+    <div class="col-md-12">
+        <hr>
+    <h3>Page 1</h3>
+</div>
 
 
     <div class="form-group col-sm-2">
@@ -80,6 +83,11 @@
         </div>
     </div>
 </div>
+<div class="col-md-12">
+    <hr>
+<h3>Page 2</h3>
+</div>
+
 <div class="row">
     <div class="form-group col-sm-4">
         <label for="body2_checkbox">Body Page 2</label>
@@ -95,6 +103,7 @@
     </div>
 </div>
 <div id="body2_row" class="row" style="display: none">
+    
     <div class="form-group col-sm-12" style="display: none" id="body2_div">
         {!! Form::label('body', 'Testo articolo 2: ') !!}
         {{-- <span style="color:red">(less then 1500)</span> --}}
@@ -115,19 +124,30 @@
             {!! Form::textarea('tax_breack', null, ['class' => 'form-control ']) !!}
         </div>
     </div>
+    
+
 </div>
 
 <div class="row">
+
     <div class="form-group col-sm-12" style="display: none" id="body3_div">
+        <hr>
+    <h3>Page 3</h3>
         {!! Form::label('body', 'Testo articolo 3: ') !!}
         {{-- <span style="color:red">(less then 1500)</span> --}}
         <textarea name="body[]" id="body3" class="form-control" rows="23"></textarea>
         <label for="body4div">Body page 4</label>
         <input type="checkbox" class="body4div" name="body4div" id="body4div">
+
+        
+    
     </div>
+    
 </div>
 <div class="row">
     <div class="form-group col-sm-12" style="display: none" id="body4_div">
+        <hr>
+        <h3>Page 4</h3>
         {!! Form::label('body', 'Testo articolo 4: ') !!}
         {{-- <span style="color:red">(less then 1500)</span> --}}
         <textarea name="body[]" id="body4" class="form-control" rows="23"></textarea>

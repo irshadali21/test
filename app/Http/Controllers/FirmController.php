@@ -7,10 +7,13 @@ use App\Http\Requests\UpdateFirmRequest;
 use App\Repositories\FirmRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
-use Flash;
-use Response;
 use App\Imports\FirmImport;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Auth;
+use Flash;
+use Response;
+use Session;
+
 
 
 class FirmController extends AppBaseController
@@ -32,7 +35,7 @@ class FirmController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $firms = $this->firmRepository->paginate(20);
+        $firms = $this->firmRepository->UserCriteria()->paginate(20);
 
         return view('firms.index')
             ->with('firms', $firms);
@@ -183,12 +186,18 @@ class FirmController extends AppBaseController
             try {
                 Excel::import(new FirmImport, public_path('upload/firms/').$file);
     // dd($_SESSION);
-                Flash::success('Firms Imported successfully.');
-        
+                if (Session::has('duplicates')){
+                    Flash::error('Some Duplicate Firms are skipped ');
+                    Session::forget('duplicates');
+                }
+                if (Session::has('added')){
+                    Flash::success('Firms Imported successfully.');
+                    Session::forget('added');
+                }
                 return redirect(route('firms.index'));
         
             } catch (\Throwable $th) {
-               dd($th);
+            //    dd($th);
             }
 
         }else{
