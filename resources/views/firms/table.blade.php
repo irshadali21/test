@@ -2,6 +2,7 @@
     <table class="table" id="firms-table">
         <thead>
         <tr>
+            <th>Advisor Name</th>
             <th>Firm Name</th>
             <th>Vat No</th>
             <th>Province</th>
@@ -17,7 +18,8 @@
         <tbody>
         @foreach($firms as $firm)
             <tr>
-                <td>{{ $firm->firm_name }}</td>
+            <td>{{ $firm->levlelina_advisor->name }}</td>
+            <td>{{ $firm->firm_name }}</td>
             <td>{{ $firm->firm_vat_no }}</td>
             {{-- <td>{{ $firm->firm_type }}</td> --}}
             <td>{{ $firm->province->province }}</td>

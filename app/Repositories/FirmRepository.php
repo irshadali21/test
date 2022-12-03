@@ -13,6 +13,13 @@ use App\Repositories\BaseRepository;
 
 class FirmRepository extends BaseRepository
 {
+    protected $model;
+
+public function __construct(Firm $model)
+{
+    $this->model = $model;
+}
+
     /**
      * @var array
      */
@@ -47,5 +54,14 @@ class FirmRepository extends BaseRepository
     public function model()
     {
         return Firm::class;
+    }
+
+
+    public function UserCriteria(){
+        if (auth()->check() && auth()->user()->hasRole('super-admin')) {
+            return $this->model;
+        } else {
+            return $this->model->where('created_by', auth()->user()->id);
+        }
     }
 }
