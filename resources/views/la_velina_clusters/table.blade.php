@@ -42,13 +42,13 @@
                                         <a class="dropdown-item"
                                     href="{{ route('laVelinaClusters.sendlavelina', [$laVelinaCluster->id]) }}"><i
                                         class="far fa-paper-plane"></i> Send LaVelina</a>
-                                {{-- @endcan --}}
-                                {{-- @can('update-file') --}}
-                                {{-- <a class="dropdown-item"
+                                        <a class="dropdown-item"
                                     href="{{ route('laVelinaClusters.edit', [$laVelinaCluster->id]) }}"><i
-                                        class="far fa-edit"></i>
-                                </a> --}}
-                                {{-- @endcan --}}
+                                        class="far fa-edit"></i> Edit Cluster</a>
+
+                                        {!! Form::open(['route' => ['laVelinaClusters.destroy', $laVelinaCluster->id], 'method' => 'delete']) !!}
+                                         {!! Form::button('<i class="far fa-trash-alt"></i> Delete Cluster', ['type' => 'submit', 'class' => 'dropdown-item', 'onclick' => "return confirm('Are you sure?')"]) !!}
+                                         {!! Form::close() !!}
                             </div>
                         </div>
                     </td>

@@ -2,27 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Core\HelperFunction;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\CreateLaVelinaClusterRequest;
 use App\Http\Requests\UpdateLaVelinaClusterRequest;
-use App\Repositories\LaVelinaClusterRepository;
-use App\User;
-use Carbon\Carbon;
-use Flash;
-use PDF;
-use Mail;
-use Illuminate\Http\Request;
-use Response;
-use App\Core\HelperFunction;
-use App\Models\Company;
-use App\Models\LaVelina;
-use App\Models\Summary;
-use App\Models\File;
-use App\Models\Firm;
 use App\Models\ateco_table;
+use App\Models\Firm;
+use App\Models\LaVelina;
 use App\Models\province_table;
 use App\Models\sector_table;
-
+use App\Repositories\LaVelinaClusterRepository;
+use App\User;
+use Flash;
+use Illuminate\Http\Request;
+use Mail;
+use PDF;
+use Response;
 
 class LaVelinaClusterController extends AppBaseController
 {
@@ -82,7 +77,6 @@ class LaVelinaClusterController extends AppBaseController
     {
         // dd($request->all());
 
-
         $firms = new Firm();
 
         if ($request->advisor) {
@@ -92,29 +86,29 @@ class LaVelinaClusterController extends AppBaseController
             $firms = $firms->where('firm_name', 'LIKE', "%{$request->firm}%");
         }
         if ($request->sector) {
-            $firms =  $firms->where('sector_id', $request->sector);
+            $firms = $firms->where('sector_id', $request->sector);
         }
         if ($request->ateco_code) {
-            $firms =  $firms->where('ateco_id', $request->ateco_code);
+            $firms = $firms->where('ateco_id', $request->ateco_code);
         }
         if ($request->province) {
-            $firms =  $firms->where('province_id', $request->province);
+            $firms = $firms->where('province_id', $request->province);
         }
         if ($request->firm_type) {
-            $firms =  $firms->where('firm_type', 'LIKE', "%{$request->firm_type}%");
+            $firms = $firms->where('firm_type', 'LIKE', "%{$request->firm_type}%");
         }
         if ($request->category) {
-            $firms =  $firms->where('category', 'LIKE', "%{$request->category}%");
+            $firms = $firms->where('category', 'LIKE', "%{$request->category}%");
         }
         if ($request->firm_owner) {
-            $firms =  $firms->where('firm_owner', 'LIKE', "%{$request->firm_owner}%");
+            $firms = $firms->where('firm_owner', 'LIKE', "%{$request->firm_owner}%");
         }
         if ($request->phone_number) {
-            $firms =  $firms->where('phone_number', 'LIKE', "%{$request->phone_number}%");
+            $firms = $firms->where('phone_number', 'LIKE', "%{$request->phone_number}%");
         }
 
         $companies = $firms->with('ateco')->with('sector')->with('province')->get();
-        
+
         if ($companies == null || empty($companies) || count($companies) == 0) {
             return $this->sendResponse($companies, '0 companies Found');
         }
@@ -136,14 +130,14 @@ class LaVelinaClusterController extends AppBaseController
         // dd($input);
         $filters = array();
 
-        $filters = ['company' => $input['firm']];
+        $filters = ['company' => $input['companies']];
         $filters += ['sector' => $input['sector']];
         $filters += ['ateco_code' => $input['ateco_code']];
         $filters += ['province' => $input['province']];
         $filters += ['firm_type' => $input['firm_type']];
         $filters += ['category' => $input['category']];
-        $filters += ['firm_owner' => $input['firm_owner']];
-        $filters += ['phone_number' => $input['phone_number']];
+        // $filters += ['firm_owner' => $input['firm_owner']];
+        // $filters += ['phone_number' => $input['phone_number']];
         $input['filters'] = json_encode($filters);
 
         unset($input['companies']);
@@ -183,11 +177,11 @@ class LaVelinaClusterController extends AppBaseController
 
             return redirect(route('laVelinaClusters.index'));
         }
-        $companies_ids = json_decode($laVelinaCluster->companies );
+        $companies_ids = json_decode($laVelinaCluster->companies);
         $companies = array();
         foreach ($companies_ids as $company_id) {
-                
-            $array = Firm::where('id' , $company_id)->first();
+
+            $array = Firm::where('id', $company_id)->first();
             if (!empty($array)) {
                 array_push($companies, $array);
             }
@@ -212,8 +206,23 @@ class LaVelinaClusterController extends AppBaseController
 
             return redirect(route('laVelinaClusters.index'));
         }
+        $firms = array();
+        foreach (json_decode($laVelinaCluster->companies) as $company) {
+            $firm = Firm::where('id', $company)->first();
+            array_push($firms, $firm);
+        }
+        $advisors = User::get(['id', 'name']);
+        $ateco_code = ateco_table::get(['id', 'code']);
+        $province = province_table::get(['id', 'province']);
+        $sector = sector_table::get(['id', 'name']);
 
-        return view('la_velina_clusters.edit')->with('laVelinaCluster', $laVelinaCluster);
+        return view('la_velina_clusters.edit')
+            ->with('laVelinaCluster', $laVelinaCluster)
+            ->with('advisors', $advisors)
+            ->with('firms', $firms)
+            ->with('ateco_code', $ateco_code)
+            ->with('province', $province)
+            ->with('sector', $sector);
     }
 
     /**
@@ -234,7 +243,34 @@ class LaVelinaClusterController extends AppBaseController
             return redirect(route('laVelinaClusters.index'));
         }
 
-        $laVelinaCluster = $this->laVelinaClusterRepository->update($request->all(), $id);
+        $input = $request->all();
+        // dd($input);
+        $filters = array();
+
+        
+        $filters = ['company' => $input['companies']];
+        $filters += ['sector' => $input['sector']];
+        $filters += ['ateco_code' => $input['ateco_code']];
+        $filters += ['province' => $input['province']];
+        $filters += ['firm_type' => $input['firm_type']];
+        $filters += ['category' => $input['category']];
+        // $filters += ['firm_owner' => $input['firm_owner']];
+        // $filters += ['phone_number' => $input['phone_number']];
+        $input['filters'] = json_encode($filters);
+
+        unset($input['companies']);
+        unset($input['benefits']);
+        unset($input['inc_send_date']);
+        unset($input['certificate_issue_date']);
+        unset($input['file_date']);
+        unset($input['advisor_name']);
+        unset($input['opration_email']);
+        unset($input['laVelinaClusters-table_length']);
+
+        $input['companies'] = json_encode($input['company']);
+
+        
+        $laVelinaCluster = $this->laVelinaClusterRepository->update($input, $id);
 
         Flash::success('La Velina Cluster updated successfully.');
 
@@ -267,7 +303,8 @@ class LaVelinaClusterController extends AppBaseController
         return redirect(route('laVelinaClusters.index'));
     }
 
-    public function sendlavelina($id){
+    public function sendlavelina($id)
+    {
 
         $lavelina = LaVelina::get();
         if (empty($lavelina)) {
@@ -282,10 +319,11 @@ class LaVelinaClusterController extends AppBaseController
         return view('la_velina_clusters.send')->with('lavelina', $lavelina)->with('laVelinaCluster', $laVelinaCluster);
     }
 
-    public function send(Request $request){
-        
+    public function send(Request $request)
+    {
+
         // dd($request->all());
-        
+
         $laVelinaCluster = $this->laVelinaClusterRepository->find($request->cluster_id);
 
         if (empty($laVelinaCluster)) {
@@ -299,33 +337,33 @@ class LaVelinaClusterController extends AppBaseController
         }
 
         $Data = HelperFunction::lavelina($request->lavelina_id);
-        
+
         $data["title"] = "LaVelinaFrom Revman";
         $data["subject"] = "LaVelina";
         $data["body"] = "Buondì, <br>
         la presente per inviare quanto in oggetto.<br>
         Cordialità";
         $name = "Lavelina";
-        
-        $companies_ids = json_decode($laVelinaCluster->companies );
+
+        $companies_ids = json_decode($laVelinaCluster->companies);
 
         foreach ($companies_ids as $company_id) {
 
-            $files = Firm::where('id' , $company_id)->first();
-            $advisors =$files->levlelina_advisor->name; 
-            $Data['advoiser_name'] =  $advisors;
+            $files = Firm::where('id', $company_id)->first();
+            $advisors = $files->levlelina_advisor->name;
+            $Data['advoiser_name'] = $advisors;
             $pdf = PDF::loadView('lavelina.email', $Data);
             // return $pdf->stream();
-            if (!empty($files->email) && !empty($files->email2) ) {
-                    $data["email"] = $files->email;
-                    $data["opration_email"] = $files->email2;
-                    Mail::send('emails.myTestMail', $data, function ($message) use ($data, $pdf, $name) {
-                        $message
-                            ->to($data["email"], $data["email"])
-                            ->cc([ $data["opration_email"]])
-                            ->subject($data["subject"])
-                            ->attachData($pdf->output(), $name . ".pdf");
-                    });
+            if (!empty($files->email) && !empty($files->email2)) {
+                $data["email"] = $files->email;
+                $data["opration_email"] = $files->email2;
+                Mail::send('emails.myTestMail', $data, function ($message) use ($data, $pdf, $name) {
+                    $message
+                        ->to($data["email"], $data["email"])
+                        ->cc([$data["opration_email"]])
+                        ->subject($data["subject"])
+                        ->attachData($pdf->output(), $name . ".pdf");
+                });
             }
         }
         Flash::success('La Velina Sent  successfully.');
