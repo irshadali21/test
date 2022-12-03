@@ -36,3 +36,9 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+<script>
+    $('.datatable').DataTable();
+</script>
+@endpush
