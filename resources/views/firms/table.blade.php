@@ -1,5 +1,5 @@
 <div class="table-responsive">
-    <table class="table" id="firms-table">
+    <table class="table datatable" id="firms-table">
         <thead>
         <tr>
             <th>Advisor Name</th>
