@@ -33,7 +33,7 @@
                     </div>
                 </div>
                 <br>
-                <div id="result_compnies">
+                <div id="result_compnies" class="table-responsive">
 
                 </div>
 
