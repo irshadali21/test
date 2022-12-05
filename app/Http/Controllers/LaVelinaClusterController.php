@@ -356,11 +356,11 @@ class LaVelinaClusterController extends AppBaseController
             // return $pdf->stream();
             if (!empty($files->email) && !empty($files->email2)) {
                 $data["email"] = $files->email;
-                $data["opration_email"] = $files->email2;
-                Mail::send('emails.myTestMail', $data, function ($message) use ($data, $pdf, $name) {
+                // $data["opration_email"] = $files->email2;
+                Mail::mailer('smtp2')->send('emails.myTestMail', $data, function ($message) use ($data, $pdf, $name) {
                     $message
                         ->to($data["email"], $data["email"])
-                        ->cc([$data["opration_email"]])
+                        // ->cc([$data["opration_email"]])
                         ->subject($data["subject"])
                         ->attachData($pdf->output(), $name . ".pdf");
                 });
