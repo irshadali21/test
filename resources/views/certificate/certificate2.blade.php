@@ -366,7 +366,7 @@ $fmt = new NumberFormatter(($locale = 'it_IT'), NumberFormatter::DECIMAL);
 
                 <body>
                     <tr>
-                        <td>A - Spese di personale relative ai formator</td>
+                        <td>A - Spese di personale relative ai formatori</td>
                         <td><img src="{{ $euro }}"
                                 style="width: 100%; max-width: 10px; height: auto; margin-top: 5px; margin-right: 4px"><b>{{ $fmt->format($cost_ecnomics[0]) }}</b>
                         </td>

@@ -168,17 +168,17 @@ class FileController extends Controller
         $report += ['creditSafeRating' => $company['creditScore']['currentCreditRating']['commonDescription']];
         $report += ['credits' => $company['creditScore']['currentCreditRating']['creditLimit']['value']];
 
-        if ($company['contactInformation']['emailAddresses']) {
+        if (isset($company['contactInformation']['emailAddresses'])) {
             $report += ['pec_email' => $company['contactInformation']['emailAddresses']['0']];
         } else {
             $report += ['pec_email' => ''];
         }
-        if (array_key_exists("telephone", $company['contactInformation']['mainAddress'])) {
+        if (isset($company['contactInformation']['mainAddress'])) {
             $report += ['telephone' => $company['contactInformation']['mainAddress']['telephone']];
         } else {
             $report += ['telephone' => ''];
         }
-        if ($company['contactInformation']['mainAddress']) {
+        if (isset($company['contactInformation']['mainAddress'])) {
             $report += ['address' => $company['contactInformation']['mainAddress']['simpleValue']];
             $report += ['region' => $company['contactInformation']['mainAddress']['city']];
         } else {
@@ -186,13 +186,15 @@ class FileController extends Controller
             $report += ['region' => ''];
         }
         if (isset($company['directors'])) {
-            if ($company['directors']['currentDirectors']) {
+            if (isset($company['directors']['currentDirectors'])) {
                 $report += ['director' => $company['directors']['currentDirectors']['0']['name']];
+            }else {
+                $report += ['director' => ''];
             }
         } else {
             $report += ['director' => ''];
         }
-        if ($company['companySummary']['mainActivity']) {
+        if (isset($company['companySummary']['mainActivity'])) {
             $report += ['ateco_code' => $company['companySummary']['mainActivity']['code']];
         } else {
             $report += ['ateco_code' => ''];

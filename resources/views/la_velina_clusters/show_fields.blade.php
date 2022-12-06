@@ -33,12 +33,12 @@
         @foreach($companies as $firm)
             <tr>
                 <td width="120">
-                    {{-- <div class='btn-group'>
+                    <div class='btn-group'>
                         {!! Form::open(['route' => ['laVelinaClusters.deletefromcluster', $laVelinaCluster->id, $firm->id], 'method' => 'delete']) !!}
                         {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'onclick' => "return confirm('Are you sure?')"]) !!}
                         {!! Form::close() !!}
 
-                    </div> --}}
+                    </div>
                 </td>
 
             <td>{{ $firm->levlelina_advisor->name }}</td>
