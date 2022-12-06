@@ -210,7 +210,8 @@ class LaVelinaClusterController extends AppBaseController
             return redirect(route('laVelinaClusters.index'));
         }
         $firms = array();
-        foreach (json_decode($laVelinaCluster->companies) as $company) {
+        $companies_ids = json_decode($laVelinaCluster->companies);
+        foreach ($companies_ids as $company) {
             $firm = Firm::where('id', $company)->first();
             array_push($firms, $firm);
         }
@@ -221,6 +222,7 @@ class LaVelinaClusterController extends AppBaseController
 
         return view('la_velina_clusters.edit')
             ->with('laVelinaCluster', $laVelinaCluster)
+            ->with('companies_ids', $companies_ids)
             ->with('advisors', $advisors)
             ->with('firms', $firms)
             ->with('ateco_code', $ateco_code)
@@ -245,12 +247,11 @@ class LaVelinaClusterController extends AppBaseController
 
             return redirect(route('laVelinaClusters.index'));
         }
-
         $input = $request->all();
-        // dd($input);
+        $result =array_merge(json_decode($laVelinaCluster->companies),  $input['company']);
         $filters = array();
 
-        $filters = ['company' => $input['companies']];
+        $filters = ['company' => $input['firm']];
         $filters += ['sector' => $input['sector']];
         $filters += ['ateco_code' => $input['ateco_code']];
         $filters += ['province' => $input['province']];
@@ -269,7 +270,7 @@ class LaVelinaClusterController extends AppBaseController
         unset($input['opration_email']);
         unset($input['laVelinaClusters-table_length']);
 
-        $input['companies'] = json_encode($input['company']);
+        $input['companies'] = json_encode($result);
 
         $laVelinaCluster = $this->laVelinaClusterRepository->update($input, $id);
 
@@ -404,6 +405,23 @@ class LaVelinaClusterController extends AppBaseController
         return redirect(route('laVelinaClusters.index'));
     }
 
-    // bulk upload function php
+
+    public function deletefromcluster($cluster_id, $comp_id)
+    {
+
+        $laVelinaCluster = $this->laVelinaClusterRepository->find($cluster_id);
+
+        if (empty($laVelinaCluster)) {
+            Flash::error('La Velina Cluster not found');
+
+            return redirect(route('laVelinaClusters.index'));
+        }
+        $companies_id = json_decode($laVelinaCluster->companies);
+        dd($companies_id);
+
+        Flash::success('La Velina Cluster deleted successfully.');
+
+        return redirect(route('laVelinaClusters.index'));
+    }
 
 }

@@ -33,13 +33,13 @@ class FileController extends Controller
      */
     public function index(Request $request)
     {
-        
-            if (Auth::user()->hasrole('super-admin')) {
-                $files = File::get();
-            } else {
-                $files = File::where('advisor_id', auth()->user()->id)->get();
-            }
-        
+
+        if (Auth::user()->hasrole('super-admin')) {
+            $files = File::get();
+        } else {
+            $files = File::where('advisor_id', auth()->user()->id)->get();
+        }
+
         return view('files.index', compact('files'));
     }
 
@@ -185,8 +185,10 @@ class FileController extends Controller
             $report += ['address' => ''];
             $report += ['region' => ''];
         }
-        if ($company['directors']['currentDirectors']) {
-            $report += ['director' => $company['directors']['currentDirectors']['0']['name']];
+        if (isset($company['directors'])) {
+            if ($company['directors']['currentDirectors']) {
+                $report += ['director' => $company['directors']['currentDirectors']['0']['name']];
+            }
         } else {
             $report += ['director' => ''];
         }

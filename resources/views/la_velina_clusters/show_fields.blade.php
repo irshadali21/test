@@ -16,6 +16,7 @@
     <table class="table" id="firms-table">
         <thead>
         <tr>
+            <th>Action</th>
             <th>Advisor Name</th>
             <th>Firm Name</th>
             <th>Vat No</th>
@@ -31,6 +32,15 @@
         <tbody>
         @foreach($companies as $firm)
             <tr>
+                <td width="120">
+                    {{-- <div class='btn-group'>
+                        {!! Form::open(['route' => ['laVelinaClusters.deletefromcluster', $laVelinaCluster->id, $firm->id], 'method' => 'delete']) !!}
+                        {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm', 'onclick' => "return confirm('Are you sure?')"]) !!}
+                        {!! Form::close() !!}
+
+                    </div> --}}
+                </td>
+
             <td>{{ $firm->levlelina_advisor->name }}</td>
             <td>{{ $firm->firm_name }}</td>
             <td>{{ $firm->firm_vat_no }}</td>

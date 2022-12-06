@@ -16,11 +16,8 @@
         @include('adminlte-templates::common.errors')
 
         <div class="card">
+            {{-- @dd($companies_ids) --}}
 
-            {{-- {!! Form::model($laVelinaCluster, [
-                'route' => ['laVelinaClusters.update', $laVelinaCluster->id],
-                'method' => 'patch',
-            ]) !!} --}}
             {!! Form::open([
                 'route' => ['laVelinaClusters.update', $laVelinaCluster->id],
                 'method' => 'patch',
@@ -57,7 +54,7 @@
                             <tbody>
                                 @foreach ($firms as $firm)
                                     <tr>
-                                        <td> <input type="checkbox" name="company[]" id="company" checked
+                                        <td> <input type="checkbox" name="company[]" id="company" checked disabled
                                                 value="{{ $firm->id }}"></td>
                                         <td>{{ $firm->firm_name }}</td>
                                         <td>{{ $firm->firm_vat_no }}</td>
@@ -96,6 +93,7 @@
             $('#filter').on('click', function() {
 
                 $('#result_compnies').empty();
+                var current_companies = @php echo $laVelinaCluster->companies; @endphp;
 
                 var advisor = $("#advisor_name").val()
                 var firm = $("#firm").val()
@@ -125,9 +123,10 @@
                             console.log(result.message);
                         } else {
                             const element = result.data;
-                            console.log(element);
                             var appenddata = ``
                             if (element.length > 0) {
+
+
                                 appenddata += `<table class="table datatable" id="laVelinaClusters-table"><thead><tr>
                                             <th>Add in Cluster</th>
                                             <th>Firm Name</th>
@@ -141,9 +140,11 @@
 
                                 for (let index = 0; index < element.length; index++) {
                                     const company = element[index];
-                                    appenddata += `<tr>
-                                        <td> <input type="checkbox" name="company[]" id="company" checked value="` +
-                                        company.id + `"></td>
+                                    var str = company.id.toString();
+                                    if ($.inArray(str, current_companies) != -1) {
+                                        appenddata += `<tr>
+                                        <td> <input type="checkbox" name="company[]" id="company" checked disabled value="` +
+                                            company.id + `"></td>
                                         <td>` + company.firm_name + `</td>
                                         <td>` + company.firm_vat_no + `</td>
                                         <td>` + company.phone_number + `</td>
@@ -151,9 +152,23 @@
                                         <td>` + company.sector.name + `</td>
                                         <td>` + company.province.province + `</td>
                                         </tr>`;
+                                    }else{
+                                        appenddata += `<tr>
+                                        <td> <input type="checkbox" name="company[]" id="company" checked  value="` +
+                                            company.id + `"></td>
+                                        <td>` + company.firm_name + `</td>
+                                        <td>` + company.firm_vat_no + `</td>
+                                        <td>` + company.phone_number + `</td>
+                                        <td>` + company.ateco.code + `</td>
+                                        <td>` + company.sector.name + `</td>
+                                        <td>` + company.province.province + `</td>
+                                        </tr>`;
+                                       
+                                    }
                                 }
                                 appenddata += '</tbody></table>';
                             }
+
                             $('#result_compnies').append(appenddata);
                         }
                         $('#save-btn').show();

@@ -199,6 +199,10 @@ Route::group(['middleware' => ['auth', 'verified', 'stampCheck']], function () {
         'uses' => 'LaVelinaClusterController@sendlavelina',
         'as' => 'laVelinaClusters.sendlavelina',
     ]);
+    Route::delete('/laVelinaClusters/company/delete/{cluster_id}/{comp_id}', [
+        'uses' => 'LaVelinaClusterController@deletefromcluster',
+        'as' => 'laVelinaClusters.deletefromcluster',
+    ]);
 
     Route::resource('atecoTables', 'ateco_tableController');
 
