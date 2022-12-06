@@ -18,10 +18,10 @@ class LaVelinaController extends Controller
 
     public function __construct()
     {
-        $this->middleware('permission:view-report');
-        $this->middleware('permission:create-report', ['only' => ['create', 'store']]);
-        $this->middleware('permission:update-report', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:destroy-report', ['only' => ['destroy']]);
+        $this->middleware('permission:view-lavelina');
+        // $this->middleware('permission:create-report', ['only' => ['create', 'store']]);
+        // $this->middleware('permission:update-report', ['only' => ['edit', 'update']]);
+        // $this->middleware('permission:destroy-report', ['only' => ['destroy']]);
     }
 
     /**

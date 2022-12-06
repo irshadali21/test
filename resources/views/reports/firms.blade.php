@@ -6,9 +6,9 @@
         <div class="col-md-12">
             <div class="card mb-5">
                 <div class="card-header">
-                    <h3>Genrate A new Report</h3>
+                    <h3>Genrate A new Report for Firms</h3>
                 </div>
-                <div class="card-body">
+                {{-- <div class="card-body">
                     <form method="POST" action="{{ route('getreport') }}" accept-charset="UTF-8">
                         @csrf
                         <div class="row">
@@ -64,7 +64,7 @@
                                     {{ Form::label('opration_email', 'E-Mail Opration', ['class' => 'form-control-label']) }}
                                     {{ Form::text('opration_email', null, ['class' => 'form-control']) }}
                                 </div>
-                            </div>
+                            </div> --}}
                             {{-- <div class="col-lg-6">
                                 <div class="form-group">
                                     
@@ -77,7 +77,7 @@
 
 
                             </div> --}}
-                            <div class="col-lg-12">
+                            {{-- <div class="col-lg-12">
                                 <div class="form-group">
                                     <label class="form-control-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
                                     <div>
@@ -88,7 +88,7 @@
                             </div>
                         </div>
                     </form>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>

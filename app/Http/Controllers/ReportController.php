@@ -14,9 +14,9 @@ class ReportController extends Controller
     public function __construct()
     {
         $this->middleware('permission:view-report');
-        $this->middleware('permission:create-report', ['only' => ['create', 'store']]);
-        $this->middleware('permission:update-report', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:destroy-report', ['only' => ['destroy']]);
+        // $this->middleware('permission:create-report', ['only' => ['create', 'store']]);
+        // $this->middleware('permission:update-report', ['only' => ['edit', 'update']]);
+        // $this->middleware('permission:destroy-report', ['only' => ['destroy']]);
     }
 
     /**
@@ -24,12 +24,19 @@ class ReportController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function files()
     {
         $exceptThis = [1];
         $company = Company::get();
         $benefit = Summary::whereNotIn('id', $exceptThis)->pluck('column1', 'id');
-        return view('reports.index', compact('company', 'benefit'));
+        return view('reports.files', compact('company', 'benefit'));
+    }
+    public function firms()
+    {
+        $exceptThis = [1];
+        $company = Company::get();
+        $benefit = Summary::whereNotIn('id', $exceptThis)->pluck('column1', 'id');
+        return view('reports.firms', compact('company', 'benefit'));
     }
 
     /**

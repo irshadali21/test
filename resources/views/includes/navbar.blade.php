@@ -70,37 +70,30 @@
                                     </a>
                                 </li>
                                 @endcan
-                                @canany(['view-reports'])
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{route('reports.index')}}">
-                                        <span class="sidenav-mini-icon">D </span>
-                                        <span class="nav-link-text">Reports</span>
-                                    </a>
-                                </li>
-                                @endcan
                                 
                             </ul>
                         </div>
                     </li>
                     @endcan
-                    {{-- @can('update-settings') --}}
+                    @can('view-lavelina')
                     <li class="nav-item">
                         <a class="nav-link {{ (request()->is('lavelina*')) ? 'active' : '' }}" href="{{route('lavelina.index')}}">
                             <i class="ni ni-collection" style="color: #B5ABA2"></i>
                             <span class="nav-link-text">La Velina</span>
                         </a>
                     </li>
-                    {{-- @endcan --}}
-                     {{-- @can('update-settings') --}}
+                    @endcan
+                     @can('view-laVelinaClusters')
                      <li class="nav-item">
                         <a class="nav-link {{ (request()->is('laVelinaClusters*')) ? 'active' : '' }}" href="{{route('laVelinaClusters.index')}}">
                             <i class="fa fa-users" style="color: #B5ABA2"></i>
                             <span class="nav-link-text">LaVelina Clusters</span>
                         </a>
                     </li>
-                    {{-- @endcan --}}
+                    @endcan
                     
                     {{-- firms --}}
+                    {{-- @can('view-frims') --}}
                     <li class="nav-item">
                         <a class="nav-link {{ (request()->is('firms*')) ? 'active' : '' }}{{ (request()->is('import/firm')) ? 'active' : '' }}" href="#navbar-firms"  data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-firms">
                             <i class="ni ni-collection" style="color: #B5ABA2"></i>
@@ -121,6 +114,34 @@
                             </ul>
                         </div>
                     </li>
+                    @canany(['view-reports'])
+                    <li class="nav-item">
+                        <a class="nav-link {{ (request()->is('reports*')) ? 'active' : '' }}" href="#navbar-reports"  data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-reports">
+                            <i class="fa fa-file" style="color: #B5ABA2"></i>
+                            <span class="nav-link-text">Reports</span>
+                        </a>
+                        <div class="collapse {{ (request()->is('reports*')) ? 'show' : '' }}" id="navbar-reports">
+                            <ul class="nav nav-sm flex-column">
+                                @canany(['view-reports-files'])
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{route('reports.files')}}">
+                                        <span class="sidenav-mini-icon">D </span>
+                                        <span class="nav-link-text">Based on Files</span>
+                                    </a>
+                                </li>
+                                @endcan
+                                @canany(['view-reports-firms'])
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{route('reports.firms')}}">
+                                        <span class="sidenav-mini-icon">D </span>
+                                        <span class="nav-link-text">Based On Firms</span>
+                                    </a>
+                                </li>
+                                @endcan
+                            </ul>
+                        </div>
+                    </li>
+                    @endcan
 
 
                     @can('update-settings')
