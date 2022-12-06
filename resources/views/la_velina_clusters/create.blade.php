@@ -97,6 +97,7 @@
                                 appenddata += `<table class="table datatable" id="laVelinaClusters-table"><thead><tr>
                                             <th>Add in Cluster</th>
                                             <th>Firm Name</th>
+                                            <th>Advisor</th>
                                             <th>VAT No</th>
                                             <th>phone_number</th>
                                             <th>Ateco Code</th>
@@ -111,6 +112,7 @@
                                         <td> <input type="checkbox" name="company[]" id="company" checked value="` +
                                         company.id + `"></td>
                                         <td>` + company.firm_name + `</td>
+                                        <td>` + company.levlelina_advisor.name + `</td>
                                         <td>` + company.firm_vat_no + `</td>
                                         <td>` + company.phone_number + `</td>
                                         <td>` + company.ateco.code + `</td>

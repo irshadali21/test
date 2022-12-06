@@ -104,18 +104,18 @@
                     <li class="nav-item">
                         <a class="nav-link {{ (request()->is('firms*')) ? 'active' : '' }}{{ (request()->is('import/firm')) ? 'active' : '' }}" href="#navbar-firms"  data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-firms">
                             <i class="ni ni-collection" style="color: #B5ABA2"></i>
-                            <span class="nav-link-text">Manage firms</span>
+                            <span class="nav-link-text">Firms</span>
                         </a>
                         <div class="collapse {{ (request()->is('firms*')) ? 'show' : '' }} {{ (request()->is('import/firm')) ? 'show' : '' }}" id="navbar-firms">
                             <ul class="nav nav-sm flex-column">
                                 {{-- @can('view-user') --}}
                                 <li class="nav-item">
-                                    <a href="{{route('firms.index')}}" class="nav-link"><span class="sidenav-mini-icon">D </span><span class="sidenav-normal">All Firms</span></a>
+                                    <a href="{{route('firms.index')}}" class="nav-link"><span class="sidenav-mini-icon">D </span><span class="sidenav-normal">Manage Firms</span></a>
                                 </li>
                                 {{-- @endcan --}}
                                 {{-- @can( 'create-user') --}}
                                 <li class="nav-item">
-                                    <a href="{{route('firms.import')}}" class="nav-link"><span class="sidenav-mini-icon">D </span><span class="sidenav-normal">Import Firms</span></a>
+                                    <a href="{{route('firms.import')}}" class="nav-link"><span class="sidenav-mini-icon">D </span><span class="sidenav-normal">Upload Firms</span></a>
                                 </li>
                                 {{-- @endcan --}}
                             </ul>

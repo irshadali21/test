@@ -160,7 +160,7 @@ class HelperFunction
 
         $code_date = Date('dmy');
         if ($certificate->certification_date) {
-            $date = Carbon::parse($certificate->certification_date)->format('Y-m-d');
+            $date = Carbon::parse($certificate->certification_date)->format('d/m/Y');
         }else{
             $date = Date('d/m/Y');
         }

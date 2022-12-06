@@ -15,7 +15,7 @@
     <!-- Companies Field -->
     <div class="form-group col-sm-3">
         {!! Form::label('firm', 'Firm Name', ['class' => 'form-control-label']) !!}
-        {!! Form::text('companies', null, ['class' => 'form-control']) !!}
+        {!! Form::text('firm', null, ['class' => 'form-control']) !!}
     </div>
     <div class="col-lg-3">
         <div class="form-group">

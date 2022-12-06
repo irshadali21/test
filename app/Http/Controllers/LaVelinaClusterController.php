@@ -9,12 +9,14 @@ use App\Http\Requests\UpdateLaVelinaClusterRequest;
 use App\Models\ateco_table;
 use App\Models\Firm;
 use App\Models\LaVelina;
+use App\Models\LaVelinaHistory;
 use App\Models\province_table;
 use App\Models\sector_table;
 use App\Repositories\LaVelinaClusterRepository;
 use App\User;
 use Flash;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Mail;
 use PDF;
 use Response;
@@ -107,7 +109,7 @@ class LaVelinaClusterController extends AppBaseController
             $firms = $firms->where('phone_number', 'LIKE', "%{$request->phone_number}%");
         }
 
-        $companies = $firms->with('ateco')->with('sector')->with('province')->get();
+        $companies = $firms->with('ateco')->with('sector')->with('province')->with('levlelina_advisor')->get();
 
         if ($companies == null || empty($companies) || count($companies) == 0) {
             return $this->sendResponse($companies, '0 companies Found');
@@ -177,6 +179,7 @@ class LaVelinaClusterController extends AppBaseController
 
             return redirect(route('laVelinaClusters.index'));
         }
+        $history = LaVelinaHistory::where('cluster_id', $id)->get();
         $companies_ids = json_decode($laVelinaCluster->companies);
         $companies = array();
         foreach ($companies_ids as $company_id) {
@@ -187,7 +190,7 @@ class LaVelinaClusterController extends AppBaseController
             }
         }
 
-        return view('la_velina_clusters.show')->with('laVelinaCluster', $laVelinaCluster)->with('companies', $companies);
+        return view('la_velina_clusters.show')->with('laVelinaCluster', $laVelinaCluster)->with('companies', $companies)->with('history', $history);
     }
 
     /**
@@ -247,7 +250,6 @@ class LaVelinaClusterController extends AppBaseController
         // dd($input);
         $filters = array();
 
-        
         $filters = ['company' => $input['companies']];
         $filters += ['sector' => $input['sector']];
         $filters += ['ateco_code' => $input['ateco_code']];
@@ -269,7 +271,6 @@ class LaVelinaClusterController extends AppBaseController
 
         $input['companies'] = json_encode($input['company']);
 
-        
         $laVelinaCluster = $this->laVelinaClusterRepository->update($input, $id);
 
         Flash::success('La Velina Cluster updated successfully.');
@@ -338,11 +339,21 @@ class LaVelinaClusterController extends AppBaseController
 
         $Data = HelperFunction::lavelina($request->lavelina_id);
 
-        $data["title"] = "LaVelinaFrom Revman";
-        $data["subject"] = "LaVelina";
-        $data["body"] = "Buondì, <br>
-        la presente per inviare quanto in oggetto.<br>
-        Cordialità";
+        $data["title"] = "Velina From Revman";
+        $data["subject"] = "Velina";
+        $data["body"] = "Buongiorno,
+
+        Ecco le novità in tema di ".$lavelina->name."
+        Questo argomento può essere di forte interesse per la vostra impresa.
+        Per approfondimenti e domande il nostro team è a vostra disposizione.
+        
+        Buona lettura,
+        
+        Solida Team 
+        
+        Contatti:
+        info@solidanetwork.com
+        0828307850";
         $name = "Lavelina";
 
         $companies_ids = json_decode($laVelinaCluster->companies);
@@ -356,14 +367,36 @@ class LaVelinaClusterController extends AppBaseController
             // return $pdf->stream();
             if (!empty($files->email) && !empty($files->email2)) {
                 $data["email"] = $files->email;
-                // $data["opration_email"] = $files->email2;
+                $data["opration_email"] = $files->email2;
                 Mail::mailer('smtp2')->send('emails.myTestMail', $data, function ($message) use ($data, $pdf, $name) {
                     $message
                         ->to($data["email"], $data["email"])
-                        // ->cc([$data["opration_email"]])
+                        ->cc([$data["opration_email"]])
                         ->subject($data["subject"])
                         ->attachData($pdf->output(), $name . ".pdf");
                 });
+            } else {
+                $data["email"] = $files->email;
+                Mail::mailer('smtp2')->send('emails.myTestMail', $data, function ($message) use ($data, $pdf, $name) {
+                    $message
+                        ->to($data["email"], $data["email"])
+                        ->subject($data["subject"])
+                        ->attachData($pdf->output(), $name . ".pdf");
+                });
+            }
+
+            DB::beginTransaction();
+            try {
+
+                LaVelinaHistory::create([
+                    'lavelina_id' => $lavelina->id,
+                    'cluster_id' => $laVelinaCluster->id,
+                    'firm_id' => $company_id,
+                    'sent_by' => auth()->user()->id,
+                ]);
+                DB::commit();
+            } catch (\Exception $e) {
+                DB::rollback();
             }
         }
         Flash::success('La Velina Sent  successfully.');
