@@ -123,6 +123,7 @@
                             console.log(result.message);
                         } else {
                             const element = result.data;
+                            console.log(element);
                             var appenddata = ``
                             if (element.length > 0) {
 

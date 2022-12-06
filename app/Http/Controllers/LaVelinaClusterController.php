@@ -12,6 +12,7 @@ use App\Models\LaVelina;
 use App\Models\LaVelinaHistory;
 use App\Models\province_table;
 use App\Models\sector_table;
+use App\Models\LaVelinaCluster;
 use App\Repositories\LaVelinaClusterRepository;
 use App\User;
 use Flash;
@@ -413,11 +414,28 @@ class LaVelinaClusterController extends AppBaseController
 
         if (empty($laVelinaCluster)) {
             Flash::error('La Velina Cluster not found');
-
             return redirect(route('laVelinaClusters.index'));
         }
         $companies_id = json_decode($laVelinaCluster->companies);
-        dd($companies_id);
+        foreach ($companies_id as $key => $value) {
+            if((int)$value == $comp_id){
+                $arr_key = $key;
+            }
+        }
+        $a2=array($comp_id);
+        $result=array_diff($companies_id,$a2);
+        $a2 = array();
+        foreach ($result as $key => $value) {
+            array_push($a2, $value);
+                
+            
+        }
+
+
+        $input['companies'] = json_encode($a2);
+        $result = LaVelinaCluster::where('id', $cluster_id)->update([
+            'companies' => $input['companies']
+        ]);
 
         Flash::success('La Velina Cluster deleted successfully.');
 
