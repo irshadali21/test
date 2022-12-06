@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Auth;
 use Flash;
 use Response;
 use Session;
+use App\Models\Firm;
+use App\Models\ateco_table;
+use App\Models\province_table;
+use App\Models\sector_table;
 
 
 
@@ -99,14 +103,16 @@ class FirmController extends AppBaseController
     public function edit($id)
     {
         $firm = $this->firmRepository->find($id);
-
+        $ateco = ateco_table::get();
+        $province = province_table::get();
+        $sector = sector_table::get();
         if (empty($firm)) {
             Flash::error('Firm not found');
 
             return redirect(route('firms.index'));
         }
 
-        return view('firms.edit')->with('firm', $firm);
+        return view('firms.edit')->with('firm', $firm)->with('ateco', $ateco)->with('province', $province)->with('sector', $sector);
     }
 
     /**
