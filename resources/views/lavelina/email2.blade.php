@@ -19,23 +19,23 @@
     <table class="w-100" style="background-color: {{ $color }};">
         <tr>
             <td>
-                <p style="margin-left: 40px; color: white; margin-bottom: 0px; font-size:5px;"> Powered by</p>
+                <p style="font-family: 'Prata', serif; margin-left: 65px; color: white; margin-bottom: 0px; font-size:5px;"> Powered by</p>
                 <img src="{{ $logo }}" alt="" width="80px" height="35px" style="margin-left: 40px;">
             </td>
             <td>
-                <p
-                    style="font-size:10px; text-align: center; color: white; margin-top: -6px;
+                <div
+                    style=" font-family: 'Prata', serif;font-size:10px; text-align: center; color: white; margin-top: -6px;
                 margin-bottom: -1px;">
                     Se pensi che hai diritto a usufruire
-                    dell’agevolazione o se hai dubbi in merito contattaci: </p>
-                <p style="text-align: center; margin-top: -10px;
+                    dell’agevolazione o se hai dubbi in merito contattaci: </div>
+                <p style="font-family: 'Prata', serif; text-align: center; margin-top: -20px;
         margin-bottom: -1px; padding: -1px"> <a
                         href="mailto:info@solidanetwork.com"
-                        style="font-size:10px; color: white; margin-top: -6px;
+                        style="font-family: 'Prata', serif; font-size:10px; color: white; margin-top: -15px;
         margin-bottom: -1px; padding: -1px">info@solidanetwork.com</a>
                 </p>
                 <p
-                    style="font-size:10px; color: white; text-align: center;margin-top: -6px;
+                    style="font-family: 'Prata', serif; font-size:10px; color: white; text-align: center;margin-top: -15px;
         margin-bottom: -1px; padding: -1px">
                     tel 0828307850</p>
             </td>
@@ -52,14 +52,14 @@
             style="
             margin-left: -50px;
             margin-right: -50px;
-            margin-top: -50px;
+            margin-top: -70px;
             background-image: url('{{ $background_image }}');  
             background-size: cover;">
             <br>
             <strong>
-                <span style="font-size: 80px; color:{{ $color }}; font-weight:400">LA VELINA </span><br>
-                <span style="font-size:25px; color:{{ $color }};">DEL TUO COMMERCIALISTA</span><br>
-                <span style="font-size:18px;"> FIRM ADVISOR NAME </span><br>
+                <span style="font-family: 'Prata', serif;font-size: 80px; color:{{ $color }}; font-weight:400">LA VELINA </span><br>
+                <span style="font-family: 'Prata', serif;font-size:25px; color:{{ $color }};">DEL TUO COMMERCIALISTA</span><br>
+                <span style="font-family: 'Prata', serif;font-size:18px;"> FIRM ADVISOR NAME </span><br>
                 <span style="font-size:15px;"> {{ $date }}</span><br>
             </strong>
             <br>

@@ -123,6 +123,7 @@ class CertificateController extends Controller
                 'tribute_6938' => $request->tribute_6938,
                 'tribute_6939' => $request->tribute_6939,
                 'tribute_6940' => $request->tribute_6940,
+                'certification_date' => $request->certification_date,
                 'status' => 0,
                 'created_by' => Auth::user()->id,
             ]);
@@ -219,6 +220,7 @@ class CertificateController extends Controller
                 'tribute_6938' => $request->tribute_6938,
                 'tribute_6939' => $request->tribute_6939,
                 'tribute_6940' => $request->tribute_6940,
+                'certification_date' => $request->certification_date,
                 'status' => $status,
                 'paid_date' => $paid_date,
 

@@ -370,7 +370,7 @@ if (session()->get('files_allowed') == null) {
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-6">
+                            <div class="col-lg-3">
                                 <div class="form-group">
                                     {{ Form::label('tribute_6940', 'Tribute 6940', ['class' => 'form-control-label']) }}
                                     {{ Form::number('tribute_6940', null, ['class' => 'form-control', 'step' => 'any']) }}
