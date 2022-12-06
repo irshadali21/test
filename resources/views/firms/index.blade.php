@@ -24,6 +24,7 @@
 
         <div class="card">
             <div class="card-body p-0">
+                <br>
                 @include('firms.table')
 
                 <div class="card-footer clearfix">
