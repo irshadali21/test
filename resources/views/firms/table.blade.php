@@ -1,7 +1,8 @@
 <div class="table-responsive">
     <table class="table datatable" id="firms-table">
-        <thead>
+        <thead style="background-color: #68150F; color:white">
         <tr>
+            <th>Action</th>
             <th>Advisor Name</th>
             <th>Firm Name</th>
             <th>Vat No</th>
@@ -18,6 +19,11 @@
         <tbody>
         @foreach($firms as $firm)
             <tr>
+            <td><a href="{{ route('firms.show', [$firm->id]) }}"
+                class='btn btn-default btn-xs'>
+                 <i class="fa fa-search"></i>
+             </a>
+            </td>
             <td>{{ $firm->levlelina_advisor->name }}</td>
             <td>{{ $firm->firm_name }}</td>
             <td>{{ $firm->firm_vat_no }}</td>

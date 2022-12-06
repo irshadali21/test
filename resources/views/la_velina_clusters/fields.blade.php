@@ -4,7 +4,7 @@
     <div class="form-group col-sm-12">
         <div class="form-group col-sm-4">
             {!! Form::label('name', 'Name:', ['class' => 'form-control-label']) !!}
-            {!! Form::text('name', null, ['class' => 'form-control']) !!}
+            {!! Form::datetime('name', null, ['class' => 'form-control']) !!}
         </div>
     </div>
     <div class="col-md-12" style="margin-top: -40px;">
@@ -23,7 +23,7 @@
             <option value="{{ $company->id }}">{{ $company->firm_name }} ( {{ $company->firm_vat_no }} )</option>
         @endforeach
     </select> --}}
-        {!! Form::text('companies', null, ['class' => 'form-control']) !!}
+        {!! Form::text('firm', null, ['class' => 'form-control']) !!}
     </div>
     <div class="col-lg-3">
         <div class="form-group">
