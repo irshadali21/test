@@ -30,6 +30,7 @@ class LaVelinaClusterController extends AppBaseController
     public function __construct(LaVelinaClusterRepository $laVelinaClusterRepo)
     {
         $this->laVelinaClusterRepository = $laVelinaClusterRepo;
+        $this->middleware('permission:view-laVelinaClusters');
     }
 
     /**
