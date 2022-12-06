@@ -32,6 +32,7 @@ CKEDITOR.editorConfig = function( config ) {
 	// Dialog windows are also simplified.
 	config.removeDialogTabs = 'link:advanced';
 	config.extraPlugins = 'wordcount';
+	
 	config.wordcount = {
 
 		// Whether or not you want to show the Word Count
@@ -46,7 +47,9 @@ CKEDITOR.editorConfig = function( config ) {
 		// Maximum allowed Char Count
 		// maxCharCount: 10
 	};
-
+	config.extraPlugins = 'lineheight';
+	// config.line_height="0.2em;0.3em;0.5em;1em;1.1em;1.2em;1.3em;1.4em;1.5em;" ;
+	config.line_height="0.5;1;2;3;4;5" ;
 	config.font_names='Prata;Roboto;serif;sans-serif'
 	// config.contentsCss='<link href="https://fonts.googleapis.com/css2?family=Prata&family=Roboto:wght@100&display=swap">';
 };

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use App\Models\LaVelina;
 use App\Models\LavelinaDetail;
+use Carbon\Carbon;
 
 
 class HelperFunction
@@ -158,7 +159,11 @@ class HelperFunction
 
 
         $code_date = Date('dmy');
-        $date = Date('d/m/Y');
+        if ($certificate->certification_date) {
+            $date = Carbon::parse($certificate->certification_date)->format('Y-m-d');
+        }else{
+            $date = Date('d/m/Y');
+        }
         $logo = url('/') . '/image/signature/Solida_logo.png';
         $signature = url('/') . '/image/signature/sigh.png';
         $square = url('/') . '/image/signature/test.jpg';

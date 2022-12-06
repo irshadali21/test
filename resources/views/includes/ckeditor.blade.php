@@ -46,7 +46,7 @@
             countSpacesAsChars: false,
             countHTML: false,
             maxWordCount: -1,
-            maxCharCount: 1500
+            // maxCharCount: 1500
         }
 
 
@@ -57,7 +57,7 @@
             countSpacesAsChars: false,
             countHTML: false,
             maxWordCount: -1,
-            maxCharCount: 3000
+            // maxCharCount: 3000
         }
 
         // CKEDITOR.replace( document.querySelector( '#body' ) )
