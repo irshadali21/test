@@ -24,7 +24,7 @@ class CreateFirmsTable extends Migration
             $table->string('phone_number');
             $table->string('firm_owner');
             $table->string('email');
-            $table->string('email2');
+            $table->string('email2')->nullable();
             $table->integer('sector_id')->unsigned();
             $table->integer('ateco_id')->unsigned();
             $table->unsignedBigInteger('created_by');
