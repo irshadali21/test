@@ -9,7 +9,7 @@
                     <h3>Genrate A new Report for Files</h3>
                 </div>
                 <div class="card-body">
-                    <form method="POST" action="{{ route('getreport') }}" accept-charset="UTF-8">
+                    <form method="POST" action="{{ route('getreport.files') }}" accept-charset="UTF-8">
                         @csrf
                         <div class="row">
                             <div class="col-lg-6">
@@ -65,19 +65,21 @@
                                     {{ Form::text('opration_email', null, ['class' => 'form-control']) }}
                                 </div>
                             </div>
-                            {{-- <div class="col-lg-6">
+                        </div>
+                           <div class="row"> 
+                            <div class="col-lg-6">
                                 <div class="form-group">
                                     
                                     <label class="form-control-label">Download As</label>
                                     <select name="file_type" id="file_type" class="form-control">
-                                        <option value="1">PDF</option>
-                                        <option value="2">Excel</option>
+                                        <option value=1>PDF</option>
+                                        <option value=2>Excel</option>
                                     </select>
                                 </div>
 
 
-                            </div> --}}
-                            <div class="col-lg-12">
+                            </div>
+                            <div class="col-lg-6">
                                 <div class="form-group">
                                     <label class="form-control-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
                                     <div>

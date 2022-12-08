@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\FilessExport;
 use App\Models\Company;
 use App\Models\File;
 use App\Models\Summary;
 use Carbon\Carbon;
+use Excel;
 use Illuminate\Http\Request;
+use PDF;
 
 class ReportController extends Controller
 {
@@ -44,9 +47,10 @@ class ReportController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function filesDownload(Request $request)
     {
 
+        // dd($request->all());
         $files = File::join('certificates', 'files.id', '=', 'certificates.file_id')
             ->join('summaries', 'files.benefit_id', '=', 'summaries.id')
             ->join('companies', 'files.company_id', '=', 'companies.id')
@@ -95,7 +99,6 @@ class ReportController extends Controller
             return redirect()->back();
         }
 
-
         $headings = [
             'VAT N.',
             'COMPANY NAME',
@@ -110,12 +113,12 @@ class ReportController extends Controller
             'FEE',
             'ADVISOR NAME',
             'E-MAIL OPERATION',
-
         ];
 
-        $filename = date('Y-m-d') . '-Report.csv';
-        $csv = fopen($filename, 'w+');
-        fputcsv($csv, $headings);
+        $filename = date('Y-m-d') . '-File-Report.';
+
+        $data = array();
+        $data[] = $headings;
 
         foreach ($files as $key => $file) {
             $EmailTrack = $file->EmailTrack;
@@ -127,8 +130,11 @@ class ReportController extends Controller
             $CertificateSendDate = '-';
             $IncaricoSendDate = '-';
             $datePayment = '-';
-            $status = '';
-            $advisor_name = '';
+            $status = '-';
+            $advisor_name = '-';
+            $phone_number = '-';
+            $customer_email = '-';
+            $opration_email = '-';
 
             if ($file->EmailTrack) {
                 foreach ($file->EmailTrack as $track) {
@@ -158,12 +164,25 @@ class ReportController extends Controller
             if (!empty($advisor->name)) {
                 $advisor_name = $advisor->name;
             }
+            if (!empty($company->phone_number)) {
+                $phone_number = $company->phone_number;
+            }
+            if (!empty($file->customer_email)) {
+                $customer_email = $file->customer_email;
+            }
+            if (!empty($file->opration_email)) {
+                $opration_email = $file->opration_email;
+            }
+            if (!empty($advisor->name)) {
+                $advisor_name = $advisor->name;
+            }
+
             if ($Certificate) {
                 $value = [
                     $company->vat_number,
                     $company->company_name,
-                    $company->phone_number,
-                    $file->customer_email,
+                    $phone_number,
+                    $customer_email,
                     $benefit->column1,
                     $file->year,
                     $status,
@@ -172,19 +191,50 @@ class ReportController extends Controller
                     $datePayment,
                     $file->fee,
                     $advisor_name,
-                    $file->opration_email,
-
+                    $opration_email,
                 ];
+                $data[] = $value;
             }
-            fputcsv($csv, $value);
-
         }
-        $headers = ['Content-Type' => 'text/csv'];
 
-        return response()->download($filename, $filename, $headers)->deleteFileAfterSend();
+        if ($request->file_type == 1) {
+            $datapdf = array();
+            // dd($data);
+            foreach ($data as $value) {
+                $tempdata = [
+                    'vat' => $value[0],
+                    'name' => $value[1],
+                    'phone' => $value[2],
+                    'cemail' => $value[3],
+                    'benefit' => $value[4],
+                    'year' => $value[5],
+                    'status' => $value[6],
+                    'send' => $value[7],
+                    'issue' => $value[8],
+                    'payment' => $value[9],
+                    'fee' => $value[10],
+                    'adname' => $value[11],
+                    'opration' => $value[12],
+                ];
+                array_push($datapdf, $tempdata);
 
-        // return view('reports.report_pdf')->with('files', $files);
+            }
+            // dd($datapdf);
+            $datapdf = [
+                'data' => $datapdf,
+            ];
+            $pdf = PDF::loadView('exports.files', $datapdf);
+            $name = $filename;
+            return $pdf->download($name . '.pdf');
 
+        } elseif ($request->file_type == 2) {
+            $export = new FilessExport($data);
+            return Excel::download($export, $filename . 'xlsx');
+            dd($data);
+        }
+
+        flash('There was an Error')->info();
+        return redirect()->back();
     }
 
     public function download_csv($files)
