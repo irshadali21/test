@@ -168,14 +168,19 @@ Route::group(['middleware' => ['auth', 'verified', 'stampCheck']], function () {
         'as' => 'reports.files',
     ]);
     
-    Route::post('/reports', [
-        'uses' => 'ReportController@create',
-        'as' => 'getreport',
+    Route::post('/reports/files/download', [
+        'uses' => 'ReportController@filesDownload',
+        'as' => 'getreport.files',
+    ]);
+
+    Route::get('/reports/firms/download', [
+        'uses' => 'ReportController@filesDownload',
+        'as' => 'reports.firms',
     ]);
 
     Route::get('/reports/firms', [
         'uses' => 'ReportController@firms',
-        'as' => 'reports.firms',
+        'as' => 'getreport.firms',
     ]);
 
     //LaVelina
