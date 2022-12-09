@@ -5,7 +5,12 @@ namespace App\Http\Controllers;
 use App\Exports\FilessExport;
 use App\Models\Company;
 use App\Models\File;
+use App\Models\Firm;
+use App\Models\ateco_table;
+use App\Models\province_table;
+use App\Models\sector_table;
 use App\Models\Summary;
+use App\User;
 use Carbon\Carbon;
 use Excel;
 use Illuminate\Http\Request;
@@ -36,10 +41,11 @@ class ReportController extends Controller
     }
     public function firms()
     {
-        $exceptThis = [1];
-        $company = Company::get();
-        $benefit = Summary::whereNotIn('id', $exceptThis)->pluck('column1', 'id');
-        return view('reports.firms', compact('company', 'benefit'));
+        $advisor = User::get();
+        $ateco = ateco_table::get();
+        $province = province_table::get();
+        $sector = sector_table::get();
+        return view('reports.firms', compact('ateco', 'province', 'sector', 'advisor'));
     }
 
     /**
@@ -217,7 +223,6 @@ class ReportController extends Controller
                     'opration' => $value[12],
                 ];
                 array_push($datapdf, $tempdata);
-
             }
             // dd($datapdf);
             $datapdf = [
@@ -226,7 +231,6 @@ class ReportController extends Controller
             $pdf = PDF::loadView('exports.files', $datapdf);
             $name = $filename;
             return $pdf->download($name . '.pdf');
-
         } elseif ($request->file_type == 2) {
             $export = new FilessExport($data);
             return Excel::download($export, $filename . 'xlsx');
@@ -237,6 +241,139 @@ class ReportController extends Controller
         return redirect()->back();
     }
 
+    public function firmsDownload(Request $request)
+    {
+
+        $firms = new Firm;
+        if ($request->firm_name) {
+            $firms->where('firm_name', 'LIKE', "%{$request->firm_name}%");
+        }
+        if ($request->ateco) {
+            $firms->where('ateco_id', $request->ateco);
+        }
+        if ($request->sector) {
+            $firms->where('sector_id', $request->sector);
+        }
+        if ($request->province) {
+            $firms->where('province_id', $request->province);
+        }
+        if ($request->category) {
+            $firms->where('category', 'LIKE', "%{$request->category}%");
+        }
+        if ($request->firm_type) {
+            $firms->where('firm_type', 'LIKE', "%{$request->firm_type}%");
+        }
+        if ($request->advisor) {
+            $firms->where('created_by',  "$request->advisor");
+        }
+
+        $firms->select('*');
+
+        $firms = $firms->get();
+
+        if ($firms == null || empty($firms) || count($firms) == 0) {
+            flash(' 0 report Found')->info();
+            return redirect()->back();
+        }
+
+        $headings = [
+            'COMPANY Name',
+            'VAT',
+            'Type',
+            'Province',
+            'Category',
+            'Phone',
+            'Contact Person',
+            'Email',
+            'Email2',
+            'Sector',
+            'Ateco Code',
+            'Advisor',
+        ];
+
+        $filename = date('Y-m-d') . '-Firm-Report.';
+
+
+        $data = array();
+        $datapdf = array();
+
+        if ($request->file_type == 2) {
+            $data[] = $headings;
+        }
+        $province = '-';
+        $sector = '-';
+        $ateco = '-';
+        $advisor = '-';
+
+        foreach ($firms as $key => $firm) {
+            $FName = $firm->firm_name;
+            $vatN = $firm->firm_vat_no;
+            $type = $firm->firm_type;
+            $category = $firm->category;
+            $phone_number = $firm->phone_number;
+            $fOwner = $firm->firm_owner;
+            $email = $firm->email;
+            $email2 = $firm->email2;
+
+            if (!empty($firm->levlelina_advisor)) {
+                $advisor = $firm->levlelina_advisor;
+            }
+            if (!empty($firm->ateco->code)) {
+                $ateco = $firm->ateco->code;
+            }
+            if (!empty($firm->sector)) {
+                $sector = $firm->sector->name;
+            }
+            if (!empty($firm->province->province)) {
+                $province = $firm->province->province;
+            }
+            if ($request->file_type == 1) {
+                $tempdata = [
+                    'name' => $FName,
+                    'vat' => $vatN,
+                    'type' => $type,
+                    'province' => $province,
+                    'category' => $category,
+                    'phone' => $phone_number,
+                    'contact_person' => $fOwner,
+                    'email' => $email,
+                    'email2' => $email2,
+                    'sector' => $sector,
+                    'ateco' => $ateco,
+                    'advisor' => $advisor,
+                ];
+                array_push($datapdf, $tempdata);
+            } elseif ($request->file_type == 2) {
+                $value = [
+                    $FName,
+                    $vatN,
+                    $type,
+                    $province,
+                    $category,
+                    $phone_number,
+                    $fOwner,
+                    $email,
+                    $email2,
+                    $sector,
+                    $ateco,
+                    $advisor,
+                ];
+                $data[] = $value;
+            }
+        }
+
+        if ($request->file_type == 1) {
+            $datapdf = ['data' => $datapdf,];
+            $pdf = PDF::loadView('exports.firms', $datapdf);
+            $name = $filename;
+            return $pdf->download($name . '.pdf');
+        } elseif ($request->file_type == 2) {
+            $export = new FilessExport($data);
+            return Excel::download($export, $filename . 'xlsx');
+        }
+        flash('There was an error')->info();
+        return redirect()->back();
+    }
     public function download_csv($files)
     {
         try {

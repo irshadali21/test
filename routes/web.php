@@ -167,20 +167,20 @@ Route::group(['middleware' => ['auth', 'verified', 'stampCheck']], function () {
         'uses' => 'ReportController@files',
         'as' => 'reports.files',
     ]);
-    
+
     Route::post('/reports/files/download', [
         'uses' => 'ReportController@filesDownload',
         'as' => 'getreport.files',
     ]);
 
-    Route::get('/reports/firms/download', [
-        'uses' => 'ReportController@filesDownload',
-        'as' => 'reports.firms',
+    Route::post('/reports/firms/download', [
+        'uses' => 'ReportController@firmsDownload',
+        'as' => 'getreport.firms',
     ]);
 
     Route::get('/reports/firms', [
         'uses' => 'ReportController@firms',
-        'as' => 'getreport.firms',
+        'as' => 'reports.firms',
     ]);
 
     //LaVelina
@@ -204,7 +204,7 @@ Route::group(['middleware' => ['auth', 'verified', 'stampCheck']], function () {
         'uses' => 'LaVelinaClusterController@send',
         'as' => 'laVelinaClusters.send',
     ]);
-    
+
     Route::get('/laVelinaClusters/send/{id}', [
         'uses' => 'LaVelinaClusterController@sendlavelina',
         'as' => 'laVelinaClusters.sendlavelina',
@@ -229,9 +229,9 @@ Route::group(['middleware' => ['auth', 'verified', 'stampCheck']], function () {
     // Route::get('/sectorTablesimport', [
     //     'uses' => 'sector_tableController@import',
     // ]);
-    
+
     Route::resource('firms', 'FirmController');
-    
+
     Route::get('/import/firm', [
         'uses' => 'FirmController@import',
         'as' => 'firms.import'

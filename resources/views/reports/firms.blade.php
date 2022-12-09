@@ -6,78 +6,105 @@
         <div class="col-md-12">
             <div class="card mb-5">
                 <div class="card-header">
-                    <h3>Genrate A new Report for Firms</h3>
+                    <h3>Generate new Report for Firms</h3>
                 </div>
-                {{-- <div class="card-body">
-                    <form method="POST" action="{{ route('getreport') }}" accept-charset="UTF-8">
+                <div class="card-body">
+                    <form method="POST" action="{{ route('getreport.firms') }}" accept-charset="UTF-8">
                         @csrf
                         <div class="row">
-                            <div class="col-lg-6">
+                            <div class="col-lg-3">
                                 <div class="form-group">
-                                    {{ Form::label('company', 'Company ( VAT Number )', ['class' => 'form-control-label']) }}
-                                    <select name="company" id="" class = "form-control select2" >
-                                        <option value="" selected disabled>Select Company...</option>
-                                        @foreach ($company as $com)
-                                            <option value="{{ $com->id }}">{{ $com->company_name }} ( {{ $com->vat_number }} )</option>
+                                    {{ Form::label('firm_name', 'Firm Name', ['class' => 'form-control-label']) }}
+                                    {{ Form::text('firm_name', null, ['class' => 'form-control']) }}
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    {{ Form::label('ateco', 'Ateco Code', ['class' => 'form-control-label']) }}
+                                    <select name="ateco" id="ateco" class="form-control select2">
+                                        <option value="" selected disabled>Select ateco code...</option>
+                                        @foreach ($ateco as $ateco)
+                                            <option value="{{ $ateco->id }}">{{ $ateco->code }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    {{ Form::label('sector', 'Sector', ['class' => 'form-control-label']) }}
+                                    <select name="sector" id="sector" class="form-control select2">
+                                        <option value="" selected disabled>Select sector...</option>
+                                        @foreach ($sector as $sector)
+                                            <option value="{{ $sector->id }}">{{ $sector->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    {{ Form::label('province', 'Province', ['class' => 'form-control-label']) }}
+                                    <select name="province" id="province" class="form-control select2">
+                                        <option value="" selected disabled>Select province ...</option>
+                                        @foreach ($province as $province)
+                                            <option value="{{ $province->id }}">{{ $province->province }}</option>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                            <div class="col-lg-3">
                                 <div class="form-group">
-                                    {{ Form::label('benefits', 'Type of Benefits', ['class' => 'form-control-label']) }}
-                                    {{ Form::select('benefits', $benefit, null, ['class' => 'form-control select2', 'placeholder' => 'Select Benefits...']) }}
+                                    <label class="form-control-label">Category</label>
+                                    <select name="category" id="category" class="form-control">
+                                        <option value="" selected disabled>Select category ...</option>
+                                        <option value="MICRO">MICRO</option>
+                                        <option value="PICCOLA">PICCOLA</option>
+                                        <option value="MEDIA">MEDIA</option>
+                                        <option value="GRANDE">GRANDE</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label class="form-control-label">Firm Type</label>
+                                    <select name="firm_type" id="firm_type" class="form-control">
+                                        <option value="" selected disabled>Select Firms ...</option>
+                                        <option value="Società di Capitali">Società di Capitali</option>
+                                        <option value="Società di Persone">Società di Persone</option>
+                                    </select>
                                 </div>
                             </div>
 
-                            <div class="col-lg-4">
+
+                            <div class="col-lg-3">
                                 <div class="form-group">
-                                    {{ Form::label('inc_send_date', 'Incarico Send Date', ['class' => 'form-control-label']) }}
-                                    {{ Form::date('inc_send_date', null, ['class' => 'form-control']) }}
+                                    {{ Form::label('phone', 'Phone', ['class' => 'form-control-label']) }}
+                                    {{ Form::text('phone', null, ['class' => 'form-control']) }}
                                 </div>
                             </div>
-
-                            <div class="col-lg-4">
+                            <div class="col-lg-3">
                                 <div class="form-group">
-                                    {{ Form::label('certificate_issue_date', 'Certification Issue Date', ['class' => 'form-control-label']) }}
-                                    {{ Form::date('certificate_issue_date', null, ['class' => 'form-control']) }}
+                                    {{ Form::label('advisor', 'Advisor', ['class' => 'form-control-label']) }}
+                                    <select name="advisor" id="advisor" class="form-control select2">
+                                        <option value="" selected disabled>Select advisor ...</option>
+                                        @foreach ($advisor as $advisor)
+                                            <option value="{{ $advisor->id }}">{{ $advisor->name }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
-
-                            <div class="col-lg-4">
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-3">
                                 <div class="form-group">
-                                    {{ Form::label('file_date', 'File Creation Date', ['class' => 'form-control-label']) }}
-                                    {{ Form::date('file_date', null, ['class' => 'form-control']) }}
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    {{ Form::label('advisor_name', 'Advisor Name', ['class' => 'form-control-label']) }}
-                                    {{ Form::text('advisor_name', null, ['class' => 'form-control']) }}
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    {{ Form::label('opration_email', 'E-Mail Opration', ['class' => 'form-control-label']) }}
-                                    {{ Form::text('opration_email', null, ['class' => 'form-control']) }}
-                                </div>
-                            </div> --}}
-                            {{-- <div class="col-lg-6">
-                                <div class="form-group">
-                                    
                                     <label class="form-control-label">Download As</label>
                                     <select name="file_type" id="file_type" class="form-control">
                                         <option value="1">PDF</option>
                                         <option value="2">Excel</option>
                                     </select>
                                 </div>
-
-
-                            </div> --}}
-                            {{-- <div class="col-lg-12">
+                            </div>
+                            <div class="col-lg-6">
                                 <div class="form-group">
                                     <label class="form-control-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
                                     <div>
@@ -88,7 +115,7 @@
                             </div>
                         </div>
                     </form>
-                </div> --}}
+                </div>
             </div>
         </div>
     </div>
