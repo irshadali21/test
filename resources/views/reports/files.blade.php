@@ -6,7 +6,7 @@
         <div class="col-md-12">
             <div class="card mb-5">
                 <div class="card-header">
-                    <h3>Genrate A new Report for Files</h3>
+                    <h3>Generate new Report for Files</h3>
                 </div>
                 <div class="card-body">
                     <form method="POST" action="{{ route('getreport.files') }}" accept-charset="UTF-8">
@@ -66,10 +66,10 @@
                                 </div>
                             </div>
                         </div>
-                           <div class="row"> 
+                           <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    
+
                                     <label class="form-control-label">Download As</label>
                                     <select name="file_type" id="file_type" class="form-control">
                                         <option value=1>PDF</option>
