@@ -78,6 +78,13 @@
     jQuery(document).ready(function() {
         jQuery('.select2').select2();
     });
+    
+function changeLanguage(locale) {
+        event.preventDefault();
+        document.getElementById('current-language').value = locale;
+        document.getElementById('languages-form').submit();
+    }
+    
 </script>
     @stack('scripts')
 

@@ -37,6 +37,23 @@
                     </a>
                 </li>
                 <li class="nav-item dropdown">
+                    <a class="nav-link" data-toggle="dropdown" href="#"> <i class="fa fas fa-angle-down"></i> {!! Str::upper(app()->getLocale()) !!}
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        {!! Form::open(['url' => ['settings/updateLanguage'], 'method' => 'patch','id'=>'languages-form']) !!}
+                        {!!  Form::hidden('locale', app()->getLocale() ,['id'=>'current-language'])!!}
+                        {{-- {!! Form::hidden($name, $value, [$options]) !!} --}}
+                            <a href="#" class="dropdown-item @if(app()->getLocale() == 'en') active @endif" onclick="changeLanguage('en')">
+                                <i class="fas fa-circle mr-2"></i> EN 
+                            </a>
+                            <a href="#" class="dropdown-item @if(app()->getLocale() == 'it') active @endif" onclick="changeLanguage('it')">
+                                <i class="fas fa-circle mr-2"></i> IT
+                            </a>
+                        {!! Form::close() !!}
+                    </div>
+                </li>
+                
+                <li class="nav-item dropdown">
                     <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false">
                         <i class="ni ni-bell-55" style="color: white"></i>
