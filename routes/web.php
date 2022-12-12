@@ -108,6 +108,8 @@ Route::group(['middleware' => ['auth', 'verified', 'stampCheck']], function () {
 
     Route::post('/settings', 'SettingController@update')->name('settings.update');
 
+    Route::patch('settings/updateLanguage', 'SettingController@updateLanguage');
+
     Route::get('media', function () {
         return view('media.index');
     })->name('media.index');
@@ -173,16 +175,27 @@ Route::group(['middleware' => ['auth', 'verified', 'stampCheck']], function () {
         'as' => 'getreport.files',
     ]);
 
+    Route::get('/reports/firms', [
+        'uses' => 'ReportController@firms',
+        'as' => 'reports.firms',
+    ]);
+    
     Route::post('/reports/firms/download', [
         'uses' => 'ReportController@firmsDownload',
         'as' => 'getreport.firms',
     ]);
 
-    Route::get('/reports/firms', [
-        'uses' => 'ReportController@firms',
-        'as' => 'reports.firms',
+    Route::get('/reports/valina', [
+        'uses' => 'ReportController@valina',
+        'as' => 'reports.valina',
+    ]);
+    
+    Route::post('/reports/valina/download', [
+        'uses' => 'ReportController@valinaDownload',
+        'as' => 'getreport.valina',
     ]);
 
+   
     //LaVelina
     Route::resource('lavelina', 'LaVelinaController');
 

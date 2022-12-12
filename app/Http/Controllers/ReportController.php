@@ -11,6 +11,7 @@ use App\Models\province_table;
 use App\Models\sector_table;
 use App\Models\Summary;
 use App\User;
+use App\Models\LaVelina;
 use Carbon\Carbon;
 use Excel;
 use Illuminate\Http\Request;
@@ -46,6 +47,14 @@ class ReportController extends Controller
         $province = province_table::get();
         $sector = sector_table::get();
         return view('reports.firms', compact('ateco', 'province', 'sector', 'advisor'));
+    }
+    public function valina()
+    {
+        $advisor = User::get();
+        $ateco = ateco_table::get();
+        $province = province_table::get();
+        $sector = sector_table::get();
+        return view('reports.valina', compact('ateco', 'province', 'sector', 'advisor'));
     }
 
     /**
@@ -243,31 +252,28 @@ class ReportController extends Controller
 
     public function firmsDownload(Request $request)
     {
-
         $firms = new Firm;
         if ($request->firm_name) {
-            $firms->where('firm_name', 'LIKE', "%{$request->firm_name}%");
+            $firms = $firms->where('firm_name', 'LIKE', "%{$request->firm_name}%");
         }
         if ($request->ateco) {
-            $firms->where('ateco_id', $request->ateco);
+            $firms = $firms->where('ateco_id', $request->ateco);
         }
         if ($request->sector) {
-            $firms->where('sector_id', $request->sector);
+            $firms = $firms->where('sector_id', $request->sector);
         }
         if ($request->province) {
-            $firms->where('province_id', $request->province);
+            $firms = $firms->where('province_id', $request->province);
         }
         if ($request->category) {
-            $firms->where('category', 'LIKE', "%{$request->category}%");
+            $firms = $firms->where('category', 'LIKE', "%{$request->category}%");
         }
         if ($request->firm_type) {
-            $firms->where('firm_type', 'LIKE', "%{$request->firm_type}%");
+            $firms = $firms->where('firm_type', 'LIKE', "%{$request->firm_type}%");
         }
         if ($request->advisor) {
-            $firms->where('created_by',  "$request->advisor");
+            $firms = $firms->where('created_by',  "$request->advisor");
         }
-
-        $firms->select('*');
 
         $firms = $firms->get();
 
@@ -275,7 +281,6 @@ class ReportController extends Controller
             flash(' 0 report Found')->info();
             return redirect()->back();
         }
-
         $headings = [
             'COMPANY Name',
             'VAT',
@@ -296,16 +301,24 @@ class ReportController extends Controller
 
         $data = array();
         $datapdf = array();
+        $firmscheck = array();
 
         if ($request->file_type == 2) {
             $data[] = $headings;
         }
+
         $province = '-';
         $sector = '-';
         $ateco = '-';
         $advisor = '-';
 
         foreach ($firms as $key => $firm) {
+            if(in_array($firm->id, $firmscheck)){
+
+            }else{
+
+            }
+
             $FName = $firm->firm_name;
             $vatN = $firm->firm_vat_no;
             $type = $firm->firm_type;
@@ -328,21 +341,27 @@ class ReportController extends Controller
                 $province = $firm->province->province;
             }
             if ($request->file_type == 1) {
-                $tempdata = [
-                    'name' => $FName,
-                    'vat' => $vatN,
-                    'type' => $type,
-                    'province' => $province,
-                    'category' => $category,
-                    'phone' => $phone_number,
-                    'contact_person' => $fOwner,
-                    'email' => $email,
-                    'email2' => $email2,
-                    'sector' => $sector,
-                    'ateco' => $ateco,
-                    'advisor' => $advisor,
-                ];
-                array_push($datapdf, $tempdata);
+                if(in_array($firm->id, $firmscheck)){
+
+                }else{
+
+                    $tempdata = [
+                        'name' => $FName,
+                        'vat' => $vatN,
+                        'type' => $type,
+                        'province' => $province,
+                        'category' => $category,
+                        'phone' => $phone_number,
+                        'contact_person' => $fOwner,
+                        'email' => $email,
+                        'email2' => $email2,
+                        'sector' => $sector,
+                        'ateco' => $ateco,
+                        'advisor' => $advisor,
+                    ];
+                    array_push($datapdf, $tempdata);
+                }
+
             } elseif ($request->file_type == 2) {
                 $value = [
                     $FName,
@@ -372,6 +391,16 @@ class ReportController extends Controller
             return Excel::download($export, $filename . 'xlsx');
         }
         flash('There was an error')->info();
+        return redirect()->back();
+    }
+    public function valinaDownload(Request $request){
+        $valina = LaVelina::where('name', 'LIKE', "%{$request->valina_name}%")->get();
+
+        if ($valina == null || empty($valina) || count($valina) == 0) {
+            flash(' 0 report Found')->info();
+            return redirect()->back();
+        }
+
         return redirect()->back();
     }
     public function download_csv($files)

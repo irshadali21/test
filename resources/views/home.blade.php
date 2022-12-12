@@ -1,4 +1,11 @@
 @extends('layouts.app')
+@push('styles')
+    <style>
+        .link-black:link {
+  color: #32325d;
+}
+    </style>
+@endpush
 
 @section('content')
     <section class="content-header">
@@ -6,7 +13,7 @@
             <center>
             <div class="row mb-2">
                 <div class="col-xl-3 col-md-6">
-                        <h1 style="margin-top: -20px">Area riservata </h1>
+                        <h1 style="margin-top: -20px">{{ __('lang.Restricted area') }}</h1>
                     </div>
                     <div class="col-xl-3 col-md-6">
                         <img src="{{ asset('image/signature/Solida_footer.png') }}" width="150px" height="70px" class="mb-1" style="margin-top: -40px">
@@ -20,28 +27,28 @@
         <div class="col-xl-3 col-md-6">
             <div class="card card-stats" style="background-color: #e4e3e3">
                 <div class="card-body" style="height: 110px">
-                    <center class="h2 font-weight-bold mt-2">Le tue aziende</center>
+                    <center class="h2 font-weight-bold mt-2"><a href="{{ route('firms.index') }}" class="text-black link-black">{{ __('lang.imported_compnies') }}</a>  </center>
                 </div>
             </div>
         </div>
         <div class="col-xl-3 col-md-6">
             <div class="card card-stats" style="background-color: #e4e3e3">
                 <div class="card-body" style="height: 110px">
-                    <center class="h2 font-weight-bold mt-2">Hai inserito: N<sup>o</sup> aziende </center>
+                    <center class="h2 font-weight-bold mt-2">{{  __('lang.imported_compnies_count1')  }}{{ $total_firms }} {!! __('lang.imported_compnies_count2') !!}</center>
                 </div>
             </div>
         </div>
         <div class="col-xl-3 col-md-6">
             <div class="card card-stats" style="background-color: #e4e3e3">
                 <div class="card-body" style="height: 110px">
-                    <center class="h2 font-weight-bold mt-2">Le tue pratiche</center>
+                    <center class="h2 font-weight-bold mt-2"><a href="{{ route('certificate.index') }}" class="text-black link-black">{{ __('lang.practices') }}</a></center>
                 </div>
             </div>
         </div>
         <div class="col-xl-3 col-md-6">
             <div class="card card-stats" style="background-color: #e4e3e3">
                 <div class="card-body" style="height: 110px">
-                    <center class="h2 font-weight-bold mt-2">Hai gestito N<sup>o</sup> practiche</center>
+                    <center class="h2 font-weight-bold mt-2">{{  __('lang.files1')  }}{{ $total_files }} {!! __('lang.files2') !!}</center>
                 </div>
             </div>
         </div>
@@ -148,7 +155,7 @@
             <div class="row align-items-center">
                 <div class="col">
                     <center>
-                        <h1>Seleziona cosa fare dal menù sulla sinistra</h1>
+                        <h1>{{ __('lang.dashboard_help') }}</h1>
                     </center>
                 </div>
 

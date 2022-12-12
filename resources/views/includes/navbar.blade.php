@@ -138,6 +138,14 @@
                                     </a>
                                 </li>
                                 @endcan
+                                @canany(['view-reports-firms'])
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{route('reports.valina')}}">
+                                        <span class="sidenav-mini-icon">D </span>
+                                        <span class="nav-link-text">Based On Valina</span>
+                                    </a>
+                                </li>
+                                @endcan
                             </ul>
                         </div>
                     </li>

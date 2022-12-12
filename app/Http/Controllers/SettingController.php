@@ -7,6 +7,11 @@ use anlutro\LaravelSettings\Facade as Setting;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Activitylog\Models\Activity;
 use Spatie\Permission\Models\Role;
+use Illuminate\Http\RedirectResponse;
+use Session;
+use Laracasts\Flash\Flash;
+use Illuminate\Support\Facades\Artisan;
+use App;
 
 class SettingController extends Controller
 {
@@ -50,4 +55,15 @@ class SettingController extends Controller
         $activities = Activity::paginate(setting('record_per_page', 15));
         return view('settings.activity', compact('activities', 'title'));
     }
+    public function updateLanguage(Request $request): RedirectResponse
+    {
+        $locale = $request->get('locale');
+        app()->setLocale($locale);
+        Session::forget('locale');
+        Session::put('locale', $locale);
+        Flash::success(__('lang.updated_successfully', ['operator' => __('lang.app_setting_global')]));
+        Artisan::call("config:clear");
+        return redirect()->back();
+    }
+
 }
