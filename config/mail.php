@@ -36,28 +36,28 @@ return [
     'mailers' => [
         'smtp' => [
             'transport' => 'smtp',
-            'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
-            'port' => env('MAIL_PORT', 587),
-            'encryption' => env('MAIL_ENCRYPTION', 'tls'),
-            'username' => env('MAIL_USERNAME'),
-            'password' => env('MAIL_PASSWORD'),
+            'host' => 'mail.solidanetwork.com',
+            'port' => '2525',
+            'encryption' => 'tls',
+            'username' => 'certificazioni@solidanetwork.com',
+            'password' => 'revman@771',
             'timeout' => null,
             'auth_mode' => null,
+            'address' =>  'certificazioni@solidanetwork.com',
+            'name' => 'solidanetwork',
         ],
 
-        'smtp_2_info' => [
+        'ses' => [
             'transport' => 'smtp',
-            'host' => env('SMTP2_MAIL_HOST', 'smtp.mailgun.org'),
-            'port' => env('SMTP2_MAIL_PORT', 587),
-            'encryption' => env('SMTP2_MAIL_ENCRYPTION', 'tls'),
-            'username' => env('SMTP2_MAIL_USERNAME'),
-            'password' => env('SMTP2_MAIL_PASSWORD'),
+            'host' => 'mail.solidanetwork.com',
+            'port' => '2525',
+            'encryption' => 'tls',
+            'username' => 'info@solidanetwork.com',
+            'password' => 'ECA305AF969AB4C147CD1406748179D53EC1',
             'timeout' => null,
             'auth_mode' => null,
-        ],
-        
-        'ses' => [
-            'transport' => 'ses',
+            'address' =>  'info@solidanetwork.com',
+            'name' => 'solidanetwork',
         ],
 
         'mailgun' => [
@@ -95,8 +95,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', 'Example'),
+        'address' => env('MAIL_FROM_ADDRESS', 'info@solidanetwork.com'),
+        'name' => env('MAIL_FROM_NAME', 'solidanetwork'),
     ],
 
     /*
