@@ -6,20 +6,21 @@ use App\Core\HelperFunction;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\CreateLaVelinaClusterRequest;
 use App\Http\Requests\UpdateLaVelinaClusterRequest;
-use App\Models\ateco_table;
+use App\User;
 use App\Models\Firm;
 use App\Models\LaVelina;
+use App\Models\ateco_table;
+use Illuminate\Http\Request;
+use App\Models\sector_table;
 use App\Models\LaVelinaHistory;
 use App\Models\province_table;
-use App\Models\sector_table;
 use App\Models\LaVelinaCluster;
 use App\Repositories\LaVelinaClusterRepository;
-use App\User;
-use Flash;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Flash;
 use Mail;
 use PDF;
+use Config;
 use Response;
 
 class LaVelinaClusterController extends AppBaseController
@@ -371,7 +372,7 @@ class LaVelinaClusterController extends AppBaseController
             if (!empty($files->email) && !empty($files->email2)) {
                 $data["email"] = $files->email;
                 $data["opration_email"] = $files->email2;
-                Mail::mailer('smtp_2_info')->send('emails.myTestMail', $data, function ($message) use ($data, $pdf, $name) {
+                Mail::mailer('ses')->send('emails.myTestMail', $data, function ($message) use ($data, $pdf, $name) {
                     $message
                         ->to($data["email"], $data["email"])
                         ->cc([$data["opration_email"]])
@@ -380,7 +381,7 @@ class LaVelinaClusterController extends AppBaseController
                 });
             } else {
                 $data["email"] = $files->email;
-                Mail::mailer('smtp_2_info')->send('emails.myTestMail', $data, function ($message) use ($data, $pdf, $name) {
+                Mail::mailer('ses')->send('emails.myTestMail', $data, function ($message) use ($data, $pdf, $name) {
                     $message
                         ->to($data["email"], $data["email"])
                         ->subject($data["subject"])
