@@ -12,23 +12,23 @@
                     <form method="POST" action="{{ route('getreport.valina') }}" accept-charset="UTF-8">
                         @csrf
                         <div class="row">
-                            <div class="col-lg-3">
+                            {{-- <div class="col-lg-3">
                                 <div class="form-group">
                                     {{ Form::label('valina_name', 'Valina Name', ['class' => 'form-control-label']) }}
                                     {{ Form::text('valina_name', null, ['class' => 'form-control']) }}
                                 </div>
-                            </div>
-                            {{-- <div class="col-lg-3">
+                            </div> --}}
+                            <div class="col-lg-3">
                                 <div class="form-group">
-                                    {{ Form::label('ateco', 'Ateco Code', ['class' => 'form-control-label']) }}
-                                    <select name="ateco" id="ateco" class="form-control select2">
-                                        <option value="" selected disabled>Select ateco code...</option>
-                                        @foreach ($ateco as $ateco)
-                                            <option value="{{ $ateco->id }}">{{ $ateco->code }}</option>
+                                    {{ Form::label('lavelina', 'lavelina ', ['class' => 'form-control-label']) }}
+                                    <select name="lavelina" id="lavelina" class="form-control select2">
+                                        <option value="" selected disabled>Select lavelina ...</option>
+                                        @foreach ($lavelina as $lavelina)
+                                            <option value="{{ $lavelina->id }}">{{ $lavelina->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
-                            </div> --}}
+                            </div>
                             {{-- <div class="col-lg-3">
                                 <div class="form-group">
                                     {{ Form::label('inc_send_date', 'Incarico Send Date', ['class' => 'form-control-label']) }}

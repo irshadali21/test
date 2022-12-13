@@ -371,7 +371,7 @@ class LaVelinaClusterController extends AppBaseController
             if (!empty($files->email) && !empty($files->email2)) {
                 $data["email"] = $files->email;
                 $data["opration_email"] = $files->email2;
-                Mail::mailer('smtp2')->send('emails.myTestMail', $data, function ($message) use ($data, $pdf, $name) {
+                Mail::mailer('smtp_2_info')->send('emails.myTestMail', $data, function ($message) use ($data, $pdf, $name) {
                     $message
                         ->to($data["email"], $data["email"])
                         ->cc([$data["opration_email"]])
@@ -380,7 +380,7 @@ class LaVelinaClusterController extends AppBaseController
                 });
             } else {
                 $data["email"] = $files->email;
-                Mail::mailer('smtp2')->send('emails.myTestMail', $data, function ($message) use ($data, $pdf, $name) {
+                Mail::mailer('smtp_2_info')->send('emails.myTestMail', $data, function ($message) use ($data, $pdf, $name) {
                     $message
                         ->to($data["email"], $data["email"])
                         ->subject($data["subject"])
