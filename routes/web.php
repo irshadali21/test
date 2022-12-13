@@ -253,7 +253,17 @@ Route::group(['middleware' => ['auth', 'verified', 'stampCheck']], function () {
         'uses' => 'FirmController@import_upload',
         'as' => 'firms.upload'
     ]);
+
+
+Route::resource('messages', 'MessageController');
+
+Route::get('/message/{id}', 'MessageController@getMessage')->name('message');
+Route::get('/chat', 'MessageController@chat')->name('chat');
+Route::post('message/sendmessage', 'MessageController@sendMessage')->name('sendmessage');
+
 });
+
+
 
 
 
