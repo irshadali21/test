@@ -52,49 +52,79 @@
                         {!! Form::close() !!}
                     </div>
                 </li>
+                @php
+                            if (auth()->user()->hasrole('super-admin')) {
+                                $users = App\User::join('messages', 'users.id', '=', 'messages.from_user')
+                                // ->join('messages', 'users.id', '=', 'messages.from_user')
+                                ->where('messages.to_user' , auth()->id())
+                                ->where('messages.is_read', 0)
+                                ->select('users.*')->get(); 
+                            }else{
+                                $users = App\User::join('messages', 'users.id', '=', 'messages.from_user')->where('users.id', 1)->where('messages.is_read', 0)->get(); 
+                            }
+                @endphp
                 
                 <li class="nav-item dropdown">
                     <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false">
-                        <i class="ni ni-bell-55" style="color: white"></i>
+                        aria-expanded="false" >
+                        <div style="position: relative">
+                        </div>
+                        <i class="ni ni-bell-55" style="color: white; ;"></i>
+                        @if ($users->count() > 0)
+                        <i class="fa fa-circle" style="color: green;font-size: 10px; position: absolute; top:14px; left:25px"></i>
+                        @endif
                     </a>
                     <div class="dropdown-menu dropdown-menu-xl  dropdown-menu-right  py-0 overflow-hidden">
                         <!-- Dropdown header -->
                         <div class="px-3 py-3">
-                            <h6 class="text-sm text-muted m-0">You have <strong class="text-primary">New</strong>
-                                notifications.</h6>
+                            <h6 class="text-sm text-muted m-0">You have
+                                {{ $users->count() }}
+                                <strong class="text-primary">New</strong>
+                                messages.</h6>
                         </div>
                         <!-- List group -->
                         <div class="list-group list-group-flush">
-                            <a href="#!" class="list-group-item list-group-item-action">
-                                <div class="row align-items-center">
-                                    <div class="col-auto">
-                                        <!-- Avatar -->
-                                        <img alt="Image placeholder" src="{{ asset('storage/files/1/Loghi%20solida%20copia.jpg') }}" class="avatar rounded-circle">
-                                    </div>
-                                    <div class="col ml--2">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div>
-                                                <h4 class="mb-0 text-sm">Solida Team</h4>
-                                            </div>
-                                            <div class="text-right text-muted">
-                                                <small>2 hrs ago</small>
-                                            </div>
-                                        </div>
-                                        <p class="text-sm mb-0">Solida Team sent you a massage </p>
-                                    </div>
-                                </div>
-                            </a>
-                            
+                                <ul class="list-unstyled list-group-item list-group-item-action">
+                                    @php
+                                        $users_ids = [];
+                                    @endphp
+                                    @foreach ($users as $user)
+                                        @if (!in_array($user->id, $users_ids))
+                                            @php
+                                                $users_ids[] = $user->id;
+                                            @endphp
+                                            <li class="user" data-id="{{ $user->id }}" id="user-{{ $user->id }}" user-id="{{ $user->id }}">
+                                                <a href="{{ route('chat') }}">
+                                                    <div class="media">
+                                
+                                                        <div class="chat-user-img online align-self-center mr-3">
+                                                            <i class="fa fa-user-circle-o fa-6" aria-hidden="true" style="font-size: 25px"></i>
+                                                            <span class="user-status"></span>
+                                                        </div>
+                                
+                                                        <div class="media-body overflow-hidden">
+                                                            <h5 class="text-truncate font-size-15 mb-1">{{ $user->name }}</h5>
+                                                        </div>
+                                                        @if (date('Y-m-d') == date('Y-m-d', strtotime($user->created_at)))
+                                                            <div class="font-size-11">{{ date('h:i a', strtotime($user->created_at)) }}</div>
+                                                        @else
+                                                            <div class="font-size-11">{{ date('d/m', strtotime($user->created_at)) }}</div>
+                                                        @endif
+                                                    </div>
+                                                </a>
+                                            </li>
+                                        @endif
+                                    @endforeach
+                                </ul>
+                                
                         </div>
                         <!-- View all -->
-                        <a href="#!" class="dropdown-item text-center text-primary font-weight-bold py-3">View
+                        <a href="{{ route('chat') }}" class="dropdown-item text-center text-primary font-weight-bold py-3">View
                             all</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false">
+                    <a class="nav-link" href="{{ route('chat') }}" >
                         <i class="ni ni-chat-round" style="color: white"></i>
                     </a>
                     

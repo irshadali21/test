@@ -15,7 +15,7 @@
 
 
 
-
+<div >
     <div class="layout-wrapper d-lg-flex">
         <div class="chat-leftsidebar">
 
@@ -26,7 +26,7 @@
 
 
                     <div class="chat-message-list" data-simplebar>
-                        <div class="chat-message-chatlist">
+                        <div class="chat-message-chatlist" >
                             @include('messages.tabpane-recent-contact-list')
                         </div>
                     </div>
@@ -39,23 +39,18 @@
         <!-- end chat-leftsidebar -->
         <div class="user-chat w-100">
             <div class="d-lg-flex">
-                <div class="w-100">
-                    <div id="messages">
-                    </div>
+                <div class="w-100" id="messages">
                 </div>
             </div>
         </div>
         <!-- End User chat -->
     </div>
+</div>
 @endsection
 @push('scripts')
     <script>
         var my_id = "{{ Auth::id() }}";
-        var config = {
-            routes: {
-
-            }
-        };
+        
         $.ajaxSetup({
         headers: {
             "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
@@ -79,12 +74,12 @@
                     data: datastr,
                     cache: false,
                     success: function(data) {
-                        // getlastmessage(receiver_id);
-                        $(".chat-conversation #chatul").append(data);
+                        getlastmessage(receiver_id);
                     },
                     error: function(jqXHR, status, err) {},
                     complete: function() {
-                        scrollToBottomFunc();
+                        $(".chat-input input").val('');
+                        scrollSmoothToBottom('chat-conversation');
                     }
                 });
             }
@@ -126,7 +121,7 @@
                 success: function(data) {
                     $("#messages").html(data.view1);
                     $("#userprofiledetail").html(data.view2);
-                    scrollToBottomFunc();
+                    scrollSmoothToBottom('chat-conversation');
                 }
             });
         }
@@ -154,5 +149,25 @@
                     );
             }, 100);
         }
+        function getlastmessage(data) {
+        $.ajax({
+            type: "get",
+            url: "lastmessage/" + data, // need to create this route
+            data: "",
+            cache: false,
+            success: function(data) {
+                $(".chat-conversation #chatul").append(data);
+                scrollSmoothToBottom('chat-conversation');
+            }
+        });
+    }
+
+    const scrollSmoothToBottom = (id) => {
+   const element = $(`.${id}`);
+   element.animate({
+      scrollTop: element.prop("scrollHeight")
+   }, 500);
+}
+
     </script>
 @endpush

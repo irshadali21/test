@@ -182,10 +182,7 @@ class MessageController extends AppBaseController
     public function chat()
     {
         if (Auth::user()->hasrole('super-admin')) {
-            $users = User::join('messages', 'users.id', '=', 'messages.from_user')
-            // ->join('messages', 'users.id', '=', 'messages.from_user')
-            ->where('messages.to_user' , auth()->id())
-            ->select('users.*')->get(); 
+            $users = User::where('id', '!=' , 1 )->get(); 
         }else{
             $users = User::where('id', 1)->get(); 
         }
@@ -227,5 +224,22 @@ class MessageController extends AppBaseController
         // $data = ['from_user' => $from, 'to_user' => $to]; // sending from and to user id when pressed enter
         // $pusher->trigger('my-channel', 'my-event', $data); 
         return $data;
+    }
+
+    public function getLastMessage($user_id)
+    {
+        $my_id = Auth::id();
+        // Make read all unread message
+        Message::where(['from_user' => $user_id, 'to_user' => $my_id])->update(['is_read' => 1]);
+        // Get all message from selected user
+        $messages = Message::where(function ($query) use ($user_id, $my_id) {
+            $query->where('from_user', $user_id)->where('to_user', $my_id);
+        })->orWhere(function ($query) use ($user_id, $my_id) {
+            $query->where('from_user', $my_id)->where('to_user', $user_id);
+        })->orderBy('id', 'DESC')->limit(1)->get();
+ 
+        $chatUser = User::find($user_id);
+
+        return view('messages.message-conversation')->with(['messages' => $messages])->with(['chatUser' => $chatUser]);
     }
 }
