@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use App\User;
 use App\Models\LavelinaDetail;
+use App\Models\LaVelinaHistory;
 
 class LaVelina extends Model
 {
@@ -35,5 +36,10 @@ class LaVelina extends Model
     {
         return $this->hasMany(LavelinaDetail::class,'id','advisor_id');
     }
+    public function history()
+    {
+        return $this->hasMany(LaVelinaHistory::class,'lavelina_id','id');
+    }
+
 
 }
