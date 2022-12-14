@@ -1,5 +1,5 @@
 <!-- Start chat user head -->
-<div class="p-3 p-lg-4 border-bottom">
+<div class="p-3 p-lg-4 border-bottom user-chat-topbar">
     <div class="row align-items-center">
         <div class="col-sm-4 col-8">
             <div class="media align-items-center CHATUSER" id="{{ $chatUser->id }}">
@@ -30,7 +30,7 @@
 <!-- end chat user head -->
 
 <!-- start chat conversation -->
-<div class="chat-conversation p-3 p-lg-4" data-simplebar="init">
+<div class="chat-conversation p-3 p-lg-4" data-simplebar="init" style="overflow-x: hidden;">
     <ul class="list-unstyled mb-0" id="chatul">
         @include('messages.message-conversation')
     </ul>
@@ -38,12 +38,12 @@
 <!-- end chat conversation end -->
 
 <!-- start chat input section -->
-<div class="chat-input p-3 p-lg-4 border-top mb-0">
-    <div class="row no-gutters">
+<div class="chat-input p-3 p-lg-4 border-top mb-0" id="chat_input_div">
+    <div class="row g-0">
         <div class="col">
             <div>
                 <p class="emoji-picker-container d-flex align-items-end m-0">
-                    <input class="input-field form-control form-control-lg bg-light border-light" data-emojiable="true"
+                    <input class="input-field form-control form-control-lg  border-light" data-emojiable="true"
                         data-emoji-input="true" type="text" name="comment" id="comment"
                         placeholder="{{ __("Enter Message") }}..." />
                 </p>
@@ -56,7 +56,7 @@
                         <button type="button"
                             class="btn btn-primary font-size-16 btn-lg chat-send waves-effect waves-light send-chat-message"
                             data-user="{{ $chatUser->id }}">
-                            <i class="ri-send-plane-2-fill"></i>
+                            <i class="fa fa-send"></i>
                         </button>
                     </li>
                 </ul>

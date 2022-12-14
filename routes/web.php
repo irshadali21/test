@@ -260,6 +260,7 @@ Route::resource('messages', 'MessageController');
 Route::get('/message/{id}', 'MessageController@getMessage')->name('message');
 Route::get('/chat', 'MessageController@chat')->name('chat');
 Route::post('message/sendmessage', 'MessageController@sendMessage')->name('sendmessage');
+Route::get('/lastmessage/{id}', 'MessageController@getLastMessage');
 
 });
 

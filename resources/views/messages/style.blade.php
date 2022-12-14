@@ -1,22 +1,7 @@
 <style>
     @import url(https://fonts.googleapis.com/css?family=Public+Sans:wght@400,500,600&display=swap);@charset "UTF-8";
 
-/*
-Template Name: Chatvia - Responsive Bootstrap 4 Chat App
-Author: Themesbrand
-Version: 1.0.0
-Website: https://themesbrand.com/
-Contact: themesbrand@gmail.com
-File: Main Css File
-*/
 
-/*!
- * Waves v0.7.6
- * http://fian.my.id/Waves 
- * 
- * Copyright 2014-2018 Alfiana E. Sibuea and other contributors 
- * Released under the MIT license 
- * https://github.com/fians/Waves/blob/master/LICENSE */
 
 .waves-effect {
   position: relative;
