@@ -3,15 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Exports\FilessExport;
+use App\Models\ateco_table;
 use App\Models\Company;
 use App\Models\File;
 use App\Models\Firm;
-use App\Models\ateco_table;
+use App\Models\LaVelina;
 use App\Models\province_table;
 use App\Models\sector_table;
 use App\Models\Summary;
 use App\User;
-use App\Models\LaVelina;
 use Carbon\Carbon;
 use Excel;
 use Illuminate\Http\Request;
@@ -50,15 +50,13 @@ class ReportController extends Controller
     }
     public function valina()
     {
-        if (auth()->user()->hasrole('super-admin'))
-        {
+        if (auth()->user()->hasrole('super-admin')) {
             $lavelina = LaVelina::get();
-        }else{
+        } else {
             $lavelina = LaVelina::where('created_by', auth()->user()->id)->get();
         }
 
         // $lavelina = LaVelina::get();
-        
 
         return view('reports.valina', compact('lavelina'));
     }
@@ -278,7 +276,7 @@ class ReportController extends Controller
             $firms = $firms->where('firm_type', 'LIKE', "%{$request->firm_type}%");
         }
         if ($request->advisor) {
-            $firms = $firms->where('created_by',  "$request->advisor");
+            $firms = $firms->where('created_by', "$request->advisor");
         }
 
         $firms = $firms->get();
@@ -304,7 +302,6 @@ class ReportController extends Controller
 
         $filename = date('Y-m-d') . '-Firm-Report.';
 
-
         $data = array();
         $datapdf = array();
         $firmscheck = array();
@@ -319,9 +316,9 @@ class ReportController extends Controller
         $advisor = '-';
 
         foreach ($firms as $key => $firm) {
-            if(in_array($firm->id, $firmscheck)){
+            if (in_array($firm->id, $firmscheck)) {
 
-            }else{
+            } else {
 
             }
 
@@ -347,9 +344,9 @@ class ReportController extends Controller
                 $province = $firm->province->province;
             }
             if ($request->file_type == 1) {
-                if(in_array($firm->id, $firmscheck)){
+                if (in_array($firm->id, $firmscheck)) {
 
-                }else{
+                } else {
 
                     $tempdata = [
                         'name' => $FName,
@@ -388,7 +385,7 @@ class ReportController extends Controller
         }
 
         if ($request->file_type == 1) {
-            $datapdf = ['data' => $datapdf,];
+            $datapdf = ['data' => $datapdf];
             $pdf = PDF::loadView('exports.firms', $datapdf);
             $name = $filename;
             return $pdf->download($name . '.pdf');
@@ -400,12 +397,19 @@ class ReportController extends Controller
         return redirect()->back();
     }
 
+    public function valinaDownload(Request $request)
+    {
 
-
-    public function valinaDownload(Request $request){
-        $valina = LaVelina::where('id', $request->lavelina)->get();
-
-        if ($valina == null || empty($valina) || count($valina) == 0) {
+        $valina = LaVelina::where('id', $request->lavelina)->with('history')->first();
+        
+        // dd(
+        //     $valina->history[0]->cluster->name,
+        //     $valina->history[0]->firm->firm_name,
+        //     $valina->history[0]->firm->firm_vat_no,
+        //     $valina->history[0]->email_sent_by->name,
+        // );
+        
+        if ($valina == null || empty($valina) ) {
             flash(' 0 report Found')->info();
             return redirect()->back();
         }
@@ -417,94 +421,85 @@ class ReportController extends Controller
             'Cluster',
         ];
 
-        $filename = date('Y-m-d') . '-Firm-Report.';
-
+        $filename = date('Y-m-d') . '-Valina-Report.';
 
         $data = array();
         $datapdf = array();
-        $firmscheck = array();
+        $valinascheck = array();
 
         if ($request->file_type == 2) {
+            $date = Carbon::parse($valina->created_at)->format('D m.d.Y H:i');
+            $valina_data[] = $valina->id;
+            $valina_data[] = $valina->name; 
+            $valina_data[] = $date;
+
+            $valinaheading = [
+                'ID',
+                'VALINA Name',
+                'CREATION Date',
+            ];
+            $emptyspace = [
+                '',
+                '',
+                '',
+            ];
+            $data[] = $valinaheading;
+            $data[] = $valina_data;
+            $data[] = $emptyspace;
+            $data[] = $emptyspace;
             $data[] = $headings;
         }
 
-        $province = '-';
-        $sector = '-';
-        $ateco = '-';
-        $advisor = '-';
+        
+        foreach ($valina->history as $key => $history) {
 
-        foreach ($firms as $key => $firm) {
-            if(in_array($firm->id, $firmscheck)){
-
-            }else{
-
-            }
-
-            $FName = $firm->firm_name;
-            $vatN = $firm->firm_vat_no;
-            $type = $firm->firm_type;
-            $category = $firm->category;
-            $phone_number = $firm->phone_number;
-            $fOwner = $firm->firm_owner;
-            $email = $firm->email;
-            $email2 = $firm->email2;
-
-            if (!empty($firm->levlelina_advisor)) {
-                $advisor = $firm->levlelina_advisor;
-            }
-            if (!empty($firm->ateco->code)) {
-                $ateco = $firm->ateco->code;
-            }
-            if (!empty($firm->sector)) {
-                $sector = $firm->sector->name;
-            }
-            if (!empty($firm->province->province)) {
-                $province = $firm->province->province;
-            }
-            if ($request->file_type == 1) {
-                if(in_array($firm->id, $firmscheck)){
-
-                }else{
-
-                    $tempdata = [
-                        'name' => $FName,
-                        'vat' => $vatN,
-                        'type' => $type,
-                        'province' => $province,
-                        'category' => $category,
-                        'phone' => $phone_number,
-                        'contact_person' => $fOwner,
-                        'email' => $email,
-                        'email2' => $email2,
-                        'sector' => $sector,
-                        'ateco' => $ateco,
-                        'advisor' => $advisor,
-                    ];
-                    array_push($datapdf, $tempdata);
+            $vat = '-';
+            $company = '-';
+            $date = Carbon::parse($history->created_at)->format('D m.d.Y H:i');
+            $cluster = '-';
+                if (!empty($history->firm)) {
+                    $vat = $history->firm->firm_vat_no;
                 }
-
-            } elseif ($request->file_type == 2) {
-                $value = [
-                    $FName,
-                    $vatN,
-                    $type,
-                    $province,
-                    $category,
-                    $phone_number,
-                    $fOwner,
-                    $email,
-                    $email2,
-                    $sector,
-                    $ateco,
-                    $advisor,
-                ];
-                $data[] = $value;
-            }
+                if (!empty($history->firm)) {
+                    $company = $history->firm->firm_name;
+                }
+                if (!empty($history->sector)) {
+                    $date = $history->sector->name;
+                }
+                if (!empty($history->cluster)) {
+                    $cluster = $history->cluster->name;
+                }
+                if ($request->file_type == 1) {
+                    
+                        $tempdata = [
+                            'vat' => $vat,
+                            'name' => $company,
+                            'date' => $date,
+                            'cluster' => $cluster,
+                        ];
+                        array_push($datapdf, $tempdata);
+                    
+                } elseif ($request->file_type == 2) {
+                    $value = [
+                        $vat,
+                        $company,
+                        $date,
+                        $cluster,
+                    ];
+                    $data[] = $value;
+                }
+            // }
         }
 
         if ($request->file_type == 1) {
-            $datapdf = ['data' => $datapdf,];
-            $pdf = PDF::loadView('exports.firms', $datapdf);
+            $date = Carbon::parse($valina->created_at)->format('D m.d.Y H:i');
+            $valina_data['valina_id'] = $valina->id;
+            $valina_data['name'] = $valina->name; 
+            $valina_data['date'] = $date;
+            $datapdf1 = array();
+            $datapdf1['data'] =  $datapdf;
+            $datapdf1['valina_data'] = $valina_data;
+            $pdf = PDF::loadView('reports.valina_pdf', $datapdf1);
             $name = $filename;
             return $pdf->download($name . '.pdf');
         } elseif ($request->file_type == 2) {
@@ -514,8 +509,6 @@ class ReportController extends Controller
         flash('There was an error')->info();
         return redirect()->back();
     }
-
-
 
     public function download_csv($files)
     {

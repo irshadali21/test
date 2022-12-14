@@ -31,47 +31,57 @@
                         </div>
                     </div>
                 </li>
-                <li class="nav-item d-sm-none">
-                    <a class="nav-link" href="#" data-action="search-show" data-target="#navbar-search-main">
-                        <i class="ni ni-zoom-split-in"></i>
-                    </a>
-                </li>
+
+                
+
                 <li class="nav-item dropdown">
-                    <a class="nav-link" data-toggle="dropdown" href="#"> <i class="fa fas fa-angle-down"></i> {!! Str::upper(app()->getLocale()) !!}
+                    <a class="nav-link" data-toggle="dropdown" href="#"> <i class="fa fas fa-angle-down"></i>
+                        {!! Str::upper(app()->getLocale()) !!}
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
-                        {!! Form::open(['url' => ['settings/updateLanguage'], 'method' => 'patch','id'=>'languages-form']) !!}
-                        {!!  Form::hidden('locale', app()->getLocale() ,['id'=>'current-language'])!!}
+                        {!! Form::open(['url' => ['settings/updateLanguage'], 'method' => 'patch', 'id' => 'languages-form']) !!}
+                        {!! Form::hidden('locale', app()->getLocale(), ['id' => 'current-language']) !!}
                         {{-- {!! Form::hidden($name, $value, [$options]) !!} --}}
-                            <a href="#" class="dropdown-item @if(app()->getLocale() == 'en') active @endif" onclick="changeLanguage('en')">
-                                <i class="fas fa-circle mr-2"></i> EN 
-                            </a>
-                            <a href="#" class="dropdown-item @if(app()->getLocale() == 'it') active @endif" onclick="changeLanguage('it')">
-                                <i class="fas fa-circle mr-2"></i> IT
-                            </a>
+                        <a href="#" class="dropdown-item @if (app()->getLocale() == 'en') active @endif"
+                            onclick="changeLanguage('en')">
+                            <i class="fas fa-circle mr-2"></i> English
+                        </a>
+                        <a href="#" class="dropdown-item @if (app()->getLocale() == 'it') active @endif"
+                            onclick="changeLanguage('it')">
+                            <i class="fas fa-circle mr-2"></i> Italiana
+                        </a>
                         {!! Form::close() !!}
                     </div>
                 </li>
                 @php
-                            if (auth()->user()->hasrole('super-admin')) {
-                                $users = App\User::join('messages', 'users.id', '=', 'messages.from_user')
-                                // ->join('messages', 'users.id', '=', 'messages.from_user')
-                                ->where('messages.to_user' , auth()->id())
-                                ->where('messages.is_read', 0)
-                                ->select('users.*')->get(); 
-                            }else{
-                                $users = App\User::join('messages', 'users.id', '=', 'messages.from_user')->where('users.id', 1)->where('messages.is_read', 0)->get(); 
-                            }
+                    if (
+                        auth()
+                            ->user()
+                            ->hasrole('super-admin')
+                    ) {
+                        $users = App\User::join('messages', 'users.id', '=', 'messages.from_user')
+                            // ->join('messages', 'users.id', '=', 'messages.from_user')
+                            ->where('messages.to_user', auth()->id())
+                            ->where('messages.is_read', 0)
+                            ->select('users.*')
+                            ->get();
+                    } else {
+                        $users = App\User::join('messages', 'users.id', '=', 'messages.from_user')
+                            ->where('users.id', 1)
+                            ->where('messages.is_read', 0)
+                            ->get();
+                    }
                 @endphp
-                
+
                 <li class="nav-item dropdown">
-                    <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false" >
-                        <div style="position: relative">
-                        </div>
-                        <i class="ni ni-bell-55" style="color: white; ;"></i>
+                    <a class="nav-link btn btn-default" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        
+                        <span><i class="ni ni-bell-55" style="color: white; font-size:20px;"></i></span>
+                        
                         @if ($users->count() > 0)
-                        <i class="fa fa-circle" style="color: green;font-size: 10px; position: absolute; top:14px; left:25px"></i>
+                        <span class="badge badge-md badge-circle badge-floating" style="margin-left:-10px;color: #68150F;
+                        background-color: #EDD7BF; ">{{ $users->count() }}</span>
                         @endif
                     </a>
                     <div class="dropdown-menu dropdown-menu-xl  dropdown-menu-right  py-0 overflow-hidden">
@@ -80,54 +90,61 @@
                             <h6 class="text-sm text-muted m-0">You have
                                 {{ $users->count() }}
                                 <strong class="text-primary">New</strong>
-                                messages.</h6>
+                                messages.
+                            </h6>
                         </div>
                         <!-- List group -->
                         <div class="list-group list-group-flush">
-                                <ul class="list-unstyled list-group-item list-group-item-action">
-                                    @php
-                                        $users_ids = [];
-                                    @endphp
-                                    @foreach ($users as $user)
-                                        @if (!in_array($user->id, $users_ids))
-                                            @php
-                                                $users_ids[] = $user->id;
-                                            @endphp
-                                            <li class="user" data-id="{{ $user->id }}" id="user-{{ $user->id }}" user-id="{{ $user->id }}">
-                                                <a href="{{ route('chat') }}">
-                                                    <div class="media">
-                                
-                                                        <div class="chat-user-img online align-self-center mr-3">
-                                                            <i class="fa fa-user-circle-o fa-6" aria-hidden="true" style="font-size: 25px"></i>
-                                                            <span class="user-status"></span>
-                                                        </div>
-                                
-                                                        <div class="media-body overflow-hidden">
-                                                            <h5 class="text-truncate font-size-15 mb-1">{{ $user->name }}</h5>
-                                                        </div>
-                                                        @if (date('Y-m-d') == date('Y-m-d', strtotime($user->created_at)))
-                                                            <div class="font-size-11">{{ date('h:i a', strtotime($user->created_at)) }}</div>
-                                                        @else
-                                                            <div class="font-size-11">{{ date('d/m', strtotime($user->created_at)) }}</div>
-                                                        @endif
+                            <ul class="list-unstyled list-group-item list-group-item-action">
+                                @php
+                                    $users_ids = [];
+                                @endphp
+                                @foreach ($users as $user)
+                                    @if (!in_array($user->id, $users_ids))
+                                        @php
+                                            $users_ids[] = $user->id;
+                                        @endphp
+                                        <li class="user" data-id="{{ $user->id }}" id="user-{{ $user->id }}"
+                                            user-id="{{ $user->id }}">
+                                            <a href="{{ route('chat') }}">
+                                                <div class="media">
+
+                                                    <div class="chat-user-img online align-self-center mr-3">
+                                                        <i class="fa fa-user-circle-o fa-6" aria-hidden="true"
+                                                            style="font-size: 25px"></i>
+                                                        <span class="user-status"></span>
                                                     </div>
-                                                </a>
-                                            </li>
-                                        @endif
-                                    @endforeach
-                                </ul>
-                                
+
+                                                    <div class="media-body overflow-hidden">
+                                                        <h5 class="text-truncate font-size-15 mb-1">{{ $user->name }}
+                                                        </h5>
+                                                    </div>
+                                                    @if (date('Y-m-d') == date('Y-m-d', strtotime($user->created_at)))
+                                                        <div class="font-size-11">
+                                                            {{ date('h:i a', strtotime($user->created_at)) }}</div>
+                                                    @else
+                                                        <div class="font-size-11">
+                                                            {{ date('d/m', strtotime($user->created_at)) }}</div>
+                                                    @endif
+                                                </div>
+                                            </a>
+                                        </li>
+                                    @endif
+                                @endforeach
+                            </ul>
+
                         </div>
                         <!-- View all -->
-                        <a href="{{ route('chat') }}" class="dropdown-item text-center text-primary font-weight-bold py-3">View
+                        <a href="{{ route('chat') }}"
+                            class="dropdown-item text-center text-primary font-weight-bold py-3">View
                             all</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link" href="{{ route('chat') }}" >
+                    <a class="nav-link" href="{{ route('chat') }}">
                         <i class="ni ni-chat-round" style="color: white"></i>
                     </a>
-                    
+
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
@@ -221,7 +238,8 @@
                             <i class="ni ni-user-run"></i>
                             <span>Logout</span>
                         </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                            style="display: none;">
                             @csrf
                         </form>
                     </div>

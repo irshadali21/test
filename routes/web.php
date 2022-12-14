@@ -26,7 +26,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/clear-cache', function () {
     $exitCode = Artisan::call('optimize:clear');
-    return 'optimize:cleare'; //Return anything
+    return 'cache cleared'; //Return anything
 });
 // Route::get('/link-storage', function () {
 //     $exitCode = Artisan::call('storage:link');
@@ -179,7 +179,7 @@ Route::group(['middleware' => ['auth', 'verified', 'stampCheck']], function () {
         'uses' => 'ReportController@firms',
         'as' => 'reports.firms',
     ]);
-    
+
     Route::post('/reports/firms/download', [
         'uses' => 'ReportController@firmsDownload',
         'as' => 'getreport.firms',
@@ -189,13 +189,12 @@ Route::group(['middleware' => ['auth', 'verified', 'stampCheck']], function () {
         'uses' => 'ReportController@valina',
         'as' => 'reports.valina',
     ]);
-    
+
     Route::post('/reports/valina/download', [
         'uses' => 'ReportController@valinaDownload',
         'as' => 'getreport.valina',
     ]);
 
-   
     //LaVelina
     Route::resource('lavelina', 'LaVelinaController');
 
@@ -233,6 +232,8 @@ Route::group(['middleware' => ['auth', 'verified', 'stampCheck']], function () {
 
     Route::resource('sectorTables', 'sector_tableController');
 
+    //import routes for ateco, province, sctor
+    
     // Route::get('/atecoTablesimport', [
     //     'uses' => 'ateco_tableController@import',
     // ]);
@@ -247,25 +248,19 @@ Route::group(['middleware' => ['auth', 'verified', 'stampCheck']], function () {
 
     Route::get('/import/firm', [
         'uses' => 'FirmController@import',
-        'as' => 'firms.import'
+        'as' => 'firms.import',
     ]);
     Route::post('/import/firm/upload', [
         'uses' => 'FirmController@import_upload',
-        'as' => 'firms.upload'
+        'as' => 'firms.upload',
     ]);
 
+    Route::resource('messages', 'MessageController');
 
-Route::resource('messages', 'MessageController');
+    Route::get('/message/{id}', 'MessageController@getMessage')->name('message');
+    Route::get('/chat', 'MessageController@chat')->name('chat');
+    Route::post('message/sendmessage', 'MessageController@sendMessage')->name('sendmessage');
+    Route::get('/lastmessage/{id}', 'MessageController@getLastMessage');
 
-Route::get('/message/{id}', 'MessageController@getMessage')->name('message');
-Route::get('/chat', 'MessageController@chat')->name('chat');
-Route::post('message/sendmessage', 'MessageController@sendMessage')->name('sendmessage');
-Route::get('/lastmessage/{id}', 'MessageController@getLastMessage');
-
+    
 });
-
-
-
-
-
-
