@@ -15,6 +15,11 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Mail;
 use PDF;
+use Illuminate\Notifications\Messages\MailMessage;
+// use Illuminate\Notifications\Notification;
+Use Illuminate\Support\Facades\Notification;
+use App\Notifications\NewMessage;
+
 
 class FileController extends Controller
 {
@@ -305,6 +310,13 @@ class FileController extends Controller
         //     });
         // }
         // dd($data);
+
+
+        //         $users = '';
+        //         $mail =  Notification::route('mail', $data["email"])->notify( new NewMessage());
+        // dd( $mail);
+        
+        
         Mail::send('emails.myTestMail', $data, function ($message) use ($data, $pdf, $name) {
             $message
                 ->to($data["email"], $data["email"])

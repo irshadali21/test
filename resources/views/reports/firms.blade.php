@@ -95,7 +95,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-3">
+                            <div class="col-lg-4">
                                 <div class="form-group">
                                     <label class="form-control-label">Download As</label>
                                     <select name="file_type" id="file_type" class="form-control">
@@ -104,17 +104,26 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 <div class="form-group">
                                     <label class="form-control-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
                                     <div>
-                                        <button type="submit" class="btn btn-secondary" style="margin-left: 40%;"
-                                            id="download_excel">Download</button>
+                                        <button type="button" class="btn btn-outline-success" style="margin-left: 20%;"
+                                            id="preview">Preview</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label class="form-control-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                    <div>
+                                        <button type="submit" class="btn btn-secondary" id="download_excel">Download</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </form>
+                    <div class="table-responsive" id="filespreview"></div>
                 </div>
             </div>
         </div>
@@ -122,9 +131,66 @@
 @endsection
 @push('scripts')
     <script>
-        jQuery(document).ready(function() {
+         $( document ).ready(function() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $(document).on('click', '#preview', function() {
+                var firm_name = $('#firm_name').val();
+                var ateco = $('#ateco').val();
+                var sector = $('#sector').val();
+                var province = $('#province').val();
+                var category = $('#category').val();
+                var firm_type = $('#firm_type').val();
+                var phone = $('#phone').val();
+                var advisor = $('#advisor').val();
+                var file_type = $('#file_type').val();
+                $.ajax({
+                    type: "post",
+                    url: "{{ route('getreport.firms') }}",
+                    data: {
+                        firm_name:firm_name,
+                        ateco:ateco,
+                        sector:sector,
+                        province:province,
+                        category:category,
+                        firm_type:firm_type,
+                        phone:phone,
+                        advisor:advisor,
+                        file_type:file_type,
+                    },
+                    cache: false,
+                    success: function(result) {
+                        if (result.data.length == 0) {
+                            console.log(result.message);
+                        } else {
+                            const element = result.data;
+                            console.log(element);
+                            var appenddata = ``
+                            if (element.length > 0) {
+                                appenddata += `<table class="table datatable" id="laVelinaClusters-table"><tbody>`;
+                                for (let index = 0; index < element.length; index++) {
+                                    const company = element[index];
+                                    console.log(company);
+                                    appenddata += `<tr>`;
 
-
+                                    company.forEach(element => {
+                                        appenddata +=  `<td>` + element + `</td>`
+                                    });
+                                    appenddata += `</tr>`;
+                                }
+                                appenddata += '</tbody></table>';
+                            }
+                            console.log(appenddata);
+                            $('#filespreview').html(appenddata);
+                        }
+                        
+                    },
+                });
+            })
+            
         });
     </script>
 @endpush
