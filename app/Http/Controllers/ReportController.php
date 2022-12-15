@@ -16,13 +16,14 @@ use Carbon\Carbon;
 use Excel;
 use Illuminate\Http\Request;
 use PDF;
+use Response;
 
 class ReportController extends Controller
 {
 
     public function __construct()
     {
-        $this->middleware('permission:view-report');
+        $this->middleware('permission:view-reports');
         // $this->middleware('permission:create-report', ['only' => ['create', 'store']]);
         // $this->middleware('permission:update-report', ['only' => ['edit', 'update']]);
         // $this->middleware('permission:destroy-report', ['only' => ['destroy']]);
@@ -50,13 +51,13 @@ class ReportController extends Controller
     }
     public function valina()
     {
-        if (auth()->user()->hasrole('super-admin')) {
-            $lavelina = LaVelina::get();
-        } else {
-            $lavelina = LaVelina::where('created_by', auth()->user()->id)->get();
-        }
+        // if (auth()->user()->hasrole('super-admin')) {
+        //     $lavelina = LaVelina::get();
+        // } else {
+        //     $lavelina = LaVelina::where('created_by', auth()->user()->id)->get();
+        // }
 
-        // $lavelina = LaVelina::get();
+        $lavelina = LaVelina::get();
 
         return view('reports.valina', compact('lavelina'));
     }
@@ -68,6 +69,7 @@ class ReportController extends Controller
      */
     public function filesDownload(Request $request)
     {
+        
 
         // dd($request->all());
         $files = File::join('certificates', 'files.id', '=', 'certificates.file_id')
@@ -139,83 +141,99 @@ class ReportController extends Controller
         $data = array();
         $data[] = $headings;
 
+        $files_ids = array();
+
+        // dd($files);
+
         foreach ($files as $key => $file) {
-            $EmailTrack = $file->EmailTrack;
-            $Certificate = $file->certificate;
 
-            $benefit = $file->benefit;
-            $company = $file->company;
-            $advisor = $file->advisor;
-            $CertificateSendDate = '-';
-            $IncaricoSendDate = '-';
-            $datePayment = '-';
-            $status = '-';
-            $advisor_name = '-';
-            $phone_number = '-';
-            $customer_email = '-';
-            $opration_email = '-';
+            if (!in_array($file->id, $files_ids)) {
+                $files_ids[] = $file->id;
 
-            if ($file->EmailTrack) {
-                foreach ($file->EmailTrack as $track) {
-                    if ($track) {
-                        if ($Certificate) {
-                            if ($track->model == 'App\Models\Certificate') {
-                                $CertificateSendDate = (string) $track->date;
+                $EmailTrack = $file->EmailTrack;
+                $Certificate = $file->certificate;
+
+                $benefit = $file->benefit;
+                $company = $file->company;
+                $advisor = $file->advisor;
+                $CertificateSendDate = '-';
+                $IncaricoSendDate = '-';
+                $datePayment = '-';
+                $status = '-';
+                $advisor_name = '-';
+                $phone_number = '-';
+                $customer_email = '-';
+                $opration_email = '-';
+
+                if ($file->EmailTrack) {
+                    foreach ($file->EmailTrack as $track) {
+                        if ($track) {
+                            if ($Certificate) {
+                                if ($track->model == 'App\Models\Certificate') {
+                                    $CertificateSendDate = (string) $track->date;
+                                }
                             }
-                        }
-                        if ($track->model == 'App\Models\File::CLI') {
-                            $IncaricoSendDate = (string) $track->date;
+                            if ($track->model == 'App\Models\File::CLI') {
+                                $IncaricoSendDate = (string) $track->date;
+                            }
                         }
                     }
                 }
-            }
-            if ($Certificate) {
-                if ($Certificate->status == 1) {
-                    $status = 'certified and already paid';
-                    $datePayment = $Certificate->paid_date;
-                } elseif (strlen($CertificateSendDate) > 1) {
-                    $status = 'certified and unpaid';
+                if ($Certificate) {
+                    if ($Certificate->status == 1) {
+                        $status = 'certified and already paid';
+                        $datePayment = $Certificate->paid_date;
+                    } elseif (strlen($CertificateSendDate) > 1) {
+                        $status = 'certified and unpaid';
+                    }
+                } else {
+                    $status = 'to be certified';
                 }
-            } else {
-                $status = 'to be certified';
-            }
 
-            if (!empty($advisor->name)) {
-                $advisor_name = $advisor->name;
-            }
-            if (!empty($company->phone_number)) {
-                $phone_number = $company->phone_number;
-            }
-            if (!empty($file->customer_email)) {
-                $customer_email = $file->customer_email;
-            }
-            if (!empty($file->opration_email)) {
-                $opration_email = $file->opration_email;
-            }
-            if (!empty($advisor->name)) {
-                $advisor_name = $advisor->name;
-            }
+                if (!empty($advisor->name)) {
+                    $advisor_name = $advisor->name;
+                }
+                if (!empty($company->phone_number)) {
+                    $phone_number = $company->phone_number;
+                }
+                if (!empty($file->customer_email)) {
+                    $customer_email = $file->customer_email;
+                }
+                if (!empty($file->opration_email)) {
+                    $opration_email = $file->opration_email;
+                }
+                if (!empty($advisor->name)) {
+                    $advisor_name = $advisor->name;
+                }
 
-            if ($Certificate) {
-                $value = [
-                    $company->vat_number,
-                    $company->company_name,
-                    $phone_number,
-                    $customer_email,
-                    $benefit->column1,
-                    $file->year,
-                    $status,
-                    $CertificateSendDate,
-                    $IncaricoSendDate,
-                    $datePayment,
-                    $file->fee,
-                    $advisor_name,
-                    $opration_email,
-                ];
-                $data[] = $value;
+                if ($Certificate) {
+                    $value = [
+                        $company->vat_number,
+                        $company->company_name,
+                        $phone_number,
+                        $customer_email,
+                        $benefit->column1,
+                        $file->year,
+                        $status,
+                        $CertificateSendDate,
+                        $IncaricoSendDate,
+                        $datePayment,
+                        $file->fee,
+                        $advisor_name,
+                        $opration_email,
+                    ];
+                    $data[] = $value;
+                }
             }
         }
+        //endforeach
 
+        if ($request->ajax()) {
+            return Response::json([
+                'success' => true,
+                'data' => $data
+            ], 200);
+        }
         if ($request->file_type == 1) {
             $datapdf = array();
             // dd($data);
@@ -306,47 +324,43 @@ class ReportController extends Controller
         $datapdf = array();
         $firmscheck = array();
 
-        if ($request->file_type == 2) {
-            $data[] = $headings;
-        }
+        $data[] = $headings;
+
 
         $province = '-';
         $sector = '-';
         $ateco = '-';
         $advisor = '-';
 
+        // dd($firms);
+
         foreach ($firms as $key => $firm) {
-            if (in_array($firm->id, $firmscheck)) {
+            if (!in_array($firm->id, $firmscheck)) {
+                // dd($firm->id);
+                $firmscheck[] = $firm->id;
 
-            } else {
+                $FName = $firm->firm_name;
+                $vatN = $firm->firm_vat_no;
+                $type = $firm->firm_type;
+                $category = $firm->category;
+                $phone_number = $firm->phone_number;
+                $fOwner = $firm->firm_owner;
+                $email = $firm->email;
+                $email2 = $firm->email2;
 
-            }
-
-            $FName = $firm->firm_name;
-            $vatN = $firm->firm_vat_no;
-            $type = $firm->firm_type;
-            $category = $firm->category;
-            $phone_number = $firm->phone_number;
-            $fOwner = $firm->firm_owner;
-            $email = $firm->email;
-            $email2 = $firm->email2;
-
-            if (!empty($firm->levlelina_advisor)) {
-                $advisor = $firm->levlelina_advisor;
-            }
-            if (!empty($firm->ateco->code)) {
-                $ateco = $firm->ateco->code;
-            }
-            if (!empty($firm->sector)) {
-                $sector = $firm->sector->name;
-            }
-            if (!empty($firm->province->province)) {
-                $province = $firm->province->province;
-            }
-            if ($request->file_type == 1) {
-                if (in_array($firm->id, $firmscheck)) {
-
-                } else {
+                if (!empty($firm->levlelina_advisor)) {
+                    $advisor = $firm->levlelina_advisor;
+                }
+                if (!empty($firm->ateco->code)) {
+                    $ateco = $firm->ateco->code;
+                }
+                if (!empty($firm->sector)) {
+                    $sector = $firm->sector->name;
+                }
+                if (!empty($firm->province->province)) {
+                    $province = $firm->province->province;
+                }
+                if ($request->file_type == 1) {
 
                     $tempdata = [
                         'name' => $FName,
@@ -363,27 +377,51 @@ class ReportController extends Controller
                         'advisor' => $advisor,
                     ];
                     array_push($datapdf, $tempdata);
-                }
 
-            } elseif ($request->file_type == 2) {
-                $value = [
-                    $FName,
-                    $vatN,
-                    $type,
-                    $province,
-                    $category,
-                    $phone_number,
-                    $fOwner,
-                    $email,
-                    $email2,
-                    $sector,
-                    $ateco,
-                    $advisor,
-                ];
-                $data[] = $value;
+                    $value = [
+                        $FName,
+                        $vatN,
+                        $type,
+                        $province,
+                        $category,
+                        $phone_number,
+                        $fOwner,
+                        $email,
+                        $email2,
+                        $sector,
+                        $ateco,
+                        $advisor,
+                    ];
+                    $data[] = $value;
+
+                } elseif ($request->file_type == 2) {
+                    $value = [
+                        $FName,
+                        $vatN,
+                        $type,
+                        $province,
+                        $category,
+                        $phone_number,
+                        $fOwner,
+                        $email,
+                        $email2,
+                        $sector,
+                        $ateco,
+                        $advisor,
+                    ];
+                    $data[] = $value;
+                }
             }
         }
 
+        if ($request->ajax()) {
+            return Response::json([
+                'success' => true,
+                'data' => $data
+            ], 200);
+        }
+       
+        
         if ($request->file_type == 1) {
             $datapdf = ['data' => $datapdf];
             $pdf = PDF::loadView('exports.firms', $datapdf);
@@ -401,15 +439,15 @@ class ReportController extends Controller
     {
 
         $valina = LaVelina::where('id', $request->lavelina)->with('history')->first();
-        
+
         // dd(
         //     $valina->history[0]->cluster->name,
         //     $valina->history[0]->firm->firm_name,
         //     $valina->history[0]->firm->firm_vat_no,
         //     $valina->history[0]->email_sent_by->name,
         // );
-        
-        if ($valina == null || empty($valina) ) {
+
+        if ($valina == null || empty($valina)) {
             flash(' 0 report Found')->info();
             return redirect()->back();
         }
@@ -427,10 +465,10 @@ class ReportController extends Controller
         $datapdf = array();
         $valinascheck = array();
 
-        if ($request->file_type == 2) {
+
             $date = Carbon::parse($valina->created_at)->format('D m.d.Y H:i');
             $valina_data[] = $valina->id;
-            $valina_data[] = $valina->name; 
+            $valina_data[] = $valina->name;
             $valina_data[] = $date;
 
             $valinaheading = [
@@ -448,15 +486,17 @@ class ReportController extends Controller
             $data[] = $emptyspace;
             $data[] = $emptyspace;
             $data[] = $headings;
-        }
-
         
+
         foreach ($valina->history as $key => $history) {
 
-            $vat = '-';
-            $company = '-';
-            $date = Carbon::parse($history->created_at)->format('D m.d.Y H:i');
-            $cluster = '-';
+            if (!in_array($history->id, $valinascheck)) {
+                $valinascheck[] = $history->id;
+
+                $vat = '-';
+                $company = '-';
+                $date = Carbon::parse($history->created_at)->format('D m.d.Y H:i');
+                $cluster = '-';
                 if (!empty($history->firm)) {
                     $vat = $history->firm->firm_vat_no;
                 }
@@ -470,15 +510,22 @@ class ReportController extends Controller
                     $cluster = $history->cluster->name;
                 }
                 if ($request->file_type == 1) {
-                    
-                        $tempdata = [
-                            'vat' => $vat,
-                            'name' => $company,
-                            'date' => $date,
-                            'cluster' => $cluster,
-                        ];
-                        array_push($datapdf, $tempdata);
-                    
+
+                    $tempdata = [
+                        'vat' => $vat,
+                        'name' => $company,
+                        'date' => $date,
+                        'cluster' => $cluster,
+                    ];
+                    array_push($datapdf, $tempdata);
+
+                    $value = [
+                        $vat,
+                        $company,
+                        $date,
+                        $cluster,
+                    ];
+                    $data[] = $value;
                 } elseif ($request->file_type == 2) {
                     $value = [
                         $vat,
@@ -488,16 +535,23 @@ class ReportController extends Controller
                     ];
                     $data[] = $value;
                 }
-            // }
+                // }
+            }
         }
 
+        if ($request->ajax()) {
+            return Response::json([
+                'success' => true,
+                'data' => $data
+            ], 200);
+        }
         if ($request->file_type == 1) {
             $date = Carbon::parse($valina->created_at)->format('D m.d.Y H:i');
             $valina_data['valina_id'] = $valina->id;
-            $valina_data['name'] = $valina->name; 
+            $valina_data['name'] = $valina->name;
             $valina_data['date'] = $date;
             $datapdf1 = array();
-            $datapdf1['data'] =  $datapdf;
+            $datapdf1['data'] = $datapdf;
             $datapdf1['valina_data'] = $valina_data;
             $pdf = PDF::loadView('reports.valina_pdf', $datapdf1);
             $name = $filename;
