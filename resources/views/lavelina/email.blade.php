@@ -45,6 +45,7 @@
         </tr>
     </table>
 </div>
+
 <body style="margin-top: 0px">
 
 
@@ -59,8 +60,10 @@
             background-size: cover;">
             <br>
             <strong>
-                <span style="font-family: 'Prata', serif;font-size: 80px; color:{{ $color }}; font-weight:400">LA VELINA </span><br>
-                <span style="font-family: 'Prata', serif;font-size:25px; color:{{ $color }};">DEL TUO COMMERCIALISTA</span><br>
+                <span style="font-family: 'Prata', serif;font-size: 80px; color:{{ $color }}; font-weight:400">LA
+                    VELINA </span><br>
+                <span style="font-family: 'Prata', serif;font-size:25px; color:{{ $color }};">DEL TUO
+                    COMMERCIALISTA</span><br>
                 <span style="font-family: 'Prata', serif;font-size:18px;"> {{ $advoiser_name }} </span><br>
                 <span style="font-size:15px;"> {{ $date }}</span><br>
             </strong>
@@ -71,13 +74,13 @@
         @php
             if ($body) {
                 $count = count($body);
-                $count = $count-1;
+                $count = $count - 1;
             }
         @endphp
     </div>
-    <div style="clear:both; position:relative; page-break-after: always; margin-left: -20px">
+    
 
-        <div style="color:{{ $color }};font-size:25px;">{!! $title !!}</div> 
+        <div style="color:{{ $color }};font-size:25px;">{!! $title !!}</div>
         <br>
 
         @if ($firms)
@@ -105,9 +108,8 @@
             <br>
         @endif
 
-
+    <div style="clear:both; position:relative; page-break-after: always; margin-left: -20px">
         <div style="position:absolute; left:0pt; width:300pt; vertical-align: top;">
-
             <div style="font-size:15px; width:280pt">
                 @if ($count >= 0)
                     {!! $body[0]->lavelina_body !!}
@@ -124,9 +126,9 @@
     </div>
 
     @if ($count > 3)
-        <div style="vertical-align: top; page-break-after: always;">
-    @else
-        <div>
+    <div style="clear:both; position:relative; page-break-after: always; margin-left: -20px">
+        @else
+            <div style="clear:both; position:relative;margin-left: -20px;">
     @endif
     <div style="position:absolute; left:0pt; width:300pt; vertical-align: top;">
         <div style="font-size:15px; width:280pt">
@@ -145,9 +147,9 @@
     </div>
 
     @if ($count > 5)
-        <div style="vertical-align: top; page-break-after: always;">
-    @else
-        <div>
+    <div style="clear:both; position:relative; page-break-after: always; margin-left: -20px">
+        @else
+            <div style="clear:both; position:relative;margin-left: -20px;">
     @endif
     <div style="position:absolute; left:0pt; width:300pt; vertical-align: top;">
         <div style="font-size:15px; width:280pt">
@@ -165,31 +167,30 @@
     </div>
     </div>
 
-   
-    <div>
-   
-    <div style="position:absolute; left:0pt; width:300pt; vertical-align: top;">
-        <div style="font-size:15px; width:280pt">
-            @if ($count >= 6)
-                {!! $body[6]->lavelina_body !!}
-            @endif
+
+    <div style="clear:both; position:relative;margin-left: -20px">
+        <div style="position:absolute; left:0pt; width:300pt; vertical-align: top;">
+            <div style="font-size:15px; width:280pt">
+                @if ($count >= 6)
+                    {!! $body[6]->lavelina_body !!}
+                @endif
+            </div>
         </div>
-    </div>
-    <div style="position:absolute; margin-left:305pt; vertical-align: top">
-        <div style="font-size:15px; width:260pt">
-            @if ($count >= 7)
-                {!! $body[7]->lavelina_body !!}
-            @endif
+        <div style="position:absolute; margin-left:305pt; vertical-align: top">
+            <div style="font-size:15px; width:260pt">
+                @if ($count >= 7)
+                    {!! $body[7]->lavelina_body !!}
+                @endif
+            </div>
         </div>
-    </div>
     </div>
 
-    
+
     <br>
     <br>
     <br>
     </div>
-   
+
     @if ($source)
         <div class="last">
             <strong>Fonti: </strong>
@@ -198,6 +199,4 @@
     @endif
     </div>
 </body>
-
-
 </html>
