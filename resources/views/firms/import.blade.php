@@ -32,17 +32,31 @@
 
         <div class="card">
             <div class="card-body ">
+                <div class="row">
+                    <center> <h2>Scarica il<a href="{{ asset('upload/TEMPLATE-LAST.xlsx') }}"> “template da compilare”</a> in excel, compila in ogni sua parte per caricare le tue aziende nel
+                        sistema. <br> Quando il file è pronto, torna su questa pagina e clicca su "Carica modello compilato"
+                    </h2></center>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <center><a href="{{ asset('upload/TEMPLATE-LAST.xlsx') }}"><img src="{{ asset('image/signature/downloadpng.png') }}" width="90px" height="90px"></a></center>
+                        <br><br>
+                        <center><a class="btn" href="{{ asset('upload/TEMPLATE-LAST.xlsx') }}" style="background-color: #68150F; color: white; margin-top: 10px">Carica modello compilato</a></center>
 
-                    <center> <h1><a href="{{ asset('upload/TEMPLATE-LAST.xlsx') }}">Scarica il template</a> in excel, compilare in sua parte per caricare le tue aziende nel sistema. Quando il file e pronto torna su questa pagina e clicca su "Carica modello compilato" </h1></center>
-                
-                <center><a href="{{ asset('upload/TEMPLATE-LAST.xlsx') }}"><i class="fa fa-file-excel-o fa-6" aria-hidden="true" style="font-size: 100px; color:black"></i></a></center>
-                <br><br>
-                {!! Form::open(['route' => 'firms.upload' ,'files' => true]) !!}
+                    </div>
+                    <div class="col-md-6">
+                        <center><img src="{{ asset('image/signature/uploadpng.png') }}" width="90px" height="90px"></center>
+                        <br><br>
+                        {!! Form::open(['route' => 'firms.upload' ,'files' => true]) !!}
 
-                <input name="file" type="file" id="actual-btn" hidden onchange="this.form.submit();">
+                        <input name="file" type="file" id="actual-btn" hidden onchange="this.form.submit();">
+                        
+                        <center><label for="actual-btn">Carica modello compilato</label></center>
+                        {!! Form::close() !!}
+                    </div>
+                </div>
                 
-                <center><label for="actual-btn">Carica modello compilato</label></center>
-                {!! Form::close() !!}
+                
             </div>
 
         </div>

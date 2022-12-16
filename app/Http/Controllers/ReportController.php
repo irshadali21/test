@@ -101,7 +101,8 @@ class ReportController extends Controller
         }
         if ($request->certificate_issue_date) {
             $from = Carbon::parse($request->certificate_issue_date)->format('Y-m-d');
-            $to = Carbon::parse(now())->format('Y-m-d');
+            $to = 
+            
             $files->where('email_tracks.model', 'App\Models\Certificate');
             $files->whereBetween('email_tracks.created_at', [$from, $to]);
         }
@@ -304,6 +305,7 @@ class ReportController extends Controller
             return redirect()->back();
         }
         $headings = [
+            'Advisor Name',
             'COMPANY Name',
             'VAT',
             'Type',
@@ -315,7 +317,6 @@ class ReportController extends Controller
             'Email2',
             'Sector',
             'Ateco Code',
-            'Advisor',
         ];
 
         $filename = date('Y-m-d') . '-Firm-Report.';
@@ -349,7 +350,7 @@ class ReportController extends Controller
                 $email2 = $firm->email2;
 
                 if (!empty($firm->levlelina_advisor)) {
-                    $advisor = $firm->levlelina_advisor;
+                    $advisor = $firm->levlelina_advisor->name;
                 }
                 if (!empty($firm->ateco->code)) {
                     $ateco = $firm->ateco->code;
@@ -363,6 +364,7 @@ class ReportController extends Controller
                 if ($request->file_type == 1) {
 
                     $tempdata = [
+                        'advisor' => $advisor,
                         'name' => $FName,
                         'vat' => $vatN,
                         'type' => $type,
@@ -374,11 +376,11 @@ class ReportController extends Controller
                         'email2' => $email2,
                         'sector' => $sector,
                         'ateco' => $ateco,
-                        'advisor' => $advisor,
                     ];
                     array_push($datapdf, $tempdata);
 
                     $value = [
+                        $advisor,
                         $FName,
                         $vatN,
                         $type,
@@ -390,12 +392,13 @@ class ReportController extends Controller
                         $email2,
                         $sector,
                         $ateco,
-                        $advisor,
+                        
                     ];
                     $data[] = $value;
 
                 } elseif ($request->file_type == 2) {
                     $value = [
+                        $advisor,
                         $FName,
                         $vatN,
                         $type,
@@ -407,7 +410,7 @@ class ReportController extends Controller
                         $email2,
                         $sector,
                         $ateco,
-                        $advisor,
+                        
                     ];
                     $data[] = $value;
                 }

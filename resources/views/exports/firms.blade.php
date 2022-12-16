@@ -21,6 +21,7 @@
 <body>
     <table class="table table-bordered table-sm" style="margin-left: -20px">
         <thead>
+            <th>Advisor Name</th>
             <th>COMPANY</th>
             <th>VAT</th>
             <th>Type</th>
@@ -35,6 +36,7 @@
         <tbody>
             @for ($i = 1; $i < count($data); $i++)
             <tr>
+                <td>{{ $data[$i]['advisor'] }}</td>
                 <td>{{ $data[$i]['name'] }}</td>
                 <td>{{ $data[$i]['vat'] }}</td>
                 <td>{{ $data[$i]['type'] }}</td>

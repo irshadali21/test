@@ -85,31 +85,31 @@ class LaVelinaClusterController extends AppBaseController
         $firms = new Firm();
 
         if ($request->advisor) {
-            $firms = $firms->where('created_by', "$request->advisor");
+            $firms = $firms->orWhere('created_by', "$request->advisor");
         }
         if ($request->firm) {
-            $firms = $firms->where('firm_name', 'LIKE', "%{$request->firm}%");
+            $firms = $firms->orWhere('firm_name', 'LIKE', "%{$request->firm}%");
         }
         if ($request->sector) {
-            $firms = $firms->where('sector_id', $request->sector);
+            $firms = $firms->orWhere('sector_id', $request->sector);
         }
         if ($request->ateco_code) {
-            $firms = $firms->where('ateco_id', $request->ateco_code);
+            $firms = $firms->orWhere('ateco_id', $request->ateco_code);
         }
         if ($request->province) {
-            $firms = $firms->where('province_id', $request->province);
+            $firms = $firms->orWhere('province_id', $request->province);
         }
         if ($request->firm_type) {
-            $firms = $firms->where('firm_type', 'LIKE', "%{$request->firm_type}%");
+            $firms = $firms->orWhere('firm_type', 'LIKE', "%{$request->firm_type}%");
         }
         if ($request->category) {
-            $firms = $firms->where('category', 'LIKE', "%{$request->category}%");
+            $firms = $firms->orWhere('category', 'LIKE', "%{$request->category}%");
         }
         if ($request->firm_owner) {
-            $firms = $firms->where('firm_owner', 'LIKE', "%{$request->firm_owner}%");
+            $firms = $firms->orWhere('firm_owner', 'LIKE', "%{$request->firm_owner}%");
         }
         if ($request->phone_number) {
-            $firms = $firms->where('phone_number', 'LIKE', "%{$request->phone_number}%");
+            $firms = $firms->orWhere('phone_number', 'LIKE', "%{$request->phone_number}%");
         }
 
         $companies = $firms->with('ateco')->with('sector')->with('province')->with('levlelina_advisor')->get();
@@ -358,7 +358,7 @@ class LaVelinaClusterController extends AppBaseController
         Contatti:<br>
         info@solidanetwork.com<br>
         0828307850<br>";
-        
+
         $name = $lavelina->name;
 
         $companies_ids = json_decode($laVelinaCluster->companies);
