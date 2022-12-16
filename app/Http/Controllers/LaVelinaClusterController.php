@@ -347,18 +347,19 @@ class LaVelinaClusterController extends AppBaseController
         $data["subject"] = "Velina";
         $data["body"] = "Buongiorno,
 
-        Ecco le novità in tema di ".$lavelina->name."
-        Questo argomento può essere di forte interesse per la vostra impresa.
-        Per approfondimenti e domande il nostro team è a vostra disposizione.
+        Ecco le novità in tema di ".$lavelina->name."<br>
+        Questo argomento può essere di forte interesse per la vostra impresa.<br>
+        Per approfondimenti e domande il nostro team è a vostra disposizione.<br>
+        <br>
+        Buona lettura,<br>
+        <br>
+        Solida Team <br>
+        <br>
+        Contatti:<br>
+        info@solidanetwork.com<br>
+        0828307850<br>";
         
-        Buona lettura,
-        
-        Solida Team 
-        
-        Contatti:
-        info@solidanetwork.com
-        0828307850";
-        $name = "Lavelina";
+        $name = $lavelina->name;
 
         $companies_ids = json_decode($laVelinaCluster->companies);
 
