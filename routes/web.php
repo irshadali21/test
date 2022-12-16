@@ -262,5 +262,7 @@ Route::group(['middleware' => ['auth', 'verified', 'stampCheck']], function () {
     Route::post('message/sendmessage', 'MessageController@sendMessage')->name('sendmessage');
     Route::get('/lastmessage/{id}', 'MessageController@getLastMessage');
 
-    
+    Route::get('/import/test/email', [
+        'uses' => 'FileController@testemailnewmassge',
+    ]);
 });

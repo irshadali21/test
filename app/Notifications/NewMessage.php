@@ -62,7 +62,7 @@ class NewMessage extends Notification
     public function toMail($notifiable): MailMessage
     {
         return (new MailMessage)
-            ->mailer('smtp')
+            ->mailer('ses')
             ->line('The introduction to the notification.');
     }
 

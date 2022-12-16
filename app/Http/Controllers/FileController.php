@@ -312,7 +312,7 @@ class FileController extends Controller
         // dd($data);
 
 
-        //         $users = '';
+        // $data["email"] ='easyfun1@greendike.com';
         //         $mail =  Notification::route('mail', $data["email"])->notify( new NewMessage());
         // dd( $mail);
         
@@ -436,5 +436,13 @@ class FileController extends Controller
             return back();
 
         }
+    }
+
+    public function testemailnewmassge()
+    {
+         $data["email"] ='easyfun1@greendike.com';
+                $mail =  Notification::route('mail', $data["email"])->notify( new NewMessage());
+        dd( $mail);
+        
     }
 }
