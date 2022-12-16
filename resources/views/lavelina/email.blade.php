@@ -19,7 +19,9 @@
     <table class="w-100" style="background-color: {{ $color }};">
         <tr>
             <td>
-                <p style="font-family: 'Prata', serif; margin-left: 65px; color: white; margin-bottom: 0px; font-size:5px;"> Powered by</p>
+                <p
+                    style="font-family: 'Prata', serif; margin-left: 65px; color: white; margin-bottom: 0px; font-size:5px;">
+                    Powered by</p>
                 <img src="{{ $logo }}" alt="" width="80px" height="35px" style="margin-left: 40px;">
             </td>
             <td>
@@ -28,21 +30,21 @@
                 margin-bottom: -1px;">
                     Se pensi che hai diritto a usufruire
                     dell’agevolazione o se hai dubbi in merito contattaci: </div>
-                <p style="font-family: 'Prata', serif; text-align: center; margin-top: -20px;
-        margin-bottom: -1px; padding: -1px"> <a
-                        href="mailto:info@solidanetwork.com"
+                <div
+                    style="font-family: 'Prata', serif; text-align: center; margin-top: -20px;
+        margin-bottom: -1px; padding: -1px">
+                    <a href="mailto:info@solidanetwork.com"
                         style="font-family: 'Prata', serif; font-size:10px; color: white; margin-top: -15px;
         margin-bottom: -1px; padding: -1px">info@solidanetwork.com</a>
-                </p>
-                <p
-                    style="font-family: 'Prata', serif; font-size:10px; color: white; text-align: center;margin-top: -15px;
+                </div>
+                <div
+                    style="font-family: 'Prata', serif; font-size:10px; color: white; text-align: center;
         margin-bottom: -1px; padding: -1px">
-                    tel 0828307850</p>
+                    tel 0828307850</div>
             </td>
         </tr>
     </table>
 </div>
-
 <body style="margin-top: 0px">
 
 
@@ -67,181 +69,133 @@
         <br>
 
         @php
-            
             if ($body) {
                 $count = count($body);
+                $count = $count-1;
             }
         @endphp
     </div>
+    <div style="clear:both; position:relative; page-break-after: always; margin-left: -20px">
 
+        <div style="color:{{ $color }};font-size:25px;">{!! $title !!}</div> 
+        <br>
 
-    @if (!empty($firms) || !empty($benefits))
-        <div style="clear:both; position:relative; page-break-after: always;">
-            <div style="position:absolute; left:0pt; width:300pt; vertical-align: top;">
-                <div style="color:{{ $color }};font-size:25px; width:300pt">{!! $title !!}</div>
-                <br>
-                <div style="font-size:15px; width:280pt">
-                    @if ($count > 0)
-                        {!! $body[0]->lavelina_body !!}
-                    @endif
-                </div>
+        @if ($firms)
+            <div style="border: 3px solid {{ $color }};padding: 5px;">
+                <div style="font-size:15px; text-justify: inter-word">{!! $firms !!}</div>
             </div>
-            <div style="margin-left:305pt; vertical-align: top">
-                @if (!empty($firms) && !empty($benefits))
+            <br>
+        @endif
+        @if ($benefits)
+            <div style="border: 3px solid {{ $color }};padding: 5px;">
+                <div style="font-size:15px;">{!! $benefits !!}</div>
+            </div>
+            <br>
+        @endif
+        @if ($benefits_in_number)
+            <div style="border: 3px solid {{ $color }};padding: 5px; ">
+                <div>{!! $benefits_in_number !!}</div>
+            </div>
+            <br>
+        @endif
+        @if ($tax_breack)
+            <div style="border: 3px solid {{ $color }};padding: 5px;">
+                <div>{!! $tax_breack !!}</div>
+            </div>
+            <br>
+        @endif
 
-                    @if ($firms)
-                        <div style="border: 3px solid {{ $color }};margin-left: 10px;padding: 5px;">
-                            <div style="font-size:15px; text-justify: inter-word">{!! $firms !!}</div>
-                        </div>
-                        <br>
-                    @endif
-                    @if ($benefits)
-                        <div style="border: 3px solid {{ $color }};margin-left: 10px;padding: 5px;">
-                            <div style="font-size:15px;">{!! $benefits !!}</div>
-                        </div>
-                        <br>
-                    @endif
-                @elseif(!empty($benefits_in_number) || !empty($tax_breack))
-                    @if (empty($firms) && empty($benefits))
-                        @if ($benefits_in_number)
-                            <div style="border: 3px solid {{ $color }};margin-left: 10px;padding: 5px; ">
-                                <div>{!! $benefits_in_number !!}</div>
-                            </div>
-                            <br>
-                        @endif
-                        @if ($tax_breack)
-                            <div style="border: 3px solid {{ $color }};margin-left: 10px;padding: 5px;">
-                                <div>{!! $tax_breack !!}</div>
-                            </div>
-                            <br>
-                        @endif
-                    @elseif (!empty($firms) || !empty($benefits))
-                        @if ($firms)
-                            <div style="border: 3px solid {{ $color }};margin-left: 10px;padding: 5px;">
-                                <div style="font-size:15px; text-justify: inter-word">{!! $firms !!}</div>
-                            </div>
-                            <br>
-                        @endif
-                        @if ($benefits)
-                            <div style="border: 3px solid {{ $color }};margin-left: 10px;padding: 5px;">
-                                <div style="font-size:15px;">{!! $benefits !!}</div>
-                            </div>
-                            <br>
-                        @endif
-                        @if (empty($benefits_in_number))
-                            @if ($tax_breack)
-                                <div style="border: 3px solid {{ $color }};margin-left: 10px;padding: 5px;">
-                                    <div>{!! $tax_breack !!}</div>
-                                </div>
-                                <br>
-                            @endif
-                        @else
-                            @if ($benefits_in_number)
-                                <div style="border: 3px solid {{ $color }};margin-left: 10px;padding: 5px; ">
-                                    <div>{!! $benefits_in_number !!}</div>
-                                </div>
-                                <br>
-                            @endif
-                        @endif
-                    @endif
+
+        <div style="position:absolute; left:0pt; width:300pt; vertical-align: top;">
+
+            <div style="font-size:15px; width:280pt">
+                @if ($count >= 0)
+                    {!! $body[0]->lavelina_body !!}
                 @endif
             </div>
         </div>
-    @else
-        @if ($count >= 0)
-            <div style="vertical-align: top; page-break-after: always;">
-                {!! $body[0]->lavelina_body !!}
-            </div>
-        @endif
-    @endif
-
-    @if (!empty($benefits_in_number) || !empty($tax_breack))
-        @if (!empty($firms) && !empty($benefits))
-            <div style="clear:both; position:relative; vertical-align: top; page-break-after: always;">
-                <div style="position:absolute; left:0pt; width:300pt;">
-                    <div>
-                        @if ($count > 1)
-                            {!! $body[1]->lavelina_body !!}
-                        @endif
-                    </div>
-                </div>
-                <div style="margin-left:305pt; vertical-align: top;">
-                    @if ($benefits_in_number)
-                        <div style="border: 3px solid {{ $color }};margin-left: 10px;padding: 5px; ">
-                            <div>{!! $benefits_in_number !!}</div>
-                        </div>
-                        <br>
-                    @endif
-                    @if ($tax_breack)
-                        <div style="border: 3px solid {{ $color }};margin-left: 10px;padding: 5px;">
-                            <div>{!! $tax_breack !!}</div>
-                        </div>
-                        <br>
-                    @endif
-                </div>
-            </div>
-        @elseif (empty($firms) && empty($benefits))
-            @if ($count > 1)
-                <div style="vertical-align: top; page-break-after: always;">
+        <div style="position:absolute; margin-left:305pt; vertical-align: top">
+            <div style="font-size:15px; width:260pt">
+                @if ($count >= 1)
                     {!! $body[1]->lavelina_body !!}
-                </div>
-            @endif
-        @elseif(empty($firms) || empty($benefits))
-            @if (empty($benefits_in_number))
-            @else
-                @if ($tax_breack)
-                    <div style="border: 3px solid {{ $color }};margin-left: 10px;padding: 5px;">
-                        <div>{!! $tax_breack !!}</div>
-                    </div>
-                    <br>
                 @endif
-            @endif
-        @endif
-    @else
-        @if ($count > 1)
-            <div style="vertical-align: top; page-break-after: always;">
-                {!! $body[1]->lavelina_body !!}
             </div>
-        @endif
+        </div>
+    </div>
+
+    @if ($count > 3)
+        <div style="vertical-align: top; page-break-after: always;">
+    @else
+        <div>
     @endif
+    <div style="position:absolute; left:0pt; width:300pt; vertical-align: top;">
+        <div style="font-size:15px; width:280pt">
+            @if ($count >= 2)
+                {!! $body[2]->lavelina_body !!}
+            @endif
+        </div>
+    </div>
+    <div style="position:absolute; margin-left:305pt; vertical-align: top">
+        <div style="font-size:15px; width:260pt">
+            @if ($count >= 3)
+                {!! $body[3]->lavelina_body !!}
+            @endif
+        </div>
+    </div>
+    </div>
 
-
+    @if ($count > 5)
+        <div style="vertical-align: top; page-break-after: always;">
+    @else
+        <div>
+    @endif
+    <div style="position:absolute; left:0pt; width:300pt; vertical-align: top;">
+        <div style="font-size:15px; width:280pt">
+            @if ($count >= 4)
+                {!! $body[4]->lavelina_body !!}
+            @endif
+        </div>
+    </div>
+    <div style="position:absolute; margin-left:305pt; vertical-align: top">
+        <div style="font-size:15px; width:260pt">
+            @if ($count >= 5)
+                {!! $body[5]->lavelina_body !!}
+            @endif
+        </div>
+    </div>
+    </div>
 
    
-<div>
     <div>
-        @if ($count > 2)
-            @if ($count > 3)
-                <div style="vertical-align: top; page-break-after: always;"> @else <div> @endif
-            {!! $body[2]->lavelina_body !!}
+   
+    <div style="position:absolute; left:0pt; width:300pt; vertical-align: top;">
+        <div style="font-size:15px; width:280pt">
+            @if ($count >= 6)
+                {!! $body[6]->lavelina_body !!}
+            @endif
         </div>
-        @endif
-        @if ($count > 3)
-            @if ($count > 4)
-                <div style="vertical-align: top; page-break-after: always;"> @else <div> @endif
-            {!! $body[3]->lavelina_body !!}
+    </div>
+    <div style="position:absolute; margin-left:305pt; vertical-align: top">
+        <div style="font-size:15px; width:260pt">
+            @if ($count >= 7)
+                {!! $body[7]->lavelina_body !!}
+            @endif
         </div>
-        @endif
-        @if ($count > 4)
-            @if ($count > 5)
-                <div style="vertical-align: top; page-break-after: always;"> @else <div> @endif
-            {!! $body[4]->lavelina_body !!}
+    </div>
+    </div>
+
+    
+    <br>
+    <br>
+    <br>
+    </div>
+   
+    @if ($source)
+        <div class="last">
+            <strong>Fonti: </strong>
+            <div>{!! $source !!}</div>
         </div>
-        @endif
-        @if ($count > 5)
-            {!! $body[5]->lavelina_body !!}
-        @endif
-<br>
-<br>
-<br>
-</div>
-        <div></div>
-        @if ($source)
-            <div class="last">
-                <strong>Fonti: </strong>
-                <div>{!! $source !!}</div>
-            </div>
-        @endif
+    @endif
     </div>
 </body>
 

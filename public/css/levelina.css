@@ -61,50 +61,62 @@ a {
 strong{
     text-align: justify;
     text-justify: inter-word;
+    line-height: 1;
 }
 i{
     text-align: justify;
     text-justify: inter-word;
+    line-height: 1;
 }
 b{
     text-align: justify;
     text-justify: inter-word;
+    line-height: 1;
 }
 p{
     text-align: justify;
     text-justify: inter-word;
+    line-height: 1;
 }
 table{
     text-align: justify;
     text-justify: inter-word;
+    line-height: 1;
 }
 tr{
     text-align: justify;
     text-justify: inter-word;
+    line-height: 1;
 }
 td{
     text-align: justify;
     text-justify: inter-word;
+    line-height: 1;
 }
 th{
     text-align: justify;
     text-justify: inter-word;
+    line-height: 1;
 }
 body{
     text-align: justify;
     text-justify: inter-word;
+    line-height: 1;
 }
 div{
     text-align: justify;
     text-justify: inter-word;
+    line-height: 1;
 }
 span{
     text-align: justify;
     text-justify: inter-word;
+    line-height: 1;
 }
 a {
     text-align: justify;
     text-justify: inter-word;
+    line-height: 1;
 }
 
 .levelinahead {
@@ -131,7 +143,7 @@ footer {
     left: -60px;
     bottom: 0px;
     right: -60px;
-    height: 3.5px;
+    height: 1px;
     /* margin: 5px; */
 }
 

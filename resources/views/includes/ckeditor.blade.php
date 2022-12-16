@@ -63,39 +63,42 @@
         // CKEDITOR.replace( document.querySelector( '#body' ) )
         // CKEDITOR.replace(document.getElementById('bod1'), {wordcount: wordCountConf1})
         CKEDITOR.replace(document.getElementById('body'), {
-            wordcount: wordCountConf1,
             height: '470'
         })
         CKEDITOR.replace(document.getElementById('body2'), {
-            wordcount: wordCountConf1,
             height: '470'
         })
         CKEDITOR.replace(document.getElementById('body3'), {
-            wordcount: wordCountConf2,
             height: '470'
         })
         CKEDITOR.replace(document.getElementById('body4'), {
-            wordcount: wordCountConf2,
+            height: '470'
+        })
+        CKEDITOR.replace(document.getElementById('body5'), {
+            height: '470'
+        })
+        CKEDITOR.replace(document.getElementById('body6'), {
+            height: '470'
+        })
+        CKEDITOR.replace(document.getElementById('body7'), {
+            height: '470'
+        })
+        CKEDITOR.replace(document.getElementById('body8'), {
             height: '470'
         })
         CKEDITOR.replace(document.getElementById('firms'), {
-            wordcount: wordCountConf1,
             height: '155'
         })
         CKEDITOR.replace(document.getElementById('benefits'), {
-            wordcount: wordCountConf1,
             height: '155'
         })
         CKEDITOR.replace(document.getElementById('benefits_in_number'), {
-            wordcount: wordCountConf1,
             height: '155'
         })
         CKEDITOR.replace(document.getElementById('tax_breack'), {
-            wordcount: wordCountConf1,
             height: '155'
         })
         CKEDITOR.replace(document.getElementById('source'), {
-            wordcount: wordCountConf1,
             height: '150'
         })
 
@@ -105,9 +108,7 @@
         }
 
         $(document).on('click', '.body2div', function() {
-            if (document.getElementById('quanto_checkbox').checked || document.getElementById('quali_checkbox')
-                .checked || document.getElementById('body2_checkbox').checked || document.getElementById(
-                    'fonti_checkbox').checked) {$('#body2_row').show();} else {$('#body2_row').hide();}
+            if (document.getElementById('body2_checkbox').checked ) {$('#body2_row').show();} else {$('#body2_row').hide();}
         })
         
         $('#body3div').on('click', function() {
@@ -119,37 +120,15 @@
 
         $('#chipuo_checkbox').on('click', function() {
             if (document.getElementById('chipuo_checkbox').checked) {
-                changeclass('#lavelina_body', "col-sm-7", "col-sm-12")
-                $('#contatiner1').show();
-                $('#firms_div').show();
-            } else {
-                if (document.getElementById('percosa_checkbox').checked) {
-                    changeclass('#lavelina_body', "col-sm-7", "col-sm-12")
-                    $('#contatiner1').show();
-                    $('#firms_div').hide();
-                } else {
-                    changeclass('#lavelina_body', "col-sm-12", "col-sm-7")
-                    $('#contatiner1').hide();
-                    $('#firms_div').hide();
-                }
+                
+                    $('#firms_div').show();
+                
             }
         })
         $('#percosa_checkbox').on('click', function() {
-            if (document.getElementById('percosa_checkbox').checked) {
-                changeclass('#lavelina_body', "col-sm-7", "col-sm-12")
-                $('#contatiner1').show();
+            if (document.getElementById('percosa_checkbox').checked) 
                 $('#benefits_div').show();
-            } else {
-                if (document.getElementById('chipuo_checkbox').checked) {
-                    changeclass('#lavelina_body', "col-sm-7", "col-sm-12")
-                    $('#contatiner1').show();
-                    $('#benefits_div').hide();
-                } else {
-                    changeclass('#lavelina_body', "col-sm-12", "col-sm-7")
-                    $('#contatiner1').hide();
-                    $('#benefits_div').hide();
-                }
-            }
+            
         })
 
 
@@ -157,9 +136,7 @@
         //body 2 
 
         $(document).on('click', '.body2div', function() {
-            if (document.getElementById('quanto_checkbox').checked || document.getElementById('quali_checkbox')
-                .checked || document.getElementById('body2_checkbox').checked || document.getElementById(
-                    'fonti_checkbox').checked) {
+            if (document.getElementById('body2_checkbox').checked ) {
                 $('#body2_row').show();
             } else {
                 $('#body2_row').hide();
@@ -170,62 +147,26 @@
         $('#body2_checkbox').on('click', function() {
             if (document.getElementById('body2_checkbox').checked) {
                 $('#body2_div').show();
-                if (document.getElementById('quanto_checkbox').checked || document.getElementById('quali_checkbox')
-                    .checked) {
-                    $('#body2right_div').show();
-                    changeclass('#body2_div', "col-sm-7", "col-sm-12")
-                    changeclass('#body2right_div', "col-sm-5", "col-sm-12")
-                } else {
-                    $('#body2right_div').hide();
-                    changeclass('#body2right_div', "col-sm-12", "col-sm-5")
-                    changeclass('#body2_div', "col-sm-12", "col-sm-7")
-                }
+               
             } else {
                 $('#body2_div').hide();
-                if (document.getElementById('quanto_checkbox').checked || document.getElementById('quali_checkbox')
-                    .checked) {
-                    $('#body2right_div').show();
-                    changeclass('#body2right_div', "col-sm-12", "col-sm-5")
-                } 
             }
         })
 
         $('#quanto_checkbox').on('click', function() {
             if (document.getElementById('quanto_checkbox').checked) {
-                $('#body2right_div').show();
+                
                 $('#benefits_in_number_div').show();
-                if (document.getElementById('body2_checkbox').checked)
-                {
-                    changeclass('#body2_div', "col-sm-7", "col-sm-12")
-                    changeclass('#body2right_div', "col-sm-5", "col-sm-12")
-                } else {
-                    changeclass('#body2right_div', "col-sm-12", "col-sm-5")
-                }
             } else {
                 $('#benefits_in_number_div').hide();
-                if (!document.getElementById('quali_checkbox').checked) {
-                    changeclass('#body2_div', "col-sm-12", "col-sm-7")
-                    $('#body2right_div').hide();
-                }
             }
         })
         $('#quali_checkbox').on('click', function() {
             if (document.getElementById('quali_checkbox').checked) {
-                $('#body2right_div').show();
+               
                 $('#tax_breack_div').show();
-                if (document.getElementById('body2_checkbox').checked)
-                {
-                    changeclass('#body2_div', "col-sm-7", "col-sm-12")
-                    changeclass('#body2right_div', "col-sm-5", "col-sm-12")
-                } else if (!document.getElementById('body2_checkbox').checked) {
-                    changeclass('#body2right_div', "col-sm-12", "col-sm-5")
-                }
             } else {
                 $('#tax_breack_div').hide();
-                if (!document.getElementById('quanto_checkbox').checked) {
-                    changeclass('#body2_div', "col-sm-12", "col-sm-7")
-                    $('#body2right_div').hide();
-                }
             }
         })
 
