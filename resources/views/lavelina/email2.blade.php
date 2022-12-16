@@ -128,11 +128,11 @@
     </div>
 
     @if ($count > 3)
-        <div style="vertical-align: top; page-break-after: always;">
-    @else
-        <div>
+        <div style="vertical-align: top; page-break-after: always; margin-left: -20px;">
+        @else
+            <div style="margin-left: -20px;">
     @endif
-    <div style="position:absolute; left:0pt; width:300pt; vertical-align: top;">
+    <div style="position:absolute; left:0pt; width:280pt; vertical-align: top;">
         <div style="font-size:15px; width:280pt">
             @if ($count >= 2)
                 {!! $body[2]->lavelina_body !!}
@@ -149,11 +149,11 @@
     </div>
 
     @if ($count > 5)
-        <div style="vertical-align: top; page-break-after: always;">
-    @else
-        <div>
+        <div style="vertical-align: top; page-break-after: always; margin-left: -20px;">
+        @else
+            <div style="margin-left: -20px;">
     @endif
-    <div style="position:absolute; left:0pt; width:300pt; vertical-align: top;">
+    <div style="position:absolute; left:0pt; width:280pt; vertical-align: top;">
         <div style="font-size:15px; width:280pt">
             @if ($count >= 4)
                 {!! $body[4]->lavelina_body !!}
@@ -169,31 +169,30 @@
     </div>
     </div>
 
-   
-    <div>
-   
-    <div style="position:absolute; left:0pt; width:300pt; vertical-align: top;">
-        <div style="font-size:15px; width:280pt">
-            @if ($count >= 6)
-                {!! $body[6]->lavelina_body !!}
-            @endif
+
+    <div style="margin-left: -20px">
+        <div style="position:absolute; left:0pt; width:280pt; vertical-align: top;">
+            <div style="font-size:15px; width:280pt">
+                @if ($count >= 6)
+                    {!! $body[6]->lavelina_body !!}
+                @endif
+            </div>
         </div>
-    </div>
-    <div style="position:absolute; margin-left:305pt; vertical-align: top">
-        <div style="font-size:15px; width:260pt">
-            @if ($count >= 7)
-                {!! $body[7]->lavelina_body !!}
-            @endif
+        <div style="position:absolute; margin-left:305pt; vertical-align: top">
+            <div style="font-size:15px; width:260pt">
+                @if ($count >= 7)
+                    {!! $body[7]->lavelina_body !!}
+                @endif
+            </div>
         </div>
-    </div>
     </div>
 
-    
+
     <br>
     <br>
     <br>
     </div>
-   
+
     @if ($source)
         <div class="last">
             <strong>Fonti: </strong>
@@ -202,6 +201,4 @@
     @endif
     </div>
 </body>
-
-
 </html>
