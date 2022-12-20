@@ -55,71 +55,78 @@
             margin-left: -50px;
             margin-right: -50px;
             margin-top: -70px;
-            background-image: url('{{ $background_image }}');  
+            background-image: url('{{ $background_image }}');
             background-size: cover;">
             <br>
             <strong>
+                <br><br>
                 <span style="font-family: 'Prata', serif;font-size: 80px; color:{{ $color }}; font-weight:400">LA
-                    VELINA </span><br>
-                <span style="font-family: 'Prata', serif;font-size:25px; color:{{ $color }};">DEL TUO
-                    COMMERCIALISTA</span><br>
-                <span style="font-family: 'Prata', serif;font-size:18px;"> FIRM ADVISOR NAME </span><br>
-                <span style="font-size:15px;"> {{ $date }}</span><br>
+                    VELINA </span>
+                    <br>
+                <span style=" font-family: 'Prata', serif;font-size:25px; color:{{ $color }};">DEL TUO
+                    COMMERCIALISTA</span>
+                    <br>
+                    <br>
+                <span style="font-family: 'Prata', serif;font-size:18px;"> FIRM ADVISOR NAME </span>
+                <br>
+                <br>
+                <span > {{ $date }}</span><br>
             </strong>
             <br>
         </center>
         <br>
 
         @php
-            
+
             if ($body) {
                 $count = count($body);
-                $count = $count-1;
-                
+                $count = $count - 1;
             }
         @endphp
     </div>
-    <div style="clear:both; position:relative; page-break-after: always; margin-left: -20px">
+    <div style="clear:both; position:relative;  margin-left: -10px">
 
-        <div style="color:{{ $color }};font-size:25px;">{!! $title !!}</div> 
+        <div style="color:{{ $color }};font-size:25px; width: 100%;" >{!! $title !!}</div>
         <br>
 
         @if ($firms)
-            <div style="border: 3px solid {{ $color }};padding: 5px;">
-                <div style="font-size:15px; text-justify: inter-word">{!! $firms !!}</div>
+            <div style="margin-bottom: 5px; border: 3px solid {{ $color }};padding: 5px; width: 100%;">
+                <div style=" text-justify: inter-word">{!! $firms !!}</div>
             </div>
-            <br>
+
         @endif
         @if ($benefits)
-            <div style="border: 3px solid {{ $color }};padding: 5px;">
-                <div style="font-size:15px;">{!! $benefits !!}</div>
+            <div style="margin-bottom: 5px; border: 3px solid {{ $color }};padding: 5px; width: 100%;">
+                <div >{!! $benefits !!}</div>
             </div>
-            <br>
+
         @endif
         @if ($benefits_in_number)
-            <div style="border: 3px solid {{ $color }};padding: 5px; ">
+            <div style="margin-bottom: 5px; border: 3px solid {{ $color }};padding: 5px; width: 100%;">
                 <div>{!! $benefits_in_number !!}</div>
             </div>
-            <br>
+
         @endif
         @if ($tax_breack)
-            <div style="border: 3px solid {{ $color }};padding: 5px;">
+            <div style="margin-bottom: 5px; border: 3px solid {{ $color }};padding: 5px; width: 100%;">
                 <div>{!! $tax_breack !!}</div>
             </div>
-            <br>
+
         @endif
+    </div>
 
+    <div style="clear:both; position:relative; page-break-after: always; margin-left: -10px">
 
-        <div style="position:absolute; left:0pt; width:300pt; vertical-align: top;">
+        <div style="position:absolute; left:0pt; width:270pt; vertical-align: top;">
 
-            <div style="font-size:15px; width:280pt">
+            <div >
                 @if ($count >= 0)
                     {!! $body[0]->lavelina_body !!}
                 @endif
             </div>
         </div>
-        <div style="position:absolute; margin-left:305pt; vertical-align: top">
-            <div style="font-size:15px; width:260pt">
+        <div style="position:absolute; margin-left:295pt; vertical-align: top">
+            <div style=" width:245pt">
                 @if ($count >= 1)
                     {!! $body[1]->lavelina_body !!}
                 @endif
@@ -127,59 +134,55 @@
         </div>
     </div>
 
-    @if ($count > 3)
-        <div style="vertical-align: top; page-break-after: always; margin-left: -20px;">
-        @else
-            <div style="margin-left: -20px;">
-    @endif
-    <div style="position:absolute; left:0pt; width:280pt; vertical-align: top;">
-        <div style="font-size:15px; width:280pt">
-            @if ($count >= 2)
-                {!! $body[2]->lavelina_body !!}
-            @endif
+    <div
+        style="clear:both; position:relative;  vertical-align: top; @if ($count > 3) page-break-after: always; @endif margin-left: -10px;">
+        <div style="position:absolute; left:0pt; width:270pt; vertical-align: top;">
+            <div >
+                @if ($count >= 2)
+                    {!! $body[2]->lavelina_body !!}
+                @endif
+            </div>
         </div>
-    </div>
-    <div style="position:absolute; margin-left:305pt; vertical-align: top">
-        <div style="font-size:15px; width:260pt">
-            @if ($count >= 3)
-                {!! $body[3]->lavelina_body !!}
-            @endif
+
+
+        <div style="position:absolute; margin-left:295pt; vertical-align: top">
+            <div style=" width:245pt">
+                @if ($count >= 3)
+                    {!! $body[3]->lavelina_body !!}
+                @endif
+            </div>
         </div>
-    </div>
     </div>
 
-    @if ($count > 5)
-        <div style="vertical-align: top; page-break-after: always; margin-left: -20px;">
-        @else
-            <div style="margin-left: -20px;">
-    @endif
-    <div style="position:absolute; left:0pt; width:280pt; vertical-align: top;">
-        <div style="font-size:15px; width:280pt">
-            @if ($count >= 4)
-                {!! $body[4]->lavelina_body !!}
-            @endif
+    <div
+        style="clear:both; position:relative;  vertical-align: top; @if ($count > 5) page-break-after: always; @endif margin-left: -10px;">
+        <div style="position:absolute; left:0pt; width:270pt; vertical-align: top;">
+            <div >
+                @if ($count >= 4)
+                    {!! $body[4]->lavelina_body !!}
+                @endif
+            </div>
         </div>
-    </div>
-    <div style="position:absolute; margin-left:305pt; vertical-align: top">
-        <div style="font-size:15px; width:260pt">
-            @if ($count >= 5)
-                {!! $body[5]->lavelina_body !!}
-            @endif
+        <div style="position:absolute; margin-left:295pt; vertical-align: top">
+            <div style=" width:245pt">
+                @if ($count >= 5)
+                    {!! $body[5]->lavelina_body !!}
+                @endif
+            </div>
         </div>
-    </div>
     </div>
 
 
-    <div style="margin-left: -20px">
-        <div style="position:absolute; left:0pt; width:280pt; vertical-align: top;">
-            <div style="font-size:15px; width:280pt">
+    <div style="clear:both; position:relative;  vertical-align: top; margin-left: -10px;">
+        <div style="position:absolute; left:0pt; width:270pt; vertical-align: top;">
+            <div >
                 @if ($count >= 6)
                     {!! $body[6]->lavelina_body !!}
                 @endif
             </div>
         </div>
-        <div style="position:absolute; margin-left:305pt; vertical-align: top">
-            <div style="font-size:15px; width:260pt">
+        <div style="position:absolute; margin-left:295pt; vertical-align: top">
+            <div style=" width:260pt">
                 @if ($count >= 7)
                     {!! $body[7]->lavelina_body !!}
                 @endif
@@ -191,14 +194,17 @@
     <br>
     <br>
     <br>
-    </div>
+
 
     @if ($source)
-        <div class="last">
-            <strong>Fonti: </strong>
-            <div>{!! $source !!}</div>
+        <div style="clear:both; position:relative;  vertical-align: top;  margin-left: -10px; margin-bottom: 30px;">
+            <div class="last" style="width: 100%;">
+                <strong>Fonti: </strong>
+                <div>{!! $source !!}</div>
+            </div>
         </div>
     @endif
-    </div>
+
 </body>
+
 </html>
