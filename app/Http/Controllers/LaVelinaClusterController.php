@@ -135,7 +135,7 @@ class LaVelinaClusterController extends AppBaseController
         // dd($input);
         $filters = array();
 
-        $filters = ['company' => $input['companies']];
+        $filters = ['company' => $input['name']];
         $filters += ['sector' => $input['sector']];
         $filters += ['ateco_code' => $input['ateco_code']];
         $filters += ['province' => $input['province']];
@@ -344,10 +344,10 @@ class LaVelinaClusterController extends AppBaseController
         $Data = HelperFunction::lavelina($request->lavelina_id);
 
         $data["title"] = "Velina From Revman";
-        $data["subject"] = "Velina";
+        $data["subject"] = "La Velina del tuo commercialista";
         $data["body"] = "Buongiorno,
 
-        Ecco le novità in tema di ".$lavelina->name."<br>
+        Ecco le novità in tema di ".$lavelina->name.".<br>
         Questo argomento può essere di forte interesse per la vostra impresa.<br>
         Per approfondimenti e domande il nostro team è a vostra disposizione.<br>
         <br>
@@ -373,7 +373,7 @@ class LaVelinaClusterController extends AppBaseController
             if (!empty($files->email) && !empty($files->email2)) {
                 $data["email"] = $files->email;
                 $data["opration_email"] = $files->email2;
-                Mail::mailer('ses')->send('emails.myTestMail', $data, function ($message) use ($data, $pdf, $name) {
+                Mail::mailer('ses')->send('emails.valina', $data, function ($message) use ($data, $pdf, $name) {
                     $message
                         ->to($data["email"], $data["email"])
                         ->cc([$data["opration_email"]])
@@ -382,7 +382,7 @@ class LaVelinaClusterController extends AppBaseController
                 });
             } else {
                 $data["email"] = $files->email;
-                Mail::mailer('ses')->send('emails.myTestMail', $data, function ($message) use ($data, $pdf, $name) {
+                Mail::mailer('ses')->send('emails.valina', $data, function ($message) use ($data, $pdf, $name) {
                     $message
                         ->to($data["email"], $data["email"])
                         ->subject($data["subject"])
@@ -430,8 +430,8 @@ class LaVelinaClusterController extends AppBaseController
         $a2 = array();
         foreach ($result as $key => $value) {
             array_push($a2, $value);
-                
-            
+
+
         }
 
 
