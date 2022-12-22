@@ -318,7 +318,7 @@ class HelperFunction
             $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
             $mail->Username   = 'info@solidanetwork.com';                     //SMTP username
             $mail->Password   = 'ECA305AF969AB4C147CD1406748179D53EC1';                               //SMTP password
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;            //Enable implicit TLS encryption
             $mail->Port       = 2525;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
             //Recipients
