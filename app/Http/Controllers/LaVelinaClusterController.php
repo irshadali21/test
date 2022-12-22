@@ -359,7 +359,7 @@ class LaVelinaClusterController extends AppBaseController
         info@solidanetwork.com<br>
         0828307850<br>";
 
-        $name = $lavelina->name;
+        $name = $lavelina->name.'.pdf';
 
         $companies_ids = json_decode($laVelinaCluster->companies);
 
@@ -373,21 +373,30 @@ class LaVelinaClusterController extends AppBaseController
             if (!empty($files->email) && !empty($files->email2)) {
                 $data["email"] = $files->email;
                 $data["opration_email"] = $files->email2;
-                Mail::mailer('ses')->send('emails.valina', $data, function ($message) use ($data, $pdf, $name) {
-                    $message
-                        ->to($data["email"], $data["email"])
-                        ->cc([$data["opration_email"]])
-                        ->subject($data["subject"])
-                        ->attachData($pdf->output(), $name . ".pdf");
-                });
+                $email = HelperFunction::SendeMailViaphpMailer($data, $name, $pdf);
+
+                // dd($email);
+
+
+
+                // Mail::mailer('ses')->send('emails.valina', $data, function ($message) use ($data, $pdf, $name) {
+                //     $message
+                //         ->to($data["email"], $data["email"])
+                //         ->cc([$data["opration_email"]])
+                //         ->subject($data["subject"])
+                //         ->attachData($pdf->output(), $name . ".pdf");
+                // });
             } else {
                 $data["email"] = $files->email;
-                Mail::mailer('ses')->send('emails.valina', $data, function ($message) use ($data, $pdf, $name) {
-                    $message
-                        ->to($data["email"], $data["email"])
-                        ->subject($data["subject"])
-                        ->attachData($pdf->output(), $name . ".pdf");
-                });
+                $email = HelperFunction::SendeMailViaphpMailer($data, $name, $pdf);
+
+
+                // Mail::mailer('ses')->send('emails.valina', $data, function ($message) use ($data, $pdf, $name) {
+                //     $message
+                //         ->to($data["email"], $data["email"])
+                //         ->subject($data["subject"])
+                //         ->attachData($pdf->output(), $name . ".pdf");
+                // });
             }
 
             DB::beginTransaction();

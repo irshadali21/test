@@ -11,7 +11,9 @@ use Illuminate\Support\Facades\Http;
 use App\Models\LaVelina;
 use App\Models\LavelinaDetail;
 use Carbon\Carbon;
-
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
 
 class HelperFunction
 {
@@ -174,7 +176,7 @@ class HelperFunction
         $cost_ecnomics = $certificate->cost_ecnomic_report;
         $cost_ecnomics = json_decode($cost_ecnomics);
         $course_data = json_decode($certificate->course_data);
-        
+
 
         $fileData = [
             'benefits_name' => $benefits->column1,
@@ -292,6 +294,58 @@ class HelperFunction
         ];
 
         return $Data;
+    }
+
+    public static function SendeMailViaphpMailer($data, $name,  $pdf)
+    {
+
+        $ot = $pdf->output();
+        file_put_contents($name, $ot);
+        $path = realpath($name);
+
+
+        // dd($path);
+
+
+        //Create an instance; passing `true` enables exceptions
+        $mail = new PHPMailer(true);
+
+        try {
+            //Server settings
+            $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+            $mail->isSMTP();                                            //Send using SMTP
+            $mail->Host       = 'mail.solidanetwork.com';                     //Set the SMTP server to send through
+            $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+            $mail->Username   = 'info@solidanetwork.com';                     //SMTP username
+            $mail->Password   = 'ECA305AF969AB4C147CD1406748179D53EC1';                               //SMTP password
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+            $mail->Port       = 2525;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+
+            //Recipients
+            $mail->setFrom('info@solidanetwork.com', 'SolidaNetowrk');
+            $mail->addAddress($data["email"]);               //Name is optional
+            if (isset($data["opration_email"])) {
+                $mail->addCC($data["opration_email"]);
+            }
+
+            //Attachments
+            $mail->addAttachment( $path);         //Add attachments
+
+            //Content
+            $mail->isHTML(true);                                  //Set email format to HTML
+            $mail->Subject = $data["subject"];
+            $mail->Body    = $data["body"];
+
+            $mail->send();
+            // echo 'Message has been sent';
+
+            unlink($path);
+
+        } catch (Exception $e) {
+            // echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+            unlink($path);
+
+        }
     }
 
 }
