@@ -47,18 +47,6 @@ return [
             'name' => 'solidanetwork',
         ],
 
-        'ses' => [
-            'transport' => 'smtp',
-            'host' => 'mail.solidanetwork.com',
-            'port' => '2525',
-            'encryption' => 'tls',
-            'username' => 'info@solidanetwork.com',
-            'password' => 'ECA305AF969AB4C147CD1406748179D53EC1',
-            'timeout' => null,
-            'auth_mode' => null,
-            'address' =>  'info@solidanetwork.com',
-            'name' => 'solidanetwork',
-        ],
 
         'mailgun' => [
             'transport' => 'mailgun',
