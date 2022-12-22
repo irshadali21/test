@@ -303,11 +303,6 @@ class HelperFunction
         file_put_contents($name, $ot);
         $path = realpath($name);
 
-
-        // dd($path);
-
-
-        //Create an instance; passing `true` enables exceptions
         $mail = new PHPMailer(true);
 
         try {
@@ -319,7 +314,7 @@ class HelperFunction
             $mail->Username   = 'info@solidanetwork.com';                     //SMTP username
             $mail->Password   = 'ECA305AF969AB4C147CD1406748179D53EC1';                               //SMTP password
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;            //Enable implicit TLS encryption
-            $mail->Port       = 2525;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+            $mail->Port       = 25;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
             //Recipients
             $mail->setFrom('info@solidanetwork.com', 'SolidaNetowrk');
@@ -337,12 +332,10 @@ class HelperFunction
             $mail->Body    = $data["body"];
 
             $mail->send();
-            // echo 'Message has been sent';
 
             unlink($path);
 
         } catch (Exception $e) {
-            // echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
             unlink($path);
 
         }
