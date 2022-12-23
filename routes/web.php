@@ -194,6 +194,15 @@ Route::group(['middleware' => ['auth', 'verified', 'stampCheck']], function () {
         'uses' => 'ReportController@valinaDownload',
         'as' => 'getreport.valina',
     ]);
+    Route::get('/reports/valina/received', [
+        'uses' => 'ReportController@valinaReceived',
+        'as' => 'reports.valinareceived',
+    ]);
+
+    Route::post('/reports/valina/received/download', [
+        'uses' => 'ReportController@valinaReceivedDownload',
+        'as' => 'getreport.valinareceived',
+    ]);
 
     //LaVelina
     Route::resource('lavelina', 'LaVelinaController');
@@ -233,7 +242,7 @@ Route::group(['middleware' => ['auth', 'verified', 'stampCheck']], function () {
     Route::resource('sectorTables', 'sector_tableController');
 
     //import routes for ateco, province, sctor
-    
+
     // Route::get('/atecoTablesimport', [
     //     'uses' => 'ateco_tableController@import',
     // ]);
