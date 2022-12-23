@@ -25,13 +25,15 @@
         <div class="card">
             <div class="card-body p-0">
                 <br>
-                @include('firms.table')
+                <div>
+                    @include('firms.table')
+                </div>
 
-                <div class="card-footer clearfix">
+                {{-- <div class="card-footer clearfix">
                     <div class="float-right">
                         @include('adminlte-templates::common.paginate', ['records' => $firms])
                     </div>
-                </div>
+                </div> --}}
             </div>
 
         </div>

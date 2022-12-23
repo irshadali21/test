@@ -696,7 +696,7 @@ class ReportController extends Controller
             $datapdf1['firm_data'] = $firm_data;
             $pdf = PDF::loadView('reports.valina_received_pdf', $datapdf1);
             $name = $filename;
-            return $pdf->download($name . '.pdf');
+            return $pdf->download($name . 'pdf');
         } elseif ($request->file_type == 2) {
             $export = new FilessExport($data);
             return Excel::download($export, $filename . 'xlsx');
