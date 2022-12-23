@@ -38,6 +38,7 @@ return [
     'basedOnFile' => 'Basato su file ',
     'basedOnFirms' => 'Basato sulle imprese',
     'basedOnValina' => 'Basato su Valina ',
+    'basedOnValinaReceived' => 'Basato su Valina ricevuto ',
     'manageSetting' => 'Gestisci impostazione ',
     'manageUsers' => 'Gestisci utenti ',
     'allUsers' => 'Tutti gli utenti ',

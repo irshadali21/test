@@ -156,6 +156,14 @@
                                             </a>
                                         </li>
                                     @endcan
+                                    @canany(['view-reports-valina-received'])
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{ route('reports.valinareceived') }}">
+                                                <span class="sidenav-mini-icon">D </span>
+                                                <span class="nav-link-text">{{ __('lang.basedOnValinaReceived') }}</span>
+                                            </a>
+                                        </li>
+                                    @endcan
                                 </ul>
                             </div>
                         </li>

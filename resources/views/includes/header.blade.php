@@ -32,7 +32,7 @@
                     </div>
                 </li>
 
-                
+
 
                 <li class="nav-item dropdown">
                     <a class="nav-link" data-toggle="dropdown" href="#"> <i class="fa fas fa-angle-down"></i>
@@ -54,11 +54,8 @@
                     </div>
                 </li>
                 @php
-                    if (
-                        auth()
-                            ->user()
-                            ->hasrole('super-admin')
-                    ) {
+                    if (auth()->user()->hasrole('super-admin'))
+                    {
                         $users = App\User::join('messages', 'users.id', '=', 'messages.from_user')
                             // ->join('messages', 'users.id', '=', 'messages.from_user')
                             ->where('messages.to_user', auth()->id())
@@ -68,6 +65,7 @@
                     } else {
                         $users = App\User::join('messages', 'users.id', '=', 'messages.from_user')
                             ->where('users.id', 1)
+                            ->where('messages.to_user', auth()->id())
                             ->where('messages.is_read', 0)
                             ->get();
                     }
@@ -76,9 +74,9 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link btn btn-default" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false">
-                        
+
                         <span><i class="ni ni-bell-55" style="color: white; font-size:20px;"></i></span>
-                        
+
                         @if ($users->count() > 0)
                         <span class="badge badge-md badge-circle badge-floating" style="margin-left:-10px;color: #68150F;
                         background-color: #EDD7BF; ">{{ $users->count() }}</span>

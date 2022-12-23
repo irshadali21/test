@@ -6,6 +6,8 @@ use Eloquent as Model;
 use App\Models\ateco_table;
 use App\Models\province_table;
 use App\Models\sector_table;
+use App\Models\LaVelinaHistory;
+use App\Models\LaVelina;
 use App\User;
 /**
  * Class Firm
@@ -29,7 +31,7 @@ class Firm extends Model
 {
 
     public $table = 'firms';
-    
+
 
 
 
@@ -75,7 +77,7 @@ class Firm extends Model
      * @var array
      */
     public static $rules = [
-        
+
     ];
 
 
@@ -95,5 +97,10 @@ class Firm extends Model
     public function levlelina_advisor()
     {
         return $this->hasOne(User::class,'id','created_by');
+    }
+
+    public function levlelina_sent_history()
+    {
+        return $this->hasMany(LaVelinaHistory::class,'firm_id','id');
     }
 }

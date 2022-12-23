@@ -2,15 +2,17 @@
 @push('styles')
     @include('messages.style')
 @endpush
-@push('pg_btn')
-    <button type="button" class="btn btn-sm btn-default" data-toggle="modal" data-target="#messagetoallmodal">
-        Send To all
-    </button>
-@endpush
+@if (auth()->user()->hasrole('super-admin'))
+    @push('pg_btn')
+        <button type="button" class="btn btn-sm btn-default" data-toggle="modal" data-target="#messagetoallmodal">
+            Send To all
+        </button>
+    @endpush
+@endif
 @section('content')
     <section class="content-header">
         <div class="container-fluid">
-            <div class="row mb-2">
+            <div class="row ">
                 <div class="col-sm-6">
                     <h1>Messages</h1>
                 </div>
@@ -20,104 +22,110 @@
 
 
 
-<div >
-    <div class="layout-wrapper d-lg-flex">
-        <div class="chat-leftsidebar">
+    <div>
+        <div class="layout-wrapper d-lg-flex">
+            <div class="chat-leftsidebar">
 
-            <!-- Start chats tab-pane -->
-            <div class="tab-pane fade show active">
-                <div class="px-4 pt-4"></div>
-                <div class="px-2">
+                <!-- Start chats tab-pane -->
+                <div class="tab-pane fade show active">
+                    <div class="px-4 pt-4"></div>
+                    <div class="px-2">
 
 
-                    <div class="chat-message-list" data-simplebar>
-                        <div class="chat-message-chatlist" >
-                            @include('messages.tabpane-recent-contact-list')
+                        <div class="chat-message-list" data-simplebar>
+                            <div class="chat-message-chatlist">
+                                @include('messages.tabpane-recent-contact-list')
+                            </div>
                         </div>
+
                     </div>
-
+                    <!-- End chats tab-pane -->
                 </div>
-                <!-- End chats tab-pane -->
+                <!-- end tab content -->
             </div>
-            <!-- end tab content -->
+            <!-- end chat-leftsidebar -->
+            <div class="user-chat w-100">
+                <div class="d-lg-flex">
+                    <div class="w-100" id="messages">
+                    </div>
+                </div>
+            </div>
+            <!-- End User chat -->
         </div>
-        <!-- end chat-leftsidebar -->
-        <div class="user-chat w-100">
-            <div class="d-lg-flex">
-                <div class="w-100" id="messages">
+    </div>
+
+
+    @if (auth()->user()->hasrole('super-admin'))
+        <!-- Modal -->
+        <div class="modal fade" id="messagetoallmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Send Massage to all advisors</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div style="color:red" id="responsefail"></div>
+                        <textarea class="form-control" name="messageinputofalladvisor" id="messageinputofalladvisor" cols="50"
+                            rows="10"></textarea>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" id="sendmessagetoalladvisor" class="btn btn-primary">Send</button>
+                    </div>
                 </div>
             </div>
         </div>
-        <!-- End User chat -->
-    </div>
-</div>
-
-
-<!-- Modal -->
-<div class="modal fade" id="messagetoallmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Send Massage to all advisors</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-      <div style="color:red" id="responsefail"></div>
-      <textarea class="form-control" name="messageinputofalladvisor" id="messageinputofalladvisor" cols="50" rows="10"></textarea>
-            
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" id="sendmessagetoalladvisor" class="btn btn-primary">Send</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
+    @endif
 @endsection
 @push('scripts')
     <script>
         var my_id = "{{ Auth::id() }}";
-        
+
         $.ajaxSetup({
-        headers: {
-            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
-        }
-    });
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+            }
+        });
         /**
          *-------------------------------------------------------------
          * Send Message
          *-------------------------------------------------------------
          */
+        @if (auth()->user()->hasrole('super-admin'))
 
-        $(document).on("click", "#sendmessagetoalladvisor", function() {
-            let massage = $('#messageinputofalladvisor').val();
-            console.log(massage);
-            if (massage != "" ) {
-                $.ajax({
-                    type: "post",
-                    url: "{{ route('sendmessagetoaaladvisor') }}", 
-                    data: {massage:massage},
-                    cache: false,
-                    success: function(data) {
-                        if(data.success == true)
-                        {
-                            $('#messagetoallmodal').modal('toggle');
-                            location.reload();
-                        }else{
-                            $('#responsefail').html('there was an error please try again later')
+
+            $(document).on("click", "#sendmessagetoalladvisor", function() {
+                let massage = $('#messageinputofalladvisor').val();
+                console.log(massage);
+                if (massage != "") {
+                    $.ajax({
+                        type: "post",
+                        url: "{{ route('sendmessagetoaaladvisor') }}",
+                        data: {
+                            massage: massage
+                        },
+                        cache: false,
+                        success: function(data) {
+                            if (data.success == true) {
+                                $('#messagetoallmodal').modal('toggle');
+                                location.reload();
+                            } else {
+                                $('#responsefail').html('there was an error please try again later')
+                            }
+                        },
+                        error: function(jqXHR, status, err) {},
+                        complete: function() {
+
                         }
-                    },
-                    error: function(jqXHR, status, err) {},
-                    complete: function() {
-                       
-                    }
-                });
-            }
-        })
+                    });
+                }
+            })
+        @endif
 
         $(document).on("click", ".send-chat-message", function() {
             var receiver_id = $(this).attr('data-user');
@@ -127,7 +135,7 @@
                 var datastr = "receiver_id=" + receiver_id + "&message=" + message;
                 $.ajax({
                     type: "post",
-                    url: "{{ route('sendmessage') }}", 
+                    url: "{{ route('sendmessage') }}",
                     data: datastr,
                     cache: false,
                     success: function(data) {
@@ -206,25 +214,25 @@
                     );
             }, 100);
         }
+
         function getlastmessage(data) {
-        $.ajax({
-            type: "get",
-            url: "lastmessage/" + data, // need to create this route
-            data: "",
-            cache: false,
-            success: function(data) {
-                $(".chat-conversation #chatul").append(data);
-                scrollSmoothToBottom('chat-conversation');
-            }
-        });
-    }
+            $.ajax({
+                type: "get",
+                url: "lastmessage/" + data, // need to create this route
+                data: "",
+                cache: false,
+                success: function(data) {
+                    $(".chat-conversation #chatul").append(data);
+                    scrollSmoothToBottom('chat-conversation');
+                }
+            });
+        }
 
-    const scrollSmoothToBottom = (id) => {
-   const element = $(`.${id}`);
-   element.animate({
-      scrollTop: element.prop("scrollHeight")
-   }, 500);
-}
-
+        const scrollSmoothToBottom = (id) => {
+            const element = $(`.${id}`);
+            element.animate({
+                scrollTop: element.prop("scrollHeight")
+            }, 500);
+        }
     </script>
 @endpush

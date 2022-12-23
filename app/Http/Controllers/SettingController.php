@@ -17,7 +17,7 @@ class SettingController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('permission:update-settings');
+        $this->middleware('permission:update-settings')->except('updateLanguage');
         $this->middleware('permission:view-activity-log', ['only' => ['activity']]);
     }
     public function index() {

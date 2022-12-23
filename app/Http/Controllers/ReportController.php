@@ -9,6 +9,7 @@ use App\Models\Company;
 use App\Models\File;
 use App\Models\Firm;
 use App\Models\LaVelina;
+use App\Models\LaVelinaHistory;
 use App\Models\province_table;
 use App\Models\sector_table;
 use App\Models\Summary;
@@ -58,10 +59,16 @@ class ReportController extends Controller
         } else {
             $lavelina = LaVelina::where('created_by', auth()->user()->id)->get();
         }
-
-        // $lavelina = LaVelina::get();
-
         return view('reports.valina', compact('lavelina'));
+    }
+    public function valinaReceived()
+    {
+        if (auth()->user()->hasrole('super-admin')) {
+            $firms = Firm::get();
+        } else {
+            $firms = Firm::where('created_by', auth()->user()->id)->get();
+        }
+        return view('reports.valina_received', compact('firms'));
     }
 
     /**
@@ -219,27 +226,26 @@ class ReportController extends Controller
                 }
 
                 // if ($Certificate) {
-                    $value = [
-                        $company->vat_number,
-                        $company->company_name,
-                        $phone_number,
-                        $customer_email,
-                        $benefit->column1,
-                        $file->year,
-                        $status,
-                        $CertificateSendDate,
-                        $IncaricoSendDate,
-                        $datePayment,
-                        $file->fee,
-                        $advisor_name,
-                        $opration_email,
-                    ];
-                    $data[] = $value;
+                $value = [
+                    $company->vat_number,
+                    $company->company_name,
+                    $phone_number,
+                    $customer_email,
+                    $benefit->column1,
+                    $file->year,
+                    $status,
+                    $CertificateSendDate,
+                    $IncaricoSendDate,
+                    $datePayment,
+                    $file->fee,
+                    $advisor_name,
+                    $opration_email,
+                ];
+                $data[] = $value;
                 // }
             }
         }
         //endforeach
-
 
         if ($request->ajax()) {
             return Response::json([
@@ -579,41 +585,125 @@ class ReportController extends Controller
         return redirect()->back();
     }
 
-    public function download_csv($files)
+    public function valinaReceivedDownload(Request $request)
     {
-        try {
-            $headings = [
-                'VAT N.',
-                'COMPANY NAME',
-                'PHONE NUMBER',
-                'CUSTOMER EMAIL',
-                'TYPE OF BENEFIT',
-                'YEAR OF BENEFIT',
-                'CERTIFICATE STATUS',
-                'INCARICO SEND DATE',
-                'CERTIFICATION ISSUE DATE',
-                'DATE PAYMENT',
-                'FEE',
-                'ADVISOR NAME',
-                'E-MAIL OPERATION',
 
-            ];
+        $firm = Firm::where('id', $request->firm)->with('levlelina_sent_history')->first();
+// dd($firm);
 
-            $filename = date('Y-m-d') . '-' . $request->title . '.csv';
-            $csv = fopen($filename, 'w+');
-            fputcsv($csv, $headings);
+        if ($firm == null || empty($firm)) {
+            flash(' 0 report Found')->info();
+            return redirect()->back();
+        }
 
-            foreach ($values as $value) {
+        $headings = [
+            'VALINA ID',
+            'Name Valina',
+            'Date',
+            'Cluster',
+        ];
 
-                foreach ($value as $key => $val) {
-                    $value[$key] = trim($val);
+        $filename = date('Y-m-d') . '-Valina-Received-Report.';
+
+        $data = array();
+        $datapdf = array();
+        $firmscheck = array();
+
+        $date = Carbon::parse($firm->created_at)->format('D m.d.Y H:i');
+        $firm_data[] = $firm->id;
+        $firm_data[] = $firm->firm_name;
+        $firm_data[] = $date;
+
+        $firmheading = [
+            'ID',
+            'FIRM Name',
+            'CREATION Date',
+        ];
+        $emptyspace = [
+            '',
+            '',
+            '',
+        ];
+        $data[] = $firmheading;
+        $data[] = $firm_data;
+        $data[] = $emptyspace;
+        $data[] = $emptyspace;
+        $data[] = $headings;#
+
+
+        if ( !$firm->levlelina_sent_history == null || !empty($firm->levlelina_sent_history)) {
+
+        foreach ($firm->levlelina_sent_history as $key => $history) {
+
+            if (!in_array($history->id, $firmscheck)) {
+                $firmscheck[] = $history->id;
+                $id = '-';
+                $valina_name = '-';
+                $date = Carbon::parse($history->created_at)->format('D m.d.Y H:i');
+                $cluster = '-';
+                if (!empty($history->valina)) {
+                    $id = $history->valina->id;
                 }
-                fputcsv($csv, $value);
+                if (!empty($history->valina)) {
+                    $valina_name = $history->valina->name;
+                }
+                if (!empty($history->cluster)) {
+                    $cluster = $history->cluster->name;
+                }
+                if ($request->file_type == 1) {
+
+                    $tempdata = [
+                        'id' => $id,
+                        'name_valina' => $valina_name,
+                        'date' => $date,
+                        'cluster' => $cluster,
+                    ];
+                    array_push($datapdf, $tempdata);
+
+                    $value = [
+                        $id,
+                        $valina_name,
+                        $date,
+                        $cluster,
+                    ];
+                    $data[] = $value;
+                } elseif ($request->file_type == 2) {
+                    $value = [
+                        $id,
+                        $valina_name,
+                        $date,
+                        $cluster,
+                    ];
+                    $data[] = $value;
+                }
+                // }
             }
-            $headers = ['Content-Type' => 'text/csv'];
-            return response()->download($filename, $filename, $headers)->deleteFileAfterSend();
-        } catch (\Exception $e) {
-            return redirect()->back()->with('danger', __('messages.unkown_err'));
         }
     }
+        if ($request->ajax()) {
+            return Response::json([
+                'success' => true,
+                'data' => $data,
+            ], 200);
+        }
+        if ($request->file_type == 1) {
+            $date = Carbon::parse($firm->created_at)->format('D m.d.Y H:i');
+            $firm_data['id'] = $firm->id;
+            $firm_data['name'] = $firm->firm_name;
+            $firm_data['date'] = $date;
+            $datapdf1 = array();
+            $datapdf1['data'] = $datapdf;
+            $datapdf1['firm_data'] = $firm_data;
+            $pdf = PDF::loadView('reports.valina_received_pdf', $datapdf1);
+            $name = $filename;
+            return $pdf->download($name . '.pdf');
+        } elseif ($request->file_type == 2) {
+            $export = new FilessExport($data);
+            return Excel::download($export, $filename . 'xlsx');
+        }
+        flash('There was an error')->info();
+        return redirect()->back();
+    }
+
+
 }
