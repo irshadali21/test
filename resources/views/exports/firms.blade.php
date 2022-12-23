@@ -30,11 +30,12 @@
             <th>Phone</th>
             <th>Contact Person</th>
             <th>Email</th>
+            <th>Emai2</th>
             <th>Sector</th>
             <th>Ateco Code</th>
         </thead>
         <tbody>
-            @for ($i = 1; $i < count($data); $i++)
+            @for ($i = 0; $i < count($data); $i++)
             <tr>
                 <td>{{ $data[$i]['advisor'] }}</td>
                 <td>{{ $data[$i]['name'] }}</td>
@@ -45,6 +46,7 @@
                 <td>{{ $data[$i]['phone'] }}</td>
                 <td>{{ $data[$i]['contact_person'] }}</td>
                 <td>{{ $data[$i]['email'] }}</td>
+                <td>{{ $data[$i]['email2'] }}</td>
                 <td>{{ $data[$i]['sector'] }}</td>
                 <td>{{ $data[$i]['ateco'] }}</td>
             </tr>

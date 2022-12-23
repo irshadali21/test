@@ -57,7 +57,6 @@
                                     <div class="form-group">
                                         {{ Form::label('advisor_name', 'Advisor Name', ['class' => 'form-control-label']) }}
                                     {{ Form::select('advisor_name', $advisor, null, ['class' => 'form-control select2', 'placeholder' => 'Select Advisor...']) }}
-                                        {{-- {{ Form::text('advisor_name', null, ['class' => 'form-control']) }} --}}
                                     </div>
                                 </div>
                             @endif
