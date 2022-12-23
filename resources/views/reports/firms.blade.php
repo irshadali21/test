@@ -82,17 +82,19 @@
                                     {{ Form::text('phone', null, ['class' => 'form-control']) }}
                                 </div>
                             </div>
+                            @if (auth()->user()->hasrole('super-admin'))
                             <div class="col-lg-3">
                                 <div class="form-group">
                                     {{ Form::label('advisor', 'Advisor', ['class' => 'form-control-label']) }}
                                     <select name="advisor" id="advisor" class="form-control select2">
                                         <option value="" selected disabled>Select advisor ...</option>
                                         @foreach ($advisor as $advisor)
-                                            <option value="{{ $advisor->id }}">{{ $advisor->name }}</option>
+                                        <option value="{{ $advisor->id }}">{{ $advisor->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
+                            @endif
                         </div>
                         <div class="row">
                             <div class="col-lg-4">
@@ -186,11 +188,11 @@
                             console.log(appenddata);
                             $('#filespreview').html(appenddata);
                         }
-                        
+
                     },
                 });
             })
-            
+
         });
     </script>
 @endpush
