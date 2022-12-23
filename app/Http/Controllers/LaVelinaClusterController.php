@@ -84,6 +84,8 @@ class LaVelinaClusterController extends AppBaseController
 
         $firms = new Firm();
 
+
+
         if ($request->advisor) {
             $firms = $firms->orWhere('created_by', "$request->advisor");
         }
@@ -103,7 +105,9 @@ class LaVelinaClusterController extends AppBaseController
             $firms = $firms->orWhere('firm_type', 'LIKE', "%{$request->firm_type}%");
         }
         if ($request->category) {
-            $firms = $firms->orWhere('category', 'LIKE', "%{$request->category}%");
+            foreach ($request->category as $cat) {
+                $firms = $firms->orWhere('category', 'LIKE', "%{$cat}%");
+            }
         }
         if ($request->firm_owner) {
             $firms = $firms->orWhere('firm_owner', 'LIKE', "%{$request->firm_owner}%");
@@ -111,6 +115,8 @@ class LaVelinaClusterController extends AppBaseController
         if ($request->phone_number) {
             $firms = $firms->orWhere('phone_number', 'LIKE', "%{$request->phone_number}%");
         }
+
+        $firms = $firms->where('deleted_at', null);
 
         $companies = $firms->with('ateco')->with('sector')->with('province')->with('levlelina_advisor')->get();
 
