@@ -52,12 +52,15 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    {{ Form::label('advisor_name', 'Advisor Name', ['class' => 'form-control-label']) }}
-                                    {{ Form::text('advisor_name', null, ['class' => 'form-control']) }}
+                            @if (auth()->user()->hasrole('super-admin'))
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        {{ Form::label('advisor_name', 'Advisor Name', ['class' => 'form-control-label']) }}
+                                    {{ Form::select('advisor_name', $advisor, null, ['class' => 'form-control select2', 'placeholder' => 'Select Advisor...']) }}
+                                        {{-- {{ Form::text('advisor_name', null, ['class' => 'form-control']) }} --}}
+                                    </div>
                                 </div>
-                            </div>
+                            @endif
 
                             <div class="col-lg-6">
                                 <div class="form-group">
@@ -160,11 +163,11 @@
                             console.log(appenddata);
                             $('#filespreview').html(appenddata);
                         }
-                        
+
                     },
                 });
             })
-            
+
         });
     </script>
 @endpush

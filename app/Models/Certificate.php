@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Company;
 use App\Models\File;
+use Illuminate\Support\Facades\Auth;
 
 class Certificate extends Model
 {

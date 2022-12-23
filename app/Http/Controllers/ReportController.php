@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exports\FilessExport;
 use App\Models\ateco_table;
+use App\Models\Certificate;
 use App\Models\Company;
 use App\Models\File;
 use App\Models\Firm;
@@ -39,7 +40,8 @@ class ReportController extends Controller
         $exceptThis = [1];
         $company = Company::get();
         $benefit = Summary::whereNotIn('id', $exceptThis)->pluck('column1', 'id');
-        return view('reports.files', compact('company', 'benefit'));
+        $advisor = User::pluck('name', 'id');
+        return view('reports.files', compact('company', 'benefit', 'advisor'));
     }
     public function firms()
     {
@@ -51,13 +53,13 @@ class ReportController extends Controller
     }
     public function valina()
     {
-        // if (auth()->user()->hasrole('super-admin')) {
-        //     $lavelina = LaVelina::get();
-        // } else {
-        //     $lavelina = LaVelina::where('created_by', auth()->user()->id)->get();
-        // }
+        if (auth()->user()->hasrole('super-admin')) {
+            $lavelina = LaVelina::get();
+        } else {
+            $lavelina = LaVelina::where('created_by', auth()->user()->id)->get();
+        }
 
-        $lavelina = LaVelina::get();
+        // $lavelina = LaVelina::get();
 
         return view('reports.valina', compact('lavelina'));
     }
@@ -69,57 +71,127 @@ class ReportController extends Controller
      */
     public function filesDownload(Request $request)
     {
-        
-
         // dd($request->all());
-        $files = File::join('certificates', 'files.id', '=', 'certificates.file_id')
-            ->join('summaries', 'files.benefit_id', '=', 'summaries.id')
-            ->join('companies', 'files.company_id', '=', 'companies.id')
-            ->join('email_tracks', 'files.id', '=', 'email_tracks.model_id')
-            ->join('users', 'files.advisor_id', '=', 'users.id');
 
-        // if ($request->vat_number) {
-        //     $files->where('companies.vat_number', 'LIKE', "%{$request->vat_number}%");
-        // }
-        if ($request->company) {
-            $files->where('companies.id', $request->company);
+        $certificate = Certificate::with('file')->with('file.EmailTrack');
+
+        if (!auth()->user()->hasrole('super-admin')) {
+            $certificate->whereHas('file', function ($query) use ($request) {
+                return $query->where('files.advisor_id', auth()->user()->id);
+            });
         }
-        if ($request->benefits) {
-            $files->where('summaries.id', $request->benefits);
-        }
+
         if ($request->advisor_name) {
-            $files->where('users.name', 'LIKE', "%{$request->advisor_name}%");
+            $certificate->whereHas('file', function ($query) use ($request) {
+                return $query->where('advisor_id', $request->advisor_name);
+            });
         }
+
+        if ($request->company) {
+            $certificate->whereHas('file', function ($query) use ($request) {
+                $query->where('company_id', $request->company);
+            });
+        }
+
+        if ($request->benefits) {
+            $certificate->whereHas('file', function ($query) use ($request) {
+                $query->where('benefit_id', $request->benefits);
+            });
+        }
+
         if ($request->opration_email) {
-            $files->where('files.opration_email', 'LIKE', "%{$request->opration_email}%");
+            $certificate->whereHas('file', function ($query) use ($request) {
+                $query->where('opration_email', 'LIKE', "%{$request->opration_email}%");
+            });
         }
+
         if ($request->inc_send_date) {
-            $from = Carbon::parse($request->inc_send_date)->format('Y-m-d');
-            $to = Carbon::parse(now())->format('Y-m-d');
-            $files->where('email_tracks.model', '!=', 'App\Models\Certificate');
-            $files->whereBetween('email_tracks.created_at', [$from, $to]);
+            $certificate->whereHas('file.EmailTrack', function ($query) use ($request) {
+                $from = Carbon::parse($request->inc_send_date)->format('Y-m-d');
+                $to = Carbon::parse(now())->format('Y-m-d');
+                $query->where('model', '!=', 'App\Models\Certificate');
+                $query->whereBetween('created_at', [$from, $to]);
+            });
         }
+
         if ($request->certificate_issue_date) {
-            $from = Carbon::parse($request->certificate_issue_date)->format('Y-m-d');
-            $to = 
-            
-            $files->where('email_tracks.model', 'App\Models\Certificate');
-            $files->whereBetween('email_tracks.created_at', [$from, $to]);
+            $certificate->whereHas('file.EmailTrack', function ($query) use ($request) {
+                $from = Carbon::parse($request->certificate_issue_date)->format('Y-m-d');
+                $to = Carbon::parse(now())->format('Y-m-d');
+                $query->where('model', 'App\Models\Certificate');
+                $query->whereBetween('created_at', [$from, $to]);
+            });
         }
+
         if ($request->file_date) {
-            $from = Carbon::parse($request->file_date)->format('Y-m-d');
-            $to = Carbon::parse(now())->format('Y-m-d');
-            $files->whereBetween('files.created_at', [$from, $to]);
+            $certificate->whereHas('file', function ($query) use ($request) {
+                $from = Carbon::parse($request->file_date)->format('Y-m-d');
+                $to = Carbon::parse(now())->format('Y-m-d');
+                $query->whereBetween('created_at', [$from, $to]);
+            });
         }
 
-        $files->select('files.*');
+        $certificate = $certificate->get();
 
-        $files = $files->get();
-        if ($files == null || empty($files) || count($files) == 0) {
+        if ($certificate == null || empty($certificate) || count($certificate) == 0) {
             flash(' 0 report Found')->info();
 
             return redirect()->back();
         }
+
+
+        // $files = File::join('certificates', 'files.id', '=', 'certificates.file_id')
+        //     ->join('summaries', 'files.benefit_id', '=', 'summaries.id')
+        //     ->join('companies', 'files.company_id', '=', 'companies.id')
+        //     ->join('email_tracks', 'files.id', '=', 'email_tracks.model_id')
+        //     ->join('users', 'files.advisor_id', '=', 'users.id');
+
+        // if (!auth()->user()->hasrole('super-admin')) {
+        //     $files->where('files.advisor_id', auth()->user()->id);
+        // }
+
+        // if ($request->vat_number) {
+        //     $files->where('companies.vat_number', 'LIKE', "%{$request->vat_number}%");
+        // }
+        // if ($request->company) {
+        //     $files->where('companies.id', $request->company);
+        // }
+        // if ($request->benefits) {
+        //     $files->where('summaries.id', $request->benefits);
+        // }
+        // if ($request->advisor_name) {
+        //     $files->where('files.advisor_id', $request->advisor_name);
+        // }
+        // if ($request->opration_email) {
+        //     $files->where('files.opration_email', 'LIKE', "%{$request->opration_email}%");
+        // }
+        // if ($request->inc_send_date) {
+        //     $from = Carbon::parse($request->inc_send_date)->format('Y-m-d');
+        //     $to = Carbon::parse(now())->format('Y-m-d');
+        //     $files->where('email_tracks.model', '!=', 'App\Models\Certificate');
+        //     $files->whereBetween('email_tracks.created_at', [$from, $to]);
+        // }
+        // if ($request->certificate_issue_date) {
+        //     $from = Carbon::parse($request->certificate_issue_date)->format('Y-m-d');
+        //     $to =
+
+        //     $files->where('email_tracks.model', 'App\Models\Certificate');
+        //     $files->whereBetween('email_tracks.created_at', [$from, $to]);
+        // }
+        // if ($request->file_date) {
+        //     $from = Carbon::parse($request->file_date)->format('Y-m-d');
+        //     $to = Carbon::parse(now())->format('Y-m-d');
+        //     $files->whereBetween('files.created_at', [$from, $to]);
+        // }
+
+        // $files->select('files.*');
+
+        // $files = $files->get();
+        // if ($files == null || empty($files) || count($files) == 0) {
+        //     flash(' 0 report Found')->info();
+
+        //     return redirect()->back();
+        // }
 
         $headings = [
             'VAT N.',
@@ -146,11 +218,10 @@ class ReportController extends Controller
 
         // dd($files);
 
-        foreach ($files as $key => $file) {
-
-            if (!in_array($file->id, $files_ids)) {
-                $files_ids[] = $file->id;
-
+        foreach ($certificate as $key => $cer) {
+            if (!in_array($cer->id, $files_ids)) {
+                $files_ids[] = $cer->id;
+                $file = $cer->file;
                 $EmailTrack = $file->EmailTrack;
                 $Certificate = $file->certificate;
 
@@ -232,7 +303,7 @@ class ReportController extends Controller
         if ($request->ajax()) {
             return Response::json([
                 'success' => true,
-                'data' => $data
+                'data' => $data,
             ], 200);
         }
         if ($request->file_type == 1) {
@@ -276,6 +347,11 @@ class ReportController extends Controller
     public function firmsDownload(Request $request)
     {
         $firms = new Firm;
+
+        if (!auth()->user()->hasrole('super-admin')) {
+            $firms = $firms->where('created_by', auth()->user()->id);
+        }
+
         if ($request->firm_name) {
             $firms = $firms->where('firm_name', 'LIKE', "%{$request->firm_name}%");
         }
@@ -295,7 +371,7 @@ class ReportController extends Controller
             $firms = $firms->where('firm_type', 'LIKE', "%{$request->firm_type}%");
         }
         if ($request->advisor) {
-            $firms = $firms->where('created_by', "$request->advisor");
+            $firms = $firms->where('created_by', $request->advisor);
         }
 
         $firms = $firms->get();
@@ -326,7 +402,6 @@ class ReportController extends Controller
         $firmscheck = array();
 
         $data[] = $headings;
-
 
         $province = '-';
         $sector = '-';
@@ -392,7 +467,7 @@ class ReportController extends Controller
                         $email2,
                         $sector,
                         $ateco,
-                        
+
                     ];
                     $data[] = $value;
 
@@ -410,7 +485,7 @@ class ReportController extends Controller
                         $email2,
                         $sector,
                         $ateco,
-                        
+
                     ];
                     $data[] = $value;
                 }
@@ -420,11 +495,10 @@ class ReportController extends Controller
         if ($request->ajax()) {
             return Response::json([
                 'success' => true,
-                'data' => $data
+                'data' => $data,
             ], 200);
         }
-       
-        
+
         if ($request->file_type == 1) {
             $datapdf = ['data' => $datapdf];
             $pdf = PDF::loadView('exports.firms', $datapdf);
@@ -468,28 +542,26 @@ class ReportController extends Controller
         $datapdf = array();
         $valinascheck = array();
 
+        $date = Carbon::parse($valina->created_at)->format('D m.d.Y H:i');
+        $valina_data[] = $valina->id;
+        $valina_data[] = $valina->name;
+        $valina_data[] = $date;
 
-            $date = Carbon::parse($valina->created_at)->format('D m.d.Y H:i');
-            $valina_data[] = $valina->id;
-            $valina_data[] = $valina->name;
-            $valina_data[] = $date;
-
-            $valinaheading = [
-                'ID',
-                'VALINA Name',
-                'CREATION Date',
-            ];
-            $emptyspace = [
-                '',
-                '',
-                '',
-            ];
-            $data[] = $valinaheading;
-            $data[] = $valina_data;
-            $data[] = $emptyspace;
-            $data[] = $emptyspace;
-            $data[] = $headings;
-        
+        $valinaheading = [
+            'ID',
+            'VALINA Name',
+            'CREATION Date',
+        ];
+        $emptyspace = [
+            '',
+            '',
+            '',
+        ];
+        $data[] = $valinaheading;
+        $data[] = $valina_data;
+        $data[] = $emptyspace;
+        $data[] = $emptyspace;
+        $data[] = $headings;
 
         foreach ($valina->history as $key => $history) {
 
@@ -545,7 +617,7 @@ class ReportController extends Controller
         if ($request->ajax()) {
             return Response::json([
                 'success' => true,
-                'data' => $data
+                'data' => $data,
             ], 200);
         }
         if ($request->file_type == 1) {
