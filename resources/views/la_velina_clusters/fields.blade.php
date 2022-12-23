@@ -65,7 +65,7 @@
         </div>
     </div>
 </div>
-<div class="row" style="margin-top: -20px">
+<div class="row" style="margin-top: -20px" id="lastrow">
     <div class="col-lg-4">
         <div class="form-group">
             {{ Form::label('province', 'Province', ['class' => 'form-control-label']) }}
@@ -93,8 +93,8 @@
     </div>
     <div class="col-lg-4">
         <div class="form-group">
-            {{ Form::label('category', 'Category', ['class' => 'form-control-label']) }}
-            <select name="category" id="category" class='form-control'>
+            <label for="category" class="form-control-label">Category </label> <span id="addcat" class="btn btn-sm btn-outline-success" style="float: right">+</span>
+            <select name="category[]" id="category" class='form-control category'>
                 <option value="" selected>Category</option>
                 <option value="MICRO">MICRO</option>
                 <option value="PICCOLA">PICCOLA</option>
@@ -103,6 +103,9 @@
             </select>
         </div>
     </div>
+    {{-- <div class="col-md-1">
+
+    </div> --}}
     {{-- <div class="col-lg-4">
     <div class="form-group">
         {{ Form::label('phone_number', 'Phone Number', ['class' => 'form-control-label']) }}

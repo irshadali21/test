@@ -17,12 +17,12 @@
 
         <div class="card">
 
-            {!! Form::open(['route' => 'laVelinaClusters.store']) !!}
+            {!! Form::open(['route' => 'laVelinaClusters.store', 'id' => 'valinaform']) !!}
 
             <div class="card-body">
 
                 {{-- <div class="row"> --}}
-                    @include('la_velina_clusters.fields')
+                @include('la_velina_clusters.fields')
                 {{-- </div> --}}
                 <div class="row">
                     <div class="col-md-6"></div>
@@ -59,10 +59,29 @@
                 }
             });
 
+            $('#addcat').on('click', function() {
+                $('#lastrow').append(`
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="category" class="form-control-label">Category </label>
+                                <select name="category[]" id="category" class='form-control category'>
+                                    <option value="" selected>Category</option>
+                                    <option value="MICRO">MICRO</option>
+                                    <option value="PICCOLA">PICCOLA</option>
+                                    <option value="MEDIA">MEDIA</option>
+                                    <option value="GRANDE">GRANDE</option>
+                                </select>
+                            </div>
+                        </div>
+                        `)
+                        });
+
             $('#filter').on('click', function() {
 
                 $('#result_compnies').empty();
 
+                var formData = new FormData($('#valinaform')[0]);
+                console.log(formData);
                 var advisor = $("#advisor_name").val()
                 var firm = $("#firm").val()
                 var sector = $("#sector").val()
@@ -75,17 +94,9 @@
                 $.ajax({
                     url: "{{ route('laVelinaClusters.filter') }}",
                     type: "post",
-                    data: {
-                        advisor: advisor,
-                        firm: firm,
-                        sector: sector,
-                        ateco_code: ateco_code,
-                        province: province,
-                        firm_type: firm_type,
-                        category: category,
-                        // firm_owner: firm_owner,
-                        // phone_number: phone_number
-                    },
+                    data: formData,
+                    contentType: false,
+                    processData: false,
                     success: function(result) {
                         if (result.data.length == 0) {
                             console.log(result.message);
@@ -125,7 +136,7 @@
                             $('#result_compnies').append(appenddata);
                         }
                         $('#save-btn').show();
-                        
+
                     },
                     error: function(result) {
                         // console.log(result.message);
@@ -133,7 +144,7 @@
                 })
             })
 
-            
+
         });
     </script>
 @endpush

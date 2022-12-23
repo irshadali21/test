@@ -42,7 +42,7 @@
                                     <i class="far fa-edit"></i>
                                 </a>
 
-                                {!! Form::open(['route' => ['firms.destroy', $firm->id], 'method' => 'delete']) !!}
+                                {!! Form::open(['route' => ['firms.delete', $firm->id]]) !!}
                                 {!! Form::button('<i class="far fa-trash-alt"></i>', [
                                     'type' => 'submit',
                                     'class' => 'btn btn-danger btn-sm',

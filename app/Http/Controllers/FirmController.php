@@ -39,13 +39,13 @@ class FirmController extends AppBaseController
      */
     public function index(Request $request)
     {
-        // $firms = $this->firmRepository->UserCriteria()->paginate(20);
+        $firms = $this->firmRepository->UserCriteria()->paginate(20);
 
-        if (auth()->check() && auth()->user()->hasRole('super-admin')) {
-            $firms = Firm::withTrashed()->get();
-        } else {
-            $firms = Firm::withTrashed()->where('created_by', auth()->user()->id)->get();
-        }
+        // if (auth()->check() && auth()->user()->hasRole('super-admin')) {
+        //     $firms = Firm::withTrashed()->get();
+        // } else {
+        //     $firms = Firm::withTrashed()->where('created_by', auth()->user()->id)->get();
+        // }
 
         return view('firms.index')
             ->with('firms', $firms);
@@ -166,6 +166,7 @@ class FirmController extends AppBaseController
         }
 
         $this->firmRepository->delete($id);
+        // $firm = $this->firmRepository->update('deleted_at', 'now()');
 
         Flash::success('Firm deleted successfully.');
 
@@ -221,9 +222,13 @@ class FirmController extends AppBaseController
 
     }
 
-    public function resotre($id)
+    public function delete($id)
     {
-        $firm = Firm::onlyTrashed()->find($id);
+
+        $firm = $this->firmRepository->find($id);
+        // $firm = $this->firmRepository->update('deleted_at', 'now()');
+
+        // $firm = Firm::onlyTrashed()->find($id);
 
         if (empty($firm)) {
             Flash::error('Firm not found');
@@ -231,7 +236,30 @@ class FirmController extends AppBaseController
             return redirect(route('firms.index'));
         }
 
-        Firm::onlyTrashed()->find($id)->restore();;
+        Firm::where('id', $id)->update([
+            'deleted_at' => now()
+        ]);
+
+        Flash::success('Firm deleted successfully.');
+
+        return redirect(route('firms.index'));
+    }
+    public function resotre($id)
+    {
+        $firm = $this->firmRepository->find($id);
+        // $firm = Firm::onlyTrashed()->find($id);
+
+        if (empty($firm)) {
+            Flash::error('Firm not found');
+
+            return redirect(route('firms.index'));
+        }
+
+        Firm::where('id', $id)->update([
+            'deleted_at' => null
+        ]);
+
+        // Firm::onlyTrashed()->find($id)->restore();;
 
         Flash::success('Firm restored successfully.');
 

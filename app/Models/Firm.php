@@ -31,7 +31,7 @@ use App\User;
 class Firm extends Model
 {
 
-    use SoftDeletes;
+    // use SoftDeletes;
 
     public $table = 'firms';
 
