@@ -242,4 +242,33 @@ class MessageController extends AppBaseController
 
         return view('messages.message-conversation')->with(['messages' => $messages])->with(['chatUser' => $chatUser]);
     }
+
+    public function sendmessagetoaaladvisor(Request $request)
+    {
+
+        $from = auth()->id();
+        $message = $request->massage;
+        $exceptThis = [1];
+        $advisor = User::whereNotIn('id', $exceptThis)->get();
+        $count = count($advisor);
+        try {
+            for ($i=0; $i < $count ; $i++) { 
+                $to = $advisor[$i]->id;
+                $data = new Message();
+                $data->from_user = $from;
+                $data->to_user = $to;
+                $data->message = $message;
+                $data->is_read = 0; // message will be unread when sending message
+                $data->save();   
+            }
+            return Response::json([
+                'success' => true,
+            ], 200);
+        } catch (\Throwable $th) {
+            return Response::json([
+                'success' => false,
+            ], 200);
+        }
+        
+    }
 }

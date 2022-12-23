@@ -260,6 +260,7 @@ Route::group(['middleware' => ['auth', 'verified', 'stampCheck']], function () {
     Route::get('/message/{id}', 'MessageController@getMessage')->name('message');
     Route::get('/chat', 'MessageController@chat')->name('chat');
     Route::post('message/sendmessage', 'MessageController@sendMessage')->name('sendmessage');
+    Route::post('message/sendmessage/all', 'MessageController@sendmessagetoaaladvisor')->name('sendmessagetoaaladvisor');
     Route::get('/lastmessage/{id}', 'MessageController@getLastMessage');
 
     Route::get('/import/test/email', [
