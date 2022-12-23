@@ -73,40 +73,30 @@ class ReportController extends Controller
     {
         // dd($request->all());
 
-        $certificate = Certificate::with('file')->with('file.EmailTrack');
+        $files = File::Query();
 
         if (!auth()->user()->hasrole('super-admin')) {
-            $certificate->whereHas('file', function ($query) use ($request) {
-                return $query->where('files.advisor_id', auth()->user()->id);
-            });
+            $files = $files->where('advisor_id', auth()->user()->id);
         }
 
         if ($request->advisor_name) {
-            $certificate->whereHas('file', function ($query) use ($request) {
-                return $query->where('advisor_id', $request->advisor_name);
-            });
+            $files = $files->where('advisor_id', $request->advisor_name);
         }
 
         if ($request->company) {
-            $certificate->whereHas('file', function ($query) use ($request) {
-                $query->where('company_id', $request->company);
-            });
+            $files = $files->where('company_id', $request->company);
         }
 
         if ($request->benefits) {
-            $certificate->whereHas('file', function ($query) use ($request) {
-                $query->where('benefit_id', $request->benefits);
-            });
+            $files = $files->where('benefit_id', $request->benefits);
         }
 
         if ($request->opration_email) {
-            $certificate->whereHas('file', function ($query) use ($request) {
-                $query->where('opration_email', 'LIKE', "%{$request->opration_email}%");
-            });
+            $files = $files->where('opration_email', 'LIKE', "%{$request->opration_email}%");
         }
 
         if ($request->inc_send_date) {
-            $certificate->whereHas('file.EmailTrack', function ($query) use ($request) {
+            $files = $files->whereHas('EmailTrack', function ($query) use ($request) {
                 $from = Carbon::parse($request->inc_send_date)->format('Y-m-d');
                 $to = Carbon::parse(now())->format('Y-m-d');
                 $query->where('model', '!=', 'App\Models\Certificate');
@@ -115,7 +105,7 @@ class ReportController extends Controller
         }
 
         if ($request->certificate_issue_date) {
-            $certificate->whereHas('file.EmailTrack', function ($query) use ($request) {
+            $files = $files->whereHas('EmailTrack', function ($query) use ($request) {
                 $from = Carbon::parse($request->certificate_issue_date)->format('Y-m-d');
                 $to = Carbon::parse(now())->format('Y-m-d');
                 $query->where('model', 'App\Models\Certificate');
@@ -124,74 +114,24 @@ class ReportController extends Controller
         }
 
         if ($request->file_date) {
-            $certificate->whereHas('file', function ($query) use ($request) {
-                $from = Carbon::parse($request->file_date)->format('Y-m-d');
-                $to = Carbon::parse(now())->format('Y-m-d');
-                $query->whereBetween('created_at', [$from, $to]);
-            });
+            $from = Carbon::parse($request->file_date)->format('Y-m-d');
+            $to = Carbon::parse(now())->format('Y-m-d');
+            $files = $files->whereBetween('created_at', [$from, $to]);
         }
 
-        $certificate = $certificate->get();
+        $files = $files->get();
 
-        if ($certificate == null || empty($certificate) || count($certificate) == 0) {
+        if ($files == null || empty($files) || count($files) == 0) {
+            if ($request->ajax()) {
+                return Response::json([
+                    'success' => false,
+                    'data' => '',
+                ], 200);
+            }
             flash(' 0 report Found')->info();
 
             return redirect()->back();
         }
-
-
-        // $files = File::join('certificates', 'files.id', '=', 'certificates.file_id')
-        //     ->join('summaries', 'files.benefit_id', '=', 'summaries.id')
-        //     ->join('companies', 'files.company_id', '=', 'companies.id')
-        //     ->join('email_tracks', 'files.id', '=', 'email_tracks.model_id')
-        //     ->join('users', 'files.advisor_id', '=', 'users.id');
-
-        // if (!auth()->user()->hasrole('super-admin')) {
-        //     $files->where('files.advisor_id', auth()->user()->id);
-        // }
-
-        // if ($request->vat_number) {
-        //     $files->where('companies.vat_number', 'LIKE', "%{$request->vat_number}%");
-        // }
-        // if ($request->company) {
-        //     $files->where('companies.id', $request->company);
-        // }
-        // if ($request->benefits) {
-        //     $files->where('summaries.id', $request->benefits);
-        // }
-        // if ($request->advisor_name) {
-        //     $files->where('files.advisor_id', $request->advisor_name);
-        // }
-        // if ($request->opration_email) {
-        //     $files->where('files.opration_email', 'LIKE', "%{$request->opration_email}%");
-        // }
-        // if ($request->inc_send_date) {
-        //     $from = Carbon::parse($request->inc_send_date)->format('Y-m-d');
-        //     $to = Carbon::parse(now())->format('Y-m-d');
-        //     $files->where('email_tracks.model', '!=', 'App\Models\Certificate');
-        //     $files->whereBetween('email_tracks.created_at', [$from, $to]);
-        // }
-        // if ($request->certificate_issue_date) {
-        //     $from = Carbon::parse($request->certificate_issue_date)->format('Y-m-d');
-        //     $to =
-
-        //     $files->where('email_tracks.model', 'App\Models\Certificate');
-        //     $files->whereBetween('email_tracks.created_at', [$from, $to]);
-        // }
-        // if ($request->file_date) {
-        //     $from = Carbon::parse($request->file_date)->format('Y-m-d');
-        //     $to = Carbon::parse(now())->format('Y-m-d');
-        //     $files->whereBetween('files.created_at', [$from, $to]);
-        // }
-
-        // $files->select('files.*');
-
-        // $files = $files->get();
-        // if ($files == null || empty($files) || count($files) == 0) {
-        //     flash(' 0 report Found')->info();
-
-        //     return redirect()->back();
-        // }
 
         $headings = [
             'VAT N.',
@@ -218,10 +158,10 @@ class ReportController extends Controller
 
         // dd($files);
 
-        foreach ($certificate as $key => $cer) {
-            if (!in_array($cer->id, $files_ids)) {
-                $files_ids[] = $cer->id;
-                $file = $cer->file;
+        foreach ($files as $key => $file) {
+            if (!in_array($file->id, $files_ids)) {
+                $files_ids[] = $file->id;
+
                 $EmailTrack = $file->EmailTrack;
                 $Certificate = $file->certificate;
 
@@ -278,7 +218,7 @@ class ReportController extends Controller
                     $advisor_name = $advisor->name;
                 }
 
-                if ($Certificate) {
+                // if ($Certificate) {
                     $value = [
                         $company->vat_number,
                         $company->company_name,
@@ -295,10 +235,11 @@ class ReportController extends Controller
                         $opration_email,
                     ];
                     $data[] = $value;
-                }
+                // }
             }
         }
         //endforeach
+
 
         if ($request->ajax()) {
             return Response::json([
