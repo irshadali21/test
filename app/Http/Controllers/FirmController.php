@@ -39,7 +39,13 @@ class FirmController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $firms = $this->firmRepository->UserCriteria()->paginate(20);
+        // $firms = $this->firmRepository->UserCriteria()->paginate(20);
+
+        if (auth()->check() && auth()->user()->hasRole('super-admin')) {
+            $firms = Firm::withTrashed()->get();
+        } else {
+            $firms = Firm::withTrashed()->where('created_by', auth()->user()->id)->get();
+        }
 
         return view('firms.index')
             ->with('firms', $firms);
@@ -201,7 +207,7 @@ class FirmController extends AppBaseController
                     Session::forget('added');
                 }
                 return redirect(route('firms.index'));
-        
+
             } catch (\Throwable $th) {
             //    dd($th);
             }
@@ -212,6 +218,23 @@ class FirmController extends AppBaseController
             return redirect(route('firms.import'));
         }
 
-        
+
+    }
+
+    public function resotre($id)
+    {
+        $firm = Firm::onlyTrashed()->find($id);
+
+        if (empty($firm)) {
+            Flash::error('Firm not found');
+
+            return redirect(route('firms.index'));
+        }
+
+        Firm::onlyTrashed()->find($id)->restore();;
+
+        Flash::success('Firm restored successfully.');
+
+        return redirect(route('firms.index'));
     }
 }

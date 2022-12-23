@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Eloquent as Model;
 use App\Models\ateco_table;
 use App\Models\province_table;
@@ -29,6 +30,8 @@ use App\User;
  */
 class Firm extends Model
 {
+
+    use SoftDeletes;
 
     public $table = 'firms';
 

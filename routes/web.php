@@ -255,6 +255,8 @@ Route::group(['middleware' => ['auth', 'verified', 'stampCheck']], function () {
 
     Route::resource('firms', 'FirmController');
 
+    Route::post('/firms/restore/{id}', 'FirmController@resotre')->name('firms.restore');
+
     Route::get('/import/firm', [
         'uses' => 'FirmController@import',
         'as' => 'firms.import',
