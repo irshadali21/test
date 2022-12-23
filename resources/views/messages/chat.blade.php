@@ -2,6 +2,11 @@
 @push('styles')
     @include('messages.style')
 @endpush
+@push('pg_btn')
+    <button type="button" class="btn btn-sm btn-default" data-toggle="modal" data-target="#messagetoallmodal">
+        Send To all
+    </button>
+@endpush
 @section('content')
     <section class="content-header">
         <div class="container-fluid">
@@ -46,6 +51,32 @@
         <!-- End User chat -->
     </div>
 </div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="messagetoallmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Send Massage to all advisors</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <div style="color:red" id="responsefail"></div>
+      <textarea class="form-control" name="messageinputofalladvisor" id="messageinputofalladvisor" cols="50" rows="10"></textarea>
+            
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" id="sendmessagetoalladvisor" class="btn btn-primary">Send</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 @endsection
 @push('scripts')
     <script>
@@ -62,6 +93,32 @@
          *-------------------------------------------------------------
          */
 
+        $(document).on("click", "#sendmessagetoalladvisor", function() {
+            let massage = $('#messageinputofalladvisor').val();
+            console.log(massage);
+            if (massage != "" ) {
+                $.ajax({
+                    type: "post",
+                    url: "{{ route('sendmessagetoaaladvisor') }}", 
+                    data: {massage:massage},
+                    cache: false,
+                    success: function(data) {
+                        if(data.success == true)
+                        {
+                            $('#messagetoallmodal').modal('toggle');
+                            location.reload();
+                        }else{
+                            $('#responsefail').html('there was an error please try again later')
+                        }
+                    },
+                    error: function(jqXHR, status, err) {},
+                    complete: function() {
+                       
+                    }
+                });
+            }
+        })
+
         $(document).on("click", ".send-chat-message", function() {
             var receiver_id = $(this).attr('data-user');
             var message = $(".chat-input input").val();
@@ -70,7 +127,7 @@
                 var datastr = "receiver_id=" + receiver_id + "&message=" + message;
                 $.ajax({
                     type: "post",
-                    url: "{{ route('sendmessage') }}", // need to create this post route
+                    url: "{{ route('sendmessage') }}", 
                     data: datastr,
                     cache: false,
                     success: function(data) {

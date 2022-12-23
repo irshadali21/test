@@ -3,15 +3,18 @@
         <thead>
         <tr>
             <th>Name</th>
-            <th>creation date</th>
+            <th>Creation date</th>
+            <th>Title</th>
             <th colspan="3">Action</th>
         </tr>
         </thead>
         <tbody>
         @foreach($tests as $test)
+        {{-- @dd() --}}
             <tr>
                 <td>{{ $test->name }}</td>
                 <td>{{\Carbon\Carbon::parse($test->created_at)->format('d/m/Y H:i:s')  }}</td>
+                <td>{{ $test->title }}</td>
                 <td width="120">
                     {!! Form::open(['route' => ['lavelina.destroy', $test->id], 'method' => 'delete']) !!}
                     <div class='btn-group'>

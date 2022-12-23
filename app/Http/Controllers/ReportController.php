@@ -278,7 +278,6 @@ class ReportController extends Controller
         } elseif ($request->file_type == 2) {
             $export = new FilessExport($data);
             return Excel::download($export, $filename . 'xlsx');
-            dd($data);
         }
 
         flash('There was an Error')->info();

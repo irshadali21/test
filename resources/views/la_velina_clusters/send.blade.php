@@ -25,13 +25,13 @@
 
                     <!-- Name Field -->
                     <div class="form-group col-sm-12">
-                        <div class="form-group col-sm-4">
+                        <div class="form-group ">
                             {!! Form::label('lavelina_id', 'Select Lavelina:' , ['class' => 'form-control-label']) !!}
 
                             <input type="hidden" name="cluster_id" value="{{ $laVelinaCluster->id }}">
                             <select name="lavelina_id" id="lavelina_id" class= 'form-control select2'>
                                 @foreach ($lavelina as $valina)
-                                <option value="{{ $valina->id }}">{{ $valina->name }}</option>
+                                <option value="{{ $valina->id }}">Name >> ({{ $valina->name }}) Creation Date >> ({{ \Carbon\Carbon::parse($valina->created_at)->format('d/m/Y H:i:s')}})</option>
                                 @endforeach
                                 </select>
                         </div>
