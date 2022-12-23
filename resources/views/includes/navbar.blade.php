@@ -7,7 +7,7 @@
                 @if (setting('company_logo'))
                     <img alt="{{ setting('company_name') }}" height="45" class="navbar-brand-img"
                         src="{{ asset(setting('company_logo')) }}">
-                    <strong>{{ substr(setting('company_name'), 0, 15) }}</strong>
+                    {{-- <strong>{{ substr(setting('company_name'), 0, 15) }}</strong> --}}
                 @else
                     <strong>{{ substr(setting('company_name'), 0, 15) }}</strong>
                 @endif
