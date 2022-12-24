@@ -3,7 +3,7 @@
 @push('pg_btn')
 
 @can('create-post')
-    <a href="{{ route('files.create') }}" class="btn btn-sm btn-neutral">Create New File</a>
+    <a href="{{ route('files.create') }}" class="btn btn-sm btn-neutral">{{ __('lang.create_files') }}</a>
 @endcan
 @endpush
 @section('content')
@@ -13,7 +13,7 @@
                 <div class="card-header bg-transparent">
                     <div class="row">
                         <div class="col-lg-8">
-                            <h3 class="mb-0">All Files</h3>
+                            <h3 class="mb-0">{{ __('lang.All Files') }}</h3>
                         </div>
                         {{-- <div class="col-lg-4">
                             {!! Form::open(['route' => 'users.index', 'method'=>'get']) !!}
@@ -30,12 +30,12 @@
                             <table class="table table-hover align-items-center" id="file_tabel">
                                 <thead class="thead-light">
                                 <tr>
-                                    <th scope="col">Company Name</th>
-                                    <th scope="col">VAT Number </th>
-                                    <th scope="col">Benefit</th>
-                                    <th scope="col">Year</th>
-                                    <th scope="col">Advisor</th>
-                                    <th scope="col" class="text-center">Actions</th>
+                                    <th scope="col">{{ __('lang.Company Name') }}</th>
+                                    <th scope="col">{{ __('lang.VAT Number') }} </th>
+                                    <th scope="col">{{ __('lang.Benefit') }}</th>
+                                    <th scope="col">{{ __('lang.Year') }}</th>
+                                    <th scope="col">{{ __('lang.ADVISOR') }}</th>
+                                    <th scope="col" class="text-center">{{ __('lang.ACTIONS') }}</th>
                                 </tr>
                                 </thead>
                                 <tbody class="list">
@@ -58,7 +58,7 @@
                                             @if ($post->advisor)
                                             {{$post->advisor->name}}
                                                 @else
-                                                <span style="color: red"> Advisor Deleted </span>
+                                                <span style="color: red"> {{ __('lang.Advisor Deleted') }} </span>
                                             @endif
                                         </td>
                                         {{-- <td class="budget">
@@ -66,20 +66,20 @@
                                         </td> --}}
                                         <td class="text-center">
                                             <div class="btn-group ">
-                                                <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Options</i></button>
+                                                <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">{{ __('lang.Options') }}</i></button>
                                                 <div class="dropdown-menu " style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, -183px, 0px);" x-placement="top-start">
                                                     @can('view-file')
-                                                        <a class="dropdown-item"  href="{{route('files.show', $post->id)}}">View File</a>
+                                                        <a class="dropdown-item"  href="{{route('files.show', $post->id)}}">{{ __('lang.View File') }}</a>
                                                     @endcan
                                                     @can('update-file')
-                                                        <a class="dropdown-item"  href="{{route('files.edit',$post->id)}}">Edit File</a>
+                                                        <a class="dropdown-item"  href="{{route('files.edit',$post->id)}}">{{ __('lang.Edit File') }}</a>
                                                     @endcan
-                                                    
+
 
                                                     {{-- <a class="dropdown-item"  href="{{route('files.advoiser_assignment_download',$post->id)}}">Download for Advoiser</a> --}}
                                                 </div>
                                             </div>
-                                            
+
                                             {{-- {!! Form::close() !!} --}}
                                         </td>
                                     </tr>
@@ -122,7 +122,15 @@
     </script> --}}
     <script>
     jQuery(document).ready( function () {
-        $('#file_tabel').DataTable();
-    } );
+        $('#file_tabel').DataTable({
+                language: {
+                    lengthMenu: '{{ __("lang.lengthMenu") }}',
+                    zeroRecords: '{{ __("lang.zeroRecords") }}',
+                    info: '{{ __("lang.info") }}',
+                    infoEmpty: '{{ __("lang.infoEmpty") }}',
+                    infoFiltered: '{{ __("lang.infoFiltered") }}',
+                },
+            });
+        });
 </script>
 @endpush

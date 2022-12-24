@@ -15,7 +15,7 @@
                         <a href="#" class="text-reset user-profile-show"
                             id="user-profile-sender-name">{{ $chatUser->name }}</a>
                             <i class="ri-record-circle-fill font-size-10 text-warning d-inline-block ml-1"></i>
-                       
+
                     </h5>
                 </div>
             </div>
@@ -45,7 +45,7 @@
                 <p class="emoji-picker-container d-flex align-items-end m-0">
                     <input class="input-field form-control form-control-lg  border-light" data-emojiable="true"
                         data-emoji-input="true" type="text" name="comment" id="comment"
-                        placeholder="{{ __("Enter Message") }}..." />
+                        placeholder="{{ __("lang.Enter Message…") }}" />
                 </p>
             </div>
         </div>

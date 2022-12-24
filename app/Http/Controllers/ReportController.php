@@ -141,19 +141,19 @@ class ReportController extends Controller
         }
 
         $headings = [
-            'VAT N.',
-            'COMPANY NAME',
-            'PHONE NUMBER',
-            'CUSTOMER EMAIL',
-            'TYPE OF BENEFIT',
-            'YEAR OF BENEFIT',
-            'CERTIFICATE STATUS',
-            'INCARICO SEND DATE',
-            'CERTIFICATION ISSUE DATE',
-            'DATE PAYMENT',
-            'FEE',
-            'ADVISOR NAME',
-            'E-MAIL OPERATION',
+            __('lang.VAT Number'),
+            __('lang.Company Name'),
+            __('lang.Phone Number'),
+            __('lang.Customer Email'),
+            __('lang.Type of Benefits'),
+            __('lang.Year'),
+            __('lang.Certificat status'),
+            __('lang.Incarico Send Date'),
+            __('lang.Certification Issue Date'),
+            __('lang.DATE PAYMENT'),
+            __('lang.Fee'),
+            __('lang.Advisor Name'),
+            __('lang.Operation Email'),
         ];
 
         $filename = date('Y-m-d') . '-File-Report.';
@@ -200,13 +200,13 @@ class ReportController extends Controller
                 }
                 if ($Certificate) {
                     if ($Certificate->status == 1) {
-                        $status = 'certified and already paid';
+                        $status = __('lang.CERTIFIED AND PAID');
                         $datePayment = $Certificate->paid_date;
                     } elseif (strlen($CertificateSendDate) > 1) {
-                        $status = 'certified and unpaid';
+                        $status = __('lang.certified and unpaid');
                     }
                 } else {
-                    $status = 'to be certified';
+                    $status = __('lang.TO BE CERTIFIED');
                 }
 
                 if (!empty($advisor->name)) {
@@ -327,18 +327,18 @@ class ReportController extends Controller
             return redirect()->back();
         }
         $headings = [
-            'Advisor Name',
-            'COMPANY Name',
-            'VAT',
-            'Type',
-            'Province',
-            'Category',
-            'Phone',
-            'Contact Person',
+            __('lang.Advisor Name'),
+            __('lang.Company Name'),
+            __('lang.VAT Number'),
+            __('lang.Type'),
+            __('lang.Province'),
+            __('lang.Category'),
+            __('lang.Phone Number'),
+            __('lang.Contact Person'),
             'Email',
             'Email2',
-            'Sector',
-            'Ateco Code',
+            __('lang.Sector'),
+            __('lang.Ateco Code'),
         ];
 
         $filename = date('Y-m-d') . '-Firm-Report.';
@@ -476,10 +476,10 @@ class ReportController extends Controller
         }
 
         $headings = [
-            'VAT',
-            'COMPANY Name',
-            'Date',
-            'Cluster',
+            __('lang.VAT Number'),
+            __('lang.Company Name'),
+            __('lang.DATE'),
+            __('lang.Cluster'),
         ];
 
         $filename = date('Y-m-d') . '-Valina-Report.';
@@ -495,8 +495,8 @@ class ReportController extends Controller
 
         $valinaheading = [
             'ID',
-            'VALINA Name',
-            'CREATION Date',
+            __('lang.VALINA Name'),
+            __('lang.CREATION Date'),
         ];
         $emptyspace = [
             '',
@@ -597,10 +597,10 @@ class ReportController extends Controller
         }
 
         $headings = [
-            'VALINA ID',
-            'Name Valina',
-            'Date',
-            'Cluster',
+            'ID',
+            __('lang.VALINA Name'),
+            __('lang.DATE'),
+            __('lang.Cluster'),
         ];
 
         $filename = date('Y-m-d') . '-Valina-Received-Report.';
@@ -616,8 +616,8 @@ class ReportController extends Controller
 
         $firmheading = [
             'ID',
-            'FIRM Name',
-            'CREATION Date',
+            __('lang.Firm Name'),
+            __('lang.CREATION Date'),
         ];
         $emptyspace = [
             '',

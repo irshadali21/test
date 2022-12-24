@@ -41,6 +41,14 @@
 
 @push('scripts')
 <script>
-    $('.datatable').DataTable();
+    $('.datatable').DataTable({
+                language: {
+                    lengthMenu: '{{ __("lang.lengthMenu") }}',
+                    zeroRecords: '{{ __("lang.zeroRecords") }}',
+                    info: '{{ __("lang.info") }}',
+                    infoEmpty: '{{ __("lang.infoEmpty") }}',
+                    infoFiltered: '{{ __("lang.infoFiltered") }}',
+                },
+            });
 </script>
 @endpush

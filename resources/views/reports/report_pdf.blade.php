@@ -3,19 +3,19 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>VAT N.</th>
-                        <th>COMPANY NAME</th>
-                        <th>PHONE NUMBER</th>
-                        <th>CUSTOMER EMAIL</th>
-                        <th>TYPE OF BENEFIT</th>
-                        <th>YEAR OF BENEFIT</th>
-                        <th>CERTIFICATE STATUS</th>
-                        <th>INCARICO SEND DATE</th>
-                        <th>CERTIFICATION ISSUE DATE</th>
-                        <th>DATE PAYMENT</th>
-                        <th>FEE</th>
-                        <th>ADVISOR NAME</th>
-                        <th>E-MAIL OPERATION</th>
+                        <th>{{ __('lang.VAT Number') }}</th>
+                        <th>{{ __('lang.Company Name') }}</th>
+                        <th>{{ __('lang.Phone Number') }}</th>
+                        <th>{{ __('lang.Customer Email') }}</th>
+                        <th>{{ __('lang.Type of Benefits') }}</th>
+                        <th>{{ __('lang.Year') }}</th>
+                        <th>{{ __('lang.Certificat status') }}</th>
+                        <th>{{ __('lang.Incarico Send Date') }}</th>
+                        <th>{{ __('lang.Certification Issue Date') }}</th>
+                        <th>{{ __('lang.DATE PAYMENT') }}</th>
+                        <th>{{ __('lang.Fee') }}</th>
+                        <th>{{ __('lang.Advisor Name') }}</th>
+                        <th>{{ __('lang.E-Mail Operation') }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -23,17 +23,17 @@
                     @foreach ($files as $file)
                         {{-- {{ dd($file) }} --}}
                         @php
-                            
+
                             $EmailTrack = $file->EmailTrack;
                             $Certificate = $file->certificate;
-                            
+
                             $benefit = $file->benefit;
                             $company = $file->company;
                             $advisor = $file->advisor;
                             $CertificateSendDate = '-';
                             $IncaricoSendDate = '-';
                             $datePayment = '-';
-                            
+
                             if ($file->EmailTrack) {
                                 foreach ($file->EmailTrack as $track) {
                                     if ($track) {
@@ -48,7 +48,7 @@
                                     }
                                 }
                             }
-                            
+
                         @endphp
                         @if ($Certificate)
                             <tr>
@@ -63,13 +63,13 @@
                                     @php
                                         if ($Certificate) {
                                             if ($Certificate->status == 1) {
-                                                echo 'certified and already paid';
+                                                echo __('lang.CERTIFIED AND PAID');
                                                 $datePayment = $Certificate->paid_date;
                                             } elseif (strlen($CertificateSendDate) > 1) {
-                                                echo 'certified and unpaid';
+                                                echo __('lang.certified and unpaid');
                                             }
                                         } else {
-                                            echo 'to be certified';
+                                            echo __('lang.TO BE CERTIFIED');
                                         }
                                     @endphp
                                 </td>

@@ -7,7 +7,7 @@ if (session()->get('files_allowed') == null) {
 }
 @endphp
 @push('pg_btn')
-    <a href="{{ route('certificate.index') }}" class="btn btn-sm btn-neutral">All Certificate</a>
+    <a href="{{ route('certificate.index') }}" class="btn btn-sm btn-neutral">{{ __('lang.All Certificate') }}</a>
 @endpush
 @section('content')
     <div class="row">
@@ -15,21 +15,21 @@ if (session()->get('files_allowed') == null) {
             <div class="card mb-5">
                 <div class="card-body">
                     {!! Form::open(['route' => 'certificate.store', 'files' => true]) !!}
-                    <h6 class="heading-small text-muted mb-4">Certificate information for
+                    <h6 class="heading-small text-muted mb-4">{{ __('lang.CERTIFICATE INFORMATION FOR') }}
                         <strong>{{ $file->company->company_name }}</strong> - {{ $file->benefit->column1 }} -
                         {{ $file->year }}</h6>
                     <div class="pl-lg-4">
                         <div class="row">
                             <div class="col-lg-4 col-md-6 mt-2">
                                 <div class="form-group">
-                                    {{ Form::label('course', 'Course Name', ['class' => 'form-control-label']) }}
+                                    {{ Form::label('course', __('lang.Course Name'), ['class' => 'form-control-label']) }}
                                     {{ Form::text('course[]', null, ['class' => 'form-control']) }}
 
                                 </div>
                             </div>
                             <div class="col-lg-2 col-md-2 mt-2">
                                 <div class="form-group">
-                                    {{ Form::label('hours', 'Number of Hours', ['class' => 'form-control-label']) }}
+                                    {{ Form::label('hours', __('lang.number of hours'), ['class' => 'form-control-label']) }}
                                     {{ Form::text('hours[]', null, ['class' => 'form-control']) }}
 
                                 </div>
@@ -37,7 +37,7 @@ if (session()->get('files_allowed') == null) {
 
                             <div class="col-lg-2 col-md-2 mt-2">
                                 <div class="form-group">
-                                    {{ Form::label('employe', 'Number of employees', ['class' => 'form-control-label']) }}
+                                    {{ Form::label('employe', __('lang.Number of employees'), ['class' => 'form-control-label']) }}
                                     {{ Form::text('employe[]', null, ['class' => 'form-control']) }}
 
                                 </div>
@@ -385,7 +385,7 @@ if (session()->get('files_allowed') == null) {
                             </div>
                             <div class="col-lg-3">
                                 <div class="form-group">
-                                    {{ Form::label('phone', 'phone', ['class' => 'form-control-label']) }}
+                                    {{ Form::label('phone', __('lang.Phone Number'), ['class' => 'form-control-label']) }}
                                     {{ Form::number('phone', $file->company->phone_number, ['class' => 'form-control', 'readonly', 'step' => 'any']) }}
                                 </div>
                             </div>
@@ -395,7 +395,7 @@ if (session()->get('files_allowed') == null) {
                         {{-- <hr class="my-4" /> --}}
 
                         <div class="col-md-12">
-                            {{ Form::submit('Save File', ['class' => 'mt-5 btn btn-secondary']) }}
+                            {{ Form::submit(__('lang.Save file'), ['class' => 'mt-5 btn btn-secondary']) }}
                         </div>
 
                         {!! Form::close() !!}

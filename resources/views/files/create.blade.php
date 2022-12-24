@@ -14,26 +14,26 @@
                             <div class="row">
                                 <div class="col-lg-5">
                                     <div class="form-group">
-                                        {{ Form::label('vat_number', 'VAT Number', ['class' => 'form-control-label']) }}
-                                        {{ Form::text('vat_number', null, ['class' => 'form-control', 'placeholder' => 'VAT Number', 'required' ]) }}
+                                        {{ Form::label('vat_number', __('lang.VAT Number'), ['class' => 'form-control-label']) }}
+                                        {{ Form::text('vat_number', null, ['class' => 'form-control', 'placeholder' => __('lang.VAT Number'), 'required' ]) }}
                                     </div>
                                 </div>
                                 <div class="col-lg-3">
                                     <div class="form-group">
-                                        {{ Form::label('country', 'country', ['class' => 'form-control-label']) }}
+                                        {{ Form::label('country', __('lang.Country'), ['class' => 'form-control-label']) }}
                                         {{ Form::select('country', $cuntries, null, [ 'class'=> ' form-control', 'required']) }}
                                     </div>
                                 </div>
                                 <div class="col-lg-2">
                                     <div class="form-group">
 
-                                        {{ Form::label('data_base', 'Get Data From', ['class' => 'form-control-label']) }}
+                                        {{ Form::label('data_base', __('lang.Get Data From'), ['class' => 'form-control-label']) }}
                                         {{ Form::button('DataBase', array('class' => 'btn btn-danger ', 'id'=> 'data_base')) }}
                                     </div>
                                 </div>
                                 <div class="col-lg-2">
                                     <div class="form-group">
-                                        {{ Form::label('creditsafe', 'Get Data From', ['class' => 'form-control-label']) }}
+                                        {{ Form::label('creditsafe', __('lang.Get Data From'), ['class' => 'form-control-label']) }}
                                         {{ Form::button('CreditSafe', array('class' => 'btn btn-danger ', 'id'=> 'creditsafe')) }}
                                     </div>
                                 </div>
@@ -44,31 +44,31 @@
                                         <table class="table table-hover align-items-center">
                                             {{-- <thead class="thead-light"> --}}
                                             <tr class="thead-light">
-                                                <th scope="col" style="width: 50px">Company Name</th>
+                                                <th scope="col" style="width: 50px">{{ __('lang.Company Name') }}</th>
                                                 <td scope="budget" style="width: 350px" id="table_companyName"></td>
-                                                <th scope="col" style="width: 50px">VAT Number </th>
+                                                <th scope="col" style="width: 50px">{{ __('lang.VAT Number') }} </th>
                                                 <td scope="budget" style="width: 350px" id="table_vatNo"></td>
                                             </tr><tr class="thead-light">
                                             <tr class="thead-light">
-                                                <th scope="col" style="width: 50px">Company Address</th>
+                                                <th scope="col" style="width: 50px">{{ __('lang.Company Address') }}</th>
                                                 <td scope="budget" style="width: 350px" id="table_companyAddress"></td>
-                                                <th scope="col" style="width: 50px">Phone Number </th>
+                                                <th scope="col" style="width: 50px">{{ __('lang.Phone Number') }} </th>
                                                 <td scope="budget" style="width: 350px" id="table_phone"></td>
                                             </tr><tr class="thead-light">
                                             <tr class="thead-light">
-                                                <th scope="col" style="width: 50px">Email Address</th>
+                                                <th scope="col" style="width: 50px">{{ __('lang.Email Address') }}</th>
                                                 <td scope="budget" style="width: 350px" id="table_emailAddress"></td>
-                                                <th scope="col" style="width: 50px">Director </th>
+                                                <th scope="col" style="width: 50px">{{ __('lang.Director') }} </th>
                                                 <td scope="budget" style="width: 350px" id="table_director"></td>
                                             </tr><tr class="thead-light">
                                                 <th scope="col" style="width: 50px">CreditSafe Rating</th>
                                                 <td scope="budget" style="width: 350px" id="table_rating"></td>
-                                                <th scope="col" style="width: 50px">Credit </th>
+                                                <th scope="col" style="width: 50px">{{ __('lang.Credits') }} </th>
                                                 <td scope="budget" style="width: 350px" id="table_credit"></td>
                                             </tr><tr class="thead-light">
-                                                <th scope="col" style="width: 50px">Ateco Code</th>
+                                                <th scope="col" style="width: 50px">{{ __('lang.Ateco Code') }}</th>
                                                 <td scope="budget" style="width: 350px" id="table_atecoCode"></td>
-                                                <th scope="col" style="width: 50px">City </th>
+                                                <th scope="col" style="width: 50px">{{ __('lang.City') }} </th>
                                                 <td scope="budget" style="width: 350px" id="table_region"></td>
                                             </tr>
                                         </table>
@@ -131,24 +131,24 @@
                                         {{ Form::text('company_administrator', null, ['class' => 'form-control', 'placeholder' => 'Company Administrator']) }}
                                     </div>
                                 </div> --}}
-                                
+
                                 <div class="col-lg-6 mt-2">
                                     <div class="form-group">
-                                        {{ Form::label('benefit_id', 'Benefit', ['class' => 'form-control-label']) }}
+                                        {{ Form::label('benefit_id', __('lang.Benefit'), ['class' => 'form-control-label']) }}
                                         {{ Form::select('benefit_id', $benefit, null, [ 'class'=> ' form-control', 'required']) }}
-                                        
+
                                     </div>
                                 </div>
                                 <div class="col-lg-6 mt-2">
                                     <div class="form-group">
-                                        {{ Form::label('year', 'Year', ['class' => 'form-control-label']) }}
+                                        {{ Form::label('year', __('lang.Year'), ['class' => 'form-control-label']) }}
                                         {{ Form::number('year', null, ['class' => 'form-control', 'placeholder' => 'E.g 2022', 'required']) }}
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        {{ Form::label('fee', 'Fee', ['class' => 'form-control-label']) }}
-                                        {{ Form::number('fee', null, ['class' => 'form-control', 'placeholder' => 'Fee' , 'step' => 'any']) }}
+                                        {{ Form::label('fee', __('lang.Fee'), ['class' => 'form-control-label']) }}
+                                        {{ Form::number('fee', null, ['class' => 'form-control', 'placeholder' => __('lang.Fee') , 'step' => 'any']) }}
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -159,31 +159,31 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        {{ Form::label('customer_email', 'Customer Email', ['class' => 'form-control-label']) }}
-                                        {{ Form::email('customer_email', null, ['class' => 'form-control', 'placeholder' => 'Customer_Email@domain.com', 'required']) }}
+                                        {{ Form::label('customer_email', __('lang.Customer Email'), ['class' => 'form-control-label']) }}
+                                        {{ Form::email('customer_email', null, ['class' => 'form-control', 'placeholder' => __('lang.Customer Email').'@ domain.com', 'required']) }}
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        {{ Form::label('opration_email', 'Opration Email', ['class' => 'form-control-label']) }}
-                                        {{ Form::email('opration_email', null, ['class' => 'form-control', 'placeholder' => 'Opration_Email@domain.com']) }}
+                                        {{ Form::label('opration_email', __('lang.Operation Email'), ['class' => 'form-control-label']) }}
+                                        {{ Form::email('opration_email', null, ['class' => 'form-control', 'placeholder' => __('lang.Operation Email').'@ domain.com']) }}
                                     </div>
                                 </div>
                                 @if (Auth::user()->hasRole('super-admin'))
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            {{ Form::label('advisor', 'Select advisor', ['class' => 'form-control-label']) }}
+                                            {{ Form::label('advisor', __('lang.Select advisor'), ['class' => 'form-control-label']) }}
                                             {{ Form::select('advisor', $advisor, null, [ 'class'=> ' form-control', 'required']) }}
                                         </div>
                                     </div>
                                 @endif
                             </div>
-                                
+
 
                         {{-- <hr class="my-4" /> --}}
-                        
+
                         <div class="col-md-12">
-                            {{ Form::submit('Save File', ['class'=> 'mt-5 btn btn-secondary']) }}
+                            {{ Form::submit(__('lang.Save file'), ['class'=> 'mt-5 btn btn-secondary']) }}
                         </div>
 
                     {!! Form::close() !!}
@@ -215,8 +215,8 @@
 
         });
         jQuery('#uploadFile').filemanager('file');
-    
-    
+
+
         $('#data_base').on('click', function(){
              var url =  "{{ route('files.get_data_database') }}";
              getdata(url);
@@ -242,7 +242,7 @@
                 vat_num:vat_number,
                 country:country
             },
-            
+
             success:function(report){
                 $('#table_companyName').html(report.businessName);
                 $('#table_companyName').html(report.businessName);
@@ -255,7 +255,7 @@
                 $('#table_credit').html(report.credits);
                 $('#table_region').html(report.region);
                 $('#table_atecoCode').html(report.ateco_code);
-                
+
             },
                 error: function(responce) {
                     // console.log(responce.responseJSON);
@@ -265,6 +265,6 @@
         }
     });
 
-    
+
   </script>
 @endpush

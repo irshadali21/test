@@ -24,13 +24,13 @@
     <link rel="stylesheet" href="{{asset('assets/css/custom.css')}}" type="text/css">
 
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/node-snackbar@latest/src/js/snackbar.min.js"></script>
-    
+
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/node-snackbar@latest/dist/snackbar.min.css" />
-    
+
     {{-- select2 --}}
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    
+
     @stack('styles')
     @yield('style')
     <style>
@@ -54,7 +54,7 @@
     @include('includes.page-header')
     <div class="container-fluid mt--6" >
         <div style="background-color: white">
-            
+
             @yield('content')
         </div>
     </div>
@@ -72,19 +72,28 @@
     {{-- select2 --}}
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-    
+
 <script>
     $('#flash-overlay-modal').modal();
     jQuery(document).ready(function() {
         jQuery('.select2').select2();
     });
-    
+
 function changeLanguage(locale) {
         event.preventDefault();
         document.getElementById('current-language').value = locale;
         document.getElementById('languages-form').submit();
     }
-    
+
+    $('.datatable').DataTable({
+                language: {
+                    lengthMenu: '{{ __("lang.lengthMenu") }}',
+                    zeroRecords: '{{ __("lang.zeroRecords") }}',
+                    info: '{{ __("lang.info") }}',
+                    infoEmpty: '{{ __("lang.infoEmpty") }}',
+                    infoFiltered: '{{ __("lang.infoFiltered") }}',
+                },
+            });
 </script>
     @stack('scripts')
 

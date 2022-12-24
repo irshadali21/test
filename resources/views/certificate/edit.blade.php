@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @push('pg_btn')
-    <a href="{{ route('certificate.index') }}" class="btn btn-sm btn-neutral">All Certificate</a>
+    <a href="{{ route('certificate.index') }}" class="btn btn-sm btn-neutral">{{ __('lang.All Certificate') }}</a>
 @endpush
 @section('content')
     @php
@@ -12,7 +12,7 @@
                 <div class="card-body">
                     {!! Form::open(['route' => ['certificate.update', $certificate->id], 'files' => true, 'method' => 'put']) !!}
 
-                    <h6 class="heading-small text-muted mb-4">Certificate information for
+                    <h6 class="heading-small text-muted mb-4">{{ __('lang.CERTIFICATE INFORMATION FOR') }}
                         <strong>{{ $certificate->file->company->company_name }}</strong> -
                         {{ $certificate->file->benefit->column1 }} - {{ $certificate->file->year }}
                     </h6>
@@ -21,20 +21,20 @@
 
                             <div class="col-lg-4 col-md-6 mt-2">
                                 <div class="form-group">
-                                    {{ Form::label('course', 'Course Name', ['class' => 'form-control-label']) }}
+                                    {{ Form::label('course', __('lang.Course Name'), ['class' => 'form-control-label']) }}
 
                                 </div>
                             </div>
                             <div class="col-lg-2 col-md-2 mt-2">
                                 <div class="form-group">
-                                    {{ Form::label('hours', 'Number of Hours', ['class' => 'form-control-label']) }}
+                                    {{ Form::label('hours', __('lang.number of hours'), ['class' => 'form-control-label']) }}
 
                                 </div>
                             </div>
 
                             <div class="col-lg-2 col-md-2 mt-2">
                                 <div class="form-group">
-                                    {{ Form::label('employe', 'Number of employees', ['class' => 'form-control-label']) }}
+                                    {{ Form::label('employe', __('lang.Number of employees'), ['class' => 'form-control-label']) }}
 
                                 </div>
                             </div>
@@ -215,7 +215,7 @@
                                 foreach ($cost_ecnomic_report as $cost) {
                                     $total += $cost;
                                 }
-                                
+
                                 $value = $fmt->format($total);
                                 if (strpos($value, ',') == false) {
                                     $value = $fmt->format($total) . ',00';
@@ -264,7 +264,7 @@
 
                             <div class="col-lg-3 col-md-3">
                                 <div class="form-group">
-                                    {{ Form::label('certification_date', 'Certification Date', ['class' => 'form-control-label']) }}
+                                    {{ Form::label('certification_date', __('lang.Certification Date'), ['class' => 'form-control-label']) }}
                                     {{ Form::date('certification_date', $certificate->certification_date, ['class' => 'form-control', 'step' => 'any']) }}
                                 </div>
                             </div>
@@ -276,7 +276,7 @@
                             </div>
                             <div class="col-lg-3 col-md-3">
                                 <div class="form-group">
-                                    {{ Form::label('phone', 'phone', ['class' => 'form-control-label']) }}
+                                    {{ Form::label('phone', __('lang.Phone Number'), ['class' => 'form-control-label']) }}
                                     {{ Form::text('phone', $certificate->file->company->phone_number, ['class' => 'form-control', 'readonly', 'step' => 'any']) }}
                                 </div>
                             </div>
@@ -287,7 +287,7 @@
                                     id="status" @if ($certificate->status == 1)
                                         checked
                                     @endif>
-                                {{ Form::label('status', 'Certificate Paid', ['class' => 'custom-control-label']) }}
+                                {{ Form::label('status', __('lang.Certificate Paid'), ['class' => 'custom-control-label']) }}
                             </div>
                         </div>
 

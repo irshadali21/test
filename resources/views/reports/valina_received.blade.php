@@ -6,7 +6,7 @@
         <div class="col-md-12">
             <div class="card mb-5">
                 <div class="card-header">
-                    <h3>Generate new Report for received Valina</h3>
+                    <h3>{{ __('lang.Generate new Report for Valina') }}</h3>
                 </div>
                 <div class="card-body">
                     <form method="POST" action="{{ route('getreport.valinareceived') }}" accept-charset="UTF-8">
@@ -22,7 +22,7 @@
                                 <div class="form-group">
                                     {{ Form::label('firm', 'Firm ', ['class' => 'form-control-label']) }}
                                     <select name="firm" id="firm" class="form-control select2">
-                                        <option value="" selected disabled>Select Firm ...</option>
+                                        <option value="" selected disabled>{{ __('lang.Select Firms ...') }}</option>
                                         @foreach ($firms as $firm)
                                             <option value="{{ $firm->id }}">{{ $firm->firm_name }}  /  {{ $firm->firm_vat_no }}</option>
                                         @endforeach
@@ -32,7 +32,7 @@
 
                             <div class="col-lg-2">
                                 <div class="form-group">
-                                    <label class="form-control-label">Download As</label>
+                                    <label class="form-control-label">{{ __('lang.Download as') }}</label>
                                     <select name="file_type" id="file_type" class="form-control">
                                         <option value="1">PDF</option>
                                         <option value="2">Excel</option>
@@ -44,7 +44,7 @@
                                     <label class="form-control-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
                                     <div>
                                         <button type="button" class="btn btn-outline-success" style="margin-left: 20%;"
-                                            id="preview">Preview</button>
+                                            id="preview">{{ __('lang.Preview') }}</button>
                                     </div>
                                 </div>
                             </div>
@@ -52,7 +52,7 @@
                                 <div class="form-group">
                                     <label class="form-control-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
                                     <div>
-                                        <button type="submit" class="btn btn-secondary" id="download_excel">Download</button>
+                                        <button type="submit" class="btn btn-secondary" id="download_excel">{{ __('lang.Download') }}</button>
                                     </div>
                                 </div>
                             </div>

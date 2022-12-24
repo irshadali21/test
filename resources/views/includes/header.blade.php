@@ -85,10 +85,13 @@
                     <div class="dropdown-menu dropdown-menu-xl  dropdown-menu-right  py-0 overflow-hidden">
                         <!-- Dropdown header -->
                         <div class="px-3 py-3">
-                            <h6 class="text-sm text-muted m-0">You have
+                            <h6 class="text-sm text-muted m-0">{{ __('lang.You have') }}
                                 {{ $users->count() }}
-                                <strong class="text-primary">New</strong>
-                                messages.
+                                @if ($users->count() > 1)
+                                {{ __('lang.New Messages') }}
+                                @else
+                                {{ __('lang.New Message') }}
+                                @endif
                             </h6>
                         </div>
                         <!-- List group -->
@@ -134,8 +137,7 @@
                         </div>
                         <!-- View all -->
                         <a href="{{ route('chat') }}"
-                            class="dropdown-item text-center text-primary font-weight-bold py-3">View
-                            all</a>
+                            class="dropdown-item text-center text-primary font-weight-bold py-3">{{ __('lang.View all') }}</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -213,26 +215,26 @@
                     </a>
                     <div class="dropdown-menu  dropdown-menu-right ">
                         <div class="dropdown-header noti-title">
-                            <h6 class="text-overflow m-0">Welcome!</h6>
+                            <h6 class="text-overflow m-0">{{ __('lang.WELCOME!') }}</h6>
                         </div>
                         <a href="{{ route('profile.edit') }}" class="dropdown-item">
                             <i class="ni ni-single-02"></i>
-                            <span>My profile</span>
+                            <span>{{ __('lang.My profile') }}</span>
                         </a>
                         @can('settings.update')
                             <a href="{{ route('settings.index') }}" class="dropdown-item">
                                 <i class="fa fa-cog"></i>
-                                <span>Settings</span>
+                                <span>{{ __('lang.Setting') }}</span>
                             </a>
                         @endcan
                         <a href="#!" class="dropdown-item">
                             <i class="ni ni-support-16"></i>
-                            <span>Support</span>
+                        <span>{{ __('lang.Support') }}</span>
                         </a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ route('logout') }}"
                             onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                                                    document.getElementById('logout-form').submit();">
                             <i class="ni ni-user-run"></i>
                             <span>Logout</span>
                         </a>

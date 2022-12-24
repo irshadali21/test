@@ -3,21 +3,19 @@
     @can('update-file')
         <div class="btn-group ">
             <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                aria-expanded="true">Assignment Options</button>
+                aria-expanded="true">{{ __('lang.Assignment Option') }}</button>
             <div class="dropdown-menu "
                 style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, -183px, 0px);"
                 x-placement="top-start">
-                <a class="dropdown-item" href="{{ route('files.client_assignment', $file->id) }}">Email to Client</a>
-                <a class="dropdown-item" href="{{ route('files.client_assignment_download', $file->id) }}">Download for
-                    Client</a>
+                <a class="dropdown-item" href="{{ route('files.client_assignment', $file->id) }}">{{ __('lang.Email to Client') }}</a>
+                <a class="dropdown-item" href="{{ route('files.client_assignment_download', $file->id) }}">{{ __('lang.Download for Client') }}</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="{{ route('files.advoiser_assignment', $file->id) }}">Email to Advoiser</a>
-                <a class="dropdown-item" href="{{ route('files.advoiser_assignment_download', $file->id) }}">Download for
-                    Advoiser</a>
+                <a class="dropdown-item" href="{{ route('files.advoiser_assignment', $file->id) }}">{{ __('lang.Email to Advoiser') }}</a>
+                <a class="dropdown-item" href="{{ route('files.advoiser_assignment_download', $file->id) }}">{{ __('lang.Download for Advoiser') }}</a>
             </div>
         </div>
         <a class="btn btn-info btn-sm m-1" href="{{ route('files.edit', $file->id) }}">
-            <i class="fa fa-edit" aria-hidden="true"></i> Edit File
+            <i class="fa fa-edit" aria-hidden="true"></i> {{ __('lang.Edit File') }}
         </a>
     @endcan
 @endpush
@@ -28,7 +26,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-sm-4">
-                            Name
+                            {{ __('lang.view_file name') }}
                         </div>
                         <div class="col-sm-6">
                             <strong>{{ $file->company->company_name }}</strong>
@@ -43,7 +41,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-4">
-                            Customer Email
+                            {{ __('lang.view_file Customer Email') }}
                         </div>
                         <div class="col-sm-6">
                             <strong>{{ $file->customer_email }}</strong>
@@ -51,7 +49,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-4">
-                            Phone
+                            {{ __('lang.Phone Number') }}
                         </div>
                         <div class="col-sm-6">
                             <strong>{{ $file->company->phone_number }}</strong>
@@ -68,7 +66,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-4">
-                            Credits
+                            {{ __('lang.Credits') }}
                         </div>
                         <div class="col-sm-6">
                             <strong>{{ $file->company->credit }}</strong>
@@ -77,7 +75,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-4">
-                            Company Address
+                            {{ __('lang.view_file Company Address') }}
                         </div>
                         <div class="col-sm-6">
                             <strong>{{ $file->company->company_address }}</strong>
@@ -86,7 +84,7 @@
 
                     <div class="row">
                         <div class="col-sm-4">
-                            Company Aadministrator
+                            {{ __('lang.Director') }}
                         </div>
                         <div class="col-sm-6">
                             <strong>{{ $file->company->company_administrator }}</strong>
@@ -94,7 +92,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-4">
-                            Year
+                            {{ __('lang.Year') }}
                         </div>
                         <div class="col-sm-6">
                             <strong>{{ $file->year }}</strong>
@@ -102,7 +100,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-4">
-                            Benefits
+                            {{ __('lang.Benefit') }}
                         </div>
                         <div class="col-sm-6">
                             <strong>{{ $file->benefit->column1 }}</strong>
@@ -110,7 +108,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-4">
-                            Advisor
+                            {{ __('lang.ADVISOR') }}
                         </div>
                         <div class="col-sm-6">
                             @if ($advisor->deleted_at)
@@ -122,12 +120,12 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-4">
-                            FILE CREATION DATE
+                            {{ __('lang.FILE CREATION DATE') }}
                         </div>
                         <div class="col-sm-6">
                             @php
                             // dd($file->created_at);
-                              $date=  \Carbon\Carbon::parse($file->created_at)->format('d/m/Y H:m:s');
+                            $date=  \Carbon\Carbon::parse($file->created_at)->format('d/m/Y H:m:s');
                             // dd($date);
                             @endphp
                             <strong>{{ $date }}</strong>
@@ -135,7 +133,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-4">
-                            INCARICO_CLI SEND DATE
+                            {{ __('lang.INCARICO_CLI SEND DATE') }}
                         </div>
                         <div class="col-sm-6">
                             @foreach ($EmailTrackCLI as $item)
@@ -145,7 +143,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-4">
-                            INCARICO_REV SEND DATE
+                            {{ __('lang.INCARICO_REV SEND DATE') }}
                         </div>
                         <div class="col-sm-6">
                             @foreach ($EmailTrackREV as $item)
@@ -155,7 +153,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-4">
-                            CERTIFICATE SEND DATE
+                            {{ __('lang.CERTIFICATE SEND DATE') }}
                         </div>
                         <div class="col-sm-6">
                             @foreach ($EmailTrackCertificate as $item)
@@ -168,34 +166,34 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-4">
-                            CERTIFICATE PAYIED
+                            {{ __('lang.CERTIFICATE PAYIED') }}
                         </div>
                         <div class="col-sm-6">
                             @if ($file->certificate)
                                 @if ($file->certificate->status == 1)
-                                    <strong>Paid</strong>
+                                    <strong>{{ __('lang.Paid') }}</strong>
                                 @else
-                                    <strong>Not Paid</strong>
+                                    <strong>{{ __('lang.Not Paid') }}</strong>
                                 @endif
                             @else
-                                <strong>Certificate Not created</strong>
+                                <strong>{{ __('lang.Certificate Not Created') }}</strong>
                             @endif
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-sm-4">
-                            DATE PAYMENT
+                            {{ __('lang.DATE PAYMENT') }}
                         </div>
                         <div class="col-sm-6">
                             @if ($file->certificate)
                                 @if ($file->certificate->status == 1)
                                     <strong>{{ $file->certificate->paid_date }}</strong>
                                 @else
-                                    <strong>Not Paid</strong>
+                                    <strong>{{ __('lang.Not Paid') }}</strong>
                                 @endif
                             @else
-                                <strong>Certificate Not created</strong>
+                                <strong>{{ __('lang.Certificate Not Created') }}</strong>
                             @endif
                         </div>
 

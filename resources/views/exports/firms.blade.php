@@ -21,18 +21,18 @@
 <body>
     <table class="table table-bordered table-sm" style="margin-left: -20px">
         <thead>
-            <th>Advisor Name</th>
-            <th>COMPANY</th>
-            <th>VAT</th>
-            <th>Type</th>
-            <th>Province</th>
-            <th>Category</th>
-            <th>Phone</th>
-            <th>Contact Person</th>
+            <th>{{ __('lang.Advisor Name') }}</th>
+            <th>{{ __('lang.Company Name') }}</th>
+            <th>{{ __('lang.VAT Number') }}</th>
+            <th>{{ __('lang.Type') }}</th>
+            <th>{{ __('lang.Province') }}</th>
+            <th>{{ __('lang.Category') }}</th>
+            <th>{{ __('lang.Phone Number') }}</th>
+            <th>{{ __('lang.Contact Person') }}</th>
             <th>Email</th>
             {{-- <th>Emai2</th> --}}
-            <th>Sector</th>
-            <th>Ateco Code</th>
+            <th>{{ __('lang.Sector') }}</th>
+            <th>{{ __('lang.Ateco Code') }}</th>
         </thead>
         <tbody>
             @for ($i = 0; $i < count($data); $i++)
