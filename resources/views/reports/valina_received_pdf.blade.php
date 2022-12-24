@@ -25,8 +25,8 @@
             <thead>
                 <tr style="background-color:lightblue ">
                     <th><center> ID</center></th>
-                    <th><center> Firm NAME</center></th>
-                    <th><center>CREATION DATE</center></th>
+                    <th><center> {{ __('lang.Firm Name') }}</center></th>
+                    <th><center>{{ __('lang.CREATION Date') }}</center></th>
                 </tr>
             </thead>
             <tbody>
@@ -44,10 +44,10 @@
         <thead>
             <tr style="background-color:rgb(239, 217, 161) ">
                 {{-- <th>#</th> --}}
-                <th>VALINA ID</th>
-                <th>VALINA NAME</th>
-                <th>SENT DATE</th>
-                <th>CLUSTER</th>
+                <th>ID</th>
+                <th>{{ __('lang.VALINA Name') }}</th>
+                <th>{{ __('lang.SEND DATE') }}</th>
+                <th>{{ __('lang.Cluster') }}</th>
 
             </tr>
         </thead>

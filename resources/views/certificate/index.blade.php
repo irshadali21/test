@@ -15,7 +15,7 @@
 @endpush
 @push('pg_btn')
     @can('create-post')
-        <a href="{{ route('files.create') }}" class="btn btn-sm btn-neutral">Create New File</a>
+        <a href="{{ route('files.create') }}" class="btn btn-sm btn-neutral">{{ __('lang.create_files') }}</a>
     @endcan
 @endpush
 @section('content')
@@ -33,7 +33,7 @@
                     </div> --}}
                     <div class="row">
                         <div class="col-lg-8">
-                            <h3 class="mb-0">All Files</h3>
+                            <h3 class="mb-0">{{ __('lang.All Files') }}</h3>
                         </div>
 
 
@@ -57,12 +57,12 @@
                                 id="certificate_table">
                                 <thead class="thead-light">
                                     <tr>
-                                        <th scope="col">Company Name</th>
+                                        <th scope="col">{{ __('lang.Company Name') }}</th>
 
-                                        <th scope="col">Benefit</th>
-                                        <th scope="col">Year</th>
-                                        <th scope="col">Certificat status</th>
-                                        <th scope="col" class="text-center">Actions</th>
+                                        <th scope="col">{{ __('lang.Benefit') }}</th>
+                                        <th scope="col">{{ __('lang.Year') }}</th>
+                                        <th scope="col">{{ __('lang.Certificat status') }}</th>
+                                        <th scope="col" class="text-center">{{ __('lang.ACTIONS') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody class="list">
@@ -81,29 +81,28 @@
                                                     {{ $post->year }}
                                                 </td>
                                                 <td class="budget">
-                                                    TO BE CERTIFIED
+                                                    {{ __('lang.TO BE CERTIFIED') }}
                                                 </td>
                                                 <td class="text-center">
                                                     <div class="btn-group ">
                                                         <button type="button"
                                                             class="btn btn-secondary btn-sm dropdown-toggle"
                                                             data-toggle="dropdown" aria-haspopup="true"
-                                                            aria-expanded="true">Options</i></button>
+                                                            aria-expanded="true">{{ __('lang.Options') }}</i></button>
                                                         <div class="dropdown-menu "
                                                             style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, -183px, 0px);"
                                                             x-placement="top-start">
                                                             @can('view-file')
                                                                 <a class="dropdown-item"
-                                                                    href="{{ route('files.show', $post->id) }}">View File</a>
+                                                                    href="{{ route('files.show', $post->id) }}">{{ __('lang.View File') }}</a>
                                                             @endcan
                                                             @can('update-file')
                                                                 <a class="dropdown-item"
-                                                                    href="{{ route('files.edit', $post->id) }}">Edit File</a>
+                                                                    href="{{ route('files.edit', $post->id) }}">{{ __('lang.Edit File') }}</a>
                                                             @endcan
                                                             @can('view-certificate')
                                                                 <a class="dropdown-item"
-                                                                    href="{{ route('certificate.show', $post->id) }}">Create
-                                                                    Certificate</a>
+                                                                    href="{{ route('certificate.show', $post->id) }}">{{ __('lang.Create Certificate') }}</a>
                                                             @endcan
 
                                                             {{-- <a class="dropdown-item"  href="{{route('files.advoiser_assignment_download',$post->id)}}">Download for Advoiser</a> --}}
@@ -144,7 +143,7 @@
                                                     if ($counter > 0) {
                                                         echo 'CERTIFIED AND UNPAID';
                                                     } else {
-                                                        echo 'TO BE CERTIFIED';
+                                                        echo __('lang.Certificate Not Created');
                                                     }
                                                 @endphp
                                                 {{-- {{}} --}}
@@ -154,31 +153,26 @@
                                                 <div class="btn-group ">
                                                     <button type="button" class="btn btn-secondary btn-sm dropdown-toggle"
                                                         data-toggle="dropdown" aria-haspopup="true"
-                                                        aria-expanded="true">Options</i></button>
+                                                        aria-expanded="true">{{ __('lang.Options') }}</i></button>
                                                     <div class="dropdown-menu "
                                                         style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, -183px, 0px);"
                                                         x-placement="top-start">
                                                         @can('view-file')
                                                             <a class="dropdown-item"
-                                                                href="{{ route('files.show', $certificate->id) }}">View
-                                                                File</a>
+                                                                href="{{ route('files.show', $certificate->id) }}">{{ __('lang.View File') }}</a>
                                                         @endcan
                                                         @can('update-file')
                                                             <a class="dropdown-item"
-                                                                href="{{ route('files.edit', $certificate->id) }}">Edit
-                                                                File</a>
+                                                                href="{{ route('files.edit', $certificate->id) }}">{{ __('lang.Edit File') }}</a>
                                                         @endcan
 
                                                         @can('view-certificate')
                                                             <a class="dropdown-item"
-                                                                href="{{ route('certificate.edit', $certificate->id) }}">Modify
-                                                                Certificate</a>
+                                                                href="{{ route('certificate.edit', $certificate->id) }}">{{ __('lang.Modify Certificate') }}</a>
                                                             <a class="dropdown-item"
-                                                                href="{{ route('certificate.show', $certificate->id) }}">Download
-                                                                Certificate</a>
+                                                                href="{{ route('certificate.show', $certificate->id) }}">{{ __('lang.Download Certificate') }}</a>
                                                             <a class="dropdown-item"
-                                                                href="{{ route('certificate.send', $certificate->id) }}">Send
-                                                                Certificate</a>
+                                                                href="{{ route('certificate.send', $certificate->id) }}">{{ __('lang.Send Certificate') }}</a>
                                                         @endcan
 
 
@@ -203,35 +197,30 @@
                                                 {{ $certificate->benefits_year }}
                                             </td>
                                             <td class="budget">
-                                                CERTIFIED AND PAID
+                                                {{ __('lang.CERTIFIED AND PAID') }}
                                             </td>
                                             <td class="text-center">
                                                 <div class="btn-group ">
                                                     <button type="button" class="btn btn-secondary btn-sm dropdown-toggle"
                                                         data-toggle="dropdown" aria-haspopup="true"
-                                                        aria-expanded="true">Options</i></button>
+                                                        aria-expanded="true">{{ __('lang.Options') }}</i></button>
                                                     <div class="dropdown-menu "
                                                         style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, -183px, 0px);"
                                                         x-placement="top-start">
                                                         @can('view-file')
                                                             <a class="dropdown-item"
-                                                                href="{{ route('files.show', $certificate->id) }}">View
-                                                                File</a>
+                                                                href="{{ route('files.show', $certificate->id) }}">{{ __('lang.View File') }}</a>
                                                         @endcan
                                                         @can('update-file')
                                                             <a class="dropdown-item"
-                                                                href="{{ route('files.edit', $certificate->id) }}">Edit
-                                                                File</a>
+                                                                href="{{ route('files.edit', $certificate->id) }}">{{ __('lang.Edit File') }}</a>
                                                         @endcan
                                                         <a class="dropdown-item"
-                                                            href="{{ route('certificate.edit', $certificate->id) }}">Modify
-                                                            Certificate</a>
+                                                            href="{{ route('certificate.edit', $certificate->id) }}">{{ __('lang.Modify Certificate') }}</a>
                                                         <a class="dropdown-item"
-                                                            href="{{ route('certificate.show', $certificate->id) }}">Download
-                                                            Certificate</a>
+                                                            href="{{ route('certificate.show', $certificate->id) }}">{{ __('lang.Download Certificate') }}</a>
                                                         <a class="dropdown-item"
-                                                            href="{{ route('certificate.send', $certificate->id) }}">Send
-                                                            Certificate</a>
+                                                            href="{{ route('certificate.send', $certificate->id) }}">{{ __('lang.Send Certificate') }}</a>
 
                                                         {{-- <a class="dropdown-item"  href="{{route('files.advoiser_assignment_download',$post->id)}}">Download for Advoiser</a> --}}
                                                     </div>
@@ -294,7 +283,7 @@
                     if (typeof(selector.siblings('.image-box').html()) != "string") {
                         selector.parents('.images-container').append(`
                             <div class="col-xs-2 file-upload-box mt-1">
-                            
+
                             <div class="text-white text-center upload-box">
                                 <i style="margin-top: 50px;" class="fa fa-upload"></i>
                             </div>
@@ -323,7 +312,15 @@
 
         });
         jQuery(document).ready(function() {
-            $('#certificate_table').DataTable();
+            $('#certificate_table').DataTable({
+                language: {
+                    lengthMenu: '{{ __("lang.lengthMenu") }}',
+                    zeroRecords: '{{ __("lang.zeroRecords") }}',
+                    info: '{{ __("lang.info") }}',
+                    infoEmpty: '{{ __("lang.infoEmpty") }}',
+                    infoFiltered: '{{ __("lang.infoFiltered") }}',
+                },
+            });
         });
     </script>
 @endpush

@@ -21,19 +21,19 @@
 <body>
     <table class="table table-bordered table-sm" style="margin-left: -20px">
         <thead>
-            <th>VAT N.</th>
-            <th>COMPANY</th>
-            <th>PHONE</th>
-            <th>EMAIL</th>
-            <th>BENEFIT</th>
-            <th>YEAR</th>
-            <th>CERTIFICATE</th>
-            <th>SEND DATE</th>
-            <th>CERTIFI:DATE</th>
+            <th>{{ __('lang.VAT Number') }}</th>
+            <th>{{ __('lang.COMPANY') }}</th>
+            <th>{{ __('lang.Phone Number') }}</th>
+            <th>{{ __('lang.Email Address') }}</th>
+            <th>{{ __('lang.Benefit') }}</th>
+            <th>{{ __('lang.Year') }}</th>
+            <th>{{ __('lang.Certificat status') }}</th>
+            <th>{{ __('lang.SEND DATE') }}</th>
+            <th>{{ __('lang.CERTIFI:DATE') }}</th>
             <th>FEE</th>
 
         </thead>
-        <tbody>            
+        <tbody>
             @for ($i = 1; $i < count($data); $i++)
             <tr>
                 <td>{{ $data[$i]['vat'] }}</td>
@@ -51,7 +51,7 @@
                 <td>{{ $files['opration'] }}</td> --}}
             </tr>
             @endfor
-            
+
         </tbody>
     </table>
 

@@ -5,7 +5,7 @@
 @if (auth()->user()->hasrole('super-admin'))
     @push('pg_btn')
         <button type="button" class="btn btn-sm btn-default" data-toggle="modal" data-target="#messagetoallmodal">
-            Send To all
+           {{ __('lang.Send To all') }}
         </button>
     @endpush
 @endif
@@ -14,7 +14,7 @@
         <div class="container-fluid">
             <div class="row ">
                 <div class="col-sm-6">
-                    <h1>Messages</h1>
+                    <h1>{{ __('lang.Messages') }}</h1>
                 </div>
             </div>
         </div>
@@ -62,7 +62,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Send Massage to all advisors</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">{{ __('lang.Send Message to all advisors') }}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -74,8 +74,8 @@
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" id="sendmessagetoalladvisor" class="btn btn-primary">Send</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('lang.Close') }}</button>
+                        <button type="button" id="sendmessagetoalladvisor" class="btn btn-primary">{{ __('lang.Send') }}</button>
                     </div>
                 </div>
             </div>
