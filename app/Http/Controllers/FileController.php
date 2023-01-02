@@ -222,7 +222,7 @@ class FileController extends Controller
             'credit' => $report['credits'],
             'company_administrator' => $report['director'],
         ]);
-        dd($report);
+        // dd($report);
         return response()->json($report, 200, );
     }
 
