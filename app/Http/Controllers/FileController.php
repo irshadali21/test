@@ -178,7 +178,8 @@ class FileController extends Controller
         } else {
             $report += ['pec_email' => ''];
         }
-        if (isset($company['contactInformation']['mainAddress'])) {
+        // if (isset($company['contactInformation']['mainAddress'])) {
+        if (isset($company['contactInformation']['mainAddress']['telephone'])) {
             $report += ['telephone' => $company['contactInformation']['mainAddress']['telephone']];
         } else {
             $report += ['telephone' => ''];
@@ -190,7 +191,7 @@ class FileController extends Controller
             $report += ['address' => ''];
             $report += ['region' => ''];
         }
-        if (isset($company['directors'])) {
+        if (isset($company['directors']['currentDirectors'])) {
             if (isset($company['directors']['currentDirectors'])) {
                 $report += ['director' => $company['directors']['currentDirectors']['0']['name']];
             }else {
@@ -199,7 +200,7 @@ class FileController extends Controller
         } else {
             $report += ['director' => ''];
         }
-        if (isset($company['companySummary']['mainActivity'])) {
+        if (isset($company['companySummary']['mainActivity']['code'])) {
             $report += ['ateco_code' => $company['companySummary']['mainActivity']['code']];
         } else {
             $report += ['ateco_code' => ''];
@@ -221,7 +222,7 @@ class FileController extends Controller
             'credit' => $report['credits'],
             'company_administrator' => $report['director'],
         ]);
-        // dd($report);
+        dd($report);
         return response()->json($report, 200, );
     }
 
@@ -315,8 +316,8 @@ class FileController extends Controller
         // $data["email"] ='easyfun1@greendike.com';
         //         $mail =  Notification::route('mail', $data["email"])->notify( new NewMessage());
         // dd( $mail);
-        
-        
+
+
         Mail::send('emails.myTestMail', $data, function ($message) use ($data, $pdf, $name) {
             $message
                 ->to($data["email"], $data["email"])
@@ -443,6 +444,6 @@ class FileController extends Controller
          $data["email"] ='easyfun1@greendike.com';
                 $mail =  Notification::route('mail', $data["email"])->notify( new NewMessage());
         dd( $mail);
-        
+
     }
 }
