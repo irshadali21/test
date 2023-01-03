@@ -39,7 +39,7 @@ class FileController extends Controller
     public function index(Request $request)
     {
 
-        if (Auth::user()->hasrole('super-admin')) {
+        if (Auth::user()->hasrole('super-admin') || Auth::user()->can('view-all-files') ) {
             $files = File::get();
         } else {
             $files = File::where('advisor_id', auth()->user()->id)->get();

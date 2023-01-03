@@ -16,9 +16,7 @@
         <div class="col-md-12">
             <div class="card mb-5">
                 <div class="card-body">
-                    @can('update-user')
-                        {!! Form::open(['route' => ['profile.update'], 'method' => 'post', 'files' => true]) !!}
-                    @endcan
+                    {!! Form::open(['route' => ['profile.update'], 'method' => 'post', 'files' => true]) !!}
                     <h6 class="heading-small text-muted mb-4">User information</h6>
                     <div class="pl-lg-4">
                         <div class="row">
@@ -51,7 +49,7 @@
                                         name="advoiser_stamp">
                                 </div>
                             </div>
-                            
+
                         </div> --}}
                             {{-- <div class="col-md-2">
                             @if ($user->advoiser_stamp)
@@ -203,17 +201,12 @@
                                     {{ Form::label('status', 'Status', ['class' => 'custom-control-label']) }}
                                 </div>
                             </div>
-
-                            @can('update-user')
-                                <div class="col-md-12">
-                                    {{ Form::submit('Submit', ['class' => 'mt-5 btn btn-secondary']) }}
-                                </div>
-                            @endcan
+                            <div class="col-md-12">
+                                {{ Form::submit('Submit', ['class' => 'mt-5 btn btn-secondary']) }}
+                            </div>
                         </div>
                     </div>
-                    @can('update-user')
-                        {!! Form::close() !!}
-                    @endcan
+                    {!! Form::close() !!}
                 </div>
             </div>
         </div>

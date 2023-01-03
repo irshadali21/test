@@ -34,7 +34,7 @@ class CertificateController extends Controller
     {
 
         // $certificate = Certificate::paginate(setting('record_per_page', 15));
-        if (Auth::user()->hasrole('super-admin')) {
+        if (Auth::user()->hasrole('super-admin') ||  Auth::user()->can('view-all-certificates')) {
             $uncertified = File::get();
             $unpaid_files = File::join('certificates', 'files.id', '=', 'certificates.file_id')
                 ->join('summaries', 'files.benefit_id', '=', 'summaries.id')
