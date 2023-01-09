@@ -27,7 +27,11 @@
         "phpmailer/phpmailer": "^6.7",
         "spatie/laravel-activitylog": "^3.14",
         "spatie/laravel-permission": "^3.13",
-        "unisharp/laravel-filemanager": "^2.1"
+        "unisharp/laravel-filemanager": "^2.1",
+        "yajra/laravel-datatables": "*",
+        "yajra/laravel-datatables-buttons": "*",
+        "yajra/laravel-datatables-html": "*",
+        "yajra/laravel-datatables-oracle": "*"
     },
     "require-dev": {
         "facade/ignition": "^2.0",
