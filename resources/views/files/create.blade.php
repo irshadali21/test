@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @push('pg_btn')
-    <div class="btn btn-sm btn-neutral">Total Api Calls: <strong>{{ $Total_api_calls }}</strong></div>
-    <a href="{{route('files.index')}}" class="btn btn-sm btn-neutral">All Files</a>
+    <div class="btn btn-sm btn-neutral">{{ __('lang.Api calls') }} <strong>{{ $Total_api_calls }}</strong></div>
+    <a href="{{route('files.index')}}" class="btn btn-sm btn-neutral">{{ __('lang.All Files') }}</a>
 @endpush
 @section('content')
     <div class="row">

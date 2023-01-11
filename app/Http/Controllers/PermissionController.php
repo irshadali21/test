@@ -26,7 +26,7 @@ class PermissionController extends Controller
         activity('permission')
             ->causedBy(Auth::user())
             ->log('view');
-        $title = 'Manage Permissions';
+        $title = __('lang.managePermission');
         $permissions = Permission::paginate(setting('record_per_page', 15));
         return view('permissions.index', compact('permissions','title'));
     }
@@ -41,7 +41,7 @@ class PermissionController extends Controller
         activity('permission')
             ->causedBy(Auth::user())
             ->log('create');
-        $title = 'Create Permission';
+        $title = __('lang.Create new permissions');
         return view('permissions.create', compact('title'));
     }
 

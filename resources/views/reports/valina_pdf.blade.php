@@ -45,7 +45,7 @@
             <tr style="background-color:rgb(239, 217, 161) ">
                 {{-- <th>#</th> --}}
                 <th>{{ __('lang.VAT Number') }}</th>
-                <th>{{ __('lang.Company Name') }}</th>
+                <th>{{ __('lang.CompanyNamedownload') }}</th>
                 <th>{{ __('lang.SEND DATE') }}</th>
                 <th>{{ __('lang.Cluster') }}</th>
 

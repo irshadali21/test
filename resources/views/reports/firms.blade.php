@@ -22,7 +22,7 @@
                                 <div class="form-group">
                                     {{ Form::label('ateco', __('lang.Ateco Code'), ['class' => 'form-control-label']) }}
                                     <select name="ateco" id="ateco" class="form-control select2">
-                                        <option value="" selected disabled>Select ateco code...</option>
+                                        <option value="" selected disabled>{{ __('lang.Select ateco code') }}</option>
                                         @foreach ($ateco as $ateco)
                                             <option value="{{ $ateco->id }}">{{ $ateco->code }}</option>
                                         @endforeach
@@ -33,7 +33,7 @@
                                 <div class="form-group">
                                     {{ Form::label('sector', __('lang.Sector'), ['class' => 'form-control-label']) }}
                                     <select name="sector" id="sector" class="form-control select2">
-                                        <option value="" selected disabled>Select sector...</option>
+                                        <option value="" selected disabled>{{ __('lang.Select sector') }}</option>
                                         @foreach ($sector as $sector)
                                             <option value="{{ $sector->id }}">{{ $sector->name }}</option>
                                         @endforeach
@@ -44,7 +44,7 @@
                                 <div class="form-group">
                                     {{ Form::label('province', __('lang.Province'), ['class' => 'form-control-label']) }}
                                     <select name="province" id="province" class="form-control select2">
-                                        <option value="" selected disabled>Select province ...</option>
+                                        <option value="" selected disabled>{{ __('lang.Select province') }}</option>
                                         @foreach ($province as $province)
                                             <option value="{{ $province->id }}">{{ $province->province }}</option>
                                         @endforeach

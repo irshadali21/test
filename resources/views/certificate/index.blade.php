@@ -141,7 +141,7 @@
                                                         }
                                                     }
                                                     if ($counter > 0) {
-                                                        echo 'CERTIFIED AND UNPAID';
+                                                        echo __('lang.certified and unpaid');
                                                     } else {
                                                         echo __('lang.Certificate Not Created');
                                                     }

@@ -21,10 +21,10 @@
 <body>
     <table class="table table-bordered table-sm" style="margin-left: -20px">
         <thead>
-            <th>{{ __('lang.Advisor Name') }}</th>
-            <th>{{ __('lang.Company Name') }}</th>
+            <th>{{ __('lang.AdvisorNamedownload') }}</th>
+            <th>{{ __('lang.CompanyNamedownload') }}</th>
             <th>{{ __('lang.VAT Number') }}</th>
-            <th>{{ __('lang.Type') }}</th>
+            <th>{{ __('lang.Typedownlaod') }}</th>
             <th>{{ __('lang.Province') }}</th>
             <th>{{ __('lang.Category') }}</th>
             <th>{{ __('lang.Phone Number') }}</th>

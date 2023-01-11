@@ -4,7 +4,7 @@
                     <tr>
                         <th>#</th>
                         <th>{{ __('lang.VAT Number') }}</th>
-                        <th>{{ __('lang.Company Name') }}</th>
+                        <th>{{ __('lang.CompanyNamedownload') }}</th>
                         <th>{{ __('lang.Phone Number') }}</th>
                         <th>{{ __('lang.Customer Email') }}</th>
                         <th>{{ __('lang.Type of Benefits') }}</th>
@@ -14,7 +14,7 @@
                         <th>{{ __('lang.Certification Issue Date') }}</th>
                         <th>{{ __('lang.DATE PAYMENT') }}</th>
                         <th>{{ __('lang.Fee') }}</th>
-                        <th>{{ __('lang.Advisor Name') }}</th>
+                        <th>{{ __('lang.AdvisorNamedownload') }}</th>
                         <th>{{ __('lang.E-Mail Operation') }}</th>
                     </tr>
                 </thead>
