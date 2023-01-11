@@ -22,7 +22,7 @@
                                 <div class="form-group">
                                     {{ Form::label('lavelina', __('lang.lavelina'), ['class' => 'form-control-label']) }}
                                     <select name="lavelina" id="lavelina" class="form-control select2">
-                                        <option value="" selected disabled>{{ __('lang.Select valina ...') }}</option>
+                                        <option value="" selected disabled>{{ __('lang.Select valina') }}</option>
                                         @foreach ($lavelina as $lavelina)
                                             <option value="{{ $lavelina->id }}">{{ $lavelina->name }}</option>
                                         @endforeach

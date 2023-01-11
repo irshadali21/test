@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @push('pg_btn')
-    <a href="{{route('roles.index')}}" class="btn btn-sm btn-neutral">All Roles</a>
+    <a href="{{route('roles.index')}}" class="btn btn-sm btn-neutral">{{ __('lang.All Roles') }}</a>
 @endpush
 @section('content')
     <div class="row">
@@ -13,7 +13,7 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        {{ Form::label('name', 'Name', ['class' => 'form-control-label']) }}
+                                        {{ Form::label('name', __('lang.RoleName') , ['class' => 'form-control-label']) }}
                                         {{ Form::text('name', $role->name, ['class' => 'form-control']) }}
                                     </div>
                                 </div>
@@ -27,7 +27,7 @@
                                             <div class="custom-control custom-checkbox">
                                                 <input type="checkbox" name="permissions[]" value="{{ $key }}" class="custom-control-input" id="{{ $permission }}"
                                                 @foreach ($role->permissions as $perm)
-                                                    @if ($perm->id== $key))
+                                                    @if ($perm->id== $key)
                                                         checked
                                                     @endif
                                                 @endforeach
@@ -44,7 +44,7 @@
                         <div class="pl-lg-1">
                             <div class="row">
                                 <div class="col-md-12">
-                                    {{ Form::submit('Submit', ['class'=> 'mt-3 btn btn-secondary']) }}
+                                    {{ Form::submit(__('lang.Submit'), ['class'=> 'mt-3 btn btn-secondary']) }}
                                 </div>
                             </div>
                         </div>

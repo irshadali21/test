@@ -20,9 +20,9 @@
                             </div> --}}
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    {{ Form::label('firm', 'Firm ', ['class' => 'form-control-label']) }}
+                                    {{ Form::label('firm', __('lang.Firm'), ['class' => 'form-control-label']) }}
                                     <select name="firm" id="firm" class="form-control select2">
-                                        <option value="" selected disabled>{{ __('lang.Select Firms ...') }}</option>
+                                        <option value="" selected disabled>{{ __('lang.SelectCompany') }}</option>
                                         @foreach ($firms as $firm)
                                             <option value="{{ $firm->id }}">{{ $firm->firm_name }}  /  {{ $firm->firm_vat_no }}</option>
                                         @endforeach

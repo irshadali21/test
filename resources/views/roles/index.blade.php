@@ -1,23 +1,23 @@
 @extends('layouts.app')
 @push('pg_btn')
 @can('create-roles')
-    <a href="{{ route('roles.create') }}" class="btn btn-sm btn-neutral">Create New Role</a>
+    <a href="{{ route('roles.create') }}" class="btn btn-sm btn-neutral">{{ __('lang.Create new role') }}</a>
 @endcan
 @endpush
 @section('content')
     <div class="row">
         <div class="col-md-12">
             <div class="card mb-5">
-                <div class="card-header bg-transparent"><h3 class="mb-0">All Roles</h3></div>
+                <div class="card-header bg-transparent"><h3 class="mb-0">{{ __('lang.All Roles') }}</h3></div>
                 <div class="card-body p-0">
                     <div class="table-responsive">
                         <div>
                             <table class="table table-hover align-items-center">
                                 <thead class="thead-light">
                                 <tr>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Permission</th>
-                                    <th scope="col" class="text-center">Action</th>
+                                    <th scope="col">{{ __('lang.RoleName') }}</th>
+                                    <th scope="col">{{ __('lang.PermissionName') }}</th>
+                                    <th scope="col" class="text-center">{{ __('lang.Action') }}</th>
                                 </tr>
                                 </thead>
                                 <tbody class="list">
@@ -40,12 +40,12 @@
                                             {!! Form::open(['route' => ['roles.destroy', $role],'method' => 'delete',  'class'=>'d-inline-block dform']) !!}
                                             @endcan
                                             @can('update-roles')
-                                            <a class="btn btn-info btn-sm m-1" data-toggle="tooltip" data-placement="top" title="Edit role details" href="{{route('roles.edit',$role)}}">
+                                            <a class="btn btn-info btn-sm m-1" data-toggle="tooltip" data-placement="top" title="{{ __('lang.Edit role details') }}" href="{{route('roles.edit',$role)}}">
                                                 <i class="fa fa-edit" aria-hidden="true"></i>
                                             </a>
                                             @endcan
                                             @can('destroy-roles')
-                                                <button type="submit" class="btn delete btn-danger btn-sm m-1" data-toggle="tooltip" data-placement="top" title="Delete role" href="">
+                                                <button type="submit" class="btn delete btn-danger btn-sm m-1" data-toggle="tooltip" data-placement="top" title="{{ __('lang.Delete role') }}" href="">
                                                     <i class="fas fa-trash"></i>
                                                 </button>
                                                 {!! Form::close() !!}

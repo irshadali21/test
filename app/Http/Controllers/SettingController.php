@@ -24,7 +24,7 @@ class SettingController extends Controller
         activity('settings')
             ->causedBy(Auth::user())
             ->log('view');
-        $title =  'Settings';
+        $title =  __('lang.Settings');
         $roles = Role::pluck('name', 'id');
         return view('settings.edit', compact('roles', 'title'));
     }
@@ -48,7 +48,7 @@ class SettingController extends Controller
 
     }
     public function activity(Request $request){
-        $title= 'Activity Logs';
+        $title= __('lang.activityLog');
         activity('activity')
         ->causedBy(Auth::user())
         ->log('view');

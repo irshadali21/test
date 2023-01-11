@@ -22,7 +22,7 @@
     <table class="table table-bordered table-sm" style="margin-left: -20px">
         <thead>
             <th>{{ __('lang.VAT Number') }}</th>
-            <th>{{ __('lang.COMPANY') }}</th>
+            <th>{{ __('lang.CompanyNamedownload') }}</th>
             <th>{{ __('lang.Phone Number') }}</th>
             <th>{{ __('lang.Email Address') }}</th>
             <th>{{ __('lang.Benefit') }}</th>

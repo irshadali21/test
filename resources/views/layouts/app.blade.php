@@ -32,6 +32,7 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
     @stack('styles')
+    @stack('third_party_stylesheets')
     @yield('style')
     <style>
        .select2-selection__rendered {
@@ -96,7 +97,7 @@ function changeLanguage(locale) {
             });
 </script>
     @stack('scripts')
-
+    @stack('third_party_scripts')
     @yield('script')
 </body>
 </html>

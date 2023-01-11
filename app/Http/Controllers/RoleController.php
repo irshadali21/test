@@ -27,7 +27,7 @@ class RoleController extends Controller
         activity('role')
             ->causedBy(Auth::user())
             ->log('view');
-        $title = 'Manage Roles';
+        $title = __('lang.Manage Roles');
         $roles = Role::paginate(setting('record_per_page', 15));
         return view('roles.index', compact('roles','title'));
     }
@@ -42,7 +42,7 @@ class RoleController extends Controller
         activity('role')
             ->causedBy(Auth::user())
             ->log('create');
-        $title = 'Create role';
+        $title = __('lang.Create new role');
         $permissions = Permission::pluck('name', 'id');
         return view('roles.create', compact('permissions','title'));
     }
@@ -92,7 +92,7 @@ class RoleController extends Controller
         activity('role')
             ->causedBy(Auth::user())
             ->log('Edit');
-        $title = 'Edit role';
+        $title = __('lang.Edit role details');
         $permissions = Permission::pluck('name', 'id');
         return view('roles.edit', compact('permissions', 'role', 'title'));
     }

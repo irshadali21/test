@@ -16,7 +16,7 @@
                                 <div class="form-group">
                                     {{ Form::label('company', __('lang.COMPANY').' ( '.__('lang.VAT Number').' )', ['class' => 'form-control-label']) }}
                                     <select name="company" id="company" class = "form-control select2" >
-                                        <option value="" selected disabled>Select Company...</option>
+                                        <option value="" selected disabled>{{ __('lang.SelectCompany') }}</option>
                                         @foreach ($company as $com)
                                             <option value="{{ $com->id }}">{{ $com->company_name }} ( {{ $com->vat_number }} )</option>
                                         @endforeach
@@ -27,7 +27,7 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     {{ Form::label('benefits', __('lang.Type of Benefits'), ['class' => 'form-control-label']) }}
-                                    {{ Form::select('benefits', $benefit, null, ['class' => 'form-control select2', 'placeholder' => 'Select Benefits...']) }}
+                                    {{ Form::select('benefits', $benefit, null, ['class' => 'form-control select2', 'placeholder' => __('lang.Select Benefits')]) }}
                                 </div>
                             </div>
 
@@ -56,7 +56,7 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         {{ Form::label('advisor_name', __('lang.Advisor Name'), ['class' => 'form-control-label']) }}
-                                    {{ Form::select('advisor_name', $advisor, null, ['class' => 'form-control select2', 'placeholder' => 'Select Advisor...']) }}
+                                    {{ Form::select('advisor_name', $advisor, null, ['class' => 'form-control select2', 'placeholder' => __('lang.Select Advisor')]) }}
                                     </div>
                                 </div>
                             @endif

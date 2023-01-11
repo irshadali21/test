@@ -12,7 +12,7 @@
     </style>
 @endpush
 @push('pg_btn')
-    <a href="{{ route('users.index') }}" class="btn btn-sm btn-neutral">All Users</a>
+    <a href="{{ route('users.index') }}" class="btn btn-sm btn-neutral">{{ __('lang.All Users') }}</a>
 @endpush
 
 @section('content')
@@ -35,7 +35,7 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    {{ Form::label('name', 'Name', ['class' => 'form-control-label']) }}
+                                    {{ Form::label('name', __('lang.profileName'), ['class' => 'form-control-label']) }}
                                     {{ Form::text('name', null, ['class' => 'form-control']) }}
                                 </div>
                             </div>
@@ -56,7 +56,7 @@
                             </div> --}}
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    {{ Form::label('advoiser_stamp', 'Advoiser Stamp / signature', ['class' => 'form-control-label']) }}
+                                    {{ Form::label('advoiser_stamp', __('lang.Advisor Stamp/Signature'), ['class' => 'form-control-label']) }}
                                     <div class="input-group">
                                         <span class="input-group-btn">
                                             <input name="advoiser_stamp" accept="image/*" type='file' id="imgInp"
@@ -75,13 +75,13 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    {{ Form::label('ofc_address', 'OFFICE ADDRESS ', ['class' => 'form-control-label']) }}
+                                    {{ Form::label('ofc_address', __('lang.Office Address'), ['class' => 'form-control-label']) }}
                                     {{ Form::text('ofc_address', null, ['class' => 'form-control']) }}
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    {{ Form::label('accountant_reg_no', 'REGISTRATION NUMBER IN THE REGISTER OF ACCOUNTANTS', ['class' => 'form-control-label']) }}
+                                    {{ Form::label('accountant_reg_no', __('lang.REGISTRATION NUMBER IN THE REGISTER OF ACCOUNTANTS'), ['class' => 'form-control-label']) }}
                                     {{ Form::text('accountant_reg_no', null, ['class' => 'form-control']) }}
                                 </div>
                             </div>
@@ -89,13 +89,13 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    {{ Form::label('acc_city', 'CITY OF THE REGISTER OF ACCOUNTANTS ', ['class' => 'form-control-label']) }}
+                                    {{ Form::label('acc_city', __('lang.CITY OF THE REGISTER OF ACCOUNTANTS'), ['class' => 'form-control-label']) }}
                                     {{ Form::text('acc_city', null, ['class' => 'form-control']) }}
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    {{ Form::label('auditor_reg_no', 'REGISTRATION NUMBER IN THE REGISTER OF AUDITORS', ['class' => 'form-control-label']) }}
+                                    {{ Form::label('auditor_reg_no', __('lang.REGISTRATION NUMBER IN THE REGISTER OF AUDITORS'), ['class' => 'form-control-label']) }}
                                     {{ Form::text('auditor_reg_no', null, ['class' => 'form-control']) }}
                                 </div>
                             </div>
@@ -103,13 +103,13 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    {{ Form::label('email_pec', 'EMAIL-PEC ', ['class' => 'form-control-label']) }}
+                                    {{ Form::label('email_pec', __('lang.EMAIL PEC'), ['class' => 'form-control-label']) }}
                                     {{ Form::text('email_pec', null, ['class' => 'form-control']) }}
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    {{ Form::label('ofc_name', 'OFFICE NAME', ['class' => 'form-control-label']) }}
+                                    {{ Form::label('ofc_name', __('lang.OFFICE NAME'), ['class' => 'form-control-label']) }}
                                     {{ Form::text('ofc_name', null, ['class' => 'form-control']) }}
                                 </div>
                             </div>
@@ -117,13 +117,13 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    {{ Form::label('insurance_no', 'INSURANCE POLICY NUMBER ', ['class' => 'form-control-label']) }}
+                                    {{ Form::label('insurance_no', __('lang.INSURANCE POLICY NUMBER'), ['class' => 'form-control-label']) }}
                                     {{ Form::text('insurance_no', null, ['class' => 'form-control']) }}
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    {{ Form::label('insurance_company', 'INSURANCE POLICY COMPANY NAME ', ['class' => 'form-control-label']) }}
+                                    {{ Form::label('insurance_company', __('lang.INSURANCE POLICY COMPANY NAME'), ['class' => 'form-control-label']) }}
                                     {{ Form::text('insurance_company', null, ['class' => 'form-control']) }}
                                 </div>
                             </div>
@@ -131,7 +131,7 @@
                     </div>
                     <hr class="my-4" />
                     <!-- Address -->
-                    <h6 class="heading-small text-muted mb-4">Login information</h6>
+                    <h6 class="heading-small text-muted mb-4">{{ __('lang.Login information') }}</h6>
                     <div class="pl-lg-4">
                         <div class="row">
                             {{-- <div class="col-lg-6">
@@ -148,7 +148,7 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    {{ Form::label('role', 'Select Role', ['class' => 'form-control-label']) }}
+                                    {{ Form::label('role', __('lang.Select role'), ['class' => 'form-control-label']) }}
                                     {{ Form::select('role', $roles, null, ['class' => 'form-control', 'placeholder' => 'Select role...']) }}
                                 </div>
                             </div>
@@ -163,7 +163,7 @@
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    {{ Form::label('password_confirmation', 'Confirm password', ['class' => 'form-control-label']) }}
+                                    {{ Form::label('password_confirmation', __('lang.Confirm password'), ['class' => 'form-control-label']) }}
                                     {{ Form::password('password_confirmation', ['class' => 'form-control']) }}
                                 </div>
                             </div>
@@ -180,7 +180,7 @@
                                 </div>
                             </div>
                             <div class="col-md-12">
-                                {{ Form::submit('Submit', ['class' => 'mt-5 btn btn-secondary']) }}
+                                {{ Form::submit(__('lang.Submit'), ['class' => 'mt-5 btn btn-secondary']) }}
                             </div>
                         </div>
                     </div>

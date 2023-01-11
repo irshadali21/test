@@ -142,7 +142,7 @@ class ReportController extends Controller
 
         $headings = [
             __('lang.VAT Number'),
-            __('lang.Company Name'),
+            __('lang.CompanyNamedownload'),
             __('lang.Phone Number'),
             __('lang.Customer Email'),
             __('lang.Type of Benefits'),
@@ -152,7 +152,7 @@ class ReportController extends Controller
             __('lang.Certification Issue Date'),
             __('lang.DATE PAYMENT'),
             __('lang.Fee'),
-            __('lang.Advisor Name'),
+            __('lang.AdvisorNamedownload'),
             __('lang.Operation Email'),
         ];
 
@@ -327,10 +327,10 @@ class ReportController extends Controller
             return redirect()->back();
         }
         $headings = [
-            __('lang.Advisor Name'),
-            __('lang.Company Name'),
+            __('lang.AdvisorNamedownload'),
+            __('lang.CompanyNamedownload'),
             __('lang.VAT Number'),
-            __('lang.Type'),
+            __('lang.Typedownlaod'),
             __('lang.Province'),
             __('lang.Category'),
             __('lang.Phone Number'),
@@ -477,7 +477,7 @@ class ReportController extends Controller
 
         $headings = [
             __('lang.VAT Number'),
-            __('lang.Company Name'),
+            __('lang.CompanyNamedownload'),
             __('lang.DATE'),
             __('lang.Cluster'),
         ];

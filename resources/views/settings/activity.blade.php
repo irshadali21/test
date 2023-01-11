@@ -6,17 +6,17 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card mb-5">
-                <div class="card-header bg-transparent"><h3 class="mb-0">All Activity</h3></div>
+                <div class="card-header bg-transparent"><h3 class="mb-0">{{ __('lang.All activity') }}</h3></div>
                 <div class="card-body p-0">
                     <div class="table-responsive">
                         <div>
                             <table class="table table-hover align-items-center">
                                 <thead class="thead-light">
                                 <tr>
-                                    <th scope="col">Log Name</th>
-                                    <th scope="col">description</th>
-                                    <th scope="col">Causer</th>
-                                    <th scope="col">Created At</th>
+                                    <th scope="col">{{ __('lang.Log Name') }}</th>
+                                    <th scope="col">{{ __('lang.Description') }}</th>
+                                    <th scope="col">{{ __('lang.Causer') }}</th>
+                                    <th scope="col">{{ __('lang.Created at') }}</th>
                                 </tr>
                                 </thead>
                                 <tbody class="list">
@@ -29,7 +29,7 @@
                                             {{$activity->description}}
                                         </td>
                                         <td>
-                                            By {{ $activity->causer->name ?? '' }}<br/>
+                                            {{ __('lang.By') }} {{ $activity->causer->name ?? '' }}<br/>
                                         </td>
 
                                         <td>

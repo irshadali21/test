@@ -49,7 +49,7 @@ class UserController extends Controller
                 $users = User::where('created_by', auth()->user()->id)->paginate(setting('record_per_page', 15));
             }
         }
-        $title = 'Manage Users';
+        $title = __('lang.manageUsers');
         return view('users.index', compact('users', 'title'));
     }
 
@@ -75,7 +75,7 @@ class UserController extends Controller
             $roles = Role::whereNotIn('name', ['super-admin', 'coordinator'])->pluck('name', 'id');
             // dd('asd');
         }
-        $title = 'Create user';
+        $title = __('lang.Create user');
         return view('users.create', compact('roles', 'title', 'code'));
     }
 
@@ -145,7 +145,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        $title = "User Details";
+        $title = __('lang.Edit user details');
         if (Auth::user()->hasrole('super-admin')) {
             $roles = Role::pluck('name', 'id');
         } else if (Auth::user()->hasrole('coordinator')) {
@@ -230,7 +230,7 @@ class UserController extends Controller
 
     public function profile(User $user)
     {
-        $title = 'Edit Profile';
+        $title = __('lang.Edit profile');
         $user = $user->where('id', auth()->user()->id)->firstorFail();
         if (Auth::user()->hasrole('super-admin')) {
             $roles = Role::pluck('name', 'id');

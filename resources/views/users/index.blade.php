@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @push('pg_btn')
 @can('create-user')
-    <a href="{{ route('users.create') }}" class="btn btn-sm btn-neutral">Create New User</a>
+    <a href="{{ route('users.create') }}" class="btn btn-sm btn-neutral">{{ __('lang.Create new user') }}</a>
 @endcan
 @endpush
 @section('content')
@@ -11,12 +11,12 @@
                 <div class="card-header bg-transparent">
                     <div class="row">
                         <div class="col-lg-8">
-                            <h3 class="mb-0">All Users</h3>
+                            <h3 class="mb-0">{{ __('lang.All Users') }}</h3>
                         </div>
                         <div class="col-lg-4">
                     {!! Form::open(['route' => 'users.index', 'method'=>'get']) !!}
                         <div class="form-group mb-0">
-                        {{ Form::text('search', request()->query('search'), ['class' => 'form-control form-control-sm', 'placeholder'=>'Search users']) }}
+                        {{ Form::text('search', request()->query('search'), ['class' => 'form-control form-control-sm', 'placeholder'=>__('lang.Search users')]) }}
                     </div>
                     {!! Form::close() !!}
                 </div>
@@ -28,13 +28,13 @@
                             <table class="table table-hover align-items-center">
                                 <thead class="thead-light">
                                 <tr>
-                                    <th scope="col">Name</th>
+                                    <th scope="col">{{ __('lang.profileName') }}</th>
                                     <th scope="col">Email</th>
                                     <th scope="col">Status</th>
-                                    <th scope="col">Verified at</th>
-                                    <th scope="col">Photo</th>
-                                    <th scope="col">Api Calls</th>
-                                    <th scope="col" class="text-center">Action</th>
+                                    <th scope="col">{{ __('lang.Verified At') }}</th>
+                                    <th scope="col">{{ __('lang.Photo') }}</th>
+                                    <th scope="col">{{ __('lang.Api calls') }}</th>
+                                    <th scope="col" class="text-center">{{ __('lang.Action') }}</th>
                                 </tr>
                                 </thead>
                                 <tbody class="list">
@@ -74,24 +74,24 @@
                                             @else
                                             0
                                             @endif
-                                            
+
                                         </td>
                                         <td class="text-center">
                                             @can('destroy-user')
                                             {!! Form::open(['route' => ['users.destroy', $user],'method' => 'delete',  'class'=>'d-inline-block dform']) !!}
                                             @endcan
                                             @can('view-user')
-                                            <a class="btn btn-secondary btn-sm m-1" data-toggle="tooltip" data-placement="top" title="View and edit user details" href="{{route('users.show', $user)}}">
+                                            <a class="btn btn-secondary btn-sm m-1" data-toggle="tooltip" data-placement="top" title="{{ __('lang.View and edit user details') }}" href="{{route('users.show', $user)}}">
                                                 <i class="fa fa-eye" aria-hidden="true"></i>
                                             </a>
                                             @endcan
                                             @can('update-user')
-                                            <a class="btn btn-info btn-sm m-1" data-toggle="tooltip" data-placement="top" title="Edit user details" href="{{route('users.edit',$user)}}">
+                                            <a class="btn btn-info btn-sm m-1" data-toggle="tooltip" data-placement="top" title="{{ __('lang.Edit user details') }}" href="{{route('users.edit',$user)}}">
                                                 <i class="fa fa-edit" aria-hidden="true"></i>
                                             </a>
                                             @endcan
                                             @can('destroy-user')
-                                                <button type="submit" class="btn delete btn-danger btn-sm m-1" data-toggle="tooltip" data-placement="top" title="Delete user" href="">
+                                                <button type="submit" class="btn delete btn-danger btn-sm m-1" data-toggle="tooltip" data-placement="top" title="{{ __('lang.Delete user') }}" href="">
                                                     <i class="fas fa-trash"></i>
                                                 </button>
                                             {!! Form::close() !!}

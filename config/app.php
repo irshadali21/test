@@ -167,9 +167,11 @@ return [
          * Package Service Providers...
          */
 
-        InfyOm\GeneratorBuilder\GeneratorBuilderServiceProvider::class, 
+        InfyOm\GeneratorBuilder\GeneratorBuilderServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
-
+        Yajra\Datatables\DatatablesServiceProvider::class,
+        Yajra\Datatables\ButtonsServiceProvider::class,
+        Yajra\Datatables\HtmlServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -235,7 +237,8 @@ return [
         'Html'      => Collective\Html\HtmlFacade::class,
         'Flash'     => Laracasts\Flash\Flash::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
-        
+        'Datatables' => Yajra\Datatables\Facades\Datatables::class,
+
     ],
 
 ];

@@ -25,7 +25,7 @@
             <thead>
                 <tr style="background-color:lightblue ">
                     <th><center> ID</center></th>
-                    <th><center> {{ __('lang.Firm Name') }}</center></th>
+                    <th><center> {{ __('lang.CompanyNamedownload') }}</center></th>
                     <th><center>{{ __('lang.CREATION Date') }}</center></th>
                 </tr>
             </thead>
