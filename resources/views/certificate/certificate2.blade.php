@@ -21,7 +21,7 @@ $fmt = new NumberFormatter(($locale = 'it_IT'), NumberFormatter::DECIMAL);
     <body>
         <br><br><br>
 
-        <center style="margin-left:100px; width:80%; margin-top:-5px"> 
+        <center style="margin-left:100px; width:80%; margin-top:-5px">
             <strong>
                 CERTIFICAZIONE RELATIVA AL CREDITO D’IMPOSTA <br>
                 PER {{ $description }} <br>
@@ -229,7 +229,7 @@ $fmt = new NumberFormatter(($locale = 'it_IT'), NumberFormatter::DECIMAL);
         <ul>
             <li>
                 <p style="margin-top: -3px">
-                    il credito si applica alle spese di formazione sostenute nel periodo d’imposta 2021
+                    il credito si applica alle spese di formazione sostenute nel periodo d’imposta  {{ $benefits_year }}
                 </p>
             </li>
             <li>
@@ -333,11 +333,11 @@ $fmt = new NumberFormatter(($locale = 'it_IT'), NumberFormatter::DECIMAL);
         }
         $value = $fmt->format($total);
         // dd(strpos($value, ','), $value);
-        
+
         if (strpos($value, ',') == false) {
             $value = $fmt->format($total) . ',00';
         }
-        
+
     @endphp
         <center>
             <strong style="font-size: 20px"> SI ATTESTA </strong>
@@ -489,10 +489,10 @@ $fmt = new NumberFormatter(($locale = 'it_IT'), NumberFormatter::DECIMAL);
                 style="width: 100%; max-width: 10px; height: auto; margin-top: 5px; margin-right: 4px"><b>{{ $fmt->format($accrued_benifits) }}</b>
         </p>
         <p>
-           
+
             Codice Tributo  .....................................................................................<b>6897</b>
         <p>
-           
+
             Anno di riferimento  .............................................................................<b>{{ $benefits_year }}</b>
         </p>
         <p style="margin-bottom: 0px">
@@ -533,7 +533,7 @@ $fmt = new NumberFormatter(($locale = 'it_IT'), NumberFormatter::DECIMAL);
         <p class="lastp"><strong style="text-decoration: underline;">RU12: </strong> Credito d’imposta residuo –
             riportabile al periodo successivo</p>
         <p style="margin-bottom: 0px" class="lastp"><strong>SEZ. IV</strong></p>
-        <p style="margin-bottom: 0px" class="lastp"><strong style="text-decoration: underline;">RU100: </strong>
+        <p style="margin-bottom: 0px" class="lastp"><strong style="text-decoration: underline;">RU110: </strong>
 
 
         <div style="margin-left: 40px; margin-bottom: 5px" class="lastli"> <strong> Colonna 1 </strong>
