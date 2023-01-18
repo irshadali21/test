@@ -162,8 +162,15 @@ class CertificateController extends Controller
                 $CertificateData = HelperFunction::getCertificateData($certificate);
                 $pdf = PDF::loadView('certificate.certificate3', $CertificateData);
                 $name = $file->company->company_name . '– Certificato -' . $benefits->column1 . " - " . $file->year . ".pdf";
-                return $pdf->download($name);
                 // return $pdf->download($name);
+                return $pdf->download($name);
+            } elseif ($benefits->column1 == 'INNOVAZIONE DIGITALE 4.0 & GREEN') {
+                $CertificateData = HelperFunction::getCertificateData($certificate);
+                $pdf = PDF::loadView('certificate.certificate4', $CertificateData);
+                $name = $file->company->company_name . '– Certificato -' . $benefits->column1 . " - " . $file->year . ".pdf";
+                // return $pdf->download($name);
+                return $pdf->download($name);
+
             } else {
                 $CertificateData = HelperFunction::getCertificateData($certificate);
                 $pdf = PDF::loadView('certificate.certificate', $CertificateData);
@@ -268,6 +275,12 @@ class CertificateController extends Controller
             } elseif ($benefits->column1 == 'INNOVAZIONE TECNOLOGICA') {
                 $CertificateData = HelperFunction::getCertificateData($certificate);
                 $pdf = PDF::loadView('certificate.certificate3', $CertificateData);
+                $name = $file->company->company_name . '– Certificato -' . $benefits->column1 . " - " . $file->year . ".pdf";
+                // return $pdf->download($name);
+
+            } elseif ($benefits->column1 == 'INNOVAZIONE & DESIGN') {
+                $CertificateData = HelperFunction::getCertificateData($certificate);
+                $pdf = PDF::loadView('certificate.certificate4', $CertificateData);
                 $name = $file->company->company_name . '– Certificato -' . $benefits->column1 . " - " . $file->year . ".pdf";
                 // return $pdf->download($name);
             } else {
