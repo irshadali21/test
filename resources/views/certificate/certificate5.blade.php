@@ -516,7 +516,7 @@ $fmt = new NumberFormatter(($locale = 'it_IT'), NumberFormatter::DECIMAL);
             colonna 3
         </p>
         <p style="margin-bottom: 0px" class="lastp"><strong>SEZ. IV</strong></p>
-        <p style="margin-bottom: 0px" class="lastp"><strong style="text-decoration: underline;">RU101: </strong>
+        <p style="margin-bottom: 0px" class="lastp"><strong style="text-decoration: underline;">RU102: </strong>
             <strong>Colonna
                 1</strong> L’ammontare complessivo delle spese agevolabili, incluse le
             maggiorazioni e le limitazioni (vedere relazione economica)
