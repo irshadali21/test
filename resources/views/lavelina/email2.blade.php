@@ -117,7 +117,7 @@
 
     <div style="clear:both; position:relative; page-break-after: always; margin-left: -10px">
 
-        <div style="position:absolute; left:0pt; width:270pt; vertical-align: top;">
+        <div style="position:absolute; left:5pt; width:255pt; vertical-align: top;">
 
             <div >
                 @if ($count >= 0)
@@ -125,8 +125,8 @@
                 @endif
             </div>
         </div>
-        <div style="position:absolute; margin-left:295pt; vertical-align: top">
-            <div style=" width:245pt">
+        <div style="position:absolute; margin-left:285pt; vertical-align: top">
+            <div style=" width:255pt">
                 @if ($count >= 1)
                     {!! $body[1]->lavelina_body !!}
                 @endif
@@ -136,7 +136,7 @@
 
     <div
         style="clear:both; position:relative;  vertical-align: top; @if ($count > 3) page-break-after: always; @endif margin-left: -10px;">
-        <div style="position:absolute; left:0pt; width:270pt; vertical-align: top;">
+        <div style="position:absolute; left:5pt; width:255pt; vertical-align: top;">
             <div >
                 @if ($count >= 2)
                     {!! $body[2]->lavelina_body !!}
@@ -145,8 +145,8 @@
         </div>
 
 
-        <div style="position:absolute; margin-left:295pt; vertical-align: top">
-            <div style=" width:245pt">
+        <div style="position:absolute; margin-left:285pt; vertical-align: top">
+            <div style=" width:255pt">
                 @if ($count >= 3)
                     {!! $body[3]->lavelina_body !!}
                 @endif
@@ -156,15 +156,15 @@
 
     <div
         style="clear:both; position:relative;  vertical-align: top; @if ($count > 5) page-break-after: always; @endif margin-left: -10px;">
-        <div style="position:absolute; left:0pt; width:270pt; vertical-align: top;">
+        <div style="position:absolute; left:5pt; width:255pt; vertical-align: top;">
             <div >
                 @if ($count >= 4)
                     {!! $body[4]->lavelina_body !!}
                 @endif
             </div>
         </div>
-        <div style="position:absolute; margin-left:295pt; vertical-align: top">
-            <div style=" width:245pt">
+        <div style="position:absolute; margin-left:285pt; vertical-align: top">
+            <div style=" width:255pt">
                 @if ($count >= 5)
                     {!! $body[5]->lavelina_body !!}
                 @endif
@@ -174,15 +174,15 @@
 
 
     <div style="clear:both; position:relative;  vertical-align: top; margin-left: -10px;">
-        <div style="position:absolute; left:0pt; width:270pt; vertical-align: top;">
+        <div style="position:absolute; left:5pt; width:255pt; vertical-align: top;">
             <div >
                 @if ($count >= 6)
                     {!! $body[6]->lavelina_body !!}
                 @endif
             </div>
         </div>
-        <div style="position:absolute; margin-left:295pt; vertical-align: top">
-            <div style=" width:260pt">
+        <div style="position:absolute; margin-left:285pt; vertical-align: top">
+            <div style=" width:255pt">
                 @if ($count >= 7)
                     {!! $body[7]->lavelina_body !!}
                 @endif
