@@ -249,16 +249,14 @@ return [
     'By Admin' => 'Da Admin',
     'By' => 'Da',
     'Created at' => 'Effettuato',
-    'VALINA' => 'VALINA',
-    'VALINA' => 'VALINA',
-    'VALINA' => 'VALINA',
-    'VALINA' => 'VALINA',
-    'VALINA' => 'VALINA',
-    'VALINA' => 'VALINA',
-    'VALINA' => 'VALINA',
-    'VALINA' => 'VALINA',
-    'VALINA' => 'VALINA',
-    'VALINA' => 'VALINA',
-    'VALINA' => 'VALINA',
+
+    // Date translation
+    'Mon' => 'Lun',
+    'Tue' => 'Mar',
+    'Wed' => 'Mer',
+    'Thu' => 'Gio',
+    'Fri' => 'Ven',
+    'Sat' => 'Sab',
+    'Sun' => 'Dom',
 
 ];
