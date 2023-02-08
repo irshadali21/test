@@ -60,7 +60,7 @@
                             // ->join('messages', 'users.id', '=', 'messages.from_user')
                             ->where('messages.to_user', auth()->id())
                             ->where('messages.is_read', 0)
-                            ->select('users.*')
+                            // ->select('users.*')
                             ->get();
                     } else {
                         $users = App\User::join('messages', 'users.id', '=', 'messages.from_user')
