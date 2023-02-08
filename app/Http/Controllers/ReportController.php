@@ -54,11 +54,7 @@ class ReportController extends Controller
     }
     public function valina()
     {
-        if (auth()->user()->hasrole('super-admin')) {
             $lavelina = LaVelina::get();
-        } else {
-            $lavelina = LaVelina::where('created_by', auth()->user()->id)->get();
-        }
         return view('reports.valina', compact('lavelina'));
     }
     public function valinaReceived()
@@ -234,8 +230,8 @@ class ReportController extends Controller
                     $benefit->column1,
                     $file->year,
                     $status,
-                    $CertificateSendDate,
                     $IncaricoSendDate,
+                    $CertificateSendDate,
                     $datePayment,
                     $file->fee,
                     $advisor_name,
@@ -488,7 +484,8 @@ class ReportController extends Controller
         $datapdf = array();
         $valinascheck = array();
 
-        $date = Carbon::parse($valina->created_at)->format('D m.d.Y H:i');
+        // $date = Carbon::parse($valina->created_at)->format('D m.d.Y H:i');
+        $date = $this->formatedDate($valina->created_at);
         $valina_data[] = $valina->id;
         $valina_data[] = $valina->name;
         $valina_data[] = $date;
@@ -516,7 +513,8 @@ class ReportController extends Controller
 
                 $vat = '-';
                 $company = '-';
-                $date = Carbon::parse($history->created_at)->format('D m.d.Y H:i');
+                // $date = Carbon::parse($history->created_at)->format('D m.d.Y H:i');
+                $date = $this->formatedDate($history->created_at);
                 $cluster = '-';
                 if (!empty($history->firm)) {
                     $vat = $history->firm->firm_vat_no;
@@ -567,7 +565,8 @@ class ReportController extends Controller
             ], 200);
         }
         if ($request->file_type == 1) {
-            $date = Carbon::parse($valina->created_at)->format('D m.d.Y H:i');
+            // $date = Carbon::parse($valina->created_at)->format('D m.d.Y H:i');
+            $date = $this->formatedDate($valina->created_at);
             $valina_data['valina_id'] = $valina->id;
             $valina_data['name'] = $valina->name;
             $valina_data['date'] = $date;
@@ -609,7 +608,8 @@ class ReportController extends Controller
         $datapdf = array();
         $firmscheck = array();
 
-        $date = Carbon::parse($firm->created_at)->format('D m.d.Y H:i');
+        // $date = Carbon::parse($firm->created_at)->format('D m.d.Y H:i');
+        $date = $this->formatedDate($firm->created_at);
         $firm_data[] = $firm->id;
         $firm_data[] = $firm->firm_name;
         $firm_data[] = $date;
@@ -639,7 +639,8 @@ class ReportController extends Controller
                 $firmscheck[] = $history->id;
                 $id = '-';
                 $valina_name = '-';
-                $date = Carbon::parse($history->created_at)->format('D m.d.Y H:i');
+                // $date = Carbon::parse($history->created_at)->format('D m.d.Y H:i');
+                $date = $this->formatedDate($history->created_at);
                 $cluster = '-';
                 if (!empty($history->valina)) {
                     $id = $history->valina->id;
@@ -687,7 +688,8 @@ class ReportController extends Controller
             ], 200);
         }
         if ($request->file_type == 1) {
-            $date = Carbon::parse($firm->created_at)->format('D m.d.Y H:i');
+            // $date = Carbon::parse($firm->created_at)->format('D m.d.Y H:i');
+            $date = $this->formatedDate($firm->created_at);
             $firm_data['id'] = $firm->id;
             $firm_data['name'] = $firm->firm_name;
             $firm_data['date'] = $date;
