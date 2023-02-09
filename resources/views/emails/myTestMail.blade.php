@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 {{-- <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office"> --}}
 <html lang="it" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
-
+<meta charset="utf-8">
 <head>
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap-select.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('assets/css/dashboard.css') }}" type="text/css">
