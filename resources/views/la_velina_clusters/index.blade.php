@@ -10,7 +10,7 @@
                 <div class="col-sm-6">
                     <a class="btn btn-primary float-right"
                        href="{{ route('laVelinaClusters.create') }}">
-                        Add New
+                        {{ __('lang.Cluster Add New') }}
                     </a>
                 </div>
             </div>

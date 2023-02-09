@@ -93,6 +93,11 @@ function changeLanguage(locale) {
                     info: '{{ __("lang.info") }}',
                     infoEmpty: '{{ __("lang.infoEmpty") }}',
                     infoFiltered: '{{ __("lang.infoFiltered") }}',
+                    search: '{{ __("lang.Cluster Search") }}',
+                    paginate: {
+                            next: '{{ __("lang.Next") }}',
+                            previous: '{{ __("lang.Previous") }}',
+                            }
                 },
             });
 </script>

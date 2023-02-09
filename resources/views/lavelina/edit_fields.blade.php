@@ -2,17 +2,17 @@
 
     <!-- Name Field -->
     <div class="form-group col-sm-4">
-        {!! Form::label('name', 'LA VELINA Name:') !!}
+        {!! Form::label('name', __('lang.VALINA Name')) !!}
         {!! Form::text('name', null, ['class' => 'form-control']) !!}
     </div>
 
     <div class="form-group col-sm-4">
-        {!! Form::label('title', 'Tttolo articolo:') !!}
+        {!! Form::label('title', __('lang.Article Title')) !!}
         {!! Form::text('title', null, ['class' => 'form-control']) !!}
     </div>
     <!-- color Field -->
     <div class="col-sm-4">
-        <label for="example-color-input">color</label>
+        <label for="example-color-input">{{ __('lang.Color Valina') }}</label>
         <input name="color" class="form-control" type="color" value="{{ $lavelina->body }}"
             id="example-color-input">
     </div>
@@ -75,7 +75,7 @@
 </div>
 
 <div class="col-md-12">
-    
+
     <h3>Page 2</h3>
 </div>
 
@@ -120,7 +120,7 @@
     <input type="checkbox" class="body4div" name="body4div" id="body4div" @if(isset($filters['body4div'])) @if ( $filters['body4div'] == 'on') checked @endif @endif>
 </div>
 <div class="row" id="body4_div" @if(isset($filters['body4div'])) @if( !$filters['body4div'] == 'on' ) style="display:none" @endif @else style="display:none" @endif>
-    
+
     <div class="col-sm-12">
         <h3>Page 4</h3>
     </div>

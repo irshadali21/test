@@ -1,11 +1,11 @@
 <div class="table-responsive">
-    <table class="table" id="tests-table">
+    <table class="table datatable" id="tests-table">
         <thead>
         <tr>
-            <th>Name</th>
-            <th>Creation date</th>
-            <th>Title</th>
-            <th colspan="3">Action</th>
+            <th> {{ __('lang.Valina Name') }}</th>
+            <th>{{ __('lang.Valina Creation date') }}</th>
+            <th>{{ __('lang.Valina Title') }}</th>
+            <th colspan="3">{{ __('lang.Action') }}</th>
         </tr>
         </thead>
         <tbody>

@@ -28,8 +28,7 @@
                     <div class="col-md-6"></div>
                     <div class="col-md-6">
 
-                        <button class="btn btn-outline-success" style="float: right" id="filter" type="button">Get
-                            Compnies</button>
+                        <button class="btn btn-outline-success" style="float: right" id="filter" type="button">{{ __('lang.Get companies') }}</button>
                     </div>
                 </div>
                 <br>
@@ -39,8 +38,8 @@
 
             </div>
             <div class="card-footer" id="save-btn" style="display: none">
-                {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-                <a href="{{ route('laVelinaClusters.index') }}" class="btn btn-default">Cancel</a>
+                {!! Form::submit(__('lang.Save'), ['class' => 'btn btn-primary']) !!}
+                <a href="{{ route('laVelinaClusters.index') }}" class="btn btn-default">{{ __('lang.Cancel') }}</a>
             </div>
 
             {!! Form::close() !!}
@@ -63,9 +62,9 @@
                 $('#lastrow').append(`
                         <div class="col-lg-4">
                             <div class="form-group">
-                                <label for="category" class="form-control-label">Category </label>
+                                <label for="category" class="form-control-label">{{ __('lang.Category') }} </label>
                                 <select name="category[]" id="category" class='form-control category'>
-                                    <option value="" selected>Category</option>
+                                    <option value="" selected>{{ __('lang.Category') }}</option>
                                     <option value="MICRO">MICRO</option>
                                     <option value="PICCOLA">PICCOLA</option>
                                     <option value="MEDIA">MEDIA</option>
@@ -107,13 +106,13 @@
                             if (element.length > 0) {
                                 appenddata += `<table class="table datatable" id="laVelinaClusters-table"><thead><tr>
                                             <th>Add in Cluster</th>
-                                            <th>Firm Name</th>
-                                            <th>Advisor</th>
-                                            <th>VAT No</th>
-                                            <th>phone_number</th>
-                                            <th>Ateco Code</th>
-                                            <th>sector</th>
-                                            <th>province</th>
+                                            <th>{{ __('lang.Firm Name') }}</th>
+                                            <th>{{ __('lang.Cluster Advisor Name') }}</th>
+                                            <th>{{ __('lang.Cluster Vat NO') }}</th>
+                                            <th>{{ __('lang.Cluster Phone number') }}</th>
+                                            <th>{{ __('lang.Ateco Code') }}</th>
+                                            <th>{{ __('lang.Sector') }}</th>
+                                            <th>{{ __('lang.Province') }}</th>
                                             </tr></thead><tbody>`;
 
 

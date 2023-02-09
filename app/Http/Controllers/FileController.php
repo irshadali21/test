@@ -333,7 +333,7 @@ class FileController extends Controller
             'date' => date('d/m/Y H:m:s'),
 
         ]);
-        flash('Assignment sent to Client via Email')->success();
+        flash(__('lang.Incarico_cli'))->success();
         return back();
     }
 
@@ -373,7 +373,7 @@ class FileController extends Controller
             'date' => date('d/m/Y H:m:s'),
 
         ]);
-        flash('Assignment sent to Advoiser via Email')->success();
+        flash(__('lang.Incarico_rev'))->success();
         return back();
 
     }

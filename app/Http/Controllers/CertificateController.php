@@ -344,7 +344,7 @@ class CertificateController extends Controller
 
                     ]);
 
-                    flash('Certificate Sent')->success();
+                    flash(__('lang.Certification_send'))->success();
                     return back();
 
                 } else {

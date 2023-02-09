@@ -2,16 +2,16 @@
     <table class="table datatable" id="firms-table">
         <thead style="background-color: #68150F; color:white">
             <tr>
-                <th>Action</th>
-                <th>Advisor</th>
-                <th>Firm Name</th>
-                <th>Vat No</th>
-                <th>Province</th>
-                <th>Category</th>
-                <th>Phone Number</th>
-                <th>Contact Person</th>
+                <th>{{ __('lang.Action') }}</th>
+                <th>{{ __('lang.Cluster Advisor Name') }}</th>
+                <th>{{ __('lang.Cluster Firm Name') }}</th>
+                <th>{{ __('lang.Cluster Vat NO') }}</th>
+                <th>{{ __('lang.Cluster Province') }}</th>
+                <th>{{ __('lang.Cluster Category') }}</th>
+                <th>{{ __('lang.Cluster Phone number') }}</th>
+                <th>{{ __('lang.Cluster Contact person') }}</th>
                 {{-- <th>Email</th> --}}
-                <th>Ateco </th>
+                <th>{{ __('lang.Ateco Code') }}</th>
                 <th>Status</th>
                 {{-- <th colspan="3">Action</th> --}}
             </tr>
@@ -67,9 +67,9 @@
                     {{-- <td>{{ $firm->email2 }}</td> --}}
                     <td>{{ $firm->ateco->code }}</td>
                     @if ($firm->deleted_at)
-                        <td class="badge badge-pill badge-danger">Deleted</td>
+                        <td class="badge badge-pill badge-danger">{{ __('lang.Deleted') }}</td>
                     @else
-                        <td class="badge badge-pill badge-success">Active</td>
+                        <td class="badge badge-pill badge-success">{{ __('lang.Active') }}</td>
                     @endif
                     {{-- <td>{{ $firm->created_by }}</td> --}}
                     {{-- <td width="120">
