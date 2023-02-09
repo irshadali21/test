@@ -5,12 +5,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>All LaVelina</h1>
+                    <h1>{{ __('lang.All LaVelina') }}</h1>
                 </div>
                 <div class="col-sm-6">
                     <a class="btn btn-primary float-right"
                        href="{{ route('lavelina.create') }}">
-                        Add New
+                        {{ __('lang.Valina Add New') }}
                     </a>
                 </div>
             </div>

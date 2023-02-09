@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-12">
-                    <h1>Send La Velina</h1>
+                    <h1>{{ __('lang.Send La Velina') }}</h1>
                 </div>
             </div>
         </div>
@@ -26,7 +26,7 @@
                     <!-- Name Field -->
                     <div class="form-group col-sm-12">
                         <div class="form-group ">
-                            {!! Form::label('lavelina_id', 'Select Lavelina:' , ['class' => 'form-control-label']) !!}
+                            {!! Form::label('lavelina_id', __('lang.Select Lavelina') , ['class' => 'form-control-label']) !!}
 
                             <input type="hidden" name="cluster_id" value="{{ $laVelinaCluster->id }}">
                             <select name="lavelina_id" id="lavelina_id" class= 'form-control select2'>
@@ -41,8 +41,8 @@
 
             </div>
             <div class="card-footer">
-                {!! Form::submit('Send', ['class' => 'btn btn-primary']) !!}
-                <a href="{{ route('laVelinaClusters.index') }}" class="btn btn-default">Cancel</a>
+                {!! Form::submit(__('lang.Send'), ['class' => 'btn btn-primary']) !!}
+                <a href="{{ route('laVelinaClusters.index') }}" class="btn btn-default">{{ __('lang.Cancel') }}</a>
             </div>
 
             {!! Form::close() !!}

@@ -258,5 +258,65 @@ return [
     'Sat' => 'Sat',
     'Sun' => 'Sun',
 
+    // Velina Cluster
+    'Cluster Add New' => 'Add New',
+    'Cluster Search' => 'Search',
+    'Cluster Name' => 'Name',
+    'Cluster Total companies' => 'Total companies',
+    'Cluster Action' => 'Action',
+    'Cluster Options' => 'Options',
+    'Cluster Send LaVelina' => 'Send LaVelina',
+    'Cluster Edit Cluster' => 'Edit Cluster',
+    'Cluster Delete cluster' => 'Delete cluster',
+    'Cluster La Velina Cluster Details' => 'La Velina Cluster Details',
+    'Cluster Back' => 'Back',
+    'Cluster Cluster Details' => 'Cluster Details',
+    'Cluster Cluster History' => 'Cluster History',
+    'Cluster Advisor Name' => 'Advisor Name',
+    'Cluster Firm Name' => 'Firm Name',
+    'Cluster Vat NO' => 'Vat NO',
+    'Cluster Province' => 'Province',
+    'Cluster Category' => 'Category',
+    'Cluster Phone number' => 'Phone number',
+    'Cluster Contact person' => 'Contact person',
+    'Cluster Sector' => 'Sector',
+
+    //Valina
+    'Sent by' => 'Sent by',
+    'Date only' => 'Date',
+    'All LaVelina' => 'All LaVelina',
+    'Valina Add New' => 'Add New',
+    'Valina Name' => 'Name',
+    'Valina Creation date' => 'Creation date',
+    'Valina Title' => 'Title',
+    'Valina Action' => 'Action',
+    'Get companies' => 'Get companies',
+    'Add in Cluster' => 'Add in Cluster',
+    'Previous' => 'Previous',
+    'Next' => 'Next',
+    'Save' => 'Save',
+    'Cancel' => 'Cancel',
+    'Deleted' => 'Deleted',
+    'Active' => 'Active',
+    'Article Title' => 'Article Title',
+    'Color Valina' => 'Color Valina',
+    'Send La Velina' => 'Send La Velina',
+    'Select Lavelina' => 'Select Lavelina',
+    'Valina Send' => 'Send',
+    'Valina Cancel' => 'Cancel',
+
+    // Manage file→Options→Create certificate
+    'Cost ecnomic report' => 'Cost ecnomic report',
+    'Total' => 'Total',
+    'Accrued benefit' => 'Accrued benefit',
+    'Tribute' => 'Tribute',
+
+    // Notifications in green when sending documents (incarico_rev, incarico_cli and certificate)
+    'Incarico_cli' => 'Incarico_cli',
+    'Incarico_rev' => 'Incarico_rev',
+    'Certification_send' => 'Certification_send',
+    'Edit Valina' => 'Edit Valina',
+
 
 ];
+

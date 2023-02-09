@@ -5,11 +5,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>La Velina Cluster Details</h1>
+                    {{-- <h1>La Velina Cluster Details</h1> --}}
+                    <h1>{{ __('lang.Cluster La Velina Cluster Details') }}</h1>
                 </div>
                 <div class="col-sm-6">
                     <a class="btn btn-default float-right" href="{{ route('laVelinaClusters.index') }}">
-                        Back
+                        {{ __('lang.Cluster Back') }}
                     </a>
                 </div>
             </div>
@@ -23,11 +24,11 @@
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation">
                         <button class="nav-link active" id="home-tab" data-toggle="tab" data-target="#home" type="button"
-                            role="tab" aria-controls="home" aria-selected="true">Cluster Details</button>
+                            role="tab" aria-controls="home" aria-selected="true">{{ __('lang.Cluster Cluster Details') }}</button>
                     </li>
                     <li class="nav-item" role="presentation">
                         <button class="nav-link" id="profile-tab" data-toggle="tab" data-target="#profile" type="button"
-                            role="tab" aria-controls="profile" aria-selected="false">Cluster History</button>
+                            role="tab" aria-controls="profile" aria-selected="false">{{ __('lang.Cluster Cluster History') }}</button>
                     </li>
                 </ul>
                 <div class="tab-content" id="myTabContent">
@@ -43,10 +44,10 @@
                             <table class="table" id="history_-table">
                                 <thead>
                                     <tr>
-                                        <th>Sent By</th>
-                                        <th>Firm</th>
-                                        <th>Valina Name</th>
-                                        <th>Date</th>
+                                        <th>{{ __('lang.Sent by') }}</th>
+                                        <th>{{ __('lang.Firm Name') }}</th>
+                                        <th>{{ __('lang.VALINA Name') }}</th>
+                                        <th>{{ __('lang.Date only') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>

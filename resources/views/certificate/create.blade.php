@@ -193,7 +193,7 @@ if (session()->get('files_allowed') == null) {
 
 
 
-                        <p style="margin-left: 15%; font-weight: bold"> Cost ecnomic report</p>
+                        <p style="margin-left: 15%; font-weight: bold"> {{ __('lang.Cost ecnomic report') }}</p>
                         <div class="row">
                             <div class="col-lg-2 col-md-2 " style="margin-top: -15px">
                                 <div class="form-group">
@@ -325,7 +325,7 @@ if (session()->get('files_allowed') == null) {
                         <div class="row">
                             <div class="col-lg-2 col-md-2 " style="margin-top: -20px">
                                 <div class="form-group">
-                                    {{ Form::text('total', 'Total', ['class' => 'form-control', 'disabled']) }}
+                                    {{ Form::text('total', __('lang.Total'), ['class' => 'form-control', 'disabled']) }}
 
                                 </div>
                             </div>
@@ -344,13 +344,13 @@ if (session()->get('files_allowed') == null) {
                         <div class="row">
                             <div class="col-lg-6 col-md-6">
                                 <div class="form-group">
-                                    {{ Form::label('accrued_benefit', 'Accrued Benefit', ['class' => 'form-control-label']) }}
+                                    {{ Form::label('accrued_benefit', __('lang.Accrued benefit'), ['class' => 'form-control-label']) }}
                                     {{ Form::number('accrued_benefit', null, ['class' => 'form-control', 'step' => 'any']) }}
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6">
                                 <div class="form-group">
-                                    {{ Form::label('tribute_6897', 'Tribute 6897', ['class' => 'form-control-label']) }}
+                                    {{ Form::label('tribute_6897', __('lang.Tribute').' 6897', ['class' => 'form-control-label']) }}
                                     {{ Form::number('tribute_6897', null, ['class' => 'form-control', 'step' => 'any']) }}
                                 </div>
                             </div>
@@ -358,13 +358,13 @@ if (session()->get('files_allowed') == null) {
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    {{ Form::label('tribute_6938', 'Tribute 6938', ['class' => 'form-control-label']) }}
+                                    {{ Form::label('tribute_6938', __('lang.Tribute').' 6938', ['class' => 'form-control-label']) }}
                                     {{ Form::number('tribute_6938', null, ['class' => 'form-control', 'step' => 'any']) }}
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    {{ Form::label('tribute_6939', 'Tribute 6939', ['class' => 'form-control-label']) }}
+                                    {{ Form::label('tribute_6939', __('lang.Tribute').' 6939', ['class' => 'form-control-label']) }}
                                     {{ Form::number('tribute_6939', null, ['class' => 'form-control', 'step' => 'any']) }}
                                 </div>
                             </div>
@@ -372,7 +372,7 @@ if (session()->get('files_allowed') == null) {
                         <div class="row">
                             <div class="col-lg-3">
                                 <div class="form-group">
-                                    {{ Form::label('tribute_6940', 'Tribute 6940', ['class' => 'form-control-label']) }}
+                                    {{ Form::label('tribute_6940', __('lang.Tribute').' 6940', ['class' => 'form-control-label']) }}
                                     {{ Form::number('tribute_6940', null, ['class' => 'form-control', 'step' => 'any']) }}
                                 </div>
                             </div>

@@ -16,17 +16,17 @@
     <table class="table" id="firms-table">
         <thead>
         <tr>
-            <th>Action</th>
-            <th>Advisor Name</th>
-            <th>Firm Name</th>
-            <th>Vat No</th>
-            <th>Province</th>
-            <th>Category</th>
-            <th>Phone Number</th>
-            <th>Contact Person</th>
+            <th>{{ __('lang.Action') }}</th>
+            <th>{{ __('lang.Cluster Advisor Name') }}</th>
+            <th>{{ __('lang.Cluster Firm Name') }}</th>
+            <th>{{ __('lang.Cluster Vat NO') }}</th>
+            <th>{{ __('lang.Cluster Province') }}</th>
+            <th>{{ __('lang.Cluster Category') }}</th>
+            <th>{{ __('lang.Cluster Phone number') }}</th>
+            <th>{{ __('lang.Cluster Contact person') }}</th>
             <th>Email</th>
-            <th>Sector </th>
-            <th>Ateco </th>
+            <th>{{ __('lang.Cluster Sector') }}</th>
+            <th>{{ __('lang.Ateco Code') }}</th>
         </tr>
         </thead>
         <tbody>

@@ -6,12 +6,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-12">
-                    <h1>Create Test</h1>
+                    <h1>Valina</h1>
                 </div>
             </div>
         </div>
     </section>
-    
+
     <div class=" px-3">
 
         {{-- @include('adminlte-templates::common.errors') --}}

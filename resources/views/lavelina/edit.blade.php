@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-12">
-                    <h1>Edit Test</h1>
+                    <h1>{{ __('lang.Edit Valina') }}</h1>
                 </div>
             </div>
         </div>
@@ -49,7 +49,7 @@
     console.log({{ $count }});
 @for ($i = 0; $i < $count; $i++)
    ckapplyeditor('body{{ $i+1 }}');
-    
+
 @endfor
 </script>
 @endpush

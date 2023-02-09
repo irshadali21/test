@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-12">
-                    <h1>Edit La Velina Cluster</h1>
+                    <h1>    {{ __('lang.Cluster La Velina Cluster Details') }}</h1>
                 </div>
             </div>
         </div>
@@ -32,8 +32,7 @@
                     <div class="col-md-6"></div>
                     <div class="col-md-6">
 
-                        <button class="btn btn-outline-success" style="float: right" id="filter" type="button">Get
-                            Compnies</button>
+                        <button class="btn btn-outline-success" style="float: right" id="filter" type="button">{{ __('lang.Get companies') }}</button>
                     </div>
                 </div>
                 <br>
@@ -42,13 +41,13 @@
                         <table class="table datatable" id="laVelinaClusters-table">
                             <thead>
                                 <tr>
-                                    <th>Add in Cluster</th>
-                                    <th>Firm Name</th>
-                                    <th>VAT No</th>
-                                    <th>phone_number</th>
-                                    <th>Ateco Code</th>
-                                    <th>sector</th>
-                                    <th>province</th>
+                                    <th>{{ __('lang.Add in Cluster') }}</th>
+                                    <th>{{ __('lang.Firm Name') }}</th>
+                                    <th>{{ __('lang.VAT Number') }}</th>
+                                    <th>{{ __('lang.Phone Number') }}</th>
+                                    <th>{{ __('lang.Ateco Code') }}</th>
+                                    <th>{{ __('lang.Sector') }}</th>
+                                    <th>{{ __('lang.Province') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -71,8 +70,8 @@
             </div>
 
             <div class="card-footer">
-                {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-                <a href="{{ route('laVelinaClusters.index') }}" class="btn btn-default">Cancel</a>
+                {!! Form::submit(__('lang.Save'), ['class' => 'btn btn-primary']) !!}
+                <a href="{{ route('laVelinaClusters.index') }}" class="btn btn-default">{{ __('lang.Cancel') }}</a>
             </div>
 
             {!! Form::close() !!}
@@ -164,7 +163,7 @@
                                         <td>` + company.sector.name + `</td>
                                         <td>` + company.province.province + `</td>
                                         </tr>`;
-                                       
+
                                     }
                                 }
                                 appenddata += '</tbody></table>';
